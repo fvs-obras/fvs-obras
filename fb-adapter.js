@@ -132,11 +132,11 @@ const SUBS = ["pda", "obs", "photos", "docs", "log"];
 async function exportAll({ files = true, onProgress = () => {} } = {}) {
   const out = { app: "fvs-da-obra", version: 1, exportedAt: new Date().toISOString(), docs: {} };
   const put = (p, d) => { out.docs[p] = d; };
-  for (const c of ["templates", "folders", "users"]) {
+  for (const c of ["templates", "folders", "users", "library"]) {
     onProgress(`Lendo ${c}…`);
     (await getDocs(collection(fs, c))).forEach(d => put(`${c}/${d.id}`, d.data()));
   }
-  for (const p of ["library/docs", "config/access"]) { const s = await getDoc(doc(fs, p)); if (s.exists()) put(p, s.data()); }
+  for (const p of ["config/access"]) { const s = await getDoc(doc(fs, p)); if (s.exists()) put(p, s.data()); }
   const fvSnap = await getDocs(collection(fs, "fvs")); let i = 0;
   for (const f of fvSnap.docs) {
     onProgress(`Lendo FVs… ${++i}/${fvSnap.size}`);

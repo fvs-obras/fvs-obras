@@ -210,6 +210,14 @@ label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-we
 .pick-list .k.ET{color:#0f3d5e}
 .pick-list .done{opacity:.45}
 @media (max-width:560px){.doc-row{grid-template-columns:auto 1fr}.doc-acts{grid-column:1/-1;justify-content:flex-start}}
+/* Mapa de trechos */
+.tmap-scroll{overflow:auto;border:1px solid var(--paper-line);background:#fff;margin-top:7px;max-height:80vh}
+.tmap-scroll img{display:block;width:100%;height:auto}
+.tmap-scroll.zoom img{width:220%;max-width:none}
+#print-root .tmap-scroll{max-height:none;overflow:visible}
+#print-root .tmap-scroll img{width:auto;max-width:100%;max-height:690px;margin:0 auto}
+@media (max-width:760px){#sheet-map .mark-cell,#sheet-map col.c-mark,#sheet-map .c-act{display:none}}
+#sheet-map{min-width:0}
 #print-root{position:fixed;left:-30000px;top:0;background:#fff;z-index:-1}
 #print-root .sheet-page{background:#fff;padding:18px 18px 10px;width:1160px;box-sizing:border-box}
 #print-root .pv{white-space:pre-wrap;min-height:16px;line-height:1.35;padding:2px 0}
@@ -432,7 +440,7 @@ let db = null, user = null, assets = null, me = "anon", canWrite = true, isOwner
 let fvs = new Map(), templates = new Map(), library = new Map(), dbTemplates = new Map(), fvsLoaded = false, tplQ = "";
 let filt = {status:"aberta", cat:"", q:""};
 let folders = new Map(), foldersLoaded = false, curFolder = "";
-let docLib = [];
+let docLib = [], mapa = null;
 const norm = s => String(s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 let cur = null;
 const names = new Map();
@@ -816,20 +824,21 @@ function buildFvSkeleton() {
     <div class="fvbar" id="fvbar"></div>
     <div class="tabs" role="tablist">
       <button data-tab="fv" type="button" role="tab">Ficha de verificação</button>
+      <button data-tab="map" type="button" role="tab">Mapa de trechos</button>
       <button data-tab="f007" type="button" role="tab">Observações F.007 <span class="n" id="n-f007">0</span></button>
       <button data-tab="pda" type="button" role="tab">PDA <span class="n" id="n-pda">0</span></button>
       <button data-tab="docs" type="button" role="tab">Documentos IT/ET <span class="n" id="n-docs">0</span></button>
       <button data-tab="photos" type="button" role="tab">Fotos <span class="n" id="n-photos">0</span></button>
       <button data-tab="log" type="button" role="tab">Histórico</button>
     </div>
-    <div id="tab-fv"></div><div id="tab-f007" class="hidden"></div><div id="tab-pda" class="hidden"></div><div id="tab-docs" class="hidden"></div><div id="tab-photos" class="hidden"></div><div id="tab-log" class="hidden"></div>`;
+    <div id="tab-fv"></div><div id="tab-map" class="hidden"><div class="sheet-wrap"><div class="sheet" id="sheet-map"></div></div></div><div id="tab-f007" class="hidden"></div><div id="tab-pda" class="hidden"></div><div id="tab-docs" class="hidden"></div><div id="tab-photos" class="hidden"></div><div id="tab-log" class="hidden"></div>`;
   $("#view-fv .tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) setTab(b.dataset.tab); });
   setTab("fv", true);
 }
 function setTab(t, silent) {
   if (!cur) return; cur.tab = t;
   $$("#view-fv .tabs [data-tab]").forEach(b => { b.classList.toggle("on", b.dataset.tab === t); b.setAttribute("aria-selected", b.dataset.tab === t); });
-  ["fv","f007","pda","docs","photos","log"].forEach(k => $("#tab-" + k).classList.toggle("hidden", k !== t));
+  ["fv","map","f007","pda","docs","photos","log"].forEach(k => $("#tab-" + k).classList.toggle("hidden", k !== t));
   $$("#tab-" + t + " textarea").forEach(autosize);
   if (!silent) window.scrollTo({top: Math.min(window.scrollY, $("#view-fv .tabs").offsetTop - 70)});
 }
@@ -839,7 +848,7 @@ function renderFvAll(force) {
   if (!fv) { if (fvsLoaded) $("#view-fv").innerHTML = `<a class="back" href="#">← Todas as FVs</a><div class="empty"><b>FV não encontrada</b>Ela pode ter sido excluída.</div>`; return; }
   if (!$("#fvbar")) buildFvSkeleton();
   if (force) cur.chkKey = null;
-  renderBar(fv); renderSheet(fv); ["pda","obs","docs","photos","log"].forEach(renderSub);
+  renderBar(fv); renderSheet(fv); renderMap(fv); ["pda","obs","docs","photos","log"].forEach(renderSub);
 }
 function renderSub(key) {
   if (!cur) return; const fv = fvs.get(cur.id); if (!fv || !$("#fvbar")) return;
@@ -1408,6 +1417,21 @@ function renderLog() {
   fillNames();
 }
 
+/* ---------- mapa de trechos ---------- */
+function renderMap(fv) {
+  const box = $("#sheet-map"); if (!box || !cur) return;
+  const ver = mapa && mapa.img ? (mapa.updatedAt || "") + ":" + mapa.img.length : "none";
+  if (box.dataset.ver !== ver) {
+    box.dataset.ver = ver;
+    box.innerHTML = `<table id="map-title"></table>` + (mapa && mapa.img
+      ? `<div class="tmap-scroll" id="tmap"><img src="${mapa.img}" alt="Mapa de trechos da obra"></div><div class="noprint" style="margin-top:8px"><button class="btn sm" type="button" id="tmap-zoom">Ampliar</button></div>`
+      : `<div class="blk" style="padding:18px;border:1px dashed #bbb;text-align:center;color:#555;font-size:12px;line-height:1.5"><b>O mapa de trechos ainda não foi carregado.</b><br>${isOwner ? 'Abra <a href="#equipe">Equipe</a> e importe o arquivo <b>mapa-trechos.json</b> no Backup.' : "Peça ao administrador para importar o mapa em Equipe."}</div>`);
+    const zb = $("#tmap-zoom", box);
+    if (zb) zb.onclick = () => { const z = $("#tmap", box).classList.toggle("zoom"); zb.textContent = z ? "Reduzir" : "Ampliar"; };
+  }
+  $("#map-title", box).innerHTML = `<colgroup><col class="c-mark" style="width:118px"><col style="width:24%"><col class="c-act"><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPA DE TRECHOS</td><td class="act c-act">${esc(mapa && mapa.title || fv.title)}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr>`;
+}
+
 /* ---------- exportar PDF ---------- */
 const LIBS = {h2c: "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js", jspdf: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"};
 const loadScript = src => new Promise((ok, bad) => { if ([...document.scripts].some(s => s.src === src)) return ok(); const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => bad(new Error("lib")); document.head.appendChild(s); });
@@ -1424,7 +1448,7 @@ function staticize(orig, clone) {
     if (el.closest("th.colh")) { d.style.textAlign = "center"; d.style.fontWeight = "700"; d.style.fontSize = "10px"; }
     el.replaceWith(d);
   });
-  clone.querySelectorAll("td.x, th.nob, button[data-signact], button[data-del]").forEach(e => e.remove());
+  clone.querySelectorAll("td.x, th.nob, button[data-signact], button[data-del], .noprint").forEach(e => e.remove());
   clone.querySelectorAll("table.prob-tbl colgroup col:last-child, table.pda-tbl colgroup col:last-child").forEach(e => e.remove());
   clone.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
   return clone;
@@ -1442,6 +1466,7 @@ async function exportPdf() {
       const ct = inner.querySelector(".chk-tbl"), need = ct ? parseInt(ct.style.minWidth || "0", 10) + 36 : 0; if (need > 1160) d.style.width = need + "px"; const f = document.createElement("div"); f.className = "pfoot"; f.textContent = foot || stamp; d.appendChild(f); root.appendChild(d); return d; };
     const sections = [];
     const fvSheet = $("#sheet-fv"); if (fvSheet) sections.push(page(staticize(fvSheet, fvSheet.cloneNode(true))));
+    const mapSheet = $("#sheet-map"); if (mapSheet && mapa && mapa.img) { const c = staticize(mapSheet, mapSheet.cloneNode(true)); c.querySelectorAll(".zoom").forEach(e => e.classList.remove("zoom")); sections.push(page(c)); }
     const f007 = $("#sheet-f007");
     if (f007 && cur.obs.some(o => o.sheet === "f007")) { const c = staticize(f007, f007.cloneNode(true)); c.querySelectorAll(".prob-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c)); }
     const pda = $("#sheet-pda");
@@ -1459,6 +1484,7 @@ async function exportPdf() {
       }
       await Promise.all($$("img", root).map(im => im.decode ? im.decode().catch(() => {}) : Promise.resolve()));
     }
+    await Promise.all($$("img", root).map(im => im.decode ? im.decode().catch(() => {}) : Promise.resolve()));
     const {jsPDF} = window.jspdf;
     const pdf = new jsPDF({orientation: "landscape", unit: "mm", format: "a4"});
     const PW = 297, PH = 210, M = 6, CW = PW - 2 * M, CH = PH - 2 * M;
@@ -1538,7 +1564,9 @@ async function renderTeam() {
         <label style="display:flex;gap:8px;align-items:center;margin:12px 0;font-size:13px"><input type="checkbox" id="bk-files" checked style="width:18px;height:18px"> Incluir fotos e arquivos enviados</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn dark" type="button" id="bk-export">Exportar tudo</button><button class="btn" type="button" id="bk-import">Importar arquivo…</button></div>
         <input type="file" id="bk-file" accept="application/json,.json" class="hidden"><div class="sub" id="bk-status" style="margin-top:10px"></div></div>
+      <div class="panel" id="map-panel"></div>
     </div>`;
+  renderMapPanel();
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
   v.querySelectorAll("[data-add]").forEach(b => b.onclick = () => {
     const k = b.dataset.add, inp = $(k === "editors" ? "#add-ed" : "#add-vi", v), e = inp.value.trim().toLowerCase();
@@ -1571,6 +1599,45 @@ async function renderTeam() {
   };
 }
 
+/* mapa de trechos: painel do administrador */
+function renderMapPanel() {
+  const pn = $("#map-panel"); if (!pn) return;
+  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Mapa de trechos</h2>
+    <div class="sub">${mapa && mapa.img ? `${esc(mapa.title || "Mapa")}. Aparece na aba Mapa de trechos de todas as FVs.` : "Nenhum mapa carregado. Importe o arquivo <b>mapa-trechos.json</b> no Backup."}</div>
+    ${mapa && mapa.img ? `<img src="${mapa.img}" alt="" style="width:100%;max-height:200px;object-fit:contain;margin:10px 0;border:1px solid var(--line);border-radius:6px;background:#fff">` : ""}
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" type="button" id="mp-img">${mapa && mapa.img ? "Trocar imagem…" : "Enviar imagem…"}</button></div>
+    <input type="file" id="mp-file" accept="image/*" class="hidden">
+    <div class="sub" style="margin-top:8px">Para uma nova revisão, envie a imagem nova (print ou foto do PDF).</div>`;
+  $("#mp-img", pn).onclick = () => $("#mp-file", pn).click();
+  $("#mp-file", pn).onchange = async e => {
+    const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+    try {
+      const {url, w, h} = await shrinkImage(f, 1500, 850000);
+      const title = (mapa && mapa.title) || f.name.replace(/\.[^.]+$/, "");
+      await create("library/mapa", {title, arquivo: f.name, w, h, img: url, updatedAt: nowIso(), updatedBy: me});
+      toast("Imagem do mapa salva.");
+    } catch { toast("Não foi possível usar essa imagem."); }
+  };
+}
+function shrinkImage(file, maxW, maxLen) {
+  return new Promise((ok, bad) => {
+    const im = new Image(), u = URL.createObjectURL(file);
+    im.onload = () => {
+      URL.revokeObjectURL(u);
+      let w = Math.min(maxW, im.naturalWidth), url = "";
+      for (let tries = 0; tries < 8; tries++) {
+        const h = Math.round(im.naturalHeight * w / im.naturalWidth), c = document.createElement("canvas"); c.width = w; c.height = h;
+        const g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, w, h); g.drawImage(im, 0, 0, w, h);
+        url = c.toDataURL("image/jpeg", tries < 3 ? 0.85 - tries * 0.08 : 0.68);
+        if (url.length <= maxLen) return ok({url, w, h});
+        if (tries >= 2) w = Math.round(w * 0.85);
+      }
+      bad(new Error("grande"));
+    };
+    im.onerror = () => { URL.revokeObjectURL(u); bad(new Error("img")); };
+    im.src = u;
+  });
+}
 /* ---------- rotas e filtros ---------- */
 function route() {
   const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe";
@@ -1635,6 +1702,7 @@ async function init() {
     renderList(); if (cur) { const f = fvs.get(cur.id); if (f) renderBar(f); }
   }, () => { foldersLoaded = true; });
   db.doc("library/docs").onSnapshot(s => { docLib = (s.exists && s.data().list) || []; if (cur) renderSub("docs"); }, () => {});
+  db.doc("library/mapa").onSnapshot(s => { mapa = (s.exists && s.data()) || null; if (cur) { const f = fvs.get(cur.id); if (f) renderMap(f); } if (location.hash === "#equipe") renderMapPanel(); }, () => {});
   db.collection("templates").onSnapshot(s => { dbTemplates = new Map(); s.docs.forEach(d => dbTemplates.set(d.id, d.data())); mergeTemplates(); }, () => {});
   route();
 }
