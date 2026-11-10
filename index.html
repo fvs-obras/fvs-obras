@@ -1399,18 +1399,20 @@ function renderPhotos(fv) {
   const lk = locked(fv), id = cur.id;
   if (!box.dataset.built) {
     box.dataset.built = "1";
-    box.innerHTML = `<div class="section-head"><div><h2>Registro fotográfico</h2><div class="sub">Cada foto pode ter item, local e anotações.</div></div><button class="btn primary" id="add-pic" type="button">+ Adicionar fotos</button></div>
-      <div class="drop" id="drop">Arraste fotos para cá ou use <b>+ Adicionar fotos</b>. No celular, dá para tirar a foto na hora.</div>
+    box.innerHTML = `<div class="section-head"><div><h2>Registro fotográfico</h2><div class="sub">Cada foto pode ter item, local e anotações.</div></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" id="add-cam" type="button">📷 Tirar foto</button><button class="btn" id="add-pic" type="button">🖼️ Da galeria</button></div></div>
+      <div class="drop" id="drop">Arraste fotos para cá, use <b>📷 Tirar foto</b> para abrir a câmera do celular ou <b>Da galeria</b> para escolher fotos já tiradas.</div>
       <input type="file" id="pic-input" accept="image/*" multiple class="hidden">
+      <input type="file" id="cam-input" accept="image/*" capture="environment" class="hidden">
       <div class="photos" id="pic-grid"></div><div id="pic-empty"></div>`;
-    $("#add-pic", box).onclick = () => pickPhotos({});
-    $("#pic-input", box).onchange = e => { uploadPhotos([...e.target.files], box._ctx || {}); e.target.value = ""; box._ctx = {}; };
+    $("#add-pic", box).onclick = () => pickPhotos({}, "gal");
+    $("#add-cam", box).onclick = () => pickPhotos({}, "cam");
+    ["#pic-input", "#cam-input"].forEach(sel => $(sel, box).onchange = e => { uploadPhotos([...e.target.files], box._ctx || {}); e.target.value = ""; box._ctx = {}; });
     const drop = $("#drop", box);
     drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
     drop.addEventListener("dragleave", () => drop.classList.remove("over"));
     drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); uploadPhotos([...e.dataTransfer.files].filter(f => f.type.startsWith("image/")), {}); });
   }
-  $("#add-pic", box).disabled = lk || !assets;
+  $("#add-pic", box).disabled = lk || !assets; $("#add-cam", box).disabled = lk || !assets;
   $("#drop", box).classList.toggle("hidden", lk || !assets);
   $("#pic-empty", box).innerHTML = (!assets && !lk ? `<div class="banner warn">Seu acesso não permite enviar fotos. Peça ao administrador para liberar seu e-mail como editor.</div>` : "") +
     (cur.photos.length ? "" : `<div class="empty"><b>Nenhuma foto ainda</b>Adicione fotos da inspeção e escreva anotações sobre cada uma.</div>`);
@@ -1445,9 +1447,15 @@ function renderPhotos(fv) {
   });
   fillNames();
 }
-function pickPhotos(ctx) {
+function pickPhotos(ctx, how) {
   const box = $("#tab-photos"); if (!box || !assets) { toast("Seu acesso não permite enviar fotos."); return; }
-  box._ctx = ctx; $("#pic-input", box).click();
+  // O clique no campo de arquivo precisa acontecer direto no toque do usuário (exigência do celular).
+  const open = h => { box._ctx = ctx; $(h === "cam" ? "#cam-input" : "#pic-input", box).click(); return h; };
+  if (how) return open(how);
+  // No celular, pergunta se é câmera ou galeria (muitos aparelhos não mostram a câmera quando a escolha é múltipla).
+  if (!(window.matchMedia && matchMedia("(pointer:coarse)").matches)) return open("gal");
+  modal({title: "Adicionar foto", body: `<p class="sub" style="margin:0">Tirar a foto agora ou escolher da galeria?</p>`,
+    actions: [{label: "Cancelar", value: null}, {label: "🖼️ Da galeria", value: () => open("gal")}, {label: "📷 Tirar foto", cls: "primary", value: () => open("cam")}]});
 }
 async function compress(file) {
   try {
