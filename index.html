@@ -1189,10 +1189,11 @@ function renderF007(fv) {
 /* ===== Aba PDA (F.013-GEX) ===== */
 function renderPda(fv) {
   const box = $("#tab-pda"); if (!box) return;
-  const id = cur.id, lk = locked(fv), t = today();
+  // O PDA segue liberado com a FV fechada: na Tenda, problema que reaparece depois do fechamento vai para o PDA.
+  const id = cur.id, lk = !canWrite, t = today();
   if (!box.dataset.built) {
     box.dataset.built = "1";
-    box.innerHTML = `<div class="sheet-wrap"><div class="sheet" id="sheet-pda" style="min-width:900px">
+    box.innerHTML = `<div class="banner info" id="pda-flow" style="margin-bottom:10px"></div><div class="sheet-wrap"><div class="sheet" id="sheet-pda" style="min-width:900px">
       <table class="pda-head"><colgroup><col style="width:120px"><col><col style="width:250px"></colgroup><tr style="height:46px">
         <td><div class="pda-mark"><i class="tl-sym-w" role="img" aria-label="Tenda"></i><span style="font-weight:800;font-size:10px;letter-spacing:.05em">${esc(fv.code)}</span></div></td>
         <td class="pda-title">PDA &nbsp;|&nbsp; PLANO DE AÇÃO ↓</td>
@@ -1232,19 +1233,21 @@ function renderPda(fv) {
     tr.title = d ? `Criado por ${names.get(d.createdBy) || "…"} em ${fmtFull(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editado por ${names.get(d.updatedBy) || "…"} em ${fmtFull(d.updatedAt)}` : ""}` : "";
   };
   syncSheetRows(tb, cur.pda, make, update, 6, 2);
+  $("#pda-flow", box).innerHTML = fv.status === "fechada"
+    ? "<b>FV fechada.</b> Problemas que aparecerem a partir de agora são registrados aqui no PDA."
+    : "Ordem de registro: problemas vão primeiro para a tabela da ficha; quando ela encher, para a <b>Observações F.007</b>. O PDA é usado para problemas que aparecerem <b>depois de fechar a FV</b>.";
 }
 
 /* fechar / excluir */
 async function toggleClose() {
   const fv = fvs.get(cur.id), id = cur.id;
   if (fv.status === "fechada") { patch(`fvs/${id}`, stamp({status: "aberta"})); logAct(id, "Reabriu a FV"); return; }
-  const s = stats(fv), openPda = cur.pda.filter(p => normPdca(p.status) !== "PADR").length, noSol = cur.obs.filter(o => o.problema && !String(o.solucao || "").trim()).length;
+  const s = stats(fv), noSol = cur.obs.filter(o => o.problema && !String(o.solucao || "").trim()).length;
   const w = [];
   if (s.E) w.push(`${s.E} verificação(ões) ainda “a verificar”`);
   if (s.R) w.push(`${s.R} item(ns) reprovado(s) sem reinspeção`);
   if (noSol) w.push(`${noSol} problema(s) sem solução registrada`);
-  if (openPda) w.push(`${openPda} ação(ões) do PDA ainda não padronizada(s)`);
-  if (!(await confirmBox("Fechar FV?", (w.length ? `Atenção:<br>• ${w.join("<br>• ")}<br><br>` : "") + "A data de fechamento será hoje (se estiver vazia) e a FV fica somente leitura até ser reaberta. O gestor(a) tem até 72 h para assinar.", "Fechar FV"))) return;
+  if (!(await confirmBox("Fechar FV?", (w.length ? `Atenção:<br>• ${w.join("<br>• ")}<br><br>` : "") + "A data de fechamento será hoje (se estiver vazia) e a ficha e a F.007 ficam somente leitura até a FV ser reaberta. O <b>PDA continua liberado</b> para problemas que aparecerem depois. O gestor(a) tem até 72 h para assinar.", "Fechar FV"))) return;
   patch(`fvs/${id}`, stamp({status: "fechada", fechamento: fv.fechamento || today()})); logAct(id, "Fechou a FV");
 }
 async function deleteFv() {
