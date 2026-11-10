@@ -218,6 +218,54 @@ label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-we
 #print-root .tmap-scroll img{width:auto;max-width:100%;max-height:690px;margin:0 auto}
 @media (max-width:760px){#sheet-map .mark-cell,#sheet-map col.c-mark,#sheet-map .c-act{display:none}}
 #sheet-map{min-width:0}
+/* Mapeamentos */
+.noscroll{overflow:hidden}
+.maps-head{display:flex;justify-content:flex-end;margin-bottom:10px}
+.mcard{margin-bottom:14px}
+#tab-maps .msheet{min-width:0}
+.mprev{margin-top:7px;border:1px solid var(--paper-line);background:#fff;min-height:120px;display:flex;align-items:center;justify-content:center}
+.mprev img{display:block;max-width:100%;max-height:72vh;cursor:zoom-in}
+.mload{padding:30px;color:var(--muted);font-size:13px;text-align:center}
+.mnotes{margin-top:8px}
+.mnotes-t{font-weight:800;font-size:10.5px;letter-spacing:.04em;margin-bottom:4px}
+.mnotes ol,.med-notes{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.mnotes ol{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.mnotes li,.med-notes li{display:flex;gap:7px;align-items:flex-start;font-size:12px;line-height:1.35}
+.mdot{flex:none;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;border:1.5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.mbtns{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+@media (max-width:760px){#tab-maps .mark-cell,#tab-maps col.c-mark,#tab-maps .c-act{display:none}}
+#print-root .mprev{border:0;min-height:0}
+#print-root .mprev img{max-height:640px;cursor:default}
+.med{position:fixed;inset:0;z-index:60;background:#22262b;display:grid;grid-template-rows:auto auto 1fr;color:#fff}
+.med-top{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#15181b;flex-wrap:wrap}
+.med-top .med-title{flex:1;min-width:120px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.med-tools{display:flex;gap:4px;flex-wrap:wrap;align-items:center;padding:6px 8px;background:#2d3238}
+.med-tools .tl{min-width:40px;height:40px;padding:0 8px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:transparent;color:#fff;font-size:17px;line-height:1;cursor:pointer}
+.med-tools .tl.on{background:#fff;color:#111}
+.med-tools .sw{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.5);padding:0;cursor:pointer}
+.med-tools .sw.on{outline:3px solid #fff;outline-offset:2px}
+.med-tools select{height:38px;min-height:38px;width:auto;padding:4px 8px;background:#fff;color:#111;border-radius:8px}
+.med-tools .sep{width:1px;height:26px;background:rgba(255,255,255,.2);margin:0 4px}
+.med-tip{font-size:12px;opacity:.8;margin-left:6px}
+.med-main{display:grid;grid-template-columns:minmax(0,1fr) 260px;min-height:0}
+.med-main.one{grid-template-columns:1fr}
+.med-cv{position:relative;min-height:0;overflow:hidden;touch-action:none}
+.med-cv[data-tool="pan"] .mv-canvas{cursor:grab}
+.med-cv[data-tool="erase"] .mv-canvas{cursor:not-allowed}
+.mv-canvas{display:block;touch-action:none;cursor:crosshair}
+.med-zoom{position:absolute;right:10px;bottom:10px;display:grid;gap:6px}
+.med-zoom button{width:40px;height:40px;border-radius:8px;border:0;background:rgba(255,255,255,.92);color:#111;font-size:20px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer}
+.med-side{background:#fff;color:var(--ink);overflow:auto;padding:12px}
+.med-notes li{cursor:pointer;padding:3px 0}
+.med-help{margin-top:12px;font-size:11.5px}
+@media (max-width:760px){.med-main{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.med-side{max-height:24vh}.med-tip{display:none}.med-tools{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}.med-tools>*{flex:none}}
+.pl-list{display:grid;gap:8px;max-height:46vh;overflow:auto}
+.pl-it{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;padding:8px;cursor:pointer;background:#fff}
+.pl-it.on{border-color:var(--red);box-shadow:0 0 0 2px var(--red-soft)}
+.pl-it input{flex:none;width:18px;height:18px;min-height:0}
+.pl-it img{width:110px;height:64px;object-fit:contain;background:#f3f3f3;border-radius:4px;flex:none}
+.pl-it span{flex:1;min-width:0;display:grid}
+.pl-it small{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 /* Identidade visual Tenda (logos autorizados) */
 .tl-full{background:url(data:image/png;base64,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) center/contain no-repeat}
 .tl-sym-w{background:url(data:image/png;base64,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) center/contain no-repeat}
@@ -282,7 +330,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
 .pop button:hover{background:var(--fill)}
 .pop .sep{height:1px;background:var(--line);margin:4px 0}
 .pop .hd{padding:4px 8px 6px;font-size:12px;color:var(--muted)}
-.modal-bg{position:fixed;inset:0;background:rgba(20,20,20,.55);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:5vh 12px;overflow-y:auto}
+.modal-bg{position:fixed;inset:0;background:rgba(20,20,20,.55);z-index:70;display:flex;align-items:flex-start;justify-content:center;padding:5vh 12px;overflow-y:auto}
 .modal{background:var(--panel);border-radius:10px;width:min(640px,100%);padding:18px;display:grid;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3);border-top:5px solid var(--red)}
 .modal.wide{width:min(980px,100%)}
 .modal h2{font-size:20px;text-transform:uppercase}
@@ -825,7 +873,7 @@ $("#btn-new").onclick = () => newFvDialog();
 function openFv(id) {
   if (cur && cur.id === id) return;
   closeFv();
-  cur = {id, tab: "fv", unsubs: [], pda: [], obs: [], photos: [], log: [], docs: []};
+  cur = {id, tab: "fv", unsubs: [], pda: [], obs: [], photos: [], log: [], docs: [], maps: []};
   buildFvSkeleton();
   const sub = (coll, key, q) => {
     const ref = q(db.collection(`fvs/${id}/${coll}`));
@@ -835,6 +883,7 @@ function openFv(id) {
   sub("obs", "obs", r => r.orderBy("createdAt"));
   sub("photos", "photos", r => r.orderBy("createdAt"));
   sub("docs", "docs", r => r.orderBy("createdAt"));
+  sub("maps", "maps", r => r.orderBy("createdAt"));
   sub("log", "log", r => r.orderBy("at", "desc").limit(150));
   renderFvAll();
 }
@@ -847,20 +896,21 @@ function buildFvSkeleton() {
     <div class="tabs" role="tablist">
       <button data-tab="fv" type="button" role="tab">Ficha de verificação</button>
       <button data-tab="map" type="button" role="tab">Mapa de trechos</button>
+      <button data-tab="maps" type="button" role="tab">Mapeamentos <span class="n" id="n-maps">0</span></button>
       <button data-tab="f007" type="button" role="tab">Observações F.007 <span class="n" id="n-f007">0</span></button>
       <button data-tab="pda" type="button" role="tab">PDA <span class="n" id="n-pda">0</span></button>
       <button data-tab="docs" type="button" role="tab">Documentos IT/ET <span class="n" id="n-docs">0</span></button>
       <button data-tab="photos" type="button" role="tab">Fotos <span class="n" id="n-photos">0</span></button>
       <button data-tab="log" type="button" role="tab">Histórico</button>
     </div>
-    <div id="tab-fv"></div><div id="tab-map" class="hidden"><div class="sheet-wrap"><div class="sheet" id="sheet-map"></div></div></div><div id="tab-f007" class="hidden"></div><div id="tab-pda" class="hidden"></div><div id="tab-docs" class="hidden"></div><div id="tab-photos" class="hidden"></div><div id="tab-log" class="hidden"></div>`;
+    <div id="tab-fv"></div><div id="tab-map" class="hidden"><div class="sheet-wrap"><div class="sheet" id="sheet-map"></div></div></div><div id="tab-maps" class="hidden"></div><div id="tab-f007" class="hidden"></div><div id="tab-pda" class="hidden"></div><div id="tab-docs" class="hidden"></div><div id="tab-photos" class="hidden"></div><div id="tab-log" class="hidden"></div>`;
   $("#view-fv .tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) setTab(b.dataset.tab); });
   setTab("fv", true);
 }
 function setTab(t, silent) {
   if (!cur) return; cur.tab = t;
   $$("#view-fv .tabs [data-tab]").forEach(b => { b.classList.toggle("on", b.dataset.tab === t); b.setAttribute("aria-selected", b.dataset.tab === t); });
-  ["fv","map","f007","pda","docs","photos","log"].forEach(k => $("#tab-" + k).classList.toggle("hidden", k !== t));
+  ["fv","map","maps","f007","pda","docs","photos","log"].forEach(k => $("#tab-" + k).classList.toggle("hidden", k !== t));
   $$("#tab-" + t + " textarea").forEach(autosize);
   if (!silent) window.scrollTo({top: Math.min(window.scrollY, $("#view-fv .tabs").offsetTop - 70)});
 }
@@ -870,7 +920,7 @@ function renderFvAll(force) {
   if (!fv) { if (fvsLoaded) $("#view-fv").innerHTML = `<a class="back" href="#">← Todas as FVs</a><div class="empty"><b>FV não encontrada</b>Ela pode ter sido excluída.</div>`; return; }
   if (!$("#fvbar")) buildFvSkeleton();
   if (force) cur.chkKey = null;
-  renderBar(fv); renderSheet(fv); renderMap(fv); ["pda","obs","docs","photos","log"].forEach(renderSub);
+  renderBar(fv); renderSheet(fv); renderMap(fv); ["pda","obs","docs","photos","log","maps"].forEach(renderSub);
 }
 function renderSub(key) {
   if (!cur) return; const fv = fvs.get(cur.id); if (!fv || !$("#fvbar")) return;
@@ -879,6 +929,7 @@ function renderSub(key) {
   else if (key === "photos") { $("#n-photos").textContent = cur.photos.length; renderPhotos(fv); renderChk(fv); }
   else if (key === "docs") { $("#n-docs").textContent = cur.docs.length; renderDocs(fv); }
   else if (key === "log") renderLog();
+  else if (key === "maps") { renderMaps(fv); if (medState && medState.fid === cur.id && medState.refresh) { const m = cur.maps.find(x => x.id === medState.mid); if (m) medState.refresh(m); } }
 }
 
 /* barra superior (fora da ficha) */
@@ -1198,12 +1249,13 @@ async function toggleClose() {
 }
 async function deleteFv() {
   const fv = fvs.get(cur.id), id = cur.id;
-  if (!(await confirmBox("Excluir FV?", `A FV <b>${esc(fv.code)} – ${esc(fv.local || fv.title)}</b>, com PDA, observações, fotos e histórico, será apagada para todos. Isso não pode ser desfeito.`, "Excluir FV", true))) return;
+  if (!(await confirmBox("Excluir FV?", `A FV <b>${esc(fv.code)} – ${esc(fv.local || fv.title)}</b>, com PDA, observações, fotos, mapeamentos e histórico, será apagada para todos. Isso não pode ser desfeito.`, "Excluir FV", true))) return;
   try {
-    for (const c of ["pda","obs","docs","photos","log"]) {
+    for (const c of ["pda","obs","docs","photos","log","maps"]) {
       const s = await db.collection(`fvs/${id}/${c}`).get();
       for (const d of s.docs) {
         if ((c === "photos" || c === "docs") && assets && d.data().assetId) { try { await assets.delete(d.data().assetId); } catch {} }
+        if (c === "maps" && d.data().img && d.data().img.id) { try { await db.doc(`blobs/${d.data().img.id}`).delete(); } catch {} }
         await db.doc(`fvs/${id}/${c}/${d.id}`).delete();
       }
     }
@@ -1454,6 +1506,496 @@ function renderMap(fv) {
   $("#map-title", box).innerHTML = `<colgroup><col class="c-mark" style="width:118px"><col style="width:24%"><col class="c-act"><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPA DE TRECHOS</td><td class="act c-act">${esc(mapa && mapa.title || fv.title)}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr>`;
 }
 
+/* ---------- mapeamentos: plantas com recorte, desenhos e anotações ---------- */
+const PDFJS = {lib: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", worker: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"};
+const MCOLORS = [["#e1251b","Vermelho"],["#1565c0","Azul"],["#2e7d32","Verde"],["#f9a825","Amarelo"],["#111111","Preto"],["#ffffff","Branco"]];
+const MTOOLS = [["pan","✋","Mover e dar zoom"],["pen","✏️","Caneta"],["line","╱","Linha"],["arrow","➜","Seta"],["rect","▭","Retângulo"],["ell","◯","Círculo"],["text","T","Texto"],["mk","①","Marcador com nota"],["erase","⌫","Apagar"]];
+const MW = {f: .8, m: 1.6, g: 3.5}, MTXT = {P: 12, M: 18, G: 28};
+const TILE = 1280, BLOB_MAX = 850000;
+let plantas = new Map(), medState = null;
+const getBlob = id => id && window.__fb ? window.__fb.blobData(id) : Promise.resolve("");
+const imgCache = new Map();
+function loadImg(id) {
+  if (!imgCache.has(id)) imgCache.set(id, getBlob(id).then(src => new Promise((ok, bad) => {
+    if (!src) return bad(new Error("vazio"));
+    const im = new Image(); im.onload = () => ok(im); im.onerror = () => bad(new Error("img")); im.src = src;
+  })).catch(e => { imgCache.delete(id); throw e; }));
+  return imgCache.get(id);
+}
+const mkCanvas = (w, h) => { const c = document.createElement("canvas"); c.width = w; c.height = h; return c; };
+function toJpeg(cv, max = BLOB_MAX) { for (const q of [.86, .8, .72, .64, .56]) { const u = cv.toDataURL("image/jpeg", q); if (u.length <= max) return u; } return ""; }
+const decNums = s => String(s || "").split(",").map(Number);
+const encNums = a => a.map(v => Math.round(v * 10) / 10).join(",");
+const baseU = m => (m.crop && m.crop.w ? Math.max(m.crop.w, m.crop.h) : 600) / 600;
+const liveShapes = (shapes) => Object.entries(shapes || {}).filter(([, s]) => s && s.t && !s.del).map(([id, s]) => ({id, ...s})).sort((a, b) => (a.z || 0) - (b.z || 0));
+const markersOf = shapes => liveShapes(shapes).filter(s => s.t === "mk").sort((a, b) => a.n - b.n);
+
+function drawShape(ctx, s, m) {
+  const b = baseU(m);
+  ctx.save(); ctx.strokeStyle = ctx.fillStyle = s.c || "#e1251b"; ctx.lineWidth = s.w || b * MW.m; ctx.lineCap = ctx.lineJoin = "round";
+  const a = s.a ? decNums(s.a) : null;
+  if (s.t === "pen") {
+    const p = decNums(s.p); ctx.beginPath(); ctx.moveTo(p[0], p[1]);
+    for (let i = 2; i < p.length; i += 2) ctx.lineTo(p[i], p[i + 1]);
+    if (p.length <= 2) ctx.lineTo(p[0] + .01, p[1]);
+    ctx.stroke();
+  } else if (s.t === "line" || s.t === "arrow") {
+    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(a[2], a[3]); ctx.stroke();
+    if (s.t === "arrow") {
+      const ang = Math.atan2(a[3] - a[1], a[2] - a[0]), L = Math.max(ctx.lineWidth * 4, b * 7);
+      ctx.beginPath(); ctx.moveTo(a[2], a[3]);
+      ctx.lineTo(a[2] - L * Math.cos(ang - .45), a[3] - L * Math.sin(ang - .45));
+      ctx.lineTo(a[2] - L * Math.cos(ang + .45), a[3] - L * Math.sin(ang + .45)); ctx.closePath(); ctx.fill();
+    }
+  } else if (s.t === "rect") {
+    ctx.strokeRect(Math.min(a[0], a[2]), Math.min(a[1], a[3]), Math.abs(a[2] - a[0]), Math.abs(a[3] - a[1]));
+  } else if (s.t === "ell") {
+    ctx.beginPath(); ctx.ellipse((a[0] + a[2]) / 2, (a[1] + a[3]) / 2, Math.abs(a[2] - a[0]) / 2 || .1, Math.abs(a[3] - a[1]) / 2 || .1, 0, 0, Math.PI * 2); ctx.stroke();
+  } else if (s.t === "text") {
+    const fs = s.s || b * MTXT.M, lines = String(s.txt || "").split("\n");
+    ctx.font = `700 ${fs}px Inter, Arial, sans-serif`; ctx.textBaseline = "top";
+    ctx.lineWidth = fs * .2; ctx.strokeStyle = s.c === "#ffffff" ? "rgba(0,0,0,.8)" : "rgba(255,255,255,.92)";
+    lines.forEach((ln, i) => { ctx.strokeText(ln, s.x, s.y + i * fs * 1.2); ctx.fillText(ln, s.x, s.y + i * fs * 1.2); });
+  } else if (s.t === "mk") {
+    const r = s.r || b * 9, light = s.c === "#ffffff" || s.c === "#f9a825";
+    ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, Math.PI * 2); ctx.fill();
+    ctx.lineWidth = r * .18; ctx.strokeStyle = light ? "#111" : "#fff"; ctx.stroke();
+    ctx.fillStyle = light ? "#111" : "#fff"; ctx.font = `800 ${r * 1.1}px Inter, Arial, sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    ctx.fillText(String(s.n), s.x, s.y + r * .06);
+  }
+  ctx.restore();
+}
+function hitShape(s, x, y, tol, m) {
+  const b = baseU(m), a = s.a ? decNums(s.a) : null, t2 = tol + (s.w || b * MW.m) / 2;
+  const dseg = (x1, y1, x2, y2) => { const dx = x2 - x1, dy = y2 - y1, L = dx * dx + dy * dy; let t = L ? ((x - x1) * dx + (y - y1) * dy) / L : 0; t = Math.max(0, Math.min(1, t)); return Math.hypot(x - (x1 + t * dx), y - (y1 + t * dy)); };
+  if (s.t === "pen") { const p = decNums(s.p); if (p.length <= 2) return Math.hypot(x - p[0], y - p[1]) <= t2; for (let i = 2; i < p.length; i += 2) if (dseg(p[i - 2], p[i - 1], p[i], p[i + 1]) <= t2) return true; return false; }
+  if (s.t === "line" || s.t === "arrow") return dseg(a[0], a[1], a[2], a[3]) <= t2;
+  if (s.t === "rect") { const [x1, y1, x2, y2] = a; return [[x1, y1, x2, y1], [x2, y1, x2, y2], [x2, y2, x1, y2], [x1, y2, x1, y1]].some(q => dseg(...q) <= t2); }
+  if (s.t === "ell") { const cx = (a[0] + a[2]) / 2, cy = (a[1] + a[3]) / 2, rx = Math.abs(a[2] - a[0]) / 2 || .1, ry = Math.abs(a[3] - a[1]) / 2 || .1; return Math.abs(Math.hypot((x - cx) / rx, (y - cy) / ry) - 1) * Math.min(rx, ry) <= t2; }
+  if (s.t === "text") { const fs = s.s || b * MTXT.M, ls = String(s.txt || "").split("\n"), w = Math.max(1, ...ls.map(l => l.length)) * fs * .62; return x >= s.x - tol && x <= s.x + w + tol && y >= s.y - tol && y <= s.y + ls.length * fs * 1.2 + tol; }
+  if (s.t === "mk") return Math.hypot(x - s.x, y - s.y) <= (s.r || b * 9) + tol;
+  return false;
+}
+function simplify(p, eps) {
+  const n = p.length / 2; if (n < 3) return p;
+  const keep = new Uint8Array(n); keep[0] = keep[n - 1] = 1; const st = [[0, n - 1]];
+  while (st.length) {
+    const [i0, i1] = st.pop(), x1 = p[i0 * 2], y1 = p[i0 * 2 + 1], x2 = p[i1 * 2], y2 = p[i1 * 2 + 1], dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+    let md = 0, mi = -1;
+    for (let i = i0 + 1; i < i1; i++) { const d = Math.abs(dy * p[i * 2] - dx * p[i * 2 + 1] + x2 * y1 - y2 * x1) / L; if (d > md) { md = d; mi = i; } }
+    if (md > eps && mi > 0) { keep[mi] = 1; st.push([i0, mi], [mi, i1]); }
+  }
+  const out = []; for (let i = 0; i < n; i++) if (keep[i]) out.push(p[i * 2], p[i * 2 + 1]); return out;
+}
+
+/* visualizador com zoom (pinça, roda do mouse) e arraste */
+class MapViewer {
+  constructor(host, img, o) {
+    this.host = host; this.img = img; this.o = o; this.k = 1; this.ox = 0; this.oy = 0; this.ptr = new Map();
+    const c = this.cv = document.createElement("canvas"); c.className = "mv-canvas"; host.appendChild(c); this.ctx = c.getContext("2d");
+    c.addEventListener("pointerdown", e => this.down(e)); c.addEventListener("pointermove", e => this.move(e));
+    c.addEventListener("pointerup", e => this.up(e)); c.addEventListener("pointercancel", e => this.up(e, true));
+    c.addEventListener("contextmenu", e => e.preventDefault());
+    c.addEventListener("wheel", e => { e.preventDefault(); const r = c.getBoundingClientRect(); this.zoomAt(Math.exp(-e.deltaY * .0015), e.clientX - r.left, e.clientY - r.top); }, {passive: false});
+    this.ro = new ResizeObserver(() => this.resize()); this.ro.observe(host);
+  }
+  setImg(img) { this.img = img; this.fit(); }
+  resize() {
+    const r = this.host.getBoundingClientRect(), d = window.devicePixelRatio || 1; if (!r.width || !r.height) return;
+    this.W = r.width; this.H = r.height; this.cv.width = Math.round(r.width * d); this.cv.height = Math.round(r.height * d);
+    this.cv.style.width = r.width + "px"; this.cv.style.height = r.height + "px";
+    if (!this.fitted) this.fit(); else this.draw();
+  }
+  fit() { if (!this.W) return; this.fitted = true; const k = Math.min(this.W / this.img.width, this.H / this.img.height) * .96; this.k = this.kMin = k; this.ox = (this.W - this.img.width * k) / 2; this.oy = (this.H - this.img.height * k) / 2; this.draw(); }
+  zoomAt(f, sx, sy) { const k = Math.max(this.kMin * .5, Math.min(this.kMin * 60, this.k * f)); f = k / this.k; this.ox = sx - (sx - this.ox) * f; this.oy = sy - (sy - this.oy) * f; this.k = k; this.draw(); }
+  zoomBy(f) { this.zoomAt(f, this.W / 2, this.H / 2); }
+  toImg(e) { const r = this.cv.getBoundingClientRect(); return [(e.clientX - r.left - this.ox) / this.k, (e.clientY - r.top - this.oy) / this.k]; }
+  pinchState() { const [a, b] = [...this.ptr.values()]; return {d: Math.hypot(a.x - b.x, a.y - b.y), mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2}; }
+  down(e) {
+    try { this.cv.setPointerCapture(e.pointerId); } catch {}
+    this.ptr.set(e.pointerId, {x: e.clientX, y: e.clientY});
+    if (this.ptr.size === 2) { if (this.drawing) { this.drawing = false; this.o.cancel && this.o.cancel(); } this.pan = null; this.pinch = this.pinchState(); return; }
+    if (this.ptr.size > 2) return;
+    const tool = this.o.tool ? this.o.tool() : "pan";
+    if (tool === "pan" || e.button === 1 || e.button === 2) { this.pan = {x: e.clientX, y: e.clientY}; return; }
+    if (e.button > 0) return;
+    this.drawing = true; this.o.start && this.o.start(this.toImg(e), e);
+  }
+  move(e) {
+    if (!this.ptr.has(e.pointerId)) return;
+    this.ptr.set(e.pointerId, {x: e.clientX, y: e.clientY});
+    if (this.pinch && this.ptr.size >= 2) { const p = this.pinchState(), r = this.cv.getBoundingClientRect(); this.ox += p.mx - this.pinch.mx; this.oy += p.my - this.pinch.my; this.zoomAt(p.d / (this.pinch.d || 1), p.mx - r.left, p.my - r.top); this.pinch = p; return; }
+    if (this.pan) { this.ox += e.clientX - this.pan.x; this.oy += e.clientY - this.pan.y; this.pan = {x: e.clientX, y: e.clientY}; this.draw(); return; }
+    if (this.drawing) this.o.drag && this.o.drag(this.toImg(e), e);
+  }
+  up(e, cancel) {
+    if (!this.ptr.has(e.pointerId)) return; this.ptr.delete(e.pointerId);
+    if (this.pinch) { if (this.ptr.size < 2) this.pinch = null; const rest = [...this.ptr.values()][0]; this.pan = rest ? {x: rest.x, y: rest.y} : null; return; }
+    if (this.pan) { this.pan = null; return; }
+    if (this.drawing) { this.drawing = false; if (cancel) this.o.cancel && this.o.cancel(); else this.o.end && this.o.end(this.toImg(e), e); }
+  }
+  draw() {
+    if (this.raf) return;
+    this.raf = requestAnimationFrame(() => {
+      this.raf = 0; const c = this.ctx, d = window.devicePixelRatio || 1;
+      c.setTransform(1, 0, 0, 1, 0, 0); c.fillStyle = "#3a4048"; c.fillRect(0, 0, this.cv.width, this.cv.height);
+      c.setTransform(d * this.k, 0, 0, d * this.k, d * this.ox, d * this.oy); c.imageSmoothingQuality = "high";
+      c.drawImage(this.img, 0, 0); this.o.paint && this.o.paint(c, this);
+    });
+  }
+  destroy() { this.ro.disconnect(); if (this.raf) cancelAnimationFrame(this.raf); }
+}
+
+/* imagem final (planta recortada + desenhos), usada na aba e no PDF */
+const prevCache = new Map();
+async function mapImageUrl(m, maxW = 1800) {
+  const key = `${m.id}:${m.img && m.img.id}:${m.updatedAt || ""}:${maxW}`;
+  if (prevCache.has(key)) return prevCache.get(key);
+  const im = await loadImg(m.img.id), k = Math.min(1, maxW / im.width), cv = mkCanvas(Math.round(im.width * k), Math.round(im.height * k)), g = cv.getContext("2d");
+  g.drawImage(im, 0, 0, cv.width, cv.height);
+  const s0 = (im.width / m.crop.w) * k; g.setTransform(s0, 0, 0, s0, -m.crop.x * s0, -m.crop.y * s0);
+  liveShapes(m.shapes).forEach(s => drawShape(g, s, m));
+  const url = cv.toDataURL("image/jpeg", .9); prevCache.set(key, url); return url;
+}
+
+/* recorte de uma área da planta em resolução cheia, a partir dos blocos */
+async function extractRegion(pl, r) {
+  const T = pl.tiles;
+  const c0 = Math.max(0, Math.floor(r.x / T.tw)), c1 = Math.min(T.cols - 1, Math.floor((r.x + r.w - 1) / T.tw));
+  const r0 = Math.max(0, Math.floor(r.y / T.th)), r1 = Math.min(T.rows - 1, Math.floor((r.y + r.h - 1) / T.th));
+  const jobs = []; for (let rr = r0; rr <= r1; rr++) for (let cc = c0; cc <= c1; cc++) jobs.push(loadImg(T.ids[rr * T.cols + cc]).then(im => ({rr, cc, im})));
+  const tiles = await Promise.all(jobs);
+  let k = Math.min(1, 2600 / Math.max(r.w, r.h));
+  for (let tries = 0; tries < 6; tries++) {
+    const w = Math.max(1, Math.round(r.w * k)), h = Math.max(1, Math.round(r.h * k)), cv = mkCanvas(w, h), g = cv.getContext("2d");
+    g.fillStyle = "#fff"; g.fillRect(0, 0, w, h); g.imageSmoothingQuality = "high";
+    for (const t of tiles) g.drawImage(t.im, Math.floor((t.cc * T.tw - r.x) * k), Math.floor((t.rr * T.th - r.y) * k), Math.ceil(t.im.width * k) + 1, Math.ceil(t.im.height * k) + 1);
+    const url = toJpeg(cv); if (url) return {url, w, h};
+    k *= .82;
+  }
+  throw new Error("grande");
+}
+function saveBlob(url) {
+  const id = uid("b_m");
+  create(`blobs/${id}`, {data: url, type: "image/jpeg", size: Math.round(url.length * .75), by: me, at: nowIso()}).catch(() => {});
+  return id;
+}
+
+/* envio de planta nova (PDF ou imagem) → blocos de 1280 px + visão geral */
+async function processPlanta(file, prog) {
+  const isPdf = /pdf/i.test(file.type) || /\.pdf$/i.test(file.name);
+  let W, H, tileAt, overview;
+  if (isPdf) {
+    prog("Carregando leitor de PDF…");
+    await loadScript(PDFJS.lib); const L = window.pdfjsLib; L.GlobalWorkerOptions.workerSrc = PDFJS.worker;
+    const pdf = await L.getDocument({data: new Uint8Array(await file.arrayBuffer())}).promise;
+    let pn = 1;
+    if (pdf.numPages > 1) {
+      pn = await modal({title: "Qual página?", body: `<label class="fld">O PDF tem ${pdf.numPages} páginas. Número da página da planta<input type="number" id="pg-n" min="1" max="${pdf.numPages}" value="1"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Usar página", cls: "primary", value: bg => Math.min(pdf.numPages, Math.max(1, parseInt($("#pg-n", bg).value, 10) || 1))}]});
+      if (!pn) return null;
+    }
+    const page = await pdf.getPage(pn), v1 = page.getViewport({scale: 1}), long = Math.max(v1.width, v1.height);
+    const vp = page.getViewport({scale: Math.min(2.5, 9500 / long)});
+    W = Math.floor(vp.width); H = Math.floor(vp.height);
+    tileAt = async (x, y, w, h) => { const c = mkCanvas(w, h), g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, w, h); await page.render({canvasContext: g, viewport: vp, transform: [1, 0, 0, 1, -x, -y]}).promise; return c; };
+    overview = async () => { const ov = page.getViewport({scale: 2000 / long}), c = mkCanvas(Math.floor(ov.width), Math.floor(ov.height)), g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); await page.render({canvasContext: g, viewport: ov}).promise; return c; };
+  } else {
+    const bmp = await createImageBitmap(file), s = Math.min(1, 12000 / Math.max(bmp.width, bmp.height), Math.sqrt(90e6 / (bmp.width * bmp.height)));
+    W = Math.floor(bmp.width * s); H = Math.floor(bmp.height * s);
+    tileAt = async (x, y, w, h) => { const c = mkCanvas(w, h), g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, w, h); g.imageSmoothingQuality = "high"; g.drawImage(bmp, x / s, y / s, w / s, h / s, 0, 0, w, h); return c; };
+    overview = async () => { const k = 2000 / Math.max(W, H), c = mkCanvas(Math.round(W * k), Math.round(H * k)), g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height); g.imageSmoothingQuality = "high"; g.drawImage(bmp, 0, 0, c.width, c.height); return c; };
+  }
+  const cols = Math.ceil(W / TILE), rows = Math.ceil(H / TILE), ids = [], n = cols * rows;
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    prog(`Processando a planta… parte ${ids.length + 1} de ${n}`);
+    const cv = await tileAt(c * TILE, r * TILE, Math.min(TILE, W - c * TILE), Math.min(TILE, H - r * TILE));
+    const url = toJpeg(cv); if (!url) throw new Error("grande");
+    ids.push(saveBlob(url)); await new Promise(ok => setTimeout(ok, 0));
+  }
+  prog("Gerando a visão geral…");
+  const oc = await overview(), ou = toJpeg(oc); if (!ou) throw new Error("grande");
+  const pid = uid("p_"), title = file.name.replace(/\.[^.]+$/, "").replace(/[_]+/g, " ");
+  const doc = {title, arquivo: file.name, w: W, h: H, ov: {id: saveBlob(ou), w: oc.width, h: oc.height}, tiles: {tw: TILE, th: TILE, cols, rows, ids}, createdBy: me, createdAt: nowIso()};
+  await create(`plantas/${pid}`, doc);
+  plantas.set(pid, {id: pid, ...doc});
+  return pid;
+}
+
+/* aba Mapeamentos da FV */
+function renderMaps(fv) {
+  const box = $("#tab-maps"); if (!box || !cur) return;
+  $("#n-maps").textContent = cur.maps.length;
+  const lk = locked(fv);
+  if (!box.dataset.wired) { box.dataset.wired = "1"; box.addEventListener("click", mapsClick); }
+  if (!cur.maps.length) {
+    box.innerHTML = `<div class="empty"><b>Esta FV não tem mapeamento</b>Use quando precisar marcar na planta a situação dos itens, com recorte da área, desenhos e notas.${lk ? "" : `<div style="margin-top:14px"><button class="btn primary" type="button" data-newmap>+ Criar mapeamento</button></div>`}</div>`;
+    return;
+  }
+  let head = $(".maps-head", box);
+  if (!head) { box.innerHTML = `<div class="maps-head"></div><div class="maps-list"></div>`; head = $(".maps-head", box); }
+  head.innerHTML = lk ? "" : `<button class="btn primary" type="button" data-newmap>+ Novo mapeamento</button>`;
+  const list = $(".maps-list", box), seen = new Set();
+  cur.maps.forEach((m, i) => {
+    seen.add(m.id);
+    let card = list.querySelector(`[data-mid="${m.id}"]`);
+    if (!card) { card = document.createElement("div"); card.className = "sheet-wrap mcard"; card.dataset.mid = m.id; card.innerHTML = `<div class="sheet msheet"><table class="mtitle"></table><div class="mprev"><div class="mload">Carregando planta…</div></div><div class="mnotes"></div><div class="noprint mbtns"></div></div>`; }
+    if (list.children[i] !== card) list.insertBefore(card, list.children[i] || null);
+    $(".mtitle", card).innerHTML = `<colgroup><col class="c-mark" style="width:118px"><col style="width:20%"><col class="c-act"><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPEAMENTO</td><td class="act c-act">${esc(m.title || "")}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr>`;
+    const mks = markersOf(m.shapes);
+    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => `<li><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}</span></li>`).join("")}</ol>` : "";
+    $(".mbtns", card).innerHTML = `<button class="btn sm primary" type="button" data-open="${m.id}">${lk ? "Abrir" : "Abrir e editar"}</button>${lk ? "" : `<button class="btn sm" type="button" data-ren="${m.id}">Renomear</button><button class="btn sm ghost danger" type="button" data-delmap="${m.id}">Excluir</button>`}<span class="sub" style="margin-left:auto">${m.ptitle ? "Planta: " + esc(m.ptitle) + " · " : ""}Atualizado por ${who(m.updatedBy || m.createdBy)} em ${fmtFull(m.updatedAt || m.createdAt)}</span>`;
+    const pv = $(".mprev", card), key = `${m.img && m.img.id}:${m.updatedAt || ""}`;
+    if (pv.dataset.key !== key && m.img && !(medState && medState.mid === m.id)) {
+      pv.dataset.key = key;
+      mapImageUrl(m).then(u => { if (pv.dataset.key !== key) return; pv.innerHTML = `<img src="${u}" alt="Mapeamento ${esc(m.title || "")}" data-open="${m.id}">`; })
+        .catch(() => { if (pv.dataset.key === key) pv.innerHTML = `<div class="mload">Não foi possível carregar a imagem. Verifique a conexão.</div>`; });
+    }
+  });
+  [...list.children].forEach(c => { if (!seen.has(c.dataset.mid)) c.remove(); });
+  fillNames();
+}
+async function mapsClick(e) {
+  if (!cur) return; const fv = fvs.get(cur.id), fid = cur.id; if (!fv) return;
+  const t = e.target.closest("[data-newmap],[data-open],[data-ren],[data-delmap]"); if (!t) return;
+  if (t.dataset.newmap !== undefined) return newMap();
+  if (t.dataset.open) return openMapEditor(t.dataset.open);
+  const m = cur.maps.find(x => x.id === (t.dataset.ren || t.dataset.delmap)); if (!m || locked(fv)) return;
+  if (t.dataset.ren) {
+    const v = await modal({title: "Renomear mapeamento", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.title || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]});
+    if (v) { patch(`fvs/${fid}/maps/${m.id}`, stamp({title: v})); logAct(fid, `Renomeou o mapeamento para “${v}”`); }
+  } else if (await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.title || "")}</b>, com todos os desenhos e notas, será apagado para todos.`, "Excluir", true)) {
+    try { await remove(`fvs/${fid}/maps/${m.id}`); if (m.img && m.img.id) remove(`blobs/${m.img.id}`).catch(() => {}); logAct(fid, `Excluiu o mapeamento “${m.title || ""}”`); toast("Mapeamento excluído."); } catch {}
+  }
+}
+
+/* criar mapeamento: escolher planta → recortar área → editar */
+async function newMap() {
+  const fv = fvs.get(cur.id), fid = cur.id; if (!fv || locked(fv)) return;
+  const pick = await pickPlanta(`Mapeamento ${cur.maps.length + 1}`);
+  if (!pick) return;
+  const pl = plantas.get(pick.pid); if (!pl) return;
+  const rect = await pickCrop(pl, null); if (!rect) return;
+  const busyT = toastHold("Recortando a planta…");
+  try {
+    const {url, w, h} = await extractRegion(pl, rect), mid = uid("m"), at = nowIso();
+    const imgId = saveBlob(url);
+    await create(`fvs/${fid}/maps/${mid}`, {title: pick.title, o: Date.now(), pid: pl.id, ptitle: pl.title || "", crop: rect, img: {id: imgId, w, h}, shapes: {}, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+    logAct(fid, `Criou o mapeamento “${pick.title}”`);
+    busyT(); setTimeout(() => openMapEditor(mid), 150);
+  } catch { busyT(); toast("Não foi possível recortar a planta. Verifique a conexão e tente de novo."); }
+}
+function toastHold(msg) { toast(msg); const iv = setInterval(() => toast(msg), 2500); return () => { clearInterval(iv); const el = $(".toast"); if (el) el.classList.add("hidden"); }; }
+async function pickPlanta(defTitle) {
+  let chosen = null;
+  const list = () => [...plantas.values()].sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""));
+  const draw = bg => {
+    const box = $("#pl-list", bg), L = list();
+    box.innerHTML = L.length ? L.map(p => `<label class="pl-it${chosen === p.id ? " on" : ""}"><input type="radio" name="pl" value="${esc(p.id)}" ${chosen === p.id ? "checked" : ""}><img alt="" data-ov="${esc(p.ov && p.ov.id || "")}"><span><b>${esc(p.title || "Planta")}</b><small>${esc(p.arquivo || "")}</small></span>${isOwner ? `<button type="button" class="btn sm ghost danger" data-delpl="${esc(p.id)}">Excluir</button>` : ""}</label>`).join("")
+      : `<div class="sub" style="padding:14px;text-align:center">Nenhuma planta enviada ainda. Envie o PDF ou a imagem do projeto.</div>`;
+    $$("img[data-ov]", box).forEach(im => { if (im.dataset.ov) loadImg(im.dataset.ov).then(x => { im.src = x.src; }).catch(() => {}); });
+  };
+  return modal({title: "Novo mapeamento", wide: true, body: `
+      <label class="fld">Nome do mapeamento<input type="text" id="mp-title" value="${esc(defTitle)}" maxlength="120" placeholder="Ex.: SPDA – Torre 3"></label>
+      <div><div class="fld" style="margin-bottom:6px">Planta</div><div class="pl-list" id="pl-list"></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px"><button class="btn sm" type="button" id="pl-up">+ Enviar planta nova (PDF ou imagem)</button><span class="sub" id="pl-prog"></span></div>
+      <input type="file" id="pl-file" accept="application/pdf,.pdf,image/*" class="hidden">
+      <p class="sub" style="margin:8px 0 0">A planta fica disponível para todos os mapeamentos. PDFs grandes são processados mais rápido no computador.</p></div>`,
+    onOpen: bg => {
+      draw(bg);
+      $("#pl-list", bg).addEventListener("change", e => { if (e.target.name === "pl") { chosen = e.target.value; draw(bg); } });
+      $("#pl-list", bg).addEventListener("click", async e => {
+        const d = e.target.closest("[data-delpl]"); if (!d) return; e.preventDefault();
+        const p = plantas.get(d.dataset.delpl); if (!p) return;
+        if (!(await confirmBox("Excluir planta?", `A planta <b>${esc(p.title || "")}</b> sai da lista. Os mapeamentos já criados continuam, mas não poderão ser recortados de novo.`, "Excluir", true))) return;
+        try { await remove(`plantas/${p.id}`); [...(p.tiles && p.tiles.ids || []), p.ov && p.ov.id].filter(Boolean).forEach(id => remove(`blobs/${id}`).catch(() => {})); plantas.delete(p.id); if (chosen === p.id) chosen = null; draw(bg); } catch {}
+      });
+      $("#pl-up", bg).onclick = () => $("#pl-file", bg).click();
+      $("#pl-file", bg).onchange = async e => {
+        const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+        const btn = $("#pl-up", bg), pr = $("#pl-prog", bg); btn.disabled = true;
+        try { const pid = await processPlanta(f, t => { pr.textContent = t; }); if (pid) { chosen = pid; pr.textContent = "Planta enviada."; draw(bg); } else pr.textContent = ""; }
+        catch { pr.textContent = "Não foi possível processar esse arquivo. Tente uma imagem (PNG/JPG) ou um PDF menor."; }
+        finally { btn.disabled = false; }
+      };
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Próximo: recortar área", cls: "primary",
+      validate: bg => { if (!chosen) { $("#pl-prog", bg).textContent = "Escolha uma planta."; return false; } if (!$("#mp-title", bg).value.trim()) { $("#mp-title", bg).focus(); return false; } return true; },
+      value: bg => ({pid: chosen, title: $("#mp-title", bg).value.trim()})}]});
+}
+
+/* tela cheia para escolher a área (recorte) */
+function pickCrop(pl, curRect) {
+  return new Promise(async resolve => {
+    const ov = document.createElement("div"); ov.className = "med ui";
+    ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-cx>Cancelar</button><b class="med-title">Recortar: arraste sobre a área que vai usar</b><button class="btn sm" type="button" data-all>Planta inteira</button><button class="btn sm primary" type="button" data-ok>Usar esta área</button></div>
+      <div class="med-tools"><button class="tl on" type="button" data-m="sel" title="Selecionar área">▭ Selecionar</button><button class="tl" type="button" data-m="pan" title="Mover e dar zoom">✋ Mover</button><span class="med-tip">Dois dedos ou a roda do mouse dão zoom.</span></div>
+      <div class="med-main one"><div class="med-cv"><div class="mload" style="color:#fff">Carregando planta…</div><div class="med-zoom"><button type="button" data-z="1.4">+</button><button type="button" data-z="0.7">−</button><button type="button" data-z="fit">⤢</button></div></div></div>`;
+    document.body.appendChild(ov); document.body.classList.add("noscroll");
+    const done = v => { if (v_) v_.destroy(); ov.remove(); document.body.classList.remove("noscroll"); resolve(v); };
+    let v_ = null, mode = "sel";
+    $("[data-cx]", ov).onclick = () => done(null);
+    $("[data-all]", ov).onclick = () => done({x: 0, y: 0, w: pl.w, h: pl.h});
+    let im; try { im = await loadImg(pl.ov.id); } catch { toast("Não foi possível carregar a planta."); return done(null); }
+    $(".mload", ov).remove();
+    const fx = pl.w / im.width, fy = pl.h / im.height;
+    let sel = curRect ? {x: curRect.x / fx, y: curRect.y / fy, w: curRect.w / fx, h: curRect.h / fy} : null, a0 = null;
+    const host = $(".med-cv", ov);
+    v_ = new MapViewer(host, im, {
+      tool: () => mode,
+      start: p => { a0 = p; },
+      drag: p => { sel = {x: Math.min(a0[0], p[0]), y: Math.min(a0[1], p[1]), w: Math.abs(p[0] - a0[0]), h: Math.abs(p[1] - a0[1])}; v_.draw(); },
+      end: () => { if (sel && (sel.w * v_.k < 12 || sel.h * v_.k < 12)) sel = null; v_.draw(); },
+      paint: (c, v) => {
+        if (!sel) return;
+        c.save(); c.fillStyle = "rgba(0,0,0,.5)"; c.beginPath(); c.rect(-1e5, -1e5, 2e5, 2e5); c.rect(sel.x, sel.y, sel.w, sel.h); c.fill("evenodd");
+        c.lineWidth = 2 / v.k; c.strokeStyle = "#fff"; c.setLineDash([6 / v.k, 4 / v.k]); c.strokeRect(sel.x, sel.y, sel.w, sel.h); c.restore();
+      }
+    });
+    host.insertBefore(v_.cv, host.firstChild); v_.resize();
+    $$(".med-tools [data-m]", ov).forEach(b => b.onclick = () => { mode = b.dataset.m; $$(".med-tools [data-m]", ov).forEach(x => x.classList.toggle("on", x === b)); });
+    $$(".med-zoom [data-z]", ov).forEach(b => b.onclick = () => b.dataset.z === "fit" ? v_.fit() : v_.zoomBy(+b.dataset.z));
+    $("[data-ok]", ov).onclick = () => {
+      if (!sel) { toast("Arraste sobre a planta para marcar a área, ou toque em “Planta inteira”."); return; }
+      const x = Math.max(0, Math.round(sel.x * fx)), y = Math.max(0, Math.round(sel.y * fy));
+      done({x, y, w: Math.max(40, Math.min(pl.w - x, Math.round(sel.w * fx))), h: Math.max(40, Math.min(pl.h - y, Math.round(sel.h * fy)))});
+    };
+  });
+}
+
+/* editor em tela cheia */
+async function openMapEditor(mid) {
+  if (!cur || medState) return;
+  const fid = cur.id, fv = fvs.get(fid); let m = cur.maps.find(x => x.id === mid); if (!fv || !m) return;
+  const ro = locked(fv);
+  const ov = document.createElement("div"); ov.className = "med ui";
+  const toolBtns = MTOOLS.map(([k, ic, tt]) => `<button class="tl" type="button" data-tool="${k}" title="${tt}" aria-label="${tt}">${ic}</button>`).join("");
+  const colorBtns = MCOLORS.map(([c, n]) => `<button class="sw" type="button" data-color="${c}" title="${n}" aria-label="Cor ${n}" style="background:${c}"></button>`).join("");
+  ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-x>✕ Fechar</button><b class="med-title"></b>${ro ? `<span class="med-tip">Somente visualização</span>` : `<button class="btn sm" type="button" data-crop>✂ Recortar</button>`}</div>
+    ${ro ? "" : `<div class="med-tools">${toolBtns}<span class="sep"></span>${colorBtns}<span class="sep"></span>
+      <select data-w aria-label="Espessura"><option value="f">Fina</option><option value="m" selected>Média</option><option value="g">Grossa</option></select>
+      <span class="sep"></span><button class="tl" type="button" data-undo title="Desfazer" aria-label="Desfazer">↶</button><button class="tl" type="button" data-redo title="Refazer" aria-label="Refazer">↷</button><span class="med-tip" data-tip></span></div>`}
+    <div class="med-main"><div class="med-cv"><div class="mload" style="color:#fff">Carregando planta…</div><div class="med-zoom"><button type="button" data-z="1.4" aria-label="Aproximar">+</button><button type="button" data-z="0.7" aria-label="Afastar">−</button><button type="button" data-z="fit" aria-label="Ajustar">⤢</button></div></div>
+    <aside class="med-side"><div class="mnotes-t">NOTAS DOS MARCADORES</div><ol class="med-notes"></ol><p class="sub med-help">${ro ? "" : "Use ① para marcar um ponto com nota. Toque num texto ou marcador com a mesma ferramenta para editar."}</p></aside></div>`;
+  document.body.appendChild(ov); document.body.classList.add("noscroll");
+  const st = medState = {mid, fid, tool: ro ? "pan" : "pen", color: MCOLORS[0][0], w: "m", loc: {}, undo: [], redo: [], draft: null, logged: false};
+  const title = () => $(".med-title", ov).textContent = m.title || "Mapeamento";
+  title();
+  const shapesNow = () => ({...(m.shapes || {}), ...st.loc});
+  const s0 = () => m.img.w / m.crop.w; // px da imagem por unidade da planta
+  const toPlan = p => [m.crop.x + p[0] * (m.crop.w / v.img.width), m.crop.y + p[1] * (m.crop.h / v.img.height)];
+  const scr = () => v.k * (v.img.width / m.crop.w); // px de tela por unidade da planta
+  let v = null;
+  const close = () => { if (v) v.destroy(); ov.remove(); document.body.classList.remove("noscroll"); document.removeEventListener("keydown", onKey); medState = null; if (cur && cur.id === fid) { const f = fvs.get(fid); if (f) renderMaps(f); } };
+  $("[data-x]", ov).onclick = close;
+  let im; try { im = await loadImg(m.img.id); } catch { toast("Não foi possível carregar a planta."); return close(); }
+  $(".mload", ov).remove();
+  const host = $(".med-cv", ov);
+  const write = (sid, after) => {
+    st.loc[sid] = after;
+    patch(`fvs/${fid}/maps/${mid}`, stamp({shapes: {[sid]: after}}));
+    if (!st.logged) { st.logged = true; logAct(fid, `Editou o mapeamento “${m.title || ""}”`); }
+    v.draw(); notes();
+  };
+  const commit = (sid, before, after) => { write(sid, after); st.undo.push({sid, before, after}); st.redo.length = 0; };
+  const addShape = sh => commit(uid("s"), null, {...sh, c: sh.c || st.color, z: Date.now(), del: false, by: me});
+  const delShape = s => { const {id, ...rest} = s; commit(id, {...rest, del: false}, {...rest, del: true}); };
+  const topHit = (p, tolPx = 10) => { const L = liveShapes(shapesNow()); const tol = tolPx / scr(); for (let i = L.length - 1; i >= 0; i--) if (hitShape(L[i], p[0], p[1], tol, m)) return L[i]; return null; };
+  async function editText(s, at) {
+    const isMk = s ? s.t === "mk" : st.tool === "mk";
+    const n = isMk ? (s ? s.n : Math.max(0, ...markersOf(shapesNow()).map(x => x.n || 0)) + 1) : 0;
+    const res = await modal({title: isMk ? `Marcador ${n}` : (s ? "Editar texto" : "Novo texto"),
+      body: `<label class="fld">${isMk ? "Nota (aparece na lista de notas)" : "Texto"}<textarea id="tx" rows="3" maxlength="400">${esc(s ? s.txt || "" : "")}</textarea></label>${isMk ? "" : `<label class="fld">Tamanho<select id="tz"><option value="P">Pequeno</option><option value="M" selected>Médio</option><option value="G">Grande</option></select></label>`}`,
+      onOpen: bg => { const z = $("#tz", bg); if (z && s && s.s) { const b = baseU(m); z.value = Object.keys(MTXT).reduce((best, k) => Math.abs(MTXT[k] * b - s.s) < Math.abs(MTXT[best] * b - s.s) ? k : best, "M"); } },
+      actions: [...(s ? [{label: "Apagar", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => ({txt: $("#tx", bg).value.trim(), z: $("#tz", bg) ? $("#tz", bg).value : null})}]});
+    if (!res) return;
+    if (res === "del") { delShape(s); return; }
+    const b = baseU(m);
+    if (!isMk && !res.txt) return;
+    if (s) { const {id, ...rest} = s; commit(id, {...rest}, {...rest, txt: res.txt, ...(isMk ? {} : {s: MTXT[res.z] * b}), del: false}); }
+    else if (isMk) addShape({t: "mk", x: at[0], y: at[1], n, txt: res.txt, r: b * 9});
+    else addShape({t: "text", x: at[0], y: at[1], txt: res.txt, s: MTXT[res.z] * b});
+  }
+  v = new MapViewer(host, im, {
+    tool: () => st.tool,
+    start: p => {
+      const q = toPlan(p), b = baseU(m);
+      if (st.tool === "pen") st.draft = {t: "pen", pts: [...q], c: st.color, w: MW[st.w] * b};
+      else if (["line", "arrow", "rect", "ell"].includes(st.tool)) st.draft = {t: st.tool, a4: [...q, ...q], c: st.color, w: MW[st.w] * b};
+      else if (st.tool === "erase") { st.erased = new Set(); const h = topHit(q); if (h) { st.erased.add(h.id); delShape(h); } }
+      else st.draft = null;
+    },
+    drag: p => {
+      const q = toPlan(p), d = st.draft;
+      if (st.tool === "erase") { const h = topHit(q); if (h && !st.erased.has(h.id)) { st.erased.add(h.id); delShape(h); } return; }
+      if (!d) return;
+      if (d.t === "pen") { const n = d.pts.length; if (Math.hypot(q[0] - d.pts[n - 2], q[1] - d.pts[n - 1]) * scr() >= 1.2) d.pts.push(q[0], q[1]); }
+      else { d.a4[2] = q[0]; d.a4[3] = q[1]; }
+      v.draw();
+    },
+    end: p => {
+      const q = toPlan(p), d = st.draft; st.draft = null;
+      if (st.tool === "text" || st.tool === "mk") { const h = topHit(q, 14); if (h && h.t === (st.tool === "mk" ? "mk" : "text")) editText(h); else editText(null, q); return; }
+      if (!d) { v.draw(); return; }
+      if (d.t === "pen") addShape({t: "pen", p: encNums(simplify(d.pts, .6 / scr())), w: d.w, c: d.c});
+      else if (Math.hypot(d.a4[2] - d.a4[0], d.a4[3] - d.a4[1]) * scr() >= 4) addShape({t: d.t, a: encNums(d.a4), w: d.w, c: d.c});
+      v.draw();
+    },
+    cancel: () => { st.draft = null; v.draw(); },
+    paint: (c) => {
+      const k0 = v.img.width / m.crop.w; c.transform(k0, 0, 0, k0, -m.crop.x * k0, -m.crop.y * k0);
+      liveShapes(shapesNow()).forEach(s => drawShape(c, s, m));
+      const d = st.draft;
+      if (d) drawShape(c, d.t === "pen" ? {t: "pen", p: d.pts.join(","), c: d.c, w: d.w} : {t: d.t, a: d.a4.join(","), c: d.c, w: d.w}, m);
+    }
+  });
+  host.insertBefore(v.cv, host.firstChild); v.resize();
+  $$(".med-zoom [data-z]", ov).forEach(b => b.onclick = () => b.dataset.z === "fit" ? v.fit() : v.zoomBy(+b.dataset.z));
+  const TIPS = {pan: "Arraste para mover. Dois dedos ou a roda do mouse dão zoom.", pen: "Desenhe à mão livre.", line: "Arraste para traçar a linha.", arrow: "Arraste do início até a ponta da seta.", rect: "Arraste para desenhar o retângulo.", ell: "Arraste para desenhar o círculo.", text: "Toque onde vai o texto. Toque num texto existente para editar.", mk: "Toque para pôr um marcador numerado com nota.", erase: "Toque ou passe sobre um desenho para apagar."};
+  const syncTools = () => {
+    $$("[data-tool]", ov).forEach(b => b.classList.toggle("on", b.dataset.tool === st.tool));
+    $$("[data-color]", ov).forEach(b => b.classList.toggle("on", b.dataset.color === st.color));
+    const tp = $("[data-tip]", ov); if (tp) tp.textContent = TIPS[st.tool] || "";
+    host.dataset.tool = st.tool;
+  };
+  function notes() {
+    const L = markersOf(shapesNow());
+    $(".med-notes", ov).innerHTML = L.length ? L.map(s => `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}</span></li>`).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
+  }
+  $(".med-notes", ov).addEventListener("click", e => { const li = e.target.closest("[data-sid]"); if (!li || ro) return; const s = liveShapes(shapesNow()).find(x => x.id === li.dataset.sid); if (s) editText(s); });
+  const undoRedo = (from, to, useBefore) => { const op = from.pop(); if (!op) return; const val = useBefore ? op.before : op.after; write(op.sid, val ? val : {...(op.after || op.before), del: true}); to.push(op); };
+  const onKey = e => {
+    if (ro || document.querySelector(".modal-bg")) return;
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); e.shiftKey ? undoRedo(st.redo, st.undo, false) : undoRedo(st.undo, st.redo, true); }
+    else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") { e.preventDefault(); undoRedo(st.redo, st.undo, false); }
+  };
+  document.addEventListener("keydown", onKey);
+  if (!ro) {
+    $$("[data-tool]", ov).forEach(b => b.onclick = () => { st.tool = b.dataset.tool; syncTools(); });
+    $$("[data-color]", ov).forEach(b => b.onclick = () => { st.color = b.dataset.color; syncTools(); });
+    $("[data-w]", ov).onchange = e => { st.w = e.target.value; };
+    $("[data-undo]", ov).onclick = () => undoRedo(st.undo, st.redo, true);
+    $("[data-redo]", ov).onclick = () => undoRedo(st.redo, st.undo, false);
+    $("[data-crop]", ov).onclick = async () => {
+      const pl = plantas.get(m.pid);
+      if (!pl) { toast("A planta original deste mapeamento não está mais disponível para recorte."); return; }
+      const rect = await pickCrop(pl, m.crop); if (!rect) return;
+      const end = toastHold("Recortando a planta…");
+      try {
+        const {url, w, h} = await extractRegion(pl, rect), id = saveBlob(url), old = m.img && m.img.id;
+        imgCache.set(id, new Promise((ok, bad) => { const x = new Image(); x.onload = () => ok(x); x.onerror = bad; x.src = url; }));
+        const nim = await loadImg(id);
+        m = {...m, crop: rect, img: {id, w, h}};
+        patch(`fvs/${fid}/maps/${mid}`, stamp({crop: rect, img: {id, w, h}}));
+        if (old) remove(`blobs/${old}`).catch(() => {});
+        logAct(fid, `Recortou o mapeamento “${m.title || ""}”`);
+        v.setImg(nim); end(); toast("Recorte aplicado. Os desenhos continuam no mesmo lugar da planta.");
+      } catch { end(); toast("Não foi possível recortar. Tente de novo."); }
+    };
+  }
+  syncTools(); notes();
+  st.refresh = nm => { const changed = nm.img && m.img && nm.img.id !== m.img.id; m = nm; title(); if (changed) loadImg(nm.img.id).then(x => v.setImg(x)).catch(() => {}); else v.draw(); notes(); };
+}
+
 /* ---------- exportar PDF ---------- */
 const LIBS = {h2c: "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js", jspdf: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"};
 const loadScript = src => new Promise((ok, bad) => { if ([...document.scripts].some(s => s.src === src)) return ok(); const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => bad(new Error("lib")); document.head.appendChild(s); });
@@ -1489,6 +2031,15 @@ async function exportPdf() {
     const sections = [];
     const fvSheet = $("#sheet-fv"); if (fvSheet) sections.push(page(staticize(fvSheet, fvSheet.cloneNode(true))));
     const mapSheet = $("#sheet-map"); if (mapSheet && mapa && mapa.img) { const c = staticize(mapSheet, mapSheet.cloneNode(true)); c.querySelectorAll(".zoom").forEach(e => e.classList.remove("zoom")); sections.push(page(c)); }
+    for (const m of cur.maps) {
+      if (!m.img) continue;
+      let url = ""; try { url = await mapImageUrl(m, 2200); } catch {}
+      if (!url) continue;
+      const mks = markersOf(m.shapes), s = document.createElement("div"); s.className = "sheet msheet";
+      s.innerHTML = `<table><colgroup><col style="width:118px"><col style="width:20%"><col><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPEAMENTO</td><td class="act">${esc(m.title || "")}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr></table>
+        <div class="mprev"><img src="${url}" alt=""></div>${mks.length ? `<div class="mnotes"><div class="mnotes-t">NOTAS</div><ol>${mks.map(k => `<li><span class="mdot" style="background:${esc(k.c)};color:${k.c === "#ffffff" || k.c === "#f9a825" ? "#111" : "#fff"}">${k.n}</span><span>${esc(k.txt || "—")}</span></li>`).join("")}</ol></div>` : ""}`;
+      sections.push(page(s));
+    }
     const f007 = $("#sheet-f007");
     if (f007 && cur.obs.some(o => o.sheet === "f007")) { const c = staticize(f007, f007.cloneNode(true)); c.querySelectorAll(".prob-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c)); }
     const pda = $("#sheet-pda");
@@ -1723,6 +2274,7 @@ async function init() {
     folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
     renderList(); if (cur) { const f = fvs.get(cur.id); if (f) renderBar(f); }
   }, () => { foldersLoaded = true; });
+  db.collection("plantas").onSnapshot(s => { plantas = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}])); }, () => {});
   db.doc("library/docs").onSnapshot(s => { docLib = (s.exists && s.data().list) || []; if (cur) renderSub("docs"); }, () => {});
   db.doc("library/mapa").onSnapshot(s => { mapa = (s.exists && s.data()) || null; if (cur) { const f = fvs.get(cur.id); if (f) renderMap(f); } if (location.hash === "#equipe") renderMapPanel(); }, () => {});
   db.collection("templates").onSnapshot(s => { dbTemplates = new Map(); s.docs.forEach(d => dbTemplates.set(d.id, d.data())); mergeTemplates(); }, () => {});

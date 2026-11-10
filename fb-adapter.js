@@ -132,11 +132,11 @@ const downloadsApi = {
 };
 
 /* ---------- backup ---------- */
-const SUBS = ["pda", "obs", "photos", "docs", "log"];
+const SUBS = ["pda", "obs", "photos", "docs", "log", "maps"];
 async function exportAll({ files = true, onProgress = () => {} } = {}) {
   const out = { app: "fvs-da-obra", version: 1, exportedAt: new Date().toISOString(), docs: {} };
   const put = (p, d) => { out.docs[p] = d; };
-  for (const c of ["templates", "folders", "users", "library"]) {
+  for (const c of ["templates", "folders", "users", "library", "plantas"]) {
     onProgress(`Lendo ${c}…`);
     (await getDocs(collection(fs, c))).forEach(d => put(`${c}/${d.id}`, d.data()));
   }
