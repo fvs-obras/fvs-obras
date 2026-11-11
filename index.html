@@ -234,6 +234,32 @@ td.x .rph:hover{background:#f1f1f1}
 #print-root .tmap-scroll img{width:auto;max-width:100%;max-height:690px;margin:0 auto}
 @media (max-width:760px){#sheet-map .mark-cell,#sheet-map col.c-mark,#sheet-map .c-act{display:none}}
 #sheet-map{min-width:0}
+/* Painel */
+.pn-filters{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0 14px}
+.pn-filters .fld{min-width:200px;margin:0}
+.pn-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:12px}
+.pn-kpi{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:grid;gap:2px}
+.pn-kpi span{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.pn-kpi b{font-size:30px;line-height:1.1;font-weight:800;color:var(--ink)}
+.pn-kpi small{font-size:12px;color:var(--muted)}
+.pn-kpi.ok{border-left:4px solid var(--ok)}.pn-kpi.bad{border-left:4px solid var(--bad)}.pn-kpi.warn{border-left:4px solid var(--warn)}
+.pn-legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;font-size:12px;margin:4px 0 12px}
+.pn-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+.pn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:12px;margin-bottom:12px}
+.pn-sec{padding:14px 16px;overflow:auto}
+.pn-sec h2{font-size:14px;text-transform:uppercase;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.pn-c{font-size:11px;background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:1px 8px}
+.pn-h{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}.pn-h h2{margin:0}
+.pn-t{width:100%;border-collapse:collapse;font-size:12.5px}
+.pn-t th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+.pn-t td{padding:7px 8px;border-bottom:1px solid #eee;vertical-align:middle}
+.pn-t td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.pn-t td.b{font-weight:700}.pn-t td.red{color:var(--bad);font-weight:700}
+.pn-t td.bc{min-width:120px;width:30%}.pn-t a{color:inherit;text-decoration:none}.pn-t a:hover{text-decoration:underline}
+.pn-bar .bar{height:10px;border-radius:3px;gap:2px;background:#e9e9e9}
+.pn-st{font-size:11px;font-weight:700;border-radius:99px;padding:2px 8px}.pn-st.o{background:var(--warn-soft);color:var(--warn)}.pn-st.c{background:var(--na-soft);color:var(--na)}
+.pn-okmsg{color:var(--ok);font-weight:700;font-size:13px;padding:6px 0}
+.pn-print{width:1240px;padding:16px;background:#fff}.pn-print .pn-sec{overflow:visible}
+@media (max-width:640px){.pn-grid{grid-template-columns:1fr}.pn-kpis{grid-template-columns:1fr 1fr;gap:8px}.pn-kpi{padding:10px}.pn-kpi b{font-size:24px}.pn-filters .fld{min-width:0;flex:1 1 140px}}
 /* GAPE */
 .g-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .g-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:12px}
@@ -455,6 +481,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
     <a class="brand" href="#"><i class="tl-sym-w" role="img" aria-label="Tenda"></i><i class="brand-sep" aria-hidden="true"></i><b>FVs da Obra</b><span>Qualidade · Fichas de Verificação</span></a>
     <nav class="main">
       <a href="#" id="nav-fvs" class="on">FVs</a>
+      <a href="#painel" id="nav-painel">Painel</a>
       <a href="#modelos" id="nav-tpl">Modelos</a>
       <a href="#gape" id="nav-gape">GAPE</a>
       <a href="#equipe" id="nav-team" class="hidden">Equipe</a>
@@ -508,6 +535,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
   <section id="view-fv" class="hidden"></section>
   <section id="view-team" class="hidden"></section>
   <section id="view-gape" class="hidden"></section>
+  <section id="view-painel" class="hidden"></section>
 </main>
 <div class="gate ui" id="gate"><div class="gate-card"><div class="tl-full gate-logo" role="img" aria-label="Tenda"></div><h1>FVs da Obra</h1><div id="gate-body"><p>Carregando…</p></div></div></div>
 <script src="firebase-config.js"></script>
@@ -2554,6 +2582,101 @@ async function exportGapePdf() {
   } finally { root.remove(); btn.disabled = false; btn.textContent = "Baixar PDF"; }
 }
 
+/* ---------- Painel de indicadores (resumo da obra para o gestor) ---------- */
+let pnl = {folder: "", cat: "", dias: 15, sort: "pct"};
+const daysBetween = (a, b) => Math.max(0, Math.floor((b - a) / 864e5));
+function fvAge(fv) {
+  const start = fv.abertura ? new Date(fv.abertura + "T12:00:00") : new Date(fv.createdAt || Date.now());
+  const end = fv.status === "fechada" && fv.fechamento ? new Date(fv.fechamento + "T12:00:00") : new Date();
+  return isNaN(start) ? 0 : daysBetween(start, end);
+}
+function sumStats(list) {
+  const t = {A: 0, R: 0, AR: 0, NA: 0, E: 0, total: 0};
+  list.forEach(f => { const s = stats(f); for (const k in t) t[k] += s[k]; });
+  return t;
+}
+const pctAprov = s => { const base = s.total - s.NA; return base > 0 ? Math.round(100 * (s.A + s.AR) / base) : null; };
+const pctTxt = s => { const p = pctAprov(s); return p === null ? "—" : p + "%"; };
+const barTip = s => `Aprovado ${s.A} · Aprovado após reinspeção ${s.AR} · Reprovado ${s.R} · Não se aplica ${s.NA} · A verificar ${s.E}`;
+const barCell = s => `<div class="pn-bar" title="${barTip(s)}">${barHtml(s)}</div>`;
+function inFolder(fv, fid) { if (!fid) return true; let id = fv.folder || ""; let g = 0; while (id && g++ < 30) { if (id === fid) return true; const f = folders.get(id); id = f ? parentOf(f) : ""; } return false; }
+function renderPainel() {
+  const v = $("#view-painel"); if (!v) return;
+  const all = [...fvs].map(([id, f]) => ({...f, id})).filter(f => !f.deleted);
+  const L = all.filter(f => inFolder(f, pnl.folder) && (!pnl.cat || f.cat === pnl.cat));
+  const tot = sumStats(L), abertas = L.filter(f => f.status !== "fechada"), fechadas = L.length - abertas.length;
+  const velhas = abertas.map(f => ({f, d: fvAge(f)})).filter(x => x.d > pnl.dias).sort((a, b) => b.d - a.d);
+  const reprov = [];
+  L.forEach(f => { const cols = activeCols(f), cells = f.cells || {}; (f.items || []).forEach(it => cols.forEach(([cid, c]) => { if (cells[it.id + "_" + cid] === "R") reprov.push({f, it, col: c.name}); })); });
+  const fvRep = new Set(reprov.map(r => r.f.id)).size;
+  const fOpts = [...folders.keys()].map(id => ({id, p: pathText(id)})).sort((a, b) => a.p.localeCompare(b.p, "pt-BR"));
+  // por pasta (cada pasta soma as subpastas)
+  const rowsPasta = [{id: "", name: "Sem pasta", depth: 0, list: L.filter(f => !f.folder || !folders.has(f.folder))}]
+    .concat(fOpts.filter(o => !pnl.folder || o.id === pnl.folder || inFolder({folder: o.id}, pnl.folder)).map(o => ({id: o.id, name: folders.get(o.id).name, depth: folderPath(o.id).length - 1, path: o.p, list: L.filter(f => inFolder(f, o.id))})))
+    .filter(r => r.list.length);
+  const rowsCat = Object.keys(CATS).map(k => ({k, name: CATS[k], list: L.filter(f => (f.cat || "OUTRO") === k)})).filter(r => r.list.length);
+  const byFv = L.map(f => ({f, s: stats(f), d: fvAge(f)}));
+  const sorters = {pct: (a, b) => (pctAprov(a.s) ?? 101) - (pctAprov(b.s) ?? 101), rep: (a, b) => b.s.R - a.s.R, age: (a, b) => b.d - a.d, code: (a, b) => String(a.f.code).localeCompare(String(b.f.code), "pt-BR", {numeric: true})};
+  byFv.sort(sorters[pnl.sort] || sorters.pct);
+  const fvLink = f => `<a href="#fv-${esc(f.id)}"><b>${esc(f.code || "")}</b> ${esc(f.local || f.title || "")}</a>`;
+  const tblHead = cols => `<thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>`;
+  v.innerHTML = `<div class="page-title"><div><h1>Painel da obra</h1><div class="sub">Resumo das fichas de verificação${pnl.folder ? " · " + esc(pathText(pnl.folder)) : ""}${pnl.cat ? " · " + esc(CATS[pnl.cat]) : ""} · atualizado em ${fmtFull(nowIso())}</div></div>
+      <div class="g-acts noprint"><button class="btn dark" type="button" id="pn-pdf">Baixar PDF</button></div></div>
+    <div class="pn-filters noprint">
+      <label class="fld">Pasta<select id="pn-folder"><option value="">Todas as pastas</option>${fOpts.map(o => `<option value="${esc(o.id)}" ${o.id === pnl.folder ? "selected" : ""}>${esc(o.p)}</option>`).join("")}</select></label>
+      <label class="fld">Categoria<select id="pn-cat"><option value="">Todas</option>${Object.entries(CATS).map(([k, n]) => `<option value="${k}" ${k === pnl.cat ? "selected" : ""}>${esc(n)}</option>`).join("")}</select></label>
+      <label class="fld">FV aberta há mais de<select id="pn-dias">${[7, 15, 30, 60].map(d => `<option value="${d}" ${d === pnl.dias ? "selected" : ""}>${d} dias</option>`).join("")}</select></label>
+    </div>
+    <div class="pn-kpis">
+      <div class="pn-kpi"><span>FVs</span><b>${L.length}</b><small>${abertas.length} abertas · ${fechadas} fechadas</small></div>
+      <div class="pn-kpi ok"><span>Itens aprovados</span><b>${pctTxt(tot)}</b><small>${tot.A + tot.AR} de ${tot.total - tot.NA} aplicáveis</small></div>
+      <div class="pn-kpi"><span>A verificar</span><b>${tot.E}</b><small>${tot.total ? Math.round(100 * tot.E / tot.total) : 0}% das verificações</small></div>
+      <div class="pn-kpi bad"><span>⚠ Reprovações pendentes</span><b>${tot.R}</b><small>em ${fvRep} FV${fvRep === 1 ? "" : "s"}, sem reinspeção</small></div>
+      <div class="pn-kpi"><span>Aprovadas após reinspeção</span><b>${tot.AR}</b><small>itens corrigidos</small></div>
+      <div class="pn-kpi warn"><span>⏱ Abertas há mais de ${pnl.dias} dias</span><b>${velhas.length}</b><small>${velhas.length ? "a mais antiga: " + velhas[0].d + " dias" : "nenhuma"}</small></div>
+    </div>
+    <div class="pn-legend"><span><i style="background:var(--ok)"></i>Aprovado</span><span><i style="background:var(--graphite)"></i>Aprovado após reinspeção</span><span><i style="background:var(--red)"></i>Reprovado</span><span><i style="background:#b5b5b5"></i>Não se aplica</span><span><i style="background:#e9e9e9;border:1px solid #ccc"></i>A verificar</span>
+      <span class="sub" style="margin-left:auto">% aprovado = aprovados (inclui após reinspeção) ÷ itens aplicáveis (sem N/A)</span></div>
+    <div class="pn-grid">
+      <section class="panel pn-sec"><h2>Por pasta</h2>${rowsPasta.length ? `<table class="pn-t">${tblHead(["Pasta", "FVs", "Situação", "% aprov.", "Reprov.", "A verificar"])}<tbody>${rowsPasta.map(r => { const s = sumStats(r.list); return `<tr><td style="padding-left:${8 + r.depth * 14}px">${r.id ? `<a href="#pasta-${esc(r.id)}">${esc(r.name)}</a>` : esc(r.name)}</td><td class="n">${r.list.length}</td><td class="bc">${barCell(s)}</td><td class="n b">${pctTxt(s)}</td><td class="n ${s.R ? "red" : ""}">${s.R}</td><td class="n">${s.E}</td></tr>`; }).join("")}</tbody></table>` : `<div class="sub">Nenhuma FV.</div>`}</section>
+      <section class="panel pn-sec"><h2>Por categoria</h2>${rowsCat.length ? `<table class="pn-t">${tblHead(["Categoria", "FVs", "Situação", "% aprov.", "Reprov.", "A verificar"])}<tbody>${rowsCat.map(r => { const s = sumStats(r.list); return `<tr><td>${esc(r.name)}</td><td class="n">${r.list.length}</td><td class="bc">${barCell(s)}</td><td class="n b">${pctTxt(s)}</td><td class="n ${s.R ? "red" : ""}">${s.R}</td><td class="n">${s.E}</td></tr>`; }).join("")}</tbody></table>` : `<div class="sub">Nenhuma FV.</div>`}</section>
+      <section class="panel pn-sec"><h2>⚠ Reprovações pendentes <span class="pn-c">${reprov.length}</span></h2>${reprov.length ? `<table class="pn-t">${tblHead(["FV", "Item", "Local"])}<tbody>${reprov.slice(0, 60).map(r => `<tr><td>${fvLink(r.f)}</td><td>${esc(r.it.n || "")} ${esc(splitLbl(r.it.t || "")[0].slice(0, 70))}</td><td>${esc(r.col || "")}</td></tr>`).join("")}</tbody></table>${reprov.length > 60 ? `<div class="sub" style="margin-top:6px">+ ${reprov.length - 60} outras. Use o filtro de pasta para ver por partes.</div>` : ""}` : `<div class="pn-okmsg">✓ Nenhuma reprovação pendente.</div>`}</section>
+      <section class="panel pn-sec"><h2>⏱ FVs abertas há mais de ${pnl.dias} dias <span class="pn-c">${velhas.length}</span></h2>${velhas.length ? `<table class="pn-t">${tblHead(["FV", "Pasta", "Aberta há", "% aprov.", "A verificar"])}<tbody>${velhas.slice(0, 40).map(x => { const s = stats(x.f); return `<tr><td>${fvLink(x.f)}</td><td>${esc(pathText(x.f.folder || "") || "—")}</td><td class="n b">${x.d} dias</td><td class="n">${pctTxt(s)}</td><td class="n">${s.E}</td></tr>`; }).join("")}</tbody></table>` : `<div class="pn-okmsg">✓ Nenhuma FV aberta há mais de ${pnl.dias} dias.</div>`}</section>
+    </div>
+    <section class="panel pn-sec pn-wide"><div class="pn-h"><h2>Por FV</h2><label class="fld noprint" style="margin:0">Ordenar<select id="pn-sort"><option value="pct">Menor % aprovado primeiro</option><option value="rep">Mais reprovações</option><option value="age">Aberta há mais tempo</option><option value="code">Código</option></select></label></div>
+      ${byFv.length ? `<table class="pn-t">${tblHead(["FV", "Pasta", "Status", "Situação", "% aprov.", "Reprov.", "A verificar", "Dias"])}<tbody>${byFv.map(x => `<tr><td>${fvLink(x.f)}<div class="sub" style="font-size:11px">${esc(x.f.title || "")}</div></td><td>${esc(pathText(x.f.folder || "") || "—")}</td><td><span class="pn-st ${x.f.status === "fechada" ? "c" : "o"}">${x.f.status === "fechada" ? "Fechada" : "Aberta"}</span></td><td class="bc">${barCell(x.s)}</td><td class="n b">${pctTxt(x.s)}</td><td class="n ${x.s.R ? "red" : ""}">${x.s.R}</td><td class="n">${x.s.E}</td><td class="n">${x.d}</td></tr>`).join("")}</tbody></table>` : `<div class="sub">Nenhuma FV com esses filtros.</div>`}</section>`;
+  $("#pn-sort", v).value = pnl.sort;
+  $("#pn-folder", v).onchange = e => { pnl.folder = e.target.value; renderPainel(); };
+  $("#pn-cat", v).onchange = e => { pnl.cat = e.target.value; renderPainel(); };
+  $("#pn-dias", v).onchange = e => { pnl.dias = +e.target.value; renderPainel(); };
+  $("#pn-sort", v).onchange = e => { pnl.sort = e.target.value; renderPainel(); };
+  $("#pn-pdf", v).onclick = exportPainelPdf;
+}
+async function exportPainelPdf() {
+  const btn = $("#pn-pdf"); btn.disabled = true; btn.textContent = "Gerando PDF…";
+  const root = document.createElement("div"); root.id = "print-root"; root.className = "ui"; document.body.appendChild(root);
+  try {
+    const dl = await claude.use("downloads");
+    await Promise.all([loadScript(LIBS.h2c), loadScript(LIBS.jspdf)]).catch(() => { throw Object.assign(new Error("lib"), {code: "lib"}); });
+    const pg = document.createElement("div"); pg.className = "pn-print"; pg.innerHTML = $("#view-painel").innerHTML; pg.querySelectorAll(".noprint").forEach(e => e.remove());
+    root.appendChild(pg);
+    const {jsPDF} = window.jspdf, pdf = new jsPDF({orientation: "landscape", unit: "mm", format: "a4"});
+    const PW = 297, PH = 210, M = 8, CW = PW - 2 * M, CH = PH - 2 * M;
+    const canvas = await window.html2canvas(pg, {scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: 1280});
+    const pxPerMm = canvas.width / CW, sliceH = Math.floor(CH * pxPerMm);
+    for (let y = 0, i = 0; y < canvas.height; y += sliceH, i++) {
+      const h = Math.min(sliceH, canvas.height - y), part = mkCanvas(canvas.width, h);
+      part.getContext("2d").drawImage(canvas, 0, y, canvas.width, h, 0, 0, canvas.width, h);
+      if (i) pdf.addPage(); pdf.addImage(part.toDataURL("image/jpeg", .92), "JPEG", M, M, CW, h / pxPerMm);
+    }
+    await dl.save({filename: `Painel_FVs_${today()}.pdf`, data: pdf.output("blob")});
+    toast("PDF pronto.");
+  } catch (e) {
+    const c = e && e.code;
+    toast(c === "declined" ? "Download cancelado." : c === "lib" ? "Não foi possível carregar o gerador de PDF. Verifique a internet." : "Não foi possível gerar o PDF.");
+  } finally { root.remove(); btn.disabled = false; btn.textContent = "Baixar PDF"; }
+}
+
 /* ---------- exportar PDF ---------- */
 const LIBS = {h2c: "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js", jspdf: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"};
 const loadScript = src => new Promise((ok, bad) => { if ([...document.scripts].some(s => s.src === src)) return ok(); const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => bad(new Error("lib")); document.head.appendChild(s); });
@@ -2804,18 +2927,21 @@ function shrinkImage(file, maxW, maxLen) {
 }
 /* ---------- rotas e filtros ---------- */
 function route() {
-  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-");
+  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel";
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
   $("#view-team").classList.toggle("hidden", !isTeam);
   $("#nav-team").classList.toggle("on", isTeam);
   if (isTeam) renderTeam();
-  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape);
+  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape || isPainel);
+  $("#view-painel").classList.toggle("hidden", !isPainel);
+  $("#nav-painel").classList.toggle("on", isPainel);
+  if (isPainel) renderPainel();
   $("#view-gape").classList.toggle("hidden", !isGape);
   $("#nav-gape").classList.toggle("on", isGape);
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   $("#view-tpl").classList.toggle("hidden", !isTpl);
   $("#view-fv").classList.toggle("hidden", !isFv);
-  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape);
+  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape && !isPainel);
   $("#nav-tpl").classList.toggle("on", isTpl);
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
@@ -2861,12 +2987,13 @@ async function init() {
     const prevCur = cur ? fvs.get(cur.id) : null;
     fvs = next;
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
-    renderList();
+    renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
     renderList(); if (cur) { const f = fvs.get(cur.id); if (f) renderBar(f); }
+    if (location.hash === "#painel") renderPainel();
   }, () => { foldersLoaded = true; });
   db.collection("gape").onSnapshot(s => {
     gapes = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}]));
