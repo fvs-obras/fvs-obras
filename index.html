@@ -218,6 +218,60 @@ label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-we
 #print-root .tmap-scroll img{width:auto;max-width:100%;max-height:690px;margin:0 auto}
 @media (max-width:760px){#sheet-map .mark-cell,#sheet-map col.c-mark,#sheet-map .c-act{display:none}}
 #sheet-map{min-width:0}
+/* GAPE */
+.g-acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.g-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-top:12px}
+.g-card{display:grid;gap:6px;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px;text-decoration:none;color:inherit;box-shadow:var(--shadow, 0 1px 2px rgba(0,0,0,.05))}
+.g-card:hover{border-color:var(--red)}
+.g-card b{font-size:15px;text-transform:uppercase}
+.g-tag{justify-self:start;font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:#eef2f7;color:#35506e}
+.g-tag.imp{background:var(--red-soft, #fde7e6);color:var(--red)}
+.g-bar{height:6px;border-radius:99px;background:#eee;overflow:hidden}.g-bar i{display:block;height:100%;background:#2e7d32}
+.g-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.g-sheet{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;max-width:900px;margin:0 auto}
+.g-head{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;font-size:13px;padding-bottom:12px;border-bottom:2px solid #222;margin-bottom:6px}
+.g-head label{font-weight:600;color:#444}
+.g-head input{border:0;border-bottom:1px dashed #ccc;border-radius:0;padding:4px 2px;min-height:0;font-size:13px;background:transparent}
+.gi{display:grid;grid-template-columns:34px auto 1fr;gap:14px;padding:16px 0;border-bottom:1px solid #e3e3e3;align-items:start}
+.gi-n{font-size:12px;color:#555;padding-top:6px}
+.gi-ph{display:grid;gap:6px;justify-items:center}
+.gi-img{width:120px;height:200px;border:1px solid #ddd;background:#f6f6f6;display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;border-radius:4px}
+.gi-img.wide{width:300px;height:170px}
+.gi-img img{width:100%;height:100%;object-fit:cover}
+.gi-noimg{font-size:11.5px;color:#888;text-align:center;padding:6px}
+.gi-phb{display:flex;gap:6px}
+.gi-body{display:grid;gap:4px;min-width:0}
+.gi-row{display:flex;gap:8px;align-items:center}
+.gi-l{font-size:12.5px;color:#444;font-weight:600}
+.gi-body input,.gi-body textarea{font-size:13.5px}
+.gi-row input{border:0;border-bottom:1px dashed #ccc;border-radius:0;padding:3px 2px;min-height:0;background:transparent}
+.gi-com{background:repeating-linear-gradient(#fff 0 27px,#cfcfcf 27px 28px);line-height:28px;padding-top:0;padding-bottom:0;border:0;border-top:1px solid #999;border-radius:0;min-height:112px}
+.gi-com:focus{outline:2px solid var(--red);outline-offset:2px}
+.gi-resp{display:grid;gap:4px}
+.gi-rimg{width:180px;height:140px;border:1px solid #ddd;border-radius:4px;overflow:hidden;background:#f6f6f6;display:flex;align-items:center;justify-content:center}
+.gi-rimg img{width:100%;height:100%;object-fit:cover}
+.gi-foot{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:4px}
+.g-add{padding-top:14px;text-align:center}
+.g-lb{position:fixed;inset:0;z-index:75;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
+.g-lb img{max-width:100%;max-height:85vh;object-fit:contain}
+@media (max-width:640px){.gi{grid-template-columns:1fr;gap:8px}.gi-n{padding:0;font-weight:700}.gi-img,.gi-img.wide{width:100%;height:220px}.gi-ph{justify-items:stretch}.g-sheet{padding:14px 12px}}
+.gp-page{width:794px;height:1123px;padding:44px 52px 30px;box-sizing:border-box;background:#fff;color:#111;font-family:Inter,Arial,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
+.gp-head{font-size:9.5px;line-height:1.35;padding-bottom:12px;border-bottom:1px solid #111}
+.gp-head span{display:inline-block;width:72px}
+.gp-body{flex:1;overflow:hidden;min-height:0}
+.gp-it{display:grid;grid-template-columns:30px 100px 1fr;gap:12px;padding:10px 0;align-items:start}
+.gp-it.wide{grid-template-columns:30px 260px 1fr}
+.gp-n{font-size:9px;padding-top:70px}
+.gp-ph img{width:100%;max-height:176px;object-fit:cover;display:block}
+.gp-noimg{height:120px;border:1px dashed #bbb;display:flex;align-items:center;justify-content:center;font-size:9px;color:#888}
+.gp-tx{font-size:11.5px;line-height:1.45;min-width:0}
+.gp-desc{margin-top:6px;white-space:pre-wrap}
+.gp-coml{display:flex;gap:6px;align-items:flex-end;margin-top:8px}.gp-coml b{flex:1;border-bottom:1px solid #888;height:1px;margin-bottom:4px}
+.gp-com{position:relative}
+.gp-rules i{display:block;height:23px;border-bottom:1px solid #aaa}
+.gp-ct{position:absolute;inset:0;line-height:23px;white-space:pre-wrap;font-size:11.5px;color:#0b3d91;padding-top:2px}
+.gp-resp{margin-top:6px;font-size:9.5px;color:#444}.gp-resp img{display:block;max-width:160px;max-height:110px;margin-top:3px;object-fit:cover}
+.gp-foot{display:flex;justify-content:space-between;font-size:8.5px;color:#444;border-top:1px solid #111;padding-top:8px}
 /* Mapeamentos */
 .noscroll{overflow:hidden}
 .maps-head{display:flex;justify-content:flex-end;margin-bottom:10px}
@@ -376,6 +430,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
     <nav class="main">
       <a href="#" id="nav-fvs" class="on">FVs</a>
       <a href="#modelos" id="nav-tpl">Modelos</a>
+      <a href="#gape" id="nav-gape">GAPE</a>
       <a href="#equipe" id="nav-team" class="hidden">Equipe</a>
     </nav>
     <div class="userbox" id="userbox"></div>
@@ -426,6 +481,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
 
   <section id="view-fv" class="hidden"></section>
   <section id="view-team" class="hidden"></section>
+  <section id="view-gape" class="hidden"></section>
 </main>
 <div class="gate ui" id="gate"><div class="gate-card"><div class="tl-full gate-logo" role="img" aria-label="Tenda"></div><h1>FVs da Obra</h1><div id="gate-body"><p>Carregando…</p></div></div></div>
 <script src="firebase-config.js"></script>
@@ -1523,7 +1579,6 @@ function renderMap(fv) {
 }
 
 /* ---------- mapeamentos: plantas com recorte, desenhos e anotações ---------- */
-const PDFJS = {lib: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js", worker: "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"};
 const MCOLORS = [["#e1251b","Vermelho"],["#1565c0","Azul"],["#2e7d32","Verde"],["#f9a825","Amarelo"],["#111111","Preto"],["#ffffff","Branco"]];
 const MTOOLS = [["pan","✋","Mover e dar zoom"],["pen","✏️","Caneta"],["line","╱","Linha"],["arrow","➜","Seta"],["rect","▭","Retângulo"],["ell","◯","Círculo"],["text","T","Texto"],["mk","①","Marcador com nota"],["erase","⌫","Apagar"]];
 const MW = {f: .8, m: 1.6, g: 3.5}, MTXT = {P: 12, M: 18, G: 28};
@@ -1703,8 +1758,8 @@ async function processPlanta(file, prog) {
   let W, H, tileAt, overview;
   if (isPdf) {
     prog("Carregando leitor de PDF…");
-    await loadScript(PDFJS.lib); const L = window.pdfjsLib; L.GlobalWorkerOptions.workerSrc = PDFJS.worker;
-    const pdf = await L.getDocument({data: new Uint8Array(await file.arrayBuffer())}).promise;
+    const L = await loadPdfJs();
+    const pdf = await L.getDocument({data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false}).promise;
     let pn = 1;
     if (pdf.numPages > 1) {
       pn = await modal({title: "Qual página?", body: `<label class="fld">O PDF tem ${pdf.numPages} páginas. Número da página da planta<input type="number" id="pg-n" min="1" max="${pdf.numPages}" value="1"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Usar página", cls: "primary", value: bg => Math.min(pdf.numPages, Math.max(1, parseInt($("#pg-n", bg).value, 10) || 1))}]});
@@ -2012,6 +2067,283 @@ async function openMapEditor(mid) {
   st.refresh = nm => { const changed = nm.img && m.img && nm.img.id !== m.img.id; m = nm; title(); if (changed) loadImg(nm.img.id).then(x => v.setImg(x)).catch(() => {}); else v.draw(); notes(); };
 }
 
+/* ---------- leitor de PDF (pdf.js), usado nas plantas e no GAPE ---------- */
+const PDFJS_V = "6.2.108", PDFJS_BASE = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${PDFJS_V}/legacy/build/`;
+let pdfjsP = null;
+function loadPdfJs() {
+  if (!pdfjsP) pdfjsP = import(PDFJS_BASE + "pdf.min.mjs").then(L => { L.GlobalWorkerOptions.workerSrc = PDFJS_BASE + "pdf.worker.min.mjs"; return L; }).catch(e => { pdfjsP = null; throw e; });
+  return pdfjsP;
+}
+
+/* ---------- GAPE: relatórios (criados no modelo ou importados de PDF) com resposta item a item ---------- */
+let gapes = new Map(), gcur = null;
+const gItems = () => (gcur ? gcur.items : []);
+function gStats(r) { const n = r.nItens || 0, ok = Math.min(n, r.nResp || 0); return {n, ok, pct: n ? Math.round(ok / n * 100) : 0}; }
+function renderGapeList() {
+  const v = $("#view-gape");
+  const L = [...gapes.values()].sort((a, b) => (b.updatedAt || b.createdAt || "").localeCompare(a.updatedAt || a.createdAt || ""));
+  v.innerHTML = `<div class="page-title"><div><h1>GAPE</h1><div class="sub">Relatórios e fichas do GAPE. Crie um relatório no modelo ou importe o PDF recebido para responder item a item.</div></div>
+    ${canWrite ? `<div class="g-acts"><button class="btn" type="button" id="g-imp">Importar PDF do GAPE</button><button class="btn primary" type="button" id="g-new">+ Novo relatório</button></div>` : ""}</div>
+    <input type="file" id="g-file" accept="application/pdf,.pdf" class="hidden"><div id="g-prog"></div>
+    ${L.length ? `<div class="g-grid">${L.map(r => { const s = gStats(r); return `<a class="g-card" href="#gape-${esc(r.id)}">
+        <div class="g-tag ${r.origem === "importado" ? "imp" : ""}">${r.origem === "importado" ? "Recebido do GAPE" : "Criado aqui"}</div>
+        <b>${esc(r.titulo || "Sem título")}</b><div class="sub">${esc(r.local || "Sem localização")}${r.criada ? " · " + esc(r.criada) : ""}</div>
+        <div class="g-bar"><i style="width:${s.pct}%"></i></div><div class="sub" style="font-size:11.5px">${s.ok} de ${s.n} itens com comentário · atualizado por ${who(r.updatedBy || r.createdBy)} em ${fmtFull(r.updatedAt || r.createdAt)}</div></a>`; }).join("")}</div>`
+      : `<div class="empty"><b>Nenhum relatório ainda</b>Use <b>+ Novo relatório</b> para montar um no modelo do GAPE, ou <b>Importar PDF do GAPE</b> para responder a um relatório recebido.</div>`}`;
+  fillNames();
+  if (!canWrite) return;
+  $("#g-new", v).onclick = newGape;
+  $("#g-imp", v).onclick = () => $("#g-file", v).click();
+  $("#g-file", v).onchange = async e => {
+    const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+    const pr = $("#g-prog", v), btns = $$(".g-acts button", v);
+    btns.forEach(b => b.disabled = true);
+    pr.innerHTML = `<div class="banner info">Lendo o PDF…</div>`;
+    try { const rid = await importGapePdf(f, t => { pr.innerHTML = `<div class="banner info">${esc(t)}</div>`; }); location.hash = "gape-" + rid; }
+    catch (err) { pr.innerHTML = `<div class="banner warn">Não foi possível ler esse PDF. ${err && err.message === "lib" ? "Verifique a conexão com a internet." : "Confira se é um relatório com fotos e textos (não uma imagem escaneada)."}</div>`; }
+    finally { btns.forEach(b => b.disabled = false); }
+  };
+}
+const gNow = () => { const d = new Date(); return d.toLocaleString("pt-BR", {weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", year: "numeric"}).replace(/\./g, "."); };
+async function newGape() {
+  const rid = uid("g"), at = nowIso(), base = {titulo: "", local: "", criada: gNow(), origem: "criado", nItens: 1, nResp: 0, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+  await create(`gape/${rid}`, base);
+  await create(`gape/${rid}/itens/${uid("i")}`, {o: 1, criada: gNow(), desc: "", com: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+  gapes.set(rid, {id: rid, ...base});
+  location.hash = "gape-" + rid;
+}
+
+/* leitura do PDF no formato do GAPE (Report & Run): foto + "Criada:" + descrição + "Comentários" por item */
+async function importGapePdf(file, prog) {
+  const L = await loadPdfJs().catch(() => { throw new Error("lib"); });
+  const pdf = await L.getDocument({data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false}).promise;
+  const O = L.OPS, SC = 3, items = [], head = {};
+  const mul = (m, n) => [m[0] * n[0] + m[2] * n[1], m[1] * n[0] + m[3] * n[1], m[0] * n[2] + m[2] * n[3], m[1] * n[2] + m[3] * n[3], m[0] * n[4] + m[2] * n[5] + m[4], m[1] * n[4] + m[3] * n[5] + m[5]];
+  const IMG_OPS = new Set([O.paintImageXObject, O.paintInlineImageXObject, O.paintImageXObjectRepeat].filter(x => x !== undefined));
+  for (let pn = 1; pn <= pdf.numPages; pn++) {
+    prog(`Lendo a página ${pn} de ${pdf.numPages}…`);
+    const page = await pdf.getPage(pn), vp1 = page.getViewport({scale: 1}), H = vp1.height;
+    const ol = await page.getOperatorList();
+    let ctm = [1, 0, 0, 1, 0, 0]; const stk = [], imgs = [];
+    for (let i = 0; i < ol.fnArray.length; i++) {
+      const fn = ol.fnArray[i], a = ol.argsArray[i];
+      if (fn === O.save) stk.push(ctm); else if (fn === O.restore) ctm = stk.pop() || [1, 0, 0, 1, 0, 0];
+      else if (fn === O.transform) ctm = mul(ctm, a);
+      else if (IMG_OPS.has(fn)) {
+        const pts = [[0, 0], [1, 0], [0, 1], [1, 1]].map(([x, y]) => [ctm[0] * x + ctm[2] * y + ctm[4], ctm[1] * x + ctm[3] * y + ctm[5]]);
+        const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]), im = {x0: Math.min(...xs), x1: Math.max(...xs), top: H - Math.max(...ys), bottom: H - Math.min(...ys)};
+        if (im.x1 - im.x0 >= 40 && im.bottom - im.top >= 40 && im.top < H - 60) imgs.push(im);
+      }
+    }
+    const tc = await page.getTextContent();
+    const T = tc.items.filter(t => t.str && t.str.trim()).map(t => ({x: t.transform[4], top: H - t.transform[5], s: t.str.trim()}));
+    if (pn === 1) {
+      const lineVal = re => { const k = T.find(t => t.top < 110 && re.test(t.s)); if (!k) return ""; const rest = k.s.replace(re, "").trim(); if (rest) return rest; const v = T.filter(t => Math.abs(t.top - k.top) < 2 && t.x > k.x).sort((a, b) => a.x - b.x)[0]; return v ? v.s : ""; };
+      head.criada = lineVal(/^Criada:?/i); head.local = lineVal(/^Localiza[cç][aã]o:?/i); head.titulo = lineVal(/^T[ií]tulo:?/i);
+    }
+    imgs.sort((a, b) => a.top - b.top || a.x0 - b.x0);
+    if (!imgs.length) continue;
+    const vp = page.getViewport({scale: SC}), cv = mkCanvas(Math.floor(vp.width), Math.floor(vp.height)), g = cv.getContext("2d");
+    g.fillStyle = "#fff"; g.fillRect(0, 0, cv.width, cv.height);
+    await page.render({canvasContext: g, viewport: vp}).promise;
+    imgs.forEach((im, k) => {
+      const nextTop = imgs.slice(k + 1).find(o => o.top > im.top + 5);
+      const bandTop = im.top - 6, bandBot = nextTop ? nextTop.top - 6 : Math.max(im.bottom + 40, H - 60);
+      const mk = T.find(t => /^\(\d+\)$/.test(t.s) && t.x < im.x0 && t.top >= im.top - 4 && t.top <= im.bottom + 4);
+      const txt = T.filter(t => t.x >= im.x1 - 2 && t.top >= bandTop && t.top < bandBot).sort((a, b) => a.top - b.top || a.x - b.x);
+      const lines = []; txt.forEach(t => { const l = lines[lines.length - 1]; if (l && Math.abs(l.top - t.top) < 2.5) l.s += " " + t.s; else lines.push({top: t.top, s: t.s}); });
+      let criada = "", desc = [], com = [], mode = "pre";
+      for (const l of lines) {
+        if (mode === "pre" && /^Criada:?/i.test(l.s)) { criada = l.s.replace(/^Criada:?\s*/i, ""); mode = "desc"; continue; }
+        if (/^Coment[aá]rios?\b/i.test(l.s)) { mode = "com"; const r = l.s.replace(/^Coment[aá]rios?:?\s*/i, ""); if (r) com.push(r); continue; }
+        if (mode === "com") com.push(l.s); else desc.push(l.s);
+      }
+      const c = mkCanvas(Math.max(1, Math.round((im.x1 - im.x0) * SC)), Math.max(1, Math.round((im.bottom - im.top) * SC)));
+      c.getContext("2d").drawImage(cv, im.x0 * SC, im.top * SC, c.width, c.height, 0, 0, c.width, c.height);
+      items.push({n: mk ? parseInt(mk.s.slice(1), 10) : null, criada, desc: desc.join(" ").replace(/\s+/g, " ").trim(), com: com.join(" ").replace(/\s+/g, " ").trim(), url: toJpeg(c), w: c.width, h: c.height});
+    });
+  }
+  if (!items.length) throw new Error("vazio");
+  prog(`Salvando ${items.length} itens…`);
+  const rid = uid("g"), at = nowIso();
+  const base = {titulo: head.titulo || file.name.replace(/\.pdf$/i, ""), local: head.local || "", criada: head.criada || "", origem: "importado", arquivo: file.name, nItens: items.length, nResp: items.filter(i => i.com).length, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+  await create(`gape/${rid}`, base);
+  items.forEach((it, i) => {
+    const id = it.url ? saveBlob(it.url) : null;
+    create(`gape/${rid}/itens/${uid("i")}${i}`, {o: i + 1, nOrig: it.n || i + 1, criada: it.criada, desc: it.desc, com: it.com, ...(id ? {img: {id, w: it.w, h: it.h}} : {}), createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}).catch(() => {});
+  });
+  gapes.set(rid, {id: rid, ...base});
+  return rid;
+}
+
+/* tela do relatório */
+function openGape(rid) {
+  if (gcur && gcur.id === rid) return renderGape();
+  closeGape();
+  gcur = {id: rid, items: [], unsub: null};
+  $("#view-gape").innerHTML = `<div class="empty">Carregando relatório…</div>`;
+  gcur.unsub = db.collection(`gape/${rid}/itens`).orderBy("o").onSnapshot(s => {
+    if (!gcur || gcur.id !== rid) return;
+    gcur.items = s.docs.map(d => ({id: d.id, ...d.data()}));
+    renderGape(); syncGapeCounts();
+  }, () => { $("#view-gape").innerHTML = `<div class="empty"><b>Não foi possível abrir o relatório.</b></div>`; });
+}
+function closeGape() { if (gcur && gcur.unsub) gcur.unsub(); gcur = null; }
+function syncGapeCounts() {
+  if (!gcur || !canWrite) return; const r = gapes.get(gcur.id); if (!r) return;
+  const n = gcur.items.length, ok = gcur.items.filter(i => String(i.com || "").trim()).length;
+  if (r.nItens !== n || r.nResp !== ok) patch(`gape/${gcur.id}`, {nItens: n, nResp: ok});
+}
+function renderGape() {
+  const v = $("#view-gape"); if (!gcur) return;
+  const r = gapes.get(gcur.id);
+  if (!r) { v.innerHTML = `<div class="empty"><b>Relatório não encontrado.</b><a href="#gape">Voltar aos relatórios</a></div>`; return; }
+  const ro = !canWrite, rid = gcur.id;
+  if (v.dataset.rid !== rid || !$("#g-items", v)) {
+    v.dataset.rid = rid;
+    v.innerHTML = `<a class="back" href="#gape">← Relatórios GAPE</a>
+      <div class="g-top"><div class="g-tag ${r.origem === "importado" ? "imp" : ""}" id="g-orig"></div><div class="g-acts"><button class="btn dark" type="button" id="g-pdf">Baixar PDF</button>${ro ? "" : `<button class="btn ghost danger" type="button" id="g-del">Excluir</button>`}</div></div>
+      <div class="g-sheet"><div class="g-head">
+        <label>Criada:</label><input type="text" data-h="criada" ${ro ? "disabled" : ""}>
+        <label>Localização:</label><input type="text" data-h="local" placeholder="Ex.: PARQUE DOS SONHOS V" ${ro ? "disabled" : ""}>
+        <label>Título:</label><input type="text" data-h="titulo" placeholder="Ex.: Teste de estanqueidade do telhado" ${ro ? "disabled" : ""}>
+        <label>No. Items:</label><div id="g-n"></div></div>
+        <div id="g-items"></div>
+        ${ro ? "" : `<div class="g-add"><button class="btn" type="button" id="g-add">+ Adicionar item</button></div>`}</div>
+      <input type="file" id="g-pic" accept="image/*" class="hidden"><input type="file" id="g-cam" accept="image/*" capture="environment" class="hidden">`;
+    $$("[data-h]", v).forEach(el => gBind(el, () => `gape/${rid}`, el.dataset.h, true));
+    $("#g-pdf", v).onclick = exportGapePdf;
+    if (!ro) {
+      $("#g-add", v).onclick = () => { const o = Math.max(0, ...gItems().map(i => i.o || 0)) + 1, at = nowIso(); create(`gape/${rid}/itens/${uid("i")}`, {o, criada: gNow(), desc: "", com: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); touchGape(); setTimeout(() => { const last = $("#g-items .gi:last-child [data-f=desc]"); if (last) last.focus(); }, 400); };
+      $("#g-del", v).onclick = async () => {
+        if (!(await confirmBox("Excluir relatório?", `O relatório <b>${esc(r.titulo || "sem título")}</b>, com todos os itens, fotos e comentários, será apagado para todos.`, "Excluir", true))) return;
+        try { for (const it of gItems()) { await remove(`gape/${rid}/itens/${it.id}`); [it.img, it.fotoResp].forEach(x => x && x.id && remove(`blobs/${x.id}`).catch(() => {})); } await remove(`gape/${rid}`); gapes.delete(rid); location.hash = "gape"; toast("Relatório excluído."); } catch {}
+      };
+      ["#g-pic", "#g-cam"].forEach(sel => $(sel, v).onchange = async e => {
+        const f = e.target.files[0], tgt = v._picTarget; e.target.value = ""; if (!f || !tgt) return;
+        try { const {url, w, h} = await shrinkImage(f, 1600, 850000), id = saveBlob(url), it = gItems().find(x => x.id === tgt.iid), old = it && it[tgt.field];
+          imgCache.set(id, Promise.resolve(Object.assign(new Image(), {src: url})));
+          patch(`gape/${rid}/itens/${tgt.iid}`, stamp({[tgt.field]: {id, w, h}})); touchGape();
+          if (old && old.id) remove(`blobs/${old.id}`).catch(() => {});
+        } catch { toast("Não foi possível usar essa foto."); }
+      });
+      $("#g-items", v).addEventListener("click", gItemClick);
+    }
+  }
+  $("#g-orig", v).textContent = r.origem === "importado" ? `Recebido do GAPE${r.arquivo ? " · " + r.arquivo : ""}` : "Criado aqui";
+  $$("[data-h]", v).forEach(el => setVal(el, r[el.dataset.h] || ""));
+  $("#g-n", v).textContent = gItems().length;
+  const box = $("#g-items", v);
+  syncRows(box, gItems(), d => {
+    const el = document.createElement("div"); el.className = "gi";
+    el.innerHTML = `<div class="gi-n"></div>
+      <div class="gi-ph"><div class="gi-img" data-pic="img"></div>${ro ? "" : `<div class="gi-phb"><button class="btn sm" type="button" data-shot="img">📷</button><button class="btn sm" type="button" data-gal="img">🖼️</button></div>`}</div>
+      <div class="gi-body">
+        <div class="gi-row"><span class="gi-l">Criada:</span><input type="text" data-f="criada" ${ro ? "disabled" : ""}></div>
+        <textarea data-f="desc" rows="2" placeholder="Descrição do item" ${ro ? "disabled" : ""}></textarea>
+        <div class="gi-l" style="margin-top:6px">Comentários</div>
+        <textarea data-f="com" class="gi-com" rows="3" placeholder="${ro ? "" : "Resposta / tratativa (ex.: corrigido em 30/09, vedação refeita)"}" ${ro ? "disabled" : ""}></textarea>
+        <div class="gi-resp"></div>
+        ${ro ? "" : `<div class="gi-foot"><button class="btn sm ghost" type="button" data-resp>+ Foto da correção</button><span style="flex:1"></span><button class="btn sm ghost" type="button" data-up title="Subir">↑</button><button class="btn sm ghost" type="button" data-down title="Descer">↓</button><button class="btn sm ghost danger" type="button" data-gdel>Excluir item</button></div>`}
+      </div>`;
+    $$("[data-f]", el).forEach(i => gBind(i, () => `gape/${rid}/itens/${d.id}`, i.dataset.f));
+    return el;
+  }, (el, d) => {
+    el.dataset.iid = d.id;
+    $(".gi-n", el).textContent = `(${gItems().indexOf(d) + 1})`;
+    $$("[data-f]", el).forEach(i => setVal(i, d[i.dataset.f] || ""));
+    const pic = $(".gi-img", el), k = d.img && d.img.id ? d.img.id : "";
+    if (pic.dataset.k !== k) {
+      pic.dataset.k = k; pic.classList.toggle("wide", !!(d.img && d.img.w > d.img.h * 1.2));
+      pic.innerHTML = k ? `<span class="mload">…</span>` : `<span class="gi-noimg">${ro ? "Sem foto" : "Toque para<br>adicionar foto"}</span>`;
+      if (k) loadImg(k).then(im => { if (pic.dataset.k === k) pic.innerHTML = `<img src="${im.src}" alt="Foto do item">`; }).catch(() => { if (pic.dataset.k === k) pic.innerHTML = `<span class="gi-noimg">Foto indisponível</span>`; });
+    }
+    const rp = $(".gi-resp", el), rk = d.fotoResp && d.fotoResp.id ? d.fotoResp.id : "";
+    if (rp.dataset.k !== rk) {
+      rp.dataset.k = rk;
+      rp.innerHTML = rk ? `<div class="gi-l">Foto da correção</div><div class="gi-rimg"><span class="mload">…</span></div>${ro ? "" : `<button class="btn sm ghost danger" type="button" data-rmresp>Remover foto da correção</button>`}` : "";
+      if (rk) loadImg(rk).then(im => { if (rp.dataset.k === rk) $(".gi-rimg", rp).innerHTML = `<img src="${im.src}" alt="Foto da correção">`; }).catch(() => {});
+    }
+    const rb = $("[data-resp]", el); if (rb) rb.classList.toggle("hidden", !!rk);
+  });
+  fillNames();
+}
+function touchGape() { if (gcur) patch(`gape/${gcur.id}`, stamp({})); }
+function gBind(el, pathFn, field, isHead) {
+  autosize(el);
+  const save = () => { clearTimeout(el._t); if (!el._dirty) return; el._dirty = false; patch(pathFn(), stamp({[field]: el.value})); if (!isHead) touchGape(); };
+  el.addEventListener("input", () => { el._dirty = true; autosize(el); clearTimeout(el._t); el._t = setTimeout(save, 700); });
+  el.addEventListener("blur", save);
+}
+async function gItemClick(e) {
+  if (!gcur || !canWrite) return;
+  const card = e.target.closest(".gi"); if (!card) return;
+  const iid = card.dataset.iid, rid = gcur.id, L = gItems(), it = L.find(x => x.id === iid); if (!it) return;
+  const v = $("#view-gape"), pick = (field, how) => { v._picTarget = {iid, field}; $(how === "cam" ? "#g-cam" : "#g-pic", v).click(); };
+  const t = e.target.closest("[data-shot],[data-gal],[data-pic],[data-resp],[data-rmresp],[data-up],[data-down],[data-gdel]"); if (!t) return;
+  if (t.dataset.shot) return pick(t.dataset.shot, "cam");
+  if (t.dataset.gal) return pick(t.dataset.gal, "gal");
+  if (t.dataset.pic !== undefined) {
+    if (it.img && it.img.id && $("img", t)) { const im = await loadImg(it.img.id).catch(() => null); if (im) gLightbox(im.src); return; }
+    return (window.matchMedia && matchMedia("(pointer:coarse)").matches) ? modal({title: "Foto do item", body: `<p class="sub" style="margin:0">Tirar a foto agora ou escolher da galeria?</p>`, actions: [{label: "Cancelar", value: null}, {label: "🖼️ Da galeria", value: () => pick("img", "gal")}, {label: "📷 Tirar foto", cls: "primary", value: () => pick("img", "cam")}]}) : pick("img", "gal");
+  }
+  if (t.dataset.resp !== undefined) return (window.matchMedia && matchMedia("(pointer:coarse)").matches) ? modal({title: "Foto da correção", body: `<p class="sub" style="margin:0">Tirar a foto agora ou escolher da galeria?</p>`, actions: [{label: "Cancelar", value: null}, {label: "🖼️ Da galeria", value: () => pick("fotoResp", "gal")}, {label: "📷 Tirar foto", cls: "primary", value: () => pick("fotoResp", "cam")}]}) : pick("fotoResp", "gal");
+  if (t.dataset.rmresp !== undefined) { const old = it.fotoResp; patch(`gape/${rid}/itens/${iid}`, stamp({fotoResp: null})); touchGape(); if (old && old.id) remove(`blobs/${old.id}`).catch(() => {}); return; }
+  if (t.dataset.up !== undefined || t.dataset.down !== undefined) {
+    const i = L.indexOf(it), j = t.dataset.up !== undefined ? i - 1 : i + 1; if (j < 0 || j >= L.length) return;
+    const other = L[j]; patch(`gape/${rid}/itens/${iid}`, {o: other.o}); patch(`gape/${rid}/itens/${other.id}`, {o: it.o}); touchGape(); return;
+  }
+  if (t.dataset.gdel !== undefined) {
+    if (!(await confirmBox("Excluir item?", "O item, a foto e o comentário serão apagados para todos.", "Excluir", true))) return;
+    try { await remove(`gape/${rid}/itens/${iid}`); [it.img, it.fotoResp].forEach(x => x && x.id && remove(`blobs/${x.id}`).catch(() => {})); touchGape(); } catch {}
+  }
+}
+function gLightbox(src) {
+  const bg = document.createElement("div"); bg.className = "g-lb"; bg.innerHTML = `<img src="${src}" alt=""><button class="btn sm" type="button">Fechar</button>`;
+  bg.onclick = () => bg.remove(); document.body.appendChild(bg);
+}
+
+/* PDF no mesmo formato do relatório do GAPE (A4 em pé, itens com foto, descrição e comentários) */
+async function exportGapePdf() {
+  if (!gcur) return; const r = gapes.get(gcur.id); if (!r) return;
+  const btn = $("#g-pdf"); btn.disabled = true; btn.textContent = "Gerando PDF…";
+  const root = document.createElement("div"); root.id = "print-root"; root.className = "ui"; document.body.appendChild(root);
+  try {
+    const dl = await claude.use("downloads");
+    await Promise.all([loadScript(LIBS.h2c), loadScript(LIBS.jspdf)]).catch(() => { throw Object.assign(new Error("lib"), {code: "lib"}); });
+    const L = gItems(), srcs = await Promise.all(L.map(async it => [it.img && it.img.id ? (await loadImg(it.img.id).catch(() => null))?.src : "", it.fotoResp && it.fotoResp.id ? (await loadImg(it.fotoResp.id).catch(() => null))?.src : ""]));
+    const headHtml = `<div class="gp-head"><div><span>Criada:</span>${esc(r.criada || "")}</div><div><span>Localização:</span>${esc(r.local || "")}</div><div><span>Título:</span>${esc(r.titulo || "")}</div><div><span>No. Items:</span>${L.length}</div></div>`;
+    const rules = n => Array.from({length: n}, () => `<i></i>`).join("");
+    const itemHtml = (it, i) => {
+      const [src, rsrc] = srcs[i], com = String(it.com || "").trim(), nLines = Math.max(5, Math.ceil(com.length / 62) + com.split("\n").length);
+      return `<div class="gp-it${it.img && it.img.w > it.img.h * 1.2 ? " wide" : ""}"><div class="gp-n">(${i + 1})</div><div class="gp-ph">${src ? `<img src="${src}" alt="">` : `<div class="gp-noimg">sem foto</div>`}</div>
+        <div class="gp-tx"><div>Criada:&nbsp; ${esc(it.criada || "")}</div><div class="gp-desc">${esc(it.desc || "")}</div>
+          <div class="gp-coml"><span>Comentários</span><b></b></div><div class="gp-com"><div class="gp-rules">${rules(nLines)}</div><div class="gp-ct">${esc(com)}</div></div>
+          ${rsrc ? `<div class="gp-resp"><span>Foto da correção</span><img src="${rsrc}" alt=""></div>` : ""}</div></div>`;
+    };
+    const pages = [], newPage = () => { const p = document.createElement("div"); p.className = "gp-page"; p.innerHTML = headHtml + `<div class="gp-body"></div><div class="gp-foot"><div>Gerado pelo Sistema de FVs · ${esc(fmtFull(nowIso()))}${r.origem === "importado" ? " · resposta ao relatório do GAPE" : ""}</div><div class="gp-pg"></div></div>`; root.appendChild(p); pages.push(p); return p; };
+    let pg = newPage();
+    for (let i = 0; i < L.length; i++) {
+      const body = $(".gp-body", pg); body.insertAdjacentHTML("beforeend", itemHtml(L[i], i));
+      await Promise.all($$("img", body.lastElementChild).map(im => im.decode ? im.decode().catch(() => {}) : null));
+      if (body.scrollHeight > body.clientHeight + 1 && body.children.length > 1) { const last = body.lastElementChild; pg = newPage(); $(".gp-body", pg).appendChild(last); }
+    }
+    pages.forEach((p, i) => { $(".gp-pg", p).textContent = `página ${i + 1} de ${pages.length}`; });
+    const {jsPDF} = window.jspdf, pdf = new jsPDF({orientation: "portrait", unit: "mm", format: "a4"});
+    for (let i = 0; i < pages.length; i++) {
+      btn.textContent = `Gerando PDF… ${i + 1}/${pages.length}`;
+      const c = await window.html2canvas(pages[i], {scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: 1280});
+      if (i) pdf.addPage(); pdf.addImage(c.toDataURL("image/jpeg", .9), "JPEG", 0, 0, 210, 297);
+    }
+    const safe = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9-]+/g, "_").replace(/^_|_$/g, "");
+    await dl.save({filename: `GAPE_${safe(r.titulo) || "relatorio"}_${today()}.pdf`, data: pdf.output("blob")});
+    toast("PDF pronto.");
+  } catch (e) {
+    const c = e && e.code;
+    toast(c === "declined" ? "Download cancelado." : c === "lib" ? "Não foi possível carregar o gerador de PDF. Verifique a internet." : "Não foi possível gerar o PDF.");
+  } finally { root.remove(); btn.disabled = false; btn.textContent = "Baixar PDF"; }
+}
+
 /* ---------- exportar PDF ---------- */
 const LIBS = {h2c: "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js", jspdf: "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"};
 const loadScript = src => new Promise((ok, bad) => { if ([...document.scripts].some(s => s.src === src)) return ok(); const s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = () => bad(new Error("lib")); document.head.appendChild(s); });
@@ -2262,15 +2594,18 @@ function shrinkImage(file, maxW, maxLen) {
 }
 /* ---------- rotas e filtros ---------- */
 function route() {
-  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe";
+  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-");
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
   $("#view-team").classList.toggle("hidden", !isTeam);
   $("#nav-team").classList.toggle("on", isTeam);
   if (isTeam) renderTeam();
-  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam);
+  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape);
+  $("#view-gape").classList.toggle("hidden", !isGape);
+  $("#nav-gape").classList.toggle("on", isGape);
+  if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   $("#view-tpl").classList.toggle("hidden", !isTpl);
   $("#view-fv").classList.toggle("hidden", !isFv);
-  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam);
+  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape);
   $("#nav-tpl").classList.toggle("on", isTpl);
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
@@ -2323,6 +2658,11 @@ async function init() {
     folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
     renderList(); if (cur) { const f = fvs.get(cur.id); if (f) renderBar(f); }
   }, () => { foldersLoaded = true; });
+  db.collection("gape").onSnapshot(s => {
+    gapes = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}]));
+    const h = location.hash.replace(/^#/, "");
+    if (h === "gape") renderGapeList(); else if (h.startsWith("gape-") && gcur) renderGape();
+  }, () => {});
   db.collection("plantas").onSnapshot(s => { plantas = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}])); }, () => {});
   db.doc("library/docs").onSnapshot(s => { docLib = (s.exists && s.data().list) || []; if (cur) renderSub("docs"); }, () => {});
   db.doc("library/mapa").onSnapshot(s => { mapa = (s.exists && s.data()) || null; if (cur) { const f = fvs.get(cur.id); if (f) renderMap(f); } if (location.hash === "#equipe") renderMapPanel(); }, () => {});

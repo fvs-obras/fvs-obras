@@ -147,6 +147,12 @@ async function exportAll({ files = true, onProgress = () => {} } = {}) {
     put(`fvs/${f.id}`, f.data());
     for (const sub of SUBS) (await getDocs(collection(fs, "fvs", f.id, sub))).forEach(d => put(`fvs/${f.id}/${sub}/${d.id}`, d.data()));
   }
+  const gSnap = await getDocs(collection(fs, "gape")); i = 0;
+  for (const g of gSnap.docs) {
+    onProgress(`Lendo relatórios GAPE… ${++i}/${gSnap.size}`);
+    put(`gape/${g.id}`, g.data());
+    (await getDocs(collection(fs, "gape", g.id, "itens"))).forEach(d => put(`gape/${g.id}/itens/${d.id}`, d.data()));
+  }
   if (files) { onProgress("Lendo fotos e arquivos…"); (await getDocs(collection(fs, "blobs"))).forEach(d => put(`blobs/${d.id}`, d.data())); }
   return out;
 }
