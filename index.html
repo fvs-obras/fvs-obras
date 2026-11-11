@@ -165,7 +165,23 @@ label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-we
 .prob-tbl th{font-weight:400;font-size:10.5px;text-align:center;background:var(--fill)}
 .prob-tbl th .req{float:right;font-weight:700}
 .prob-tbl td{padding:0 6px}
-.prob-tbl td.x{border:0!important;width:26px;padding:0 0 0 4px;background:#fff}
+.prob-tbl td.x{border:0!important;width:34px;padding:0 0 0 4px;background:#fff}
+td.x .rph{display:block;border:0;background:none;color:#555;font-size:13px;padding:2px 2px;border-radius:4px;line-height:1.1;cursor:pointer;white-space:nowrap}
+td.x .rph b{font-size:10px;color:#fff;background:var(--red);border-radius:8px;padding:0 4px;margin-left:1px;vertical-align:1px}
+td.x .rph:hover{background:#f1f1f1}
+.plk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.plk{position:relative;display:grid;gap:3px}
+.plk-img{padding:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#f3f3f3;aspect-ratio:1;cursor:pointer;width:100%}
+.plk-img img{width:100%;height:100%;object-fit:cover;display:block}
+.plk-x{position:absolute;top:4px;right:4px;width:26px;height:26px;border-radius:50%;border:0;background:rgba(0,0,0,.65);color:#fff;font-size:12px;cursor:pointer}
+.plk-cap{font-size:11px;color:var(--muted);line-height:1.25}
+.plk-acts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 8px}
+.ph-links{display:flex;gap:4px;flex-wrap:wrap}
+.ph-links span{font-size:10.5px;background:#eef2f7;color:#35506e;border-radius:99px;padding:2px 8px}
+.mthumbs{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle;flex-wrap:wrap}
+.mthumbs img{width:40px;height:40px;object-fit:cover;border-radius:4px;border:1px solid #ccc;cursor:pointer}
+.mph{border:0;background:#f1f1f1;border-radius:6px;padding:1px 6px;font-size:12px;cursor:pointer;margin-left:auto;white-space:nowrap;color:#333}
+.mph b{font-size:10px;color:#fff;background:var(--red);border-radius:8px;padding:0 4px;margin-left:2px}
 .prob-tbl td.x button{border:0;background:none;color:#a0a0a0;font-size:13px;padding:2px 4px;border-radius:4px}
 .prob-tbl td.x button:hover{color:var(--bad);background:var(--bad-soft)}
 .prob-tbl select{text-align-last:center}
@@ -395,7 +411,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
 .modal h2{font-size:20px;text-transform:uppercase}
 .modal .acts{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
 .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:85;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px}
 .lightbox img{max-width:100%;max-height:78vh}
 .lightbox .cap{color:#fff;max-width:760px;font-size:13px;text-align:center;white-space:pre-wrap}
 .lightbox .btn{position:absolute;top:12px;right:12px}
@@ -990,6 +1006,7 @@ function renderSub(key) {
   else if (key === "photos") { $("#n-photos").textContent = cur.photos.length; renderPhotos(fv); renderChk(fv); }
   else if (key === "docs") { $("#n-docs").textContent = cur.docs.length; renderDocs(fv); }
   else if (key === "log") renderLog();
+  if (key === "photos") { if (photoLinkUI) photoLinkUI.refresh(); renderPda(fv); renderProbRows(fv, "fv"); renderProbRows(fv, "f007"); renderMaps(fv); if (medState && medState.notes) medState.notes(); }
   else if (key === "maps") { renderMaps(fv); if (medState && medState.fid === cur.id && medState.refresh) { const m = cur.maps.find(x => x.id === medState.mid); if (m) medState.refresh(m); } }
 }
 
@@ -1069,7 +1086,7 @@ function renderSheet(fv) {
       <table class="blk legend-row"><tr><td id="fv-legend"></td></tr></table>
       <table class="blk hidden" id="fv-almox"><colgroup><col style="width:12%"><col style="width:30%"><col></colgroup><tr style="height:28px"><td style="text-align:right">ALMOXARIFE</td><td class="fill"><input type="text" data-hf="almoxarife" aria-label="Almoxarife"></td><td class="nob"></td></tr></table>
       <div id="fv-chk"></div>
-      <table class="blk prob-tbl" id="fv-prob"><colgroup><col style="width:13%"><col style="width:33%"><col><col style="width:26px"></colgroup>
+      <table class="blk prob-tbl" id="fv-prob"><colgroup><col style="width:13%"><col style="width:33%"><col><col style="width:34px"></colgroup>
         <thead><tr><th>ITEM</th><th>PROBLEMA IDENTIFICADO</th><th style="text-align:left">SOLUÇÃO &gt; DESCRIÇÃO/REGISTRO DA AÇÃO PARA REPARO <span class="req">&gt; PREENCHIMENTO OBRIGATÓRIO!</span></th><th class="nob" style="background:#fff"></th></tr></thead><tbody></tbody></table>
       ${dadosBlock()}
     </div></div>
@@ -1198,8 +1215,9 @@ function probRowFactory(fv, sheet) {
   const id = cur.id, label = sheet === "fv" ? "um problema na FV" : "uma observação F.007";
   return () => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td class="fill"><select data-f="item" aria-label="Item">${itemOpts(fv)}</select></td><td class="fill"><textarea data-f="problema" rows="1" aria-label="Problema identificado"></textarea></td><td class="fill"><textarea data-f="solucao" rows="1" aria-label="Solução"></textarea></td><td class="x"><button type="button" data-del title="Apagar linha" aria-label="Apagar linha">✕</button></td>`;
+    tr.innerHTML = `<td class="fill"><select data-f="item" aria-label="Item">${itemOpts(fv)}</select></td><td class="fill"><textarea data-f="problema" rows="1" aria-label="Problema identificado"></textarea></td><td class="fill"><textarea data-f="solucao" rows="1" aria-label="Solução"></textarea></td><td class="x"><button type="button" data-photos class="rph" aria-label="Fotos do problema"></button><button type="button" data-del title="Apagar linha" aria-label="Apagar linha">✕</button></td>`;
     bindLazyRow(tr, `fvs/${id}/obs`, id, () => ({sheet, item: "", problema: "", solucao: ""}), label);
+    wireRowPhoto(tr, "obs", () => ({item: $("[data-f=item]", tr).value || "", local: fv.local || ""}));
     $("[data-del]", tr).onclick = async () => {
       if (!tr.dataset.id) return;
       if (await confirmBox("Apagar linha?", "O problema e a solução desta linha serão apagados para todos.", "Apagar", true)) { await remove(`fvs/${id}/obs/${tr.dataset.id}`).catch(()=>{}); touchFv(id, "Apagou uma linha de problema"); }
@@ -1215,6 +1233,7 @@ function probRowUpdate(fv) {
     if (d) { setVal(sel, d.item || ""); setVal($("[data-f=problema]", tr), d.problema); setVal($("[data-f=solucao]", tr), d.solucao); }
     $$("[data-f]", tr).forEach(el => el.disabled = lk);
     const del = $("[data-del]", tr); del.style.visibility = d && !lk ? "visible" : "hidden";
+    syncRowPhoto(tr, "obs", d, lk);
     tr.title = d ? `Criado por ${names.get(d.createdBy) || "…"} em ${fmtFull(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editado por ${names.get(d.updatedBy) || "…"} em ${fmtFull(d.updatedAt)}` : ""}` : "";
   };
 }
@@ -1234,7 +1253,7 @@ function renderF007(fv) {
     box.innerHTML = `<div class="sheet-wrap"><div class="sheet" id="sheet-f007">
       <table id="f007-title"></table>
       ${obraBlock("f007")}
-      <table class="blk prob-tbl" id="f007-prob"><colgroup><col style="width:10.5%"><col style="width:37%"><col><col style="width:26px"></colgroup>
+      <table class="blk prob-tbl" id="f007-prob"><colgroup><col style="width:10.5%"><col style="width:37%"><col><col style="width:34px"></colgroup>
         <thead><tr><th>ITEM</th><th>PROBLEMA IDENTIFICADO</th><th style="text-align:left">SOLUÇÃO &gt; DESCRIÇÃO/REGISTRO DA AÇÃO PARA REPARO <span class="req">&gt; PREENCHIMENTO OBRIGATÓRIO!</span></th><th class="nob" style="background:#fff"></th></tr></thead><tbody></tbody></table>
       ${dadosBlock()}
     </div></div>
@@ -1260,7 +1279,7 @@ function renderPda(fv) {
         <td class="pda-title">PDA &nbsp;|&nbsp; PLANO DE AÇÃO ↓</td>
         <td style="background:#fff;color:var(--pda)"><div class="pdca-legend"><span style="font-size:6.5px;align-self:center;margin-right:2px">LEGENDA<br>PARA STATUS:</span>${["PLAN","EXEC","VERIF","PADR"].map(k => `<span>${pdcaSvg(k, 18)}${PDCA_NAME[k]}</span>`).join("")}</div></td></tr></table>
       <table class="pda-sub"><tr><td style="text-align:center">CASO OS TOPS PRIORIZADOS NO DIA ANTERIOR NÃO TENHAM SIDO SOLUCIONADOS, DEVEM SER PASSADO PARA O PDA, SENDO MONITORADOS DIARIAMENTE:</td><td style="width:250px;text-align:right">CÓD: <b>F.013-GEX</b> &nbsp; REVISÃO: <b>R0</b> &nbsp; DATA: <b>18/03/2026</b></td></tr></table>
-      <table class="pda-tbl" id="pda-tbl"><colgroup><col style="width:8%"><col style="width:9%"><col style="width:27%"><col style="width:27%"><col style="width:8%"><col style="width:9%"><col style="width:9%"><col style="width:26px"></colgroup>
+      <table class="pda-tbl" id="pda-tbl"><colgroup><col style="width:8%"><col style="width:9%"><col style="width:27%"><col style="width:27%"><col style="width:8%"><col style="width:9%"><col style="width:9%"><col style="width:34px"></colgroup>
         <thead><tr><th>DATA</th><th>RESPONSÁVEL</th><th>PROBLEMA</th><th>AÇÃO</th><th>SUPORTE</th><th>STATUS</th><th>PRAZO</th><th class="nob" style="background:#fff"></th></tr></thead><tbody></tbody></table>
     </div></div>
     <p class="hint">Toque no círculo de STATUS para avançar: Planejamento → Execução → Verificação → Padronização. Prazos vencidos ficam em vermelho.</p>`;
@@ -1275,8 +1294,9 @@ function renderPda(fv) {
   const tb = $("#pda-tbl tbody", box);
   const make = () => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td class="fill"><input type="date" data-f="data" aria-label="Data"></td><td class="fill"><textarea data-f="responsavel" rows="2" aria-label="Responsável"></textarea></td><td class="fill"><textarea data-f="problema" rows="3" aria-label="Problema"></textarea></td><td class="fill"><textarea data-f="acao" rows="3" aria-label="Ação"></textarea></td><td class="fill"><textarea data-f="suporte" rows="2" aria-label="Suporte"></textarea></td><td class="st"><button type="button" class="pdca" data-v="" aria-label="Status">${pdcaSvg("")}</button></td><td class="fill pz"><input type="date" data-f="prazo" aria-label="Prazo"></td><td class="x" style="border:0;background:#fff;vertical-align:middle"><button type="button" data-del title="Apagar ação" aria-label="Apagar ação" style="border:0;background:none;color:#a0a0a0">✕</button></td>`;
+    tr.innerHTML = `<td class="fill"><input type="date" data-f="data" aria-label="Data"></td><td class="fill"><textarea data-f="responsavel" rows="2" aria-label="Responsável"></textarea></td><td class="fill"><textarea data-f="problema" rows="3" aria-label="Problema"></textarea></td><td class="fill"><textarea data-f="acao" rows="3" aria-label="Ação"></textarea></td><td class="fill"><textarea data-f="suporte" rows="2" aria-label="Suporte"></textarea></td><td class="st"><button type="button" class="pdca" data-v="" aria-label="Status">${pdcaSvg("")}</button></td><td class="fill pz"><input type="date" data-f="prazo" aria-label="Prazo"></td><td class="x" style="border:0;background:#fff;vertical-align:middle"><button type="button" data-photos class="rph" aria-label="Fotos da ação"></button><button type="button" data-del title="Apagar ação" aria-label="Apagar ação" style="border:0;background:none;color:#a0a0a0">✕</button></td>`;
     bindLazyRow(tr, `fvs/${id}/pda`, id, () => ({data: today(), responsavel: "", problema: "", acao: "", suporte: "", status: "", prazo: ""}), "uma ação no PDA");
+    wireRowPhoto(tr, "pda", () => ({local: fv.local || ""}));
     $("[data-del]", tr).onclick = async () => {
       if (!tr.dataset.id) return;
       if (await confirmBox("Apagar ação do PDA?", "Essa linha do PDA será apagada para todos.", "Apagar", true)) { await remove(`fvs/${id}/pda/${tr.dataset.id}`).catch(()=>{}); touchFv(id, "Apagou uma ação do PDA"); }
@@ -1290,6 +1310,7 @@ function renderPda(fv) {
     st.title = PDCA_NAME[v]; st.disabled = lk;
     $$("[data-f]", tr).forEach(el => el.disabled = lk);
     $("[data-del]", tr).style.visibility = d && !lk ? "visible" : "hidden";
+    syncRowPhoto(tr, "pda", d, lk);
     tr.classList.toggle("late", !!(d && d.prazo && d.prazo < t && v !== "PADR"));
     tr.title = d ? `Criado por ${names.get(d.createdBy) || "…"} em ${fmtFull(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editado por ${names.get(d.updatedBy) || "…"} em ${fmtFull(d.updatedAt)}` : ""}` : "";
   };
@@ -1484,6 +1505,7 @@ function renderPhotos(fv) {
       <div class="body">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><label class="fld">Item<select data-f="item"></select></label><label class="fld">Local<input type="text" data-f="local" list="pdl-${esc(d.id)}"><datalist id="pdl-${esc(d.id)}"></datalist></label></div>
         <label class="fld">Anotações<textarea data-f="nota" placeholder="O que a foto mostra, medidas, problema encontrado…"></textarea></label>
+        <div class="ph-links"></div>
         <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;color:var(--muted);flex-wrap:wrap;align-items:center"><span data-foot></span><button class="btn sm ghost danger" data-del type="button">Excluir</button></div>
       </div>`;
     const path = `fvs/${id}/photos/${d.id}`, lbl = {item:"item", local:"local", nota:"anotação"};
@@ -1504,6 +1526,7 @@ function renderPhotos(fv) {
     setVal($("[data-f=local]", el), d.local); setVal($("[data-f=nota]", el), d.nota);
     $$("[data-f]", el).forEach(i => i.disabled = lk);
     $("[data-del]", el).disabled = lk;
+    $(".ph-links", el).innerHTML = photoLinks(d).map(l => `<span>📎 ${esc(l)}</span>`).join("");
     $("[data-foot]", el).innerHTML = `Enviada por ${who(d.createdBy)} ${fmtWhen(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editada por ${who(d.updatedBy)} ${fmtWhen(d.updatedAt)}` : ""}`;
   });
   fillNames();
@@ -1537,7 +1560,7 @@ async function uploadPhotos(files, ctx) {
       const blob = await compress(f);
       if (blob.size > 20 * 1024 * 1024) { toast(`${f.name}: arquivo grande demais (máx. 20 MB).`); continue; }
       const a = await assets.upload(blob), at = nowIso();
-      await create(`fvs/${id}/photos/${uid("ph")}`, {assetId: a.id, url: a.url || "", item: ctx.item || "", local: ctx.local || "", nota: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+      await create(`fvs/${id}/photos/${uid("ph")}`, {assetId: a.id, url: a.url || "", item: ctx.item || "", local: ctx.local || "", nota: "", ...(ctx.links ? {links: ctx.links} : {}), createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
       ok++;
     } catch { toast("Não foi possível enviar uma das fotos. Tente de novo."); }
   }
@@ -1553,6 +1576,74 @@ function lightbox(pid) {
   lb.onclick = e => { if (e.target === lb || e.target.closest(".btn")) close(); };
   document.addEventListener("keydown", k); document.body.appendChild(lb); $(".btn", lb).focus();
   mediaSrc(p).then(src => { const im = $("img", lb); if (im && src) im.src = src; });
+}
+
+
+/* ===== Fotos ligadas a linhas do PDA, da ficha/F.007 e a marcadores do mapeamento ===== */
+let photoLinkUI = null;
+const linkedPhotos = key => (cur ? cur.photos.filter(p => p.links && p.links[key]) : []);
+function linkLabel(key) {
+  if (!cur) return "";
+  const [k, a, b] = key.split(":");
+  if (k === "pda") { const r = cur.pda.find(x => x.id === a); return r ? `PDA: ${String(r.problema || r.acao || "ação").slice(0, 50)}` : ""; }
+  if (k === "obs") { const r = cur.obs.find(x => x.id === a); return r ? `${(r.sheet || "fv") === "fv" ? "Ficha" : "F.007"}: ${String(r.problema || "problema").slice(0, 50)}` : ""; }
+  if (k === "mk") { const m = cur.maps.find(x => x.id === a), sh = m && m.shapes && m.shapes[b]; return m && sh && !sh.del ? `${m.title || "Mapeamento"} · marcador ${sh.n}${sh.txt ? " – " + String(sh.txt).slice(0, 40) : ""}` : ""; }
+  return "";
+}
+const photoLinks = p => Object.entries(p.links || {}).filter(([, v]) => v).map(([k]) => linkLabel(k)).filter(Boolean);
+function photoBtnHtml(key) { const n = linkedPhotos(key).length; return `📷${n ? `<b>${n}</b>` : ""}`; }
+/* janela "Fotos do item": ver, tirar, escolher da galeria ou da aba Fotos, e desvincular */
+function openPhotoLinks(key, title, ctx = {}, editable = canWrite) {
+  if (!cur) return;
+  const fid = cur.id;
+  let showPick = false;
+  const draw = bg => {
+    if (!cur || cur.id !== fid) return;
+    const L = linkedPhotos(key), others = cur.photos.filter(p => !(p.links && p.links[key]));
+    $("#pl-linked", bg).innerHTML = L.length ? L.map(p => `<div class="plk"><button type="button" class="plk-img" data-view="${esc(p.id)}"><img alt="" data-ph="${esc(p.id)}"></button>${editable ? `<button type="button" class="plk-x" data-unlink="${esc(p.id)}" title="Desvincular" aria-label="Desvincular foto">✕</button>` : ""}${p.nota ? `<div class="plk-cap">${esc(p.nota.slice(0, 60))}</div>` : ""}</div>`).join("")
+      : `<div class="sub" style="padding:10px 0">Nenhuma foto anexada ainda.</div>`;
+    const pk = $("#pl-pick", bg);
+    pk.classList.toggle("hidden", !showPick);
+    if (showPick) pk.innerHTML = others.length ? `<div class="sub" style="margin-bottom:6px">Toque numa foto para anexar:</div><div class="plk-grid">${others.map(p => `<button type="button" class="plk-img" data-link="${esc(p.id)}"><img alt="" data-ph="${esc(p.id)}"></button>`).join("")}</div>` : `<div class="sub">Não há outras fotos nesta FV.</div>`;
+    $$("img[data-ph]", bg).forEach(im => { const ph = cur.photos.find(x => x.id === im.dataset.ph); if (ph) mediaSrc(ph).then(src => { if (src) im.src = src; }); });
+    const tg = $("#pl-toggle", bg); if (tg) tg.textContent = showPick ? "Fechar lista da aba Fotos" : "Escolher da aba Fotos";
+  };
+  modal({title, wide: true, body: `<div class="plk-grid" id="pl-linked"></div>
+      ${editable ? `<div class="plk-acts"><button class="btn primary" type="button" id="pl-cam">📷 Tirar foto</button><button class="btn" type="button" id="pl-gal">🖼️ Da galeria</button><button class="btn" type="button" id="pl-toggle"></button></div>` : ""}
+      <div id="pl-pick" class="hidden"></div>`,
+    onOpen: bg => {
+      photoLinkUI = {key, refresh: () => draw(bg)};
+      draw(bg);
+      const c = {...ctx, links: {[key]: true}};
+      if (editable) {
+        $("#pl-cam", bg).onclick = () => pickPhotos(c, "cam");
+        $("#pl-gal", bg).onclick = () => pickPhotos(c, "gal");
+        $("#pl-toggle", bg).onclick = () => { showPick = !showPick; draw(bg); };
+      }
+      bg.addEventListener("click", e => {
+        const v = e.target.closest("[data-view]"); if (v) { lightbox(v.dataset.view); return; }
+        const u = e.target.closest("[data-unlink]"); if (u) { patch(`fvs/${fid}/photos/${u.dataset.unlink}`, stamp({links: {[key]: false}})); touchFv(fid, "Desvinculou uma foto"); return; }
+        const l = e.target.closest("[data-link]"); if (l) { patch(`fvs/${fid}/photos/${l.dataset.link}`, stamp({links: {[key]: true}})); touchFv(fid, "Anexou uma foto"); }
+      });
+    },
+    actions: [{label: "Fechar", cls: "primary", value: null}]}).then(() => { photoLinkUI = null; });
+}
+/* botão 📷 das linhas de tabela (PDA, ficha e F.007) */
+function wireRowPhoto(tr, kind, ctxFn) {
+  const b = $("[data-photos]", tr); if (!b) return;
+  b.onclick = async () => {
+    if (!tr.dataset.id) { if (!canWrite) return; tr._ensure(kind === "pda" ? "data" : "problema", kind === "pda" ? today() : ""); }
+    await tr._ready;
+    if (!tr.dataset.id) return;
+    openPhotoLinks(`${kind}:${tr.dataset.id}`, kind === "pda" ? "Fotos da ação do PDA" : "Fotos do problema", ctxFn ? ctxFn() : {}, canWrite);
+  };
+}
+function syncRowPhoto(tr, kind, d, lk) {
+  const b = $("[data-photos]", tr); if (!b) return;
+  const key = d ? `${kind}:${d.id}` : "", n = d ? linkedPhotos(key).length : 0;
+  b.innerHTML = photoBtnHtml(key || "-");
+  b.style.visibility = n || (canWrite && !lk) ? "visible" : "hidden";
+  b.title = n ? `${n} foto${n > 1 ? "s" : ""} anexada${n > 1 ? "s" : ""}` : "Anexar foto";
 }
 
 /* ===== Histórico ===== */
@@ -1813,7 +1904,8 @@ function renderMaps(fv) {
     if (list.children[i] !== card) list.insertBefore(card, list.children[i] || null);
     $(".mtitle", card).innerHTML = `<colgroup><col class="c-mark" style="width:118px"><col style="width:20%"><col class="c-act"><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPEAMENTO</td><td class="act c-act">${esc(m.title || "")}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr>`;
     const mks = markersOf(m.shapes);
-    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => `<li><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}</span></li>`).join("")}</ol>` : "";
+    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => { const k = `mk:${m.id}:${s.id}`, ph = linkedPhotos(k); return `<li><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${lk && !ph.length ? "" : `<button type="button" class="mph noprint" data-mkph="${esc(m.id)}|${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("")}</ol>` : "";
+    $$(".mnotes img[data-ph]", card).forEach(im => { const p = cur.photos.find(x => x.id === im.dataset.ph); if (p) mediaSrc(p).then(src => { if (src) im.src = src; }); });
     $(".mbtns", card).innerHTML = `<button class="btn sm primary" type="button" data-open="${m.id}">${lk ? "Abrir" : "Abrir e editar"}</button>${lk ? "" : `<button class="btn sm" type="button" data-ren="${m.id}">Renomear</button><button class="btn sm ghost danger" type="button" data-delmap="${m.id}">Excluir</button>`}<span class="sub" style="margin-left:auto">${m.ptitle ? "Planta: " + esc(m.ptitle) + " · " : ""}Atualizado por ${who(m.updatedBy || m.createdBy)} em ${fmtFull(m.updatedAt || m.createdAt)}</span>`;
     const pv = $(".mprev", card), key = `${m.img && m.img.id}:${m.updatedAt || ""}`;
     if (pv.dataset.key !== key && m.img && !(medState && medState.mid === m.id)) {
@@ -1827,6 +1919,8 @@ function renderMaps(fv) {
 }
 async function mapsClick(e) {
   if (!cur) return; const fv = fvs.get(cur.id), fid = cur.id; if (!fv) return;
+  const lb = e.target.closest("[data-lbx]"); if (lb) return lightbox(lb.dataset.lbx);
+  const mp = e.target.closest("[data-mkph]"); if (mp) { const [mid, sid] = mp.dataset.mkph.split("|"), m = cur.maps.find(x => x.id === mid), sh = m && m.shapes && m.shapes[sid]; return openPhotoLinks(`mk:${mid}:${sid}`, `Fotos do marcador ${sh ? sh.n : ""}${sh && sh.txt ? " – " + sh.txt : ""}`, {local: m ? m.title || "" : ""}, canWrite && !locked(fv)); }
   const t = e.target.closest("[data-newmap],[data-open],[data-ren],[data-delmap]"); if (!t) return;
   if (t.dataset.newmap !== undefined) return newMap();
   if (t.dataset.open) return openMapEditor(t.dataset.open);
@@ -1968,7 +2062,7 @@ async function openMapEditor(mid) {
     v.draw(); notes();
   };
   const commit = (sid, before, after) => { write(sid, after); st.undo.push({sid, before, after}); st.redo.length = 0; };
-  const addShape = sh => commit(uid("s"), null, {...sh, c: sh.c || st.color, z: Date.now(), del: false, by: me});
+  const addShape = sh => { const sid = uid("s"); commit(sid, null, {...sh, c: sh.c || st.color, z: Date.now(), del: false, by: me}); return sid; };
   const delShape = s => { const {id, ...rest} = s; commit(id, {...rest, del: false}, {...rest, del: true}); };
   const topHit = (p, tolPx = 10) => { const L = liveShapes(shapesNow()); const tol = tolPx / scr(); for (let i = L.length - 1; i >= 0; i--) if (hitShape(L[i], p[0], p[1], tol, m)) return L[i]; return null; };
   async function editText(s, at) {
@@ -1977,9 +2071,16 @@ async function openMapEditor(mid) {
     const res = await modal({title: isMk ? `Marcador ${n}` : (s ? "Editar texto" : "Novo texto"),
       body: `<label class="fld">${isMk ? "Nota (aparece na lista de notas)" : "Texto"}<textarea id="tx" rows="3" maxlength="400">${esc(s ? s.txt || "" : "")}</textarea></label>${isMk ? "" : `<label class="fld">Tamanho<select id="tz"><option value="P">Pequeno</option><option value="M" selected>Médio</option><option value="G">Grande</option></select></label>`}`,
       onOpen: bg => { const z = $("#tz", bg); if (z && s && s.s) { const b = baseU(m); z.value = Object.keys(MTXT).reduce((best, k) => Math.abs(MTXT[k] * b - s.s) < Math.abs(MTXT[best] * b - s.s) ? k : best, "M"); } },
-      actions: [...(s ? [{label: "Apagar", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => ({txt: $("#tx", bg).value.trim(), z: $("#tz", bg) ? $("#tz", bg).value : null})}]});
+      actions: [...(s ? [{label: "Apagar", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, ...(isMk ? [{label: s ? `📷 Fotos (${linkedPhotos(`mk:${mid}:${s.id}`).length})` : "Salvar e anexar foto", value: bg => ({txt: $("#tx", bg).value.trim(), photos: true})}] : []), {label: "Salvar", cls: "primary", value: bg => ({txt: $("#tx", bg).value.trim(), z: $("#tz", bg) ? $("#tz", bg).value : null})}]});
     if (!res) return;
     if (res === "del") { delShape(s); return; }
+    if (res.photos) {
+      let sid = s && s.id;
+      if (s) { if ((s.txt || "") !== res.txt) { const {id, ...rest} = s; commit(id, {...rest}, {...rest, txt: res.txt, del: false}); } }
+      else sid = addShape({t: "mk", x: at[0], y: at[1], n, txt: res.txt, r: baseU(m) * 9});
+      const cur_ = liveShapes(shapesNow()).find(x => x.id === sid) || {n, txt: res.txt, id: sid};
+      return mkPhotos(cur_);
+    }
     const b = baseU(m);
     if (!isMk && !res.txt) return;
     if (s) { const {id, ...rest} = s; commit(id, {...rest}, {...rest, txt: res.txt, ...(isMk ? {} : {s: MTXT[res.z] * b}), del: false}); }
@@ -2030,9 +2131,16 @@ async function openMapEditor(mid) {
   };
   function notes() {
     const L = markersOf(shapesNow());
-    $(".med-notes", ov).innerHTML = L.length ? L.map(s => `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}</span></li>`).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
+    $(".med-notes", ov).innerHTML = L.length ? L.map(s => { const k = `mk:${mid}:${s.id}`, ph = linkedPhotos(k); return `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${ro && !ph.length ? "" : `<button type="button" class="mph" data-mkph="${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
+    $$(".med-notes img[data-ph]", ov).forEach(im => { const p = cur.photos.find(x => x.id === im.dataset.ph); if (p) mediaSrc(p).then(src => { if (src) im.src = src; }); });
   }
-  $(".med-notes", ov).addEventListener("click", e => { const li = e.target.closest("[data-sid]"); if (!li || ro) return; const s = liveShapes(shapesNow()).find(x => x.id === li.dataset.sid); if (s) editText(s); });
+  const mkPhotos = s => openPhotoLinks(`mk:${mid}:${s.id}`, `Fotos do marcador ${s.n}${s.txt ? " – " + s.txt : ""}`, {local: m.title || ""}, !ro);
+  $(".med-notes", ov).addEventListener("click", e => {
+    const lb = e.target.closest("[data-lbx]"); if (lb) return lightbox(lb.dataset.lbx);
+    const li = e.target.closest("[data-sid]"); if (!li) return; const s = liveShapes(shapesNow()).find(x => x.id === li.dataset.sid); if (!s) return;
+    if (e.target.closest("[data-mkph]")) return mkPhotos(s);
+    if (!ro) editText(s);
+  });
   const undoRedo = (from, to, useBefore) => { const op = from.pop(); if (!op) return; const val = useBefore ? op.before : op.after; write(op.sid, val ? val : {...(op.after || op.before), del: true}); to.push(op); };
   const onKey = e => {
     if (ro || document.querySelector(".modal-bg")) return;
@@ -2063,7 +2171,7 @@ async function openMapEditor(mid) {
       } catch { end(); toast("Não foi possível recortar. Tente de novo."); }
     };
   }
-  syncTools(); notes();
+  syncTools(); notes(); st.notes = notes;
   st.refresh = nm => { const changed = nm.img && m.img && nm.img.id !== m.img.id; m = nm; title(); if (changed) loadImg(nm.img.id).then(x => v.setImg(x)).catch(() => {}); else v.draw(); notes(); };
 }
 
@@ -2385,7 +2493,7 @@ async function exportPdf() {
       if (!url) continue;
       const mks = markersOf(m.shapes), s = document.createElement("div"); s.className = "sheet msheet";
       s.innerHTML = `<table><colgroup><col style="width:118px"><col style="width:20%"><col><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPEAMENTO</td><td class="act">${esc(m.title || "")}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr></table>
-        <div class="mprev"><img src="${url}" alt=""></div>${mks.length ? `<div class="mnotes"><div class="mnotes-t">NOTAS</div><ol>${mks.map(k => `<li><span class="mdot" style="background:${esc(k.c)};color:${k.c === "#ffffff" || k.c === "#f9a825" ? "#111" : "#fff"}">${k.n}</span><span>${esc(k.txt || "—")}</span></li>`).join("")}</ol></div>` : ""}`;
+        <div class="mprev"><img src="${url}" alt=""></div>${mks.length ? `<div class="mnotes"><div class="mnotes-t">NOTAS</div><ol>${(await Promise.all(mks.map(async k => { const ph = await Promise.all(linkedPhotos(`mk:${m.id}:${k.id}`).slice(0, 4).map(p => mediaSrc(p))); return `<li><span class="mdot" style="background:${esc(k.c)};color:${k.c === "#ffffff" || k.c === "#f9a825" ? "#111" : "#fff"}">${k.n}</span><span>${esc(k.txt || "—")}${ph.filter(Boolean).length ? `<span class="mthumbs">${ph.filter(Boolean).map(src => `<img src="${src}" alt="">`).join("")}</span>` : ""}</span></li>`; }))).join("")}</ol></div>` : ""}`;
       sections.push(page(s));
     }
     const f007 = $("#sheet-f007");
@@ -2400,7 +2508,7 @@ async function exportPdf() {
         const srcs = await Promise.all(ch.map(mediaSrc));
         const s = document.createElement("div"); s.className = "sheet";
         s.innerHTML = `<table><colgroup><col style="width:118px"><col style="width:22%"><col><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">REGISTRO FOTOGRÁFICO</td><td class="act">${esc(fv.title)}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")} · ${ci + 1}/${chunks.length}</td></tr></table>
-          <div class="pgrid">${ch.map((p, pi) => { const it = itemOf(p.item); return `<div class="pc"><img src="${esc(srcs[pi] || "")}" alt=""><div><b>${it ? esc(it.n + " " + splitLbl(it.t)[0]) : "Sem item"}</b>${p.local ? " · " + esc(p.local) : ""}</div><div>${esc(p.nota || "")}</div><div style="color:#555">Enviada por ${esc(names.get(p.createdBy) || "—")} em ${fmtFull(p.createdAt)}</div></div>`; }).join("")}</div>`;
+          <div class="pgrid">${ch.map((p, pi) => { const it = itemOf(p.item); return `<div class="pc"><img src="${esc(srcs[pi] || "")}" alt=""><div><b>${it ? esc(it.n + " " + splitLbl(it.t)[0]) : "Sem item"}</b>${p.local ? " · " + esc(p.local) : ""}</div><div>${esc(p.nota || "")}</div>${photoLinks(p).length ? `<div>📎 ${esc(photoLinks(p).join(" · "))}</div>` : ""}<div style="color:#555">Enviada por ${esc(names.get(p.createdBy) || "—")} em ${fmtFull(p.createdAt)}</div></div>`; }).join("")}</div>`;
         sections.push(page(s));
       }
       await Promise.all($$("img", root).map(im => im.decode ? im.decode().catch(() => {}) : Promise.resolve()));
