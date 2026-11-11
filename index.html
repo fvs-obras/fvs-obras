@@ -297,6 +297,61 @@ td.x .rph:hover{background:#f1f1f1}
 .g-lb{position:fixed;inset:0;z-index:75;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
 .g-lb img{max-width:100%;max-height:85vh;object-fit:contain}
 @media (max-width:640px){.gi{grid-template-columns:1fr;gap:8px}.gi-n{padding:0;font-weight:700}.gi-img,.gi-img.wide{width:100%;height:220px}.gi-ph{justify-items:stretch}.g-sheet{padding:14px 12px}}
+.g-tag.tab{background:#e8f3ea;color:#2e6b36}
+.g-types{display:grid;gap:8px;margin-bottom:10px}
+.g-ty{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer}
+.g-ty:has(input:checked){border-color:var(--red);background:#fff7f6}
+.g-ty input{width:18px;height:18px;margin-top:2px;flex:none}
+.g-ty span{display:grid;gap:2px}.g-ty small{color:var(--muted, #666);font-size:12px}
+.g-hgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px}
+.gt-sheet{min-width:980px}
+.gt-tbl td,.gt-tbl th{height:30px}
+.gt-headcell{padding:6px 10px!important;vertical-align:top!important}
+.gt-title{font-size:15px;font-weight:800;text-align:center;letter-spacing:.02em;margin-bottom:6px}
+.gt-hgrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 16px;font-weight:700;font-size:11px}
+.gt-hf{display:flex;gap:4px;align-items:center;white-space:nowrap}
+.gt-hf input{border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 3px;min-height:0;font-size:12px;background:transparent;flex:1;min-width:0}
+.gt-g{font-weight:800!important;text-align:center;background:#f1f1f1}
+.gt-sub{font-weight:700!important;text-align:center;font-size:10px;background:#f7f7f7}
+.gt-tbl td.fill{padding:0}
+.gt-tbl td.fill input,.gt-tbl td.fill select,.gt-tbl td.fill textarea{width:100%;border:0;border-radius:0;background:transparent;padding:4px 5px;min-height:28px;font-size:11.5px;box-sizing:border-box}
+.gt-tbl td.fill.c input{text-align:center}
+.gt-tbl td.fill textarea{resize:none;line-height:1.3;overflow:hidden;display:block}
+.gt-tbl td.fill input[type=date],.gt-tbl td.fill input[type=time]{font-size:10.5px;padding:2px}
+.gt-ok{padding:2px!important;text-align:center}
+.gt-ok button{width:100%;min-height:26px;border:1px dashed #bbb;border-radius:4px;background:#fff;font-weight:800;font-size:11px;color:#999;cursor:pointer}
+.gt-ok button.ok{background:#e6f4e8;border:1px solid #2e7d32;color:#2e7d32}
+.gt-ok button.nok{background:#fde7e6;border:1px solid var(--red);color:var(--red)}
+.gt-tbl tr.gt-nok td.fill{background:#fff1f0}
+.gt-tbl td.x{border:0!important;padding:0 0 0 4px;background:#fff}
+.gt-tbl td.x button{border:0;background:none;color:#666;cursor:pointer;font-size:18px;font-weight:700;padding:2px 8px;border-radius:4px;line-height:1}
+.gt-tbl td.x button:hover{background:#eee;color:#000}
+.gt-menu{display:grid;grid-template-columns:1fr 1fr;gap:8px}.gt-menu .btn{justify-content:flex-start;text-align:left}
+@media (max-width:640px){.gt-menu{grid-template-columns:1fr}}
+.gt-assin{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;margin-top:14px;font-weight:700;font-size:11px}
+.gt-assin label{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.gt-assin input{border:0;border-bottom:1px solid #999;border-radius:0;padding:2px 3px;min-height:0;font-size:12px;background:transparent;flex:1;min-width:0}
+.gt-scans{margin-top:14px}
+.gt-sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:8px}
+.gt-sc{display:grid;gap:4px}
+.gt-simg{border:1px solid var(--line);border-radius:6px;background:#f6f6f6;height:150px;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:0;cursor:zoom-in}
+.gt-simg img{max-width:100%;max-height:100%;object-fit:contain}
+.gt-sbtn{display:flex;gap:4px;align-items:center}.gt-sbtn .sub{flex:1}
+@media (max-width:640px){.g-hgrid{grid-template-columns:1fr}}
+.gtp-page{width:1123px;height:794px;padding:34px 36px 26px;box-sizing:border-box;background:#fff;color:#000;font-family:Arial,Helvetica,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
+.gtp{width:100%;border-collapse:collapse;table-layout:fixed;font-size:11px}
+.gtp td{border:1px solid #000;padding:2px 5px;height:29px;vertical-align:middle;overflow:hidden;word-break:break-word;line-height:1.15}
+.gtp .c{text-align:center}.gtp .b{font-weight:700}
+.gtp-h{vertical-align:top!important;padding:6px 10px!important}
+.gtp-t{font-size:16px;font-weight:700;text-align:center;margin-bottom:6px}
+.gtp-hg{display:grid;grid-template-columns:1fr 1fr;gap:4px 18px;font-weight:700;font-size:11.5px}
+.gtp-g{font-weight:700;font-size:12px}.gtp-s{font-weight:700;font-size:10px}
+.gtp .hw{color:#1a3c8f}
+.gtp .nokc{color:#c62828}.gtp .okc{color:#1b5e20}
+.gtp-assin{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:16px;font-weight:700;font-size:11.5px}
+.gtp-assin>div{border-bottom:1px solid #000;padding-bottom:3px}
+.gtp-assin .hw{color:#1a3c8f;font-weight:400}
+.gtp-foot{margin-top:auto;font-size:9px;color:#666;text-align:right}
 .gp-page{width:794px;height:1123px;padding:54px 76px 57px;box-sizing:border-box;background:#fff;color:#111;font-family:Inter,Roboto,Arial,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
 .gp-head{font-size:11.3px;line-height:13.3px;padding-bottom:20px;border-bottom:1.3px solid #111}
 .gp-head span{display:inline-block;width:72px}
@@ -2312,14 +2367,18 @@ function gStats(r) { const n = r.nItens || 0, ok = Math.min(n, r.nResp || 0); re
 function renderGapeList() {
   const v = $("#view-gape");
   const L = [...gapes.values()].sort((a, b) => (b.updatedAt || b.createdAt || "").localeCompare(a.updatedAt || a.createdAt || ""));
-  v.innerHTML = `<div class="page-title"><div><h1>GAPE</h1><div class="sub">Relatórios e fichas do GAPE. Crie um relatório no modelo ou importe o PDF recebido para responder item a item.</div></div>
-    ${canWrite ? `<div class="g-acts"><button class="btn" type="button" id="g-imp">Importar PDF do GAPE</button><button class="btn primary" type="button" id="g-new">+ Novo relatório</button></div>` : ""}</div>
+  v.innerHTML = `<div class="page-title"><div><h1>GAPE</h1><div class="sub">Relatórios e fichas do GAPE: relatório com fotos (Report &amp; Run) e fichas em tabela, como o teste de tubulação do radier. Crie um novo, importe um PDF ou crie um novo a partir de um existente.</div></div>
+    ${canWrite ? `<div class="g-acts"><button class="btn" type="button" id="g-imp">Importar PDF</button><button class="btn primary" type="button" id="g-new">+ Novo relatório</button></div>` : ""}</div>
     <input type="file" id="g-file" accept="application/pdf,.pdf" class="hidden"><div id="g-prog"></div>
-    ${L.length ? `<div class="g-grid">${L.map(r => { const s = gStats(r); return `<a class="g-card" href="#gape-${esc(r.id)}">
+    ${L.length ? `<div class="g-grid">${L.map(r => { const s = gStats(r), sp = gSpec(r); if (sp) return `<a class="g-card" href="#gape-${esc(r.id)}">
+        <div class="g-tag tab">${esc(sp.nome)}${r.origem === "importado" ? " · digitalizado" : ""}</div>
+        <b>${esc(sp.titulo)}${(r.head || {}).torre ? " – Torre " + esc(r.head.torre) : ""}</b><div class="sub">${sp.head.map(h => (r.head || {})[h.k] ? esc(h.l.charAt(0) + h.l.slice(1).toLowerCase()) + " " + esc(r.head[h.k]) : "").filter(Boolean).join(" · ") || "Sem cabeçalho"}</div>
+        <div class="g-bar"><i style="width:${s.pct}%"></i></div><div class="sub" style="font-size:11.5px">${s.ok} de ${s.n} linhas com status${r.nNok ? ` · <b style="color:var(--red)">${r.nNok} NOK</b>` : ""} · atualizado por ${who(r.updatedBy || r.createdBy)} em ${fmtFull(r.updatedAt || r.createdAt)}</div></a>`;
+      return `<a class="g-card" href="#gape-${esc(r.id)}">
         <div class="g-tag ${r.origem === "importado" ? "imp" : ""}">${r.origem === "importado" ? "Recebido do GAPE" : "Criado aqui"}</div>
         <b>${esc(r.titulo || "Sem título")}</b><div class="sub">${esc(r.local || "Sem localização")}${r.criada ? " · " + esc(r.criada) : ""}</div>
         <div class="g-bar"><i style="width:${s.pct}%"></i></div><div class="sub" style="font-size:11.5px">${s.ok} de ${s.n} itens com comentário · atualizado por ${who(r.updatedBy || r.createdBy)} em ${fmtFull(r.updatedAt || r.createdAt)}</div></a>`; }).join("")}</div>`
-      : `<div class="empty"><b>Nenhum relatório ainda</b>Use <b>+ Novo relatório</b> para montar um no modelo do GAPE, ou <b>Importar PDF do GAPE</b> para responder a um relatório recebido.</div>`}`;
+      : `<div class="empty"><b>Nenhum relatório ainda</b>Use <b>+ Novo relatório</b> para escolher o tipo (relatório com fotos ou ficha em tabela), ou <b>Importar PDF</b> para responder a um relatório recebido ou anexar uma ficha escaneada.</div>`}`;
   fillNames();
   if (!canWrite) return;
   $("#g-new", v).onclick = newGape;
@@ -2329,24 +2388,20 @@ function renderGapeList() {
     const pr = $("#g-prog", v), btns = $$(".g-acts button", v);
     btns.forEach(b => b.disabled = true);
     pr.innerHTML = `<div class="banner info">Lendo o PDF…</div>`;
-    try { const rid = await importGapePdf(f, t => { pr.innerHTML = `<div class="banner info">${esc(t)}</div>`; }); location.hash = "gape-" + rid; }
-    catch (err) { pr.innerHTML = `<div class="banner warn">Não foi possível ler esse PDF. ${err && err.message === "lib" ? "Verifique a conexão com a internet." : "Confira se é um relatório com fotos e textos (não uma imagem escaneada)."}</div>`; }
+    try { const rid = await importGapePdf(f, t => { pr.innerHTML = `<div class="banner info">${esc(t)}</div>`; }); pr.innerHTML = ""; if (rid) location.hash = "gape-" + rid; }
+    catch (err) { pr.innerHTML = `<div class="banner warn">Não foi possível ler esse PDF. ${err && err.message === "lib" ? "Verifique a conexão com a internet." : "Confira se o arquivo é um PDF válido."}</div>`; }
     finally { btns.forEach(b => b.disabled = false); }
   };
 }
 const gNow = () => { const d = new Date(); return d.toLocaleString("pt-BR", {weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit", year: "numeric"}).replace(/\./g, "."); };
-async function newGape() {
-  const rid = uid("g"), at = nowIso(), base = {titulo: "", local: "", criada: gNow(), origem: "criado", nItens: 1, nResp: 0, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
-  await create(`gape/${rid}`, base);
-  await create(`gape/${rid}/itens/${uid("i")}`, {o: 1, criada: gNow(), desc: "", com: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
-  gapes.set(rid, {id: rid, ...base});
-  location.hash = "gape-" + rid;
-}
 
 /* leitura do PDF no formato do GAPE (Report & Run): foto + "Criada:" + descrição + "Comentários" por item */
 async function importGapePdf(file, prog) {
   const L = await loadPdfJs().catch(() => { throw new Error("lib"); });
   const pdf = await L.getDocument({data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false}).promise;
+  // folha escaneada/fotografada (sem camada de texto) → ficha em tabela com as folhas anexadas
+  let nTxt = 0; for (let pn = 1; pn <= Math.min(pdf.numPages, 3); pn++) nTxt += (await (await pdf.getPage(pn)).getTextContent()).items.filter(t => t.str && t.str.trim()).length;
+  if (nTxt < 5) return importGapeScan(file, pdf, prog);
   const O = L.OPS, SC = 3, items = [], head = {};
   const mul = (m, n) => [m[0] * n[0] + m[2] * n[1], m[1] * n[0] + m[3] * n[1], m[0] * n[2] + m[2] * n[3], m[1] * n[2] + m[3] * n[3], m[0] * n[4] + m[2] * n[5] + m[4], m[1] * n[4] + m[3] * n[5] + m[5]];
   const IMG_OPS = new Set([O.paintImageXObject, O.paintInlineImageXObject, O.paintImageXObjectRepeat].filter(x => x !== undefined));
@@ -2393,7 +2448,7 @@ async function importGapePdf(file, prog) {
       items.push({n: mk ? parseInt(mk.s.slice(1), 10) : null, criada, desc: desc.join(" ").replace(/\s+/g, " ").trim(), com: com.join(" ").replace(/\s+/g, " ").trim(), url: toJpeg(c), w: c.width, h: c.height});
     });
   }
-  if (!items.length) throw new Error("vazio");
+  if (!items.length) return importGapeScan(file, pdf, prog);
   prog(`Salvando ${items.length} itens…`);
   const rid = uid("g"), at = nowIso();
   const base = {titulo: head.titulo || file.name.replace(/\.pdf$/i, ""), local: head.local || "", criada: head.criada || "", origem: "importado", arquivo: file.name, nItens: items.length, nResp: items.filter(i => i.com).length, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
@@ -2404,6 +2459,300 @@ async function importGapePdf(file, prog) {
   });
   gapes.set(rid, {id: rid, ...base});
   return rid;
+}
+
+/* ---------- GAPE: tipos de ficha em tabela (ex.: Teste tubulação radier) ---------- */
+const GTYPES = {
+  tub_radier: {
+    nome: "Teste tubulação radier", titulo: "TESTE TUBULAÇÃO RADIER",
+    head: [{k: "obra", l: "OBRA", ph: "Parque dos Sonhos V"}, {k: "fabrica", l: "FÁBRICA", ph: "A"}, {k: "torre", l: "TORRE", ph: "01"}, {k: "gestor", l: "GESTOR", ph: "Nome"}],
+    cols: [
+      {k: "apto", l: "APTO", w: 5, c: true},
+      {k: "tipo", l: "TIPO", w: 10, opts: ["SANITÁRIO", "PRUMADA"]},
+      {k: "obs", l: "OBSERVAÇÃO", w: 32, big: true},
+      {g: "CONFERÊNCIA", cols: [{k: "cv", l: "Nº VÍDEO", w: 8.5}, {k: "cd", l: "DATA", w: 7.5, t: "date"}, {k: "ch", l: "HORA", w: 6, t: "time"}]},
+      {g: "RETESTE", cols: [{k: "rv", l: "Nº VÍDEO", w: 8.5}, {k: "rd", l: "DATA", w: 7.5, t: "date"}, {k: "rh", l: "HORA", w: 6, t: "time"}]},
+      {g: "STATUS", cols: [{k: "st", l: "OK/NOK", w: 6, t: "oknok"}]}
+    ],
+    assin: [{k: "respConf", l: "RESPONSÁVEL PELA CONFERÊNCIA"}, {k: "respRet", l: "RESPONSÁVEL PELO RETESTE"}],
+    porPagina: 16,
+    gerar: {de: 101, ate: 117, tipos: ["SANITÁRIO", "PRUMADA"]}
+  }
+};
+const gSpec = r => r && r.tipo && GTYPES[r.tipo];
+const gLeaf = spec => spec.cols.flatMap(c => c.g ? c.cols : [c]);
+const fmtShortDate = v => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || ""); return m ? `${m[3]}/${m[2]}/${m[1].slice(2)}` : (v || ""); };
+const fmtHour = v => { const m = /^(\d{2}):(\d{2})/.exec(v || ""); return m ? `${m[1]}h${m[2]}` : (v || ""); };
+function gRowsFor(spec, de, ate) {
+  const out = []; for (let a = de; a <= ate; a++) spec.gerar.tipos.forEach(t => out.push({apto: String(a), tipo: t}));
+  return out;
+}
+/* escolha do tipo ao criar relatório novo */
+async function newGape() {
+  const res = await modal({title: "Novo relatório GAPE", body: `
+      <div class="g-types">
+        <label class="g-ty"><input type="radio" name="gt" value="fotos" checked><span><b>Relatório com fotos</b><small>Itens com foto, data, descrição e comentários (como o Teste de Estanque).</small></span></label>
+        ${Object.entries(GTYPES).map(([k, t]) => `<label class="g-ty"><input type="radio" name="gt" value="${k}"><span><b>${esc(t.nome)}</b><small>Ficha em tabela, igual à folha em papel.</small></span></label>`).join("")}
+      </div>
+      <div id="gt-extra"></div>`,
+    onOpen: bg => {
+      const draw = () => {
+        const k = $("input[name=gt]:checked", bg).value, t = GTYPES[k], box = $("#gt-extra", bg);
+        box.innerHTML = t ? `<div class="g-hgrid">${t.head.map(h => `<label class="fld">${esc(h.l)}<input type="text" data-hh="${h.k}" placeholder="${esc(h.ph || "")}"></label>`).join("")}</div>
+          ${t.gerar ? `<div class="fld" style="margin-top:6px">Gerar linhas: apartamentos de <input type="number" id="gt-de" value="${t.gerar.de}" style="width:90px;display:inline-block"> a <input type="number" id="gt-ate" value="${t.gerar.ate}" style="width:90px;display:inline-block"> <span class="sub">(${t.gerar.tipos.join(" e ").toLowerCase()} para cada um)</span></div>` : ""}` : "";
+      };
+      bg.addEventListener("change", e => { if (e.target.name === "gt") draw(); });
+      draw();
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Criar", cls: "primary", value: bg => {
+      const k = $("input[name=gt]:checked", bg).value, head = {};
+      $$("[data-hh]", bg).forEach(i => { head[i.dataset.hh] = i.value.trim(); });
+      return {k, head, de: +($("#gt-de", bg) || {}).value || 0, ate: +($("#gt-ate", bg) || {}).value || 0};
+    }}]});
+  if (!res) return;
+  const rid = uid("g"), at = nowIso(), t = GTYPES[res.k];
+  if (!t) {
+    const base = {titulo: "", local: "", criada: gNow(), origem: "criado", nItens: 1, nResp: 0, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+    await create(`gape/${rid}`, base);
+    await create(`gape/${rid}/itens/${uid("i")}`, {o: 1, criada: gNow(), desc: "", com: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+    gapes.set(rid, {id: rid, ...base});
+  } else {
+    const rows = res.de && res.ate && res.ate >= res.de && res.ate - res.de < 200 ? gRowsFor(t, res.de, res.ate) : [{apto: "", tipo: ""}];
+    const base = {tipo: res.k, titulo: t.titulo, head: res.head, assin: {}, origem: "criado", nItens: rows.length, nResp: 0, nNok: 0, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+    await create(`gape/${rid}`, base);
+    rows.forEach((row, i) => create(`gape/${rid}/itens/${uid("i")}${i}`, {o: i + 1, ...row, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}).catch(() => {}));
+    gapes.set(rid, {id: rid, ...base});
+  }
+  location.hash = "gape-" + rid;
+}
+/* PDF digitalizado (sem texto): vira uma ficha do tipo escolhido, com as folhas anexadas para conferência */
+async function importGapeScan(file, pdf, prog) {
+  const keys = Object.keys(GTYPES);
+  const res = await modal({title: "PDF digitalizado", body: `<p style="margin:0 0 8px">Esse PDF é uma folha escaneada ou fotografada, então o texto escrito à mão não pode ser lido automaticamente.</p>
+      <p class="sub" style="margin:0 0 10px">As folhas ficam anexadas ao relatório para você conferir e preencher a versão digital ao lado.</p>
+      <label class="fld">Tipo da ficha<select id="sc-t">${keys.map(k => `<option value="${k}">${esc(GTYPES[k].nome)}</option>`).join("")}</select></label>
+      <div class="g-hgrid" id="sc-h"></div>
+      <div class="fld" id="sc-g" style="margin-top:6px"></div>`,
+    onOpen: bg => {
+      const draw = () => { const t = GTYPES[$("#sc-t", bg).value];
+        $("#sc-h", bg).innerHTML = t.head.map(h => `<label class="fld">${esc(h.l)}<input type="text" data-hh="${h.k}" placeholder="${esc(h.ph || "")}"></label>`).join("");
+        $("#sc-g", bg).innerHTML = t.gerar ? `Gerar linhas: apartamentos de <input type="number" id="gt-de" value="${t.gerar.de}" style="width:90px;display:inline-block"> a <input type="number" id="gt-ate" value="${t.gerar.ate}" style="width:90px;display:inline-block">` : ""; };
+      $("#sc-t", bg).onchange = draw; draw();
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Criar ficha", cls: "primary", value: bg => { const head = {}; $$("[data-hh]", bg).forEach(i => { head[i.dataset.hh] = i.value.trim(); }); return {k: $("#sc-t", bg).value, head, de: +($("#gt-de", bg) || {}).value || 0, ate: +($("#gt-ate", bg) || {}).value || 0}; }}]});
+  if (!res) return null;
+  const t = GTYPES[res.k], scans = await renderScans(pdf, prog);
+  const rid = uid("g"), at = nowIso(), rows = res.de && res.ate >= res.de && res.ate - res.de < 200 ? gRowsFor(t, res.de, res.ate) : [{apto: "", tipo: ""}];
+  const base = {tipo: res.k, titulo: t.titulo, head: res.head, assin: {}, origem: "importado", arquivo: file.name, scans, nItens: rows.length, nResp: 0, nNok: 0, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+  await create(`gape/${rid}`, base);
+  rows.forEach((row, i) => create(`gape/${rid}/itens/${uid("i")}${i}`, {o: i + 1, ...row, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}).catch(() => {}));
+  gapes.set(rid, {id: rid, ...base});
+  return rid;
+}
+async function renderScans(pdf, prog) {
+  const out = [];
+  for (let pn = 1; pn <= pdf.numPages; pn++) {
+    prog(`Guardando a folha ${pn} de ${pdf.numPages}…`);
+    const page = await pdf.getPage(pn), v1 = page.getViewport({scale: 1}), vp = page.getViewport({scale: 2200 / Math.max(v1.width, v1.height)});
+    const c = mkCanvas(Math.floor(vp.width), Math.floor(vp.height)), g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
+    await page.render({canvasContext: g, viewport: vp}).promise;
+    const url = toJpeg(c); if (!url) continue;
+    out.push({id: saveBlob(url), w: c.width, h: c.height, rot: v1.width < v1.height ? 270 : 0});
+  }
+  return out;
+}
+
+/* tela da ficha em tabela */
+function renderGapeTable(r, spec) {
+  const v = $("#view-gape"), ro = !canWrite, rid = gcur.id, leaf = gLeaf(spec);
+  if (v.dataset.rid !== rid || v.dataset.kind !== "tab" || !$("#gt-body", v)) {
+    v.dataset.rid = rid; v.dataset.kind = "tab";
+    const colgroup = `<colgroup>${leaf.map(c => `<col style="width:${c.w}%">`).join("")}${ro ? "" : `<col style="width:34px">`}</colgroup>`;
+    const nHead = spec.head.length, half = Math.ceil(nHead / 2);
+    v.innerHTML = `<a class="back" href="#gape">← Relatórios GAPE</a>
+      <div class="g-top"><div class="g-tag ${r.origem === "importado" ? "imp" : ""}" id="g-orig"></div><div class="g-acts">${ro ? "" : `<button class="btn" type="button" id="g-dup">Criar novo a partir deste</button>`}<button class="btn dark" type="button" id="g-pdf">Baixar PDF</button>${ro ? "" : `<button class="btn ghost danger" type="button" id="g-del">Excluir</button>`}</div></div>
+      <div class="sheet-wrap"><div class="sheet gt-sheet">
+        <table class="gt-tbl">${colgroup}
+          <thead>
+            <tr><td colspan="3" rowspan="2" class="gt-headcell"><div class="gt-title">${esc(spec.titulo)}</div><div class="gt-hgrid">${spec.head.map((h, i) => `<label class="gt-hf" style="grid-column:${i < half ? 1 : 2};grid-row:${i % half + 1}">${esc(h.l)}: <input type="text" data-head="${h.k}" placeholder="${esc(h.ph || "")}" ${ro ? "disabled" : ""}></label>`).join("")}</div></td>
+              ${spec.cols.filter(c => c.g).map(c => `<th colspan="${c.cols.length}" class="gt-g">${esc(c.g)}</th>`).join("")}${ro ? "" : `<th class="nob" rowspan="2"></th>`}</tr>
+            <tr>${spec.cols.filter(c => c.g).flatMap(c => c.cols).map(c => `<th class="gt-sub">${esc(c.l)}</th>`).join("")}</tr>
+          </thead>
+          <tbody id="gt-body"></tbody></table>
+        <div class="gt-assin">${spec.assin.map(a => `<label>${esc(a.l)}: <input type="text" data-assin="${a.k}" ${ro ? "disabled" : ""}></label>`).join("")}</div>
+      </div></div>
+      ${ro ? "" : `<div class="g-add" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn" type="button" id="gt-add">+ Adicionar linha</button>${spec.gerar ? `<button class="btn" type="button" id="gt-gen">+ Gerar linhas de apartamentos</button>` : ""}</div>`}
+      <p class="hint">Todas as células são editáveis (o tipo aceita qualquer texto; SANITÁRIO e PRUMADA aparecem como sugestão). Toque em ⋮ no fim da linha para inserir linha acima ou abaixo, duplicar, mover ou apagar. Toque em OK/NOK para marcar o status; linhas com NOK ficam em vermelho.</p>
+      ${leaf.filter(c => c.opts).map(c => `<datalist id="gt-dl-${c.k}">${c.opts.map(o => `<option value="${esc(o)}"></option>`).join("")}</datalist>`).join("")}
+      <div class="panel gt-scans" id="gt-scans"></div>
+      <input type="file" id="gt-scanfile" accept="application/pdf,.pdf,image/*" class="hidden">`;
+    $$("[data-head]", v).forEach(el => gBind(el, () => `gape/${rid}`, "head." + el.dataset.head, true));
+    $$("[data-assin]", v).forEach(el => gBind(el, () => `gape/${rid}`, "assin." + el.dataset.assin, true));
+    $("#g-pdf", v).onclick = exportGapePdf;
+    if (!ro) {
+      $("#g-del", v).onclick = async () => {
+        if (!(await confirmBox("Excluir ficha?", `A ficha <b>${esc(spec.nome)}${r.head && r.head.torre ? " – Torre " + esc(r.head.torre) : ""}</b> e todas as linhas serão apagadas para todos.`, "Excluir", true))) return;
+        try { for (const it of gItems()) await remove(`gape/${rid}/itens/${it.id}`); (gapes.get(rid).scans || []).forEach(s => remove(`blobs/${s.id}`).catch(() => {})); await remove(`gape/${rid}`); gapes.delete(rid); location.hash = "gape"; toast("Ficha excluída."); } catch {}
+      };
+      $("#gt-add", v).onclick = () => { const o = Math.max(0, ...gItems().map(i => i.o || 0)) + 1, at = nowIso(); create(`gape/${rid}/itens/${uid("i")}`, {o, apto: "", tipo: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); touchGape(); };
+      const gen = $("#gt-gen", v); if (gen) gen.onclick = async () => {
+        const res = await modal({title: "Gerar linhas", body: `<div class="fld">Apartamentos de <input type="number" id="gg-de" value="${spec.gerar.de}" style="width:90px;display:inline-block"> a <input type="number" id="gg-ate" value="${spec.gerar.ate}" style="width:90px;display:inline-block"></div><p class="sub">Cria ${spec.gerar.tipos.join(" e ").toLowerCase()} para cada apartamento, no fim da ficha.</p>`,
+          actions: [{label: "Cancelar", value: null}, {label: "Gerar", cls: "primary", value: bg => ({de: +$("#gg-de", bg).value, ate: +$("#gg-ate", bg).value})}]});
+        if (!res || !(res.ate >= res.de) || res.ate - res.de > 200) return;
+        let o = Math.max(0, ...gItems().map(i => i.o || 0)); const at = nowIso();
+        gRowsFor(spec, res.de, res.ate).forEach((row, i) => create(`gape/${rid}/itens/${uid("i")}${i}`, {o: ++o, ...row, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}).catch(() => {}));
+        touchGape();
+      };
+      $("#g-dup", v).onclick = () => dupGape(rid);
+      $("#gt-body", v).addEventListener("click", async e => {
+        const tr = e.target.closest("tr[data-id]"); if (!tr) return; const it = gItems().find(x => x.id === tr.dataset.id); if (!it) return;
+        const ok = e.target.closest("[data-oknok]");
+        if (ok) { const k = ok.dataset.oknok, nx = {"": "OK", OK: "NOK", NOK: ""}[it[k] || ""]; patch(`gape/${rid}/itens/${it.id}`, stamp({[k]: nx})); touchGape(); return; }
+        if (!e.target.closest("[data-rmenu]")) return;
+        let act = null;
+        const lbl = [it.apto, it.tipo].filter(Boolean).join(" · ") || "linha sem apartamento";
+        await modal({title: "Linha " + lbl, body: `<div class="gt-menu">
+            <button class="btn" type="button" data-act="above">↥ Inserir linha acima</button><button class="btn" type="button" data-act="below">↧ Inserir linha abaixo</button>
+            <button class="btn" type="button" data-act="dup">⧉ Duplicar linha</button>
+            <button class="btn" type="button" data-act="up">↑ Mover para cima</button><button class="btn" type="button" data-act="down">↓ Mover para baixo</button>
+            <button class="btn danger" type="button" data-act="del">✕ Apagar linha</button></div>`,
+          onOpen: bg => $$("[data-act]", bg).forEach(b => b.onclick = () => { act = b.dataset.act; $(".acts .btn", bg).click(); }),
+          actions: [{label: "Cancelar", value: null}]});
+        if (!act) return;
+        if (act === "del") { if (await confirmBox("Apagar linha?", "A linha será apagada para todos.", "Apagar", true)) { await remove(`gape/${rid}/itens/${it.id}`).catch(() => {}); touchGape(); } return; }
+        const L = gItems().slice(), i = L.indexOf(it);
+        if (act === "up" || act === "down") { const j = act === "up" ? i - 1 : i + 1; if (j < 0 || j >= L.length) return; [L[i], L[j]] = [L[j], L[i]]; }
+        else {
+          const at = nowIso(), {id, o, createdBy, createdAt, updatedBy, updatedAt, ...rest} = it;
+          const row = act === "dup" ? rest : {apto: it.apto || "", tipo: ""}, pos = act === "above" ? i : i + 1, nid = uid("i");
+          L.splice(pos, 0, {id: nid, _new: {...row, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}});
+        }
+        L.forEach((x, k) => { if (x._new) create(`gape/${rid}/itens/${x.id}`, {o: k + 1, ...x._new}).catch(() => {}); else if (x.o !== k + 1) patch(`gape/${rid}/itens/${x.id}`, {o: k + 1}); });
+        touchGape();
+      });
+      $("#gt-scanfile", v).onchange = async e => {
+        const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+        const end = toastHold("Anexando a folha…");
+        try {
+          let add = [];
+          if (/pdf/i.test(f.type) || /\.pdf$/i.test(f.name)) { const L = await loadPdfJs(); const pdf = await L.getDocument({data: new Uint8Array(await f.arrayBuffer()), isEvalSupported: false}).promise; add = await renderScans(pdf, () => {}); }
+          else { const {url, w, h} = await shrinkImage(f, 2200, 850000); add = [{id: saveBlob(url), w, h, rot: 0}]; }
+          patch(`gape/${rid}`, stamp({scans: [...(gapes.get(rid).scans || []), ...add]})); end(); toast("Folha anexada.");
+        } catch { end(); toast("Não foi possível anexar esse arquivo."); }
+      };
+    }
+  }
+  $("#g-orig", v).textContent = `${spec.nome}${r.origem === "importado" ? " · digitalizado" + (r.arquivo ? " (" + r.arquivo + ")" : "") : ""}`;
+  $$("[data-head]", v).forEach(el => setVal(el, (r.head || {})[el.dataset.head] || ""));
+  $$("[data-assin]", v).forEach(el => setVal(el, (r.assin || {})[el.dataset.assin] || ""));
+  syncRows($("#gt-body", v), gItems(), d => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = leaf.map(c => c.t === "oknok" ? `<td class="gt-ok"><button type="button" data-oknok="${c.k}" ${ro ? "disabled" : ""}></button></td>`
+      : c.opts ? `<td class="fill"><input type="text" data-f="${c.k}" list="gt-dl-${c.k}" autocomplete="off" ${ro ? "disabled" : ""}></td>`
+      : `<td class="fill${c.c ? " c" : ""}">${c.big ? `<textarea data-f="${c.k}" rows="1" ${ro ? "disabled" : ""}></textarea>` : `<input type="${c.t || "text"}" data-f="${c.k}" ${ro ? "disabled" : ""}>`}</td>`).join("")
+      + (ro ? "" : `<td class="x"><button type="button" data-rmenu title="Inserir, mover ou apagar linha" aria-label="Opções da linha">⋮</button></td>`);
+    $$("[data-f]", tr).forEach(i => { if (i.tagName === "SELECT") i.addEventListener("change", () => { patch(`gape/${rid}/itens/${d.id}`, stamp({[i.dataset.f]: i.value})); touchGape(); }); else gBind(i, () => `gape/${rid}/itens/${d.id}`, i.dataset.f); });
+    return tr;
+  }, (tr, d) => {
+    $$("[data-f]", tr).forEach(i => { if (i.tagName === "SELECT") { if (document.activeElement !== i) i.value = d[i.dataset.f] || ""; } else setVal(i, d[i.dataset.f] || ""); });
+    $$("[data-oknok]", tr).forEach(b => { const vv = d[b.dataset.oknok] || ""; b.textContent = vv || "—"; b.className = vv === "OK" ? "ok" : vv === "NOK" ? "nok" : ""; });
+    tr.classList.toggle("gt-nok", Object.values(d).includes("NOK"));
+  });
+  renderScansPanel(r);
+}
+function renderScansPanel(r) {
+  const pn = $("#gt-scans"); if (!pn) return; const ro = !canWrite, sc = r.scans || [], rid = r.id;
+  pn.innerHTML = `<div class="pn-h"><h2 style="font-size:14px;text-transform:uppercase;margin:0">Folhas digitalizadas ${sc.length ? `<span class="pn-c">${sc.length}</span>` : ""}</h2>${ro ? "" : `<button class="btn sm" type="button" id="gt-addscan">+ Anexar folha (PDF ou foto)</button>`}</div>
+    ${sc.length ? `<div class="gt-sgrid">${sc.map((s, i) => `<div class="gt-sc"><button type="button" class="gt-simg" data-sview="${i}"><img alt="Folha ${i + 1}" data-sid="${esc(s.id)}" data-rot="${s.rot || 0}"></button><div class="gt-sbtn"><span class="sub">Folha ${i + 1}</span>${ro ? "" : `<button class="btn sm ghost" type="button" data-srot="${i}" title="Girar">↻</button><button class="btn sm ghost danger" type="button" data-sdel="${i}" title="Remover">✕</button>`}</div></div>`).join("")}</div>`
+      : `<div class="sub">Anexe a foto ou o PDF da folha em papel, se houver, para conferir. Ela também sai no fim do PDF.</div>`}`;
+  $$("img[data-sid]", pn).forEach(im => scanThumb(im.dataset.sid, +im.dataset.rot).then(u => { im.src = u; }).catch(() => {}));
+  const a = $("#gt-addscan", pn); if (a) a.onclick = () => $("#gt-scanfile").click();
+  pn.onclick = async e => {
+    const vv = e.target.closest("[data-sview]"); if (vv) { const s = sc[+vv.dataset.sview]; const im = await loadImg(s.id).catch(() => null); if (im) gLightbox(await rotatedUrl(im, s.rot || 0)); return; }
+    const rt = e.target.closest("[data-srot]"); if (rt) { const n = sc.map((s, i) => i === +rt.dataset.srot ? {...s, rot: ((s.rot || 0) + 90) % 360} : s); patch(`gape/${rid}`, stamp({scans: n})); return; }
+    const dl = e.target.closest("[data-sdel]"); if (dl && await confirmBox("Remover folha?", "A folha digitalizada sai deste relatório.", "Remover", true)) { const s = sc[+dl.dataset.sdel]; patch(`gape/${rid}`, stamp({scans: sc.filter((_, i) => i !== +dl.dataset.sdel)})); remove(`blobs/${s.id}`).catch(() => {}); }
+  };
+}
+const thumbCache = new Map();
+function scanThumb(id, rot) {
+  const k = id + "@" + rot;
+  if (!thumbCache.has(k)) thumbCache.set(k, loadImg(id).then(im => {
+    const sw = rot % 180 !== 0, f = Math.min(1, 480 / Math.max(im.width, im.height)), w = Math.round(im.width * f), h = Math.round(im.height * f);
+    const c = mkCanvas(sw ? h : w, sw ? w : h), g = c.getContext("2d"); g.translate(c.width / 2, c.height / 2); g.rotate(rot * Math.PI / 180); g.drawImage(im, -w / 2, -h / 2, w, h);
+    return c.toDataURL("image/jpeg", .8);
+  }));
+  return thumbCache.get(k);
+}
+async function rotatedUrl(im, rot) {
+  if (!rot) return im.src;
+  const sw = rot % 180 !== 0, c = mkCanvas(sw ? im.height : im.width, sw ? im.width : im.height), g = c.getContext("2d");
+  g.translate(c.width / 2, c.height / 2); g.rotate(rot * Math.PI / 180); g.drawImage(im, -im.width / 2, -im.height / 2);
+  return c.toDataURL("image/jpeg", .88);
+}
+/* novo relatório a partir de um existente */
+async function dupGape(rid) {
+  const r = gapes.get(rid); if (!r) return; const spec = gSpec(r);
+  const res = await modal({title: "Criar novo a partir deste", body: spec
+      ? `<p style="margin:0 0 8px">Cria uma ficha <b>${esc(spec.nome)}</b> com o mesmo cabeçalho e as mesmas linhas (apartamentos e tipos).</p><div class="g-hgrid">${spec.head.map(h => `<label class="fld">${esc(h.l)}<input type="text" data-hh="${h.k}" value="${esc((r.head || {})[h.k] || "")}"></label>`).join("")}</div><label style="display:flex;gap:8px;align-items:center;font-size:13px;margin-top:8px"><input type="checkbox" id="dp-keep" style="width:18px;height:18px"> Manter também observações, vídeos, datas e status</label>`
+      : `<p style="margin:0 0 8px">Cria um relatório com os mesmos itens (fotos, datas e descrições). Os comentários começam em branco.</p><label class="fld">Título<input type="text" id="dp-t" value="${esc(r.titulo || "")}"></label><label style="display:flex;gap:8px;align-items:center;font-size:13px;margin-top:8px"><input type="checkbox" id="dp-keep" style="width:18px;height:18px"> Manter também os comentários</label>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Criar", cls: "primary", value: bg => { const head = {}; $$("[data-hh]", bg).forEach(i => { head[i.dataset.hh] = i.value.trim(); }); return {head, titulo: $("#dp-t", bg) ? $("#dp-t", bg).value.trim() : "", keep: $("#dp-keep", bg).checked}; }}]});
+  if (!res) return;
+  const end = toastHold("Criando o novo relatório…");
+  try {
+    const nid = uid("g"), at = nowIso(), L = gItems();
+    const base = spec ? {tipo: r.tipo, titulo: r.titulo, head: res.head, assin: {}, origem: "criado", nItens: L.length, nResp: 0, nNok: 0}
+      : {titulo: res.titulo || r.titulo || "", local: r.local || "", criada: gNow(), origem: "criado", nItens: L.length, nResp: 0};
+    Object.assign(base, {baseDe: rid, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+    await create(`gape/${nid}`, base);
+    const copyImg = async x => { if (!x || !x.id) return null; const src = await getBlob(x.id); return src ? {...x, id: saveBlob(src)} : null; };
+    for (const [i, it] of L.entries()) {
+      const {id, createdBy, createdAt, updatedBy, updatedAt, ...rest} = it;
+      let row;
+      if (spec) row = res.keep ? rest : {o: rest.o, apto: rest.apto || "", tipo: rest.tipo || ""};
+      else { row = {o: rest.o, nOrig: rest.nOrig || null, criada: rest.criada || "", desc: rest.desc || "", com: res.keep ? rest.com || "" : ""}; const im = await copyImg(rest.img); if (im) row.img = im; if (res.keep) { const fr = await copyImg(rest.fotoResp); if (fr) row.fotoResp = fr; } }
+      create(`gape/${nid}/itens/${uid("i")}${i}`, {...row, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}).catch(() => {});
+    }
+    gapes.set(nid, {id: nid, ...base}); end(); location.hash = "gape-" + nid;
+  } catch { end(); toast("Não foi possível criar a cópia."); }
+}
+
+/* PDF da ficha em tabela: A4 deitado, igual à folha, com as folhas digitalizadas no fim */
+async function exportGapeTablePdf(r, spec, btn) {
+  const root = document.createElement("div"); root.id = "print-root"; root.className = "ui"; document.body.appendChild(root);
+  try {
+    const dl = await claude.use("downloads");
+    await Promise.all([loadScript(LIBS.h2c), loadScript(LIBS.jspdf)]).catch(() => { throw Object.assign(new Error("lib"), {code: "lib"}); });
+    const leaf = gLeaf(spec), L = gItems(), per = spec.porPagina || 16, nPg = Math.max(1, Math.ceil(L.length / per)), half = Math.ceil(spec.head.length / 2);
+    const cell = (c, d) => { const v = d[c.k] || ""; if (c.t === "oknok") return `<td class="c b ${v === "NOK" ? "nokc" : v === "OK" ? "okc" : ""}">${esc(v)}</td>`; if (c.t === "date") return `<td class="c hw">${esc(fmtShortDate(v))}</td>`; if (c.t === "time") return `<td class="c hw">${esc(fmtHour(v))}</td>`; return `<td class="${c.c ? "c" : ""} ${["apto", "tipo"].includes(c.k) ? "" : "hw"}">${esc(v)}</td>`; };
+    const pages = [];
+    for (let p = 0; p < nPg; p++) {
+      const rows = L.slice(p * per, (p + 1) * per), pad = Array.from({length: per - rows.length}, () => ({}));
+      const pg = document.createElement("div"); pg.className = "gtp-page";
+      pg.innerHTML = `<table class="gtp"><colgroup>${leaf.map(c => `<col style="width:${c.w}%">`).join("")}</colgroup>
+        <tr><td colspan="3" rowspan="2" class="gtp-h"><div class="gtp-t">${esc(spec.titulo)}</div><div class="gtp-hg">${spec.head.map((h, i) => `<div style="grid-column:${i < half ? 1 : 2};grid-row:${i % half + 1}">${esc(h.l)}: <span class="hw">${esc((r.head || {})[h.k] || "")}</span></div>`).join("")}</div></td>
+          ${spec.cols.filter(c => c.g).map(c => `<td colspan="${c.cols.length}" class="c gtp-g">${esc(c.g)}</td>`).join("")}</tr>
+        <tr>${spec.cols.filter(c => c.g).flatMap(c => c.cols).map(c => `<td class="c gtp-s">${esc(c.l)}</td>`).join("")}</tr>
+        ${rows.concat(pad).map(d => `<tr class="gtp-r">${leaf.map(c => cell(c, d)).join("")}</tr>`).join("")}</table>
+        <div class="gtp-assin">${spec.assin.map(a => `<div>${esc(a.l)}: <span class="hw">${esc((r.assin || {})[a.k] || "")}</span></div>`).join("")}</div>
+        <div class="gtp-foot">Gerado pelo Sistema de FVs · ${esc(fmtFull(nowIso()))} · página ${p + 1} de ${nPg}</div>`;
+      root.appendChild(pg); pages.push(pg);
+    }
+    const {jsPDF} = window.jspdf, pdf = new jsPDF({orientation: "landscape", unit: "mm", format: "a4"});
+    for (let i = 0; i < pages.length; i++) {
+      btn.textContent = `Gerando PDF… ${i + 1}/${pages.length}`;
+      const c = await window.html2canvas(pages[i], {scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: 1280});
+      if (i) pdf.addPage(); pdf.addImage(c.toDataURL("image/jpeg", .92), "JPEG", 0, 0, 297, 210);
+    }
+    for (const s of r.scans || []) {
+      const im = await loadImg(s.id).catch(() => null); if (!im) continue;
+      const url = await rotatedUrl(im, s.rot || 0), sw = (s.rot || 0) % 180 !== 0, w = sw ? im.height : im.width, h = sw ? im.width : im.height;
+      const land = w >= h, PW = land ? 297 : 210, PH = land ? 210 : 297, k = Math.min((PW - 12) / w, (PH - 12) / h);
+      pdf.addPage("a4", land ? "landscape" : "portrait"); pdf.addImage(url, "JPEG", (PW - w * k) / 2, (PH - h * k) / 2, w * k, h * k);
+    }
+    const safe = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9-]+/g, "_").replace(/^_|_$/g, "");
+    await dl.save({filename: `GAPE_${safe(spec.nome)}${r.head && r.head.torre ? "_Torre_" + safe(r.head.torre) : ""}_${today()}.pdf`, data: pdf.output("blob")});
+    toast("PDF pronto.");
+  } finally { root.remove(); }
 }
 
 /* tela do relatório */
@@ -2421,18 +2770,21 @@ function openGape(rid) {
 function closeGape() { if (gcur && gcur.unsub) gcur.unsub(); gcur = null; }
 function syncGapeCounts() {
   if (!gcur || !canWrite) return; const r = gapes.get(gcur.id); if (!r) return;
-  const n = gcur.items.length, ok = gcur.items.filter(i => String(i.com || "").trim()).length;
+  const n = gcur.items.length, sp = gSpec(r);
+  if (sp) { const ok = gcur.items.filter(i => i.st).length, nok = gcur.items.filter(i => i.st === "NOK").length; if (r.nItens !== n || r.nResp !== ok || (r.nNok || 0) !== nok) patch(`gape/${gcur.id}`, {nItens: n, nResp: ok, nNok: nok}); return; }
+  const ok = gcur.items.filter(i => String(i.com || "").trim()).length;
   if (r.nItens !== n || r.nResp !== ok) patch(`gape/${gcur.id}`, {nItens: n, nResp: ok});
 }
 function renderGape() {
   const v = $("#view-gape"); if (!gcur) return;
   const r = gapes.get(gcur.id);
   if (!r) { v.innerHTML = `<div class="empty"><b>Relatório não encontrado.</b><a href="#gape">Voltar aos relatórios</a></div>`; return; }
+  const spec = gSpec(r); if (spec) return renderGapeTable(r, spec);
   const ro = !canWrite, rid = gcur.id;
-  if (v.dataset.rid !== rid || !$("#g-items", v)) {
-    v.dataset.rid = rid;
+  if (v.dataset.rid !== rid || v.dataset.kind !== "fot" || !$("#g-items", v)) {
+    v.dataset.rid = rid; v.dataset.kind = "fot";
     v.innerHTML = `<a class="back" href="#gape">← Relatórios GAPE</a>
-      <div class="g-top"><div class="g-tag ${r.origem === "importado" ? "imp" : ""}" id="g-orig"></div><div class="g-acts"><button class="btn dark" type="button" id="g-pdf">Baixar PDF</button>${ro ? "" : `<button class="btn ghost danger" type="button" id="g-del">Excluir</button>`}</div></div>
+      <div class="g-top"><div class="g-tag ${r.origem === "importado" ? "imp" : ""}" id="g-orig"></div><div class="g-acts">${ro ? "" : `<button class="btn" type="button" id="g-dup">Criar novo a partir deste</button>`}<button class="btn dark" type="button" id="g-pdf">Baixar PDF</button>${ro ? "" : `<button class="btn ghost danger" type="button" id="g-del">Excluir</button>`}</div></div>
       <div class="g-sheet"><div class="g-head">
         <label>Criada:</label><input type="text" data-h="criada" ${ro ? "disabled" : ""}>
         <label>Localização:</label><input type="text" data-h="local" placeholder="Ex.: PARQUE DOS SONHOS V" ${ro ? "disabled" : ""}>
@@ -2458,6 +2810,7 @@ function renderGape() {
         } catch { toast("Não foi possível usar essa foto."); }
       });
       $("#g-items", v).addEventListener("click", gItemClick);
+      $("#g-dup", v).onclick = () => dupGape(rid);
     }
   }
   $("#g-orig", v).textContent = r.origem === "importado" ? `Recebido do GAPE${r.arquivo ? " · " + r.arquivo : ""}` : "Criado aqui";
@@ -2501,7 +2854,7 @@ function renderGape() {
 function touchGape() { if (gcur) patch(`gape/${gcur.id}`, stamp({})); }
 function gBind(el, pathFn, field, isHead) {
   autosize(el);
-  const save = () => { clearTimeout(el._t); if (!el._dirty) return; el._dirty = false; patch(pathFn(), stamp({[field]: el.value})); if (!isHead) touchGape(); };
+  const save = () => { clearTimeout(el._t); if (!el._dirty) return; el._dirty = false; patch(pathFn(), stamp(field.split(".").reduceRight((v, k) => ({[k]: v}), el.value))); if (!isHead) touchGape(); };
   el.addEventListener("input", () => { el._dirty = true; autosize(el); clearTimeout(el._t); el._t = setTimeout(save, 700); });
   el.addEventListener("blur", save);
 }
@@ -2537,6 +2890,13 @@ function gLightbox(src) {
 async function exportGapePdf() {
   if (!gcur) return; const r = gapes.get(gcur.id); if (!r) return;
   const btn = $("#g-pdf"); btn.disabled = true; btn.textContent = "Gerando PDF…";
+  const spec = gSpec(r);
+  if (spec) {
+    try { await exportGapeTablePdf(r, spec, btn); }
+    catch (e) { const c = e && e.code; toast(c === "declined" ? "Download cancelado." : c === "lib" ? "Não foi possível carregar o gerador de PDF. Verifique a internet." : "Não foi possível gerar o PDF."); }
+    finally { btn.disabled = false; btn.textContent = "Baixar PDF"; }
+    return;
+  }
   const root = document.createElement("div"); root.id = "print-root"; root.className = "ui"; document.body.appendChild(root);
   try {
     const dl = await claude.use("downloads");
