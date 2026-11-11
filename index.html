@@ -309,7 +309,8 @@ td.x .rph:hover{background:#f1f1f1}
 @media (max-width:760px){#tab-maps .mark-cell,#tab-maps col.c-mark,#tab-maps .c-act{display:none}}
 #print-root .mprev{border:0;min-height:0}
 #print-root .mprev img{max-height:640px;cursor:default}
-.med{position:fixed;inset:0;z-index:60;background:#22262b;display:grid;grid-template-rows:auto auto 1fr;color:#fff}
+.med{position:fixed;inset:0;z-index:60;background:#22262b;display:grid;grid-template-rows:auto auto 1fr;grid-template-columns:minmax(0,1fr);color:#fff}
+.med>*{min-width:0}
 .med-top{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#15181b;flex-wrap:wrap}
 .med-top .med-title{flex:1;min-width:120px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .med-tools{display:flex;gap:4px;flex-wrap:wrap;align-items:center;padding:6px 8px;background:#2d3238}
@@ -319,7 +320,13 @@ td.x .rph:hover{background:#f1f1f1}
 .med-tools .sw.on{outline:3px solid #fff;outline-offset:2px}
 .med-tools select{height:38px;min-height:38px;width:auto;padding:4px 8px;background:#fff;color:#111;border-radius:8px}
 .med-tools .sep{width:1px;height:26px;background:rgba(255,255,255,.2);margin:0 4px}
+.msz{display:flex;align-items:center;gap:8px;font-size:12px;color:#fff;padding:0 4px;min-width:200px}
+.msz input[type=range]{width:120px;min-height:0;height:28px;padding:0;accent-color:#fff;background:transparent;border:0}
+.msz-dot{display:inline-block;border-radius:50%;border:1.5px solid rgba(255,255,255,.8);flex:none}
+.med-cv[data-tool="sel"] .mv-canvas{cursor:default}
 .med-tip{font-size:12px;opacity:.8;margin-left:6px}
+.mt-row{display:flex;gap:4px;align-items:center;min-width:0;max-width:100%}
+.med-tools [data-tip]{flex-basis:100%;margin-left:2px;min-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .med-main{display:grid;grid-template-columns:minmax(0,1fr) 260px;min-height:0}
 .med-main.one{grid-template-columns:1fr}
 .med-cv{position:relative;min-height:0;overflow:hidden;touch-action:none}
@@ -331,7 +338,7 @@ td.x .rph:hover{background:#f1f1f1}
 .med-side{background:#fff;color:var(--ink);overflow:auto;padding:12px}
 .med-notes li{cursor:pointer;padding:3px 0}
 .med-help{margin-top:12px;font-size:11.5px}
-@media (max-width:760px){.med-main{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.med-side{max-height:24vh}.med-tip{display:none}.med-tools{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}.med-tools>*{flex:none}}
+@media (max-width:760px){.med-main{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) auto}.med-side{max-height:24vh}.med-tip{display:none}.med-tools{gap:6px}.mt-row{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}.mt-row>*{flex:none}.mt-sep{display:none}.msz{min-width:0}.msz input[type=range]{width:110px}}
 .pl-list{display:grid;gap:8px;max-height:46vh;overflow:auto}
 .pl-it{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;padding:8px;cursor:pointer;background:#fff}
 .pl-it.on{border-color:var(--red);box-shadow:0 0 0 2px var(--red-soft)}
@@ -1674,8 +1681,40 @@ function renderMap(fv) {
 
 /* ---------- mapeamentos: plantas com recorte, desenhos e anotações ---------- */
 const MCOLORS = [["#e1251b","Vermelho"],["#1565c0","Azul"],["#2e7d32","Verde"],["#f9a825","Amarelo"],["#111111","Preto"],["#ffffff","Branco"]];
-const MTOOLS = [["pan","✋","Mover e dar zoom"],["pen","✏️","Caneta"],["line","╱","Linha"],["arrow","➜","Seta"],["rect","▭","Retângulo"],["ell","◯","Círculo"],["text","T","Texto"],["mk","①","Marcador com nota"],["erase","⌫","Apagar"]];
+const MTOOLS = [["sel","↖","Selecionar, mover e ajustar desenhos"],["pan","✋","Mover a planta e dar zoom"],["pen","✏️","Caneta"],["line","╱","Linha"],["arrow","➜","Seta"],["rect","▭","Retângulo"],["ell","◯","Círculo"],["text","T","Texto"],["mk","①","Marcador com nota"],["erase","⌫","Apagar"]];
 const MW = {f: .8, m: 1.6, g: 3.5}, MTXT = {P: 12, M: 18, G: 28};
+/* controle "Tamanho" (1 a 10): espessura do traço, tamanho do texto e do marcador */
+const SZ = {w: v => v * .45, s: v => 6 + v * 3, r: v => 4 + v * 1.3};
+const clampSz = v => Math.max(1, Math.min(10, Math.round(v * 2) / 2));
+function sizeOf(sh, m) {
+  const b = baseU(m);
+  if (sh.t === "mk") return clampSz(((sh.r || b * 9) / b - 4) / 1.3);
+  if (sh.t === "text") return clampSz(((sh.s || b * MTXT.M) / b - 6) / 3);
+  return clampSz((sh.w || b * MW.m) / b / .45);
+}
+function withSize(sh, v, m) {
+  const b = baseU(m);
+  if (sh.t === "mk") return {...sh, r: SZ.r(v) * b};
+  if (sh.t === "text") return {...sh, s: SZ.s(v) * b};
+  return {...sh, w: SZ.w(v) * b};
+}
+function shapeBox(sh, m) {
+  const b = baseU(m), pad = (sh.w || b * MW.m) / 2;
+  if (sh.t === "pen" || sh.t === "line" || sh.t === "arrow" || sh.t === "rect" || sh.t === "ell") {
+    const p = decNums(sh.t === "pen" ? sh.p : sh.a); let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (let i = 0; i < p.length; i += 2) { x0 = Math.min(x0, p[i]); x1 = Math.max(x1, p[i]); y0 = Math.min(y0, p[i + 1]); y1 = Math.max(y1, p[i + 1]); }
+    const ex = sh.t === "arrow" ? Math.max(pad * 8, b * 7) : pad;
+    return [x0 - ex, y0 - ex, x1 + ex, y1 + ex];
+  }
+  if (sh.t === "text") { const fs = sh.s || b * MTXT.M, ls = String(sh.txt || "").split("\n"), w = Math.max(1, ...ls.map(l => l.length)) * fs * .62; return [sh.x, sh.y, sh.x + w, sh.y + ls.length * fs * 1.2]; }
+  if (sh.t === "mk") { const r = sh.r || b * 9; return [sh.x - r, sh.y - r, sh.x + r, sh.y + r]; }
+  return [0, 0, 0, 0];
+}
+function moveShape(sh, dx, dy) {
+  if (sh.t === "pen") return {...sh, p: encNums(decNums(sh.p).map((v, i) => v + (i % 2 ? dy : dx)))};
+  if (sh.a) return {...sh, a: encNums(decNums(sh.a).map((v, i) => v + (i % 2 ? dy : dx)))};
+  return {...sh, x: sh.x + dx, y: sh.y + dy};
+}
 const TILE = 1280, BLOB_MAX = 850000;
 let plantas = new Map(), medState = null;
 const getBlob = id => id && window.__fb ? window.__fb.blobData(id) : Promise.resolve("");
@@ -2039,13 +2078,14 @@ async function openMapEditor(mid) {
   const toolBtns = MTOOLS.map(([k, ic, tt]) => `<button class="tl" type="button" data-tool="${k}" title="${tt}" aria-label="${tt}">${ic}</button>`).join("");
   const colorBtns = MCOLORS.map(([c, n]) => `<button class="sw" type="button" data-color="${c}" title="${n}" aria-label="Cor ${n}" style="background:${c}"></button>`).join("");
   ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-x>✕ Fechar</button><b class="med-title"></b>${ro ? `<span class="med-tip">Somente visualização</span>` : `<button class="btn sm" type="button" data-crop>✂ Recortar</button>`}</div>
-    ${ro ? "" : `<div class="med-tools">${toolBtns}<span class="sep"></span>${colorBtns}<span class="sep"></span>
-      <select data-w aria-label="Espessura"><option value="f">Fina</option><option value="m" selected>Média</option><option value="g">Grossa</option></select>
-      <span class="sep"></span><button class="tl" type="button" data-undo title="Desfazer" aria-label="Desfazer">↶</button><button class="tl" type="button" data-redo title="Refazer" aria-label="Refazer">↷</button><span class="med-tip" data-tip></span></div>`}
+    ${ro ? "" : `<div class="med-tools"><div class="mt-row">${toolBtns}</div><span class="sep mt-sep"></span><div class="mt-row">${colorBtns}<span class="sep"></span>
+      <label class="msz" title="Tamanho do traço, do texto e do marcador"><span>Tamanho</span><input type="range" data-size min="1" max="10" step="0.5" value="4" aria-label="Tamanho"><i class="msz-dot"></i></label>
+      <button class="tl hidden" type="button" data-delsel title="Apagar o desenho selecionado" aria-label="Apagar seleção">🗑</button>
+      <span class="sep"></span><button class="tl" type="button" data-undo title="Desfazer" aria-label="Desfazer">↶</button><button class="tl" type="button" data-redo title="Refazer" aria-label="Refazer">↷</button></div><span class="med-tip" data-tip></span></div>`}
     <div class="med-main"><div class="med-cv"><div class="mload" style="color:#fff">Carregando planta…</div><div class="med-zoom"><button type="button" data-z="1.4" aria-label="Aproximar">+</button><button type="button" data-z="0.7" aria-label="Afastar">−</button><button type="button" data-z="fit" aria-label="Ajustar">⤢</button></div></div>
-    <aside class="med-side"><div class="mnotes-t">NOTAS DOS MARCADORES</div><ol class="med-notes"></ol><p class="sub med-help">${ro ? "" : "Use ① para marcar um ponto com nota. Toque num texto ou marcador com a mesma ferramenta para editar."}</p></aside></div>`;
+    <aside class="med-side"><div class="mnotes-t">NOTAS DOS MARCADORES</div><ol class="med-notes"></ol><p class="sub med-help">${ro ? "" : "Use ① para marcar um ponto com nota. Com ↖ Selecionar, toque num desenho para mover, mudar o tamanho ou a cor. Toque numa nota da lista para editar o texto."}</p></aside></div>`;
   document.body.appendChild(ov); document.body.classList.add("noscroll");
-  const st = medState = {mid, fid, tool: ro ? "pan" : "pen", color: MCOLORS[0][0], w: "m", loc: {}, undo: [], redo: [], draft: null, logged: false};
+  const st = medState = {mid, fid, tool: ro ? "pan" : "pen", color: MCOLORS[0][0], size: 4, sel: null, loc: {}, undo: [], redo: [], draft: null, logged: false};
   const title = () => $(".med-title", ov).textContent = m.title || "Mapeamento";
   title();
   const shapesNow = () => ({...(m.shapes || {}), ...st.loc});
@@ -2072,35 +2112,45 @@ async function openMapEditor(mid) {
     const isMk = s ? s.t === "mk" : st.tool === "mk";
     const n = isMk ? (s ? s.n : Math.max(0, ...markersOf(shapesNow()).map(x => x.n || 0)) + 1) : 0;
     const res = await modal({title: isMk ? `Marcador ${n}` : (s ? "Editar texto" : "Novo texto"),
-      body: `<label class="fld">${isMk ? "Nota (aparece na lista de notas)" : "Texto"}<textarea id="tx" rows="3" maxlength="400">${esc(s ? s.txt || "" : "")}</textarea></label>${isMk ? "" : `<label class="fld">Tamanho<select id="tz"><option value="P">Pequeno</option><option value="M" selected>Médio</option><option value="G">Grande</option></select></label>`}`,
-      onOpen: bg => { const z = $("#tz", bg); if (z && s && s.s) { const b = baseU(m); z.value = Object.keys(MTXT).reduce((best, k) => Math.abs(MTXT[k] * b - s.s) < Math.abs(MTXT[best] * b - s.s) ? k : best, "M"); } },
-      actions: [...(s ? [{label: "Apagar", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, ...(isMk ? [{label: s ? `📷 Fotos (${linkedPhotos(`mk:${mid}:${s.id}`).length})` : "Salvar e anexar foto", value: bg => ({txt: $("#tx", bg).value.trim(), photos: true})}] : []), {label: "Salvar", cls: "primary", value: bg => ({txt: $("#tx", bg).value.trim(), z: $("#tz", bg) ? $("#tz", bg).value : null})}]});
+      body: `<label class="fld">${isMk ? "Nota (aparece na lista de notas)" : "Texto"}<textarea id="tx" rows="3" maxlength="400">${esc(s ? s.txt || "" : "")}</textarea></label><p class="sub" style="margin:0">O tamanho vem do controle <b>Tamanho</b> da barra. Para mudar depois, use a ferramenta ↖ Selecionar.</p>`,
+      actions: [...(s ? [{label: "Apagar", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, ...(isMk ? [{label: s ? `📷 Fotos (${linkedPhotos(`mk:${mid}:${s.id}`).length})` : "Salvar e anexar foto", value: bg => ({txt: $("#tx", bg).value.trim(), photos: true})}] : []), {label: "Salvar", cls: "primary", value: bg => ({txt: $("#tx", bg).value.trim()})}]});
     if (!res) return;
     if (res === "del") { delShape(s); return; }
     if (res.photos) {
       let sid = s && s.id;
       if (s) { if ((s.txt || "") !== res.txt) { const {id, ...rest} = s; commit(id, {...rest}, {...rest, txt: res.txt, del: false}); } }
-      else sid = addShape({t: "mk", x: at[0], y: at[1], n, txt: res.txt, r: baseU(m) * 9});
+      else sid = addShape({t: "mk", x: at[0], y: at[1], n, txt: res.txt, r: baseU(m) * SZ.r(st.size)});
       const cur_ = liveShapes(shapesNow()).find(x => x.id === sid) || {n, txt: res.txt, id: sid};
       return mkPhotos(cur_);
     }
     const b = baseU(m);
     if (!isMk && !res.txt) return;
-    if (s) { const {id, ...rest} = s; commit(id, {...rest}, {...rest, txt: res.txt, ...(isMk ? {} : {s: MTXT[res.z] * b}), del: false}); }
-    else if (isMk) addShape({t: "mk", x: at[0], y: at[1], n, txt: res.txt, r: b * 9});
-    else addShape({t: "text", x: at[0], y: at[1], txt: res.txt, s: MTXT[res.z] * b});
+    if (s) { const {id, ...rest} = s; commit(id, {...rest}, {...rest, txt: res.txt, del: false}); }
+    else if (isMk) addShape({t: "mk", x: at[0], y: at[1], n, txt: res.txt, r: b * SZ.r(st.size)});
+    else addShape({t: "text", x: at[0], y: at[1], txt: res.txt, s: b * SZ.s(st.size)});
   }
   v = new MapViewer(host, im, {
     tool: () => st.tool,
-    start: p => {
+    start: (p, e) => {
       const q = toPlan(p), b = baseU(m);
-      if (st.tool === "pen") st.draft = {t: "pen", pts: [...q], c: st.color, w: MW[st.w] * b};
-      else if (["line", "arrow", "rect", "ell"].includes(st.tool)) st.draft = {t: st.tool, a4: [...q, ...q], c: st.color, w: MW[st.w] * b};
+      if (st.tool === "sel") {
+        const h = topHit(q, 14);
+        if (h) { select(h.id); const {id, ...rest} = h; st.drag = {id, from: q, orig: rest, dx: 0, dy: 0}; }
+        else { select(null); st.drag = null; st.panFrom = [e.clientX, e.clientY]; }
+        return;
+      }
+      if (st.tool === "pen") st.draft = {t: "pen", pts: [...q], c: st.color, w: SZ.w(st.size) * b};
+      else if (["line", "arrow", "rect", "ell"].includes(st.tool)) st.draft = {t: st.tool, a4: [...q, ...q], c: st.color, w: SZ.w(st.size) * b};
       else if (st.tool === "erase") { st.erased = new Set(); const h = topHit(q); if (h) { st.erased.add(h.id); delShape(h); } }
       else st.draft = null;
     },
-    drag: p => {
+    drag: (p, e) => {
       const q = toPlan(p), d = st.draft;
+      if (st.tool === "sel") {
+        if (st.drag) { st.drag.dx = q[0] - st.drag.from[0]; st.drag.dy = q[1] - st.drag.from[1]; v.draw(); }
+        else if (st.panFrom) { v.ox += e.clientX - st.panFrom[0]; v.oy += e.clientY - st.panFrom[1]; st.panFrom = [e.clientX, e.clientY]; v.draw(); }
+        return;
+      }
       if (st.tool === "erase") { const h = topHit(q); if (h && !st.erased.has(h.id)) { st.erased.add(h.id); delShape(h); } return; }
       if (!d) return;
       if (d.t === "pen") { const n = d.pts.length; if (Math.hypot(q[0] - d.pts[n - 2], q[1] - d.pts[n - 1]) * scr() >= 1.2) d.pts.push(q[0], q[1]); }
@@ -2109,29 +2159,48 @@ async function openMapEditor(mid) {
     },
     end: p => {
       const q = toPlan(p), d = st.draft; st.draft = null;
+      if (st.tool === "sel") {
+        const g = st.drag; st.drag = null; st.panFrom = null;
+        if (g && Math.hypot(g.dx, g.dy) * scr() >= 2) commit(g.id, {...g.orig}, {...moveShape(g.orig, g.dx, g.dy), del: false});
+        v.draw(); return;
+      }
       if (st.tool === "text" || st.tool === "mk") { const h = topHit(q, 14); if (h && h.t === (st.tool === "mk" ? "mk" : "text")) editText(h); else editText(null, q); return; }
       if (!d) { v.draw(); return; }
       if (d.t === "pen") addShape({t: "pen", p: encNums(simplify(d.pts, .6 / scr())), w: d.w, c: d.c});
       else if (Math.hypot(d.a4[2] - d.a4[0], d.a4[3] - d.a4[1]) * scr() >= 4) addShape({t: d.t, a: encNums(d.a4), w: d.w, c: d.c});
       v.draw();
     },
-    cancel: () => { st.draft = null; v.draw(); },
+    cancel: () => { st.draft = null; st.drag = null; st.panFrom = null; v.draw(); },
     paint: (c) => {
       const k0 = v.img.width / m.crop.w; c.transform(k0, 0, 0, k0, -m.crop.x * k0, -m.crop.y * k0);
-      liveShapes(shapesNow()).forEach(s => drawShape(c, s, m));
+      const g = st.drag;
+      liveShapes(shapesNow()).forEach(s => drawShape(c, g && g.id === s.id ? moveShape(s, g.dx, g.dy) : s, m));
+      const sel = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
+      if (sel) {
+        const [x0, y0, x1, y1] = shapeBox(g && g.id === sel.id ? moveShape(sel, g.dx, g.dy) : sel, m), k = scr(), pd = 6 / k;
+        c.save(); c.lineWidth = 2 / k; c.setLineDash([6 / k, 4 / k]); c.strokeStyle = "#fff"; c.strokeRect(x0 - pd, y0 - pd, x1 - x0 + 2 * pd, y1 - y0 + 2 * pd);
+        c.lineDashOffset = 5 / k; c.strokeStyle = "#1565c0"; c.strokeRect(x0 - pd, y0 - pd, x1 - x0 + 2 * pd, y1 - y0 + 2 * pd); c.restore();
+      }
       const d = st.draft;
       if (d) drawShape(c, d.t === "pen" ? {t: "pen", p: d.pts.join(","), c: d.c, w: d.w} : {t: d.t, a: d.a4.join(","), c: d.c, w: d.w}, m);
     }
   });
   host.insertBefore(v.cv, host.firstChild); v.resize();
   $$(".med-zoom [data-z]", ov).forEach(b => b.onclick = () => b.dataset.z === "fit" ? v.fit() : v.zoomBy(+b.dataset.z));
-  const TIPS = {pan: "Arraste para mover. Dois dedos ou a roda do mouse dão zoom.", pen: "Desenhe à mão livre.", line: "Arraste para traçar a linha.", arrow: "Arraste do início até a ponta da seta.", rect: "Arraste para desenhar o retângulo.", ell: "Arraste para desenhar o círculo.", text: "Toque onde vai o texto. Toque num texto existente para editar.", mk: "Toque para pôr um marcador numerado com nota.", erase: "Toque ou passe sobre um desenho para apagar."};
+  const TIPS = {sel: "Toque num desenho para selecionar e arraste para mover. Com ele selecionado, mude o tamanho ou a cor.", pan: "Arraste para mover a planta. Dois dedos ou a roda do mouse dão zoom.", pen: "Desenhe à mão livre.", line: "Arraste para traçar a linha.", arrow: "Arraste do início até a ponta da seta.", rect: "Arraste para desenhar o retângulo.", ell: "Arraste para desenhar o círculo.", text: "Toque onde vai o texto. Toque num texto existente para editar.", mk: "Toque para pôr um marcador numerado com nota.", erase: "Toque ou passe sobre um desenho para apagar."};
   const syncTools = () => {
     $$("[data-tool]", ov).forEach(b => b.classList.toggle("on", b.dataset.tool === st.tool));
     $$("[data-color]", ov).forEach(b => b.classList.toggle("on", b.dataset.color === st.color));
     const tp = $("[data-tip]", ov); if (tp) tp.textContent = TIPS[st.tool] || "";
     host.dataset.tool = st.tool;
+    const sz = $("[data-size]", ov); if (sz) { const selS = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel); sz.value = selS ? sizeOf(selS, m) : st.size; dotPreview(); }
+    const ds = $("[data-delsel]", ov); if (ds) ds.classList.toggle("hidden", !st.sel);
   };
+  function dotPreview() {
+    const sz = $("[data-size]", ov), dot = $(".msz-dot", ov); if (!sz || !dot) return;
+    const d = 4 + (+sz.value) * 2.2; dot.style.width = dot.style.height = d + "px"; dot.style.background = st.color;
+  }
+  function select(id) { st.sel = id; if (id) { st.tool = "sel"; } syncTools(); v && v.draw(); }
   function notes() {
     const L = markersOf(shapesNow());
     $(".med-notes", ov).innerHTML = L.length ? L.map(s => { const k = `mk:${mid}:${s.id}`, ph = linkedPhotos(k); return `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${ro && !ph.length ? "" : `<button type="button" class="mph" data-mkph="${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
@@ -2149,12 +2218,30 @@ async function openMapEditor(mid) {
     if (ro || document.querySelector(".modal-bg")) return;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); e.shiftKey ? undoRedo(st.redo, st.undo, false) : undoRedo(st.undo, st.redo, true); }
     else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") { e.preventDefault(); undoRedo(st.redo, st.undo, false); }
+    else if ((e.key === "Delete" || e.key === "Backspace") && st.sel && !/input|textarea/i.test((document.activeElement || {}).tagName || "")) { e.preventDefault(); const sh = liveShapes(shapesNow()).find(x => x.id === st.sel); if (sh) { delShape(sh); select(null); } }
+    else if (e.key === "Escape" && st.sel) select(null);
   };
   document.addEventListener("keydown", onKey);
   if (!ro) {
-    $$("[data-tool]", ov).forEach(b => b.onclick = () => { st.tool = b.dataset.tool; syncTools(); });
-    $$("[data-color]", ov).forEach(b => b.onclick = () => { st.color = b.dataset.color; syncTools(); });
-    $("[data-w]", ov).onchange = e => { st.w = e.target.value; };
+    $$("[data-tool]", ov).forEach(b => b.onclick = () => { st.tool = b.dataset.tool; if (st.tool !== "sel") st.sel = null; syncTools(); v.draw(); });
+    $$("[data-color]", ov).forEach(b => b.onclick = () => {
+      st.color = b.dataset.color;
+      const sh = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
+      if (sh && sh.c !== st.color) { const {id, ...rest} = sh; commit(id, {...rest}, {...rest, c: st.color, del: false}); }
+      syncTools();
+    });
+    // Tamanho: arrastar mostra na hora; ao soltar, grava (e entra no desfazer)
+    let szBefore = null;
+    $("[data-size]", ov).addEventListener("input", e => {
+      const val = +e.target.value; dotPreview();
+      const sh = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
+      if (sh) { const {id, ...rest} = sh; if (!szBefore || szBefore.id !== id) szBefore = {id, rest: {...rest}}; st.loc[id] = withSize(rest, val, m); v.draw(); notes(); }
+      else st.size = val;
+    });
+    $("[data-size]", ov).addEventListener("change", () => {
+      if (szBefore) { const cur2 = st.loc[szBefore.id]; commit(szBefore.id, szBefore.rest, {...cur2, del: false}); szBefore = null; }
+    });
+    $("[data-delsel]", ov).onclick = () => { const sh = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel); if (sh) { delShape(sh); select(null); } };
     $("[data-undo]", ov).onclick = () => undoRedo(st.undo, st.redo, true);
     $("[data-redo]", ov).onclick = () => undoRedo(st.redo, st.undo, false);
     $("[data-crop]", ov).onclick = async () => {
