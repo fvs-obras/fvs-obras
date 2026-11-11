@@ -1684,13 +1684,17 @@ const MCOLORS = [["#e1251b","Vermelho"],["#1565c0","Azul"],["#2e7d32","Verde"],[
 const MTOOLS = [["sel","↖","Selecionar, mover e ajustar desenhos"],["pan","✋","Mover a planta e dar zoom"],["pen","✏️","Caneta"],["line","╱","Linha"],["arrow","➜","Seta"],["rect","▭","Retângulo"],["ell","◯","Círculo"],["text","T","Texto"],["mk","①","Marcador com nota"],["erase","⌫","Apagar"]];
 const MW = {f: .8, m: 1.6, g: 3.5}, MTXT = {P: 12, M: 18, G: 28};
 /* controle "Tamanho" (1 a 10): espessura do traço, tamanho do texto e do marcador */
-const SZ = {w: v => v * .45, s: v => 6 + v * 3, r: v => 4 + v * 1.3};
-const clampSz = v => Math.max(1, Math.min(10, Math.round(v * 2) / 2));
+// Escala progressiva: 1 = bem pequeno, 4 = padrão, 10 = grande (em unidades da planta recortada).
+const SZR = {w: [.3, 1.8, 4.5], s: [4, 18, 36], r: [1.8, 9.2, 17]};
+const szMap = ([mn, df, mx], v) => v <= 4 ? mn * Math.pow(df / mn, (v - 1) / 3) : df * Math.pow(mx / df, (v - 4) / 6);
+const szInv = ([mn, df, mx], x) => x <= df ? 1 + 3 * Math.log(x / mn) / Math.log(df / mn) : 4 + 6 * Math.log(x / df) / Math.log(mx / df);
+const SZ = {w: v => szMap(SZR.w, v), s: v => szMap(SZR.s, v), r: v => szMap(SZR.r, v)};
+const clampSz = v => Math.max(1, Math.min(10, Math.round(v * 4) / 4));
 function sizeOf(sh, m) {
   const b = baseU(m);
-  if (sh.t === "mk") return clampSz(((sh.r || b * 9) / b - 4) / 1.3);
-  if (sh.t === "text") return clampSz(((sh.s || b * MTXT.M) / b - 6) / 3);
-  return clampSz((sh.w || b * MW.m) / b / .45);
+  if (sh.t === "mk") return clampSz(szInv(SZR.r, (sh.r || b * 9) / b));
+  if (sh.t === "text") return clampSz(szInv(SZR.s, (sh.s || b * MTXT.M) / b));
+  return clampSz(szInv(SZR.w, (sh.w || b * MW.m) / b));
 }
 function withSize(sh, v, m) {
   const b = baseU(m);
@@ -2079,7 +2083,7 @@ async function openMapEditor(mid) {
   const colorBtns = MCOLORS.map(([c, n]) => `<button class="sw" type="button" data-color="${c}" title="${n}" aria-label="Cor ${n}" style="background:${c}"></button>`).join("");
   ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-x>✕ Fechar</button><b class="med-title"></b>${ro ? `<span class="med-tip">Somente visualização</span>` : `<button class="btn sm" type="button" data-crop>✂ Recortar</button>`}</div>
     ${ro ? "" : `<div class="med-tools"><div class="mt-row">${toolBtns}</div><span class="sep mt-sep"></span><div class="mt-row">${colorBtns}<span class="sep"></span>
-      <label class="msz" title="Tamanho do traço, do texto e do marcador"><span>Tamanho</span><input type="range" data-size min="1" max="10" step="0.5" value="4" aria-label="Tamanho"><i class="msz-dot"></i></label>
+      <label class="msz" title="Tamanho do traço, do texto e do marcador"><span>Tamanho</span><input type="range" data-size min="1" max="10" step="0.25" value="4" aria-label="Tamanho"><i class="msz-dot"></i></label>
       <button class="tl hidden" type="button" data-delsel title="Apagar o desenho selecionado" aria-label="Apagar seleção">🗑</button>
       <span class="sep"></span><button class="tl" type="button" data-undo title="Desfazer" aria-label="Desfazer">↶</button><button class="tl" type="button" data-redo title="Refazer" aria-label="Refazer">↷</button></div><span class="med-tip" data-tip></span></div>`}
     <div class="med-main"><div class="med-cv"><div class="mload" style="color:#fff">Carregando planta…</div><div class="med-zoom"><button type="button" data-z="1.4" aria-label="Aproximar">+</button><button type="button" data-z="0.7" aria-label="Afastar">−</button><button type="button" data-z="fit" aria-label="Ajustar">⤢</button></div></div>
@@ -2198,7 +2202,7 @@ async function openMapEditor(mid) {
   };
   function dotPreview() {
     const sz = $("[data-size]", ov), dot = $(".msz-dot", ov); if (!sz || !dot) return;
-    const d = 4 + (+sz.value) * 2.2; dot.style.width = dot.style.height = d + "px"; dot.style.background = st.color;
+    const d = 3 + szMap([1, 7, 22], +sz.value); dot.style.width = dot.style.height = d + "px"; dot.style.background = st.color;
   }
   function select(id) { st.sel = id; if (id) { st.tool = "sel"; } syncTools(); v && v.draw(); }
   function notes() {
