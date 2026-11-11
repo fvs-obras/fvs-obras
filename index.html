@@ -271,23 +271,26 @@ td.x .rph:hover{background:#f1f1f1}
 .g-lb{position:fixed;inset:0;z-index:75;background:rgba(0,0,0,.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
 .g-lb img{max-width:100%;max-height:85vh;object-fit:contain}
 @media (max-width:640px){.gi{grid-template-columns:1fr;gap:8px}.gi-n{padding:0;font-weight:700}.gi-img,.gi-img.wide{width:100%;height:220px}.gi-ph{justify-items:stretch}.g-sheet{padding:14px 12px}}
-.gp-page{width:794px;height:1123px;padding:44px 52px 30px;box-sizing:border-box;background:#fff;color:#111;font-family:Inter,Arial,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
-.gp-head{font-size:9.5px;line-height:1.35;padding-bottom:12px;border-bottom:1px solid #111}
+.gp-page{width:794px;height:1123px;padding:54px 76px 57px;box-sizing:border-box;background:#fff;color:#111;font-family:Inter,Roboto,Arial,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
+.gp-head{font-size:11.3px;line-height:13.3px;padding-bottom:20px;border-bottom:1.3px solid #111}
 .gp-head span{display:inline-block;width:72px}
-.gp-body{flex:1;overflow:hidden;min-height:0}
-.gp-it{display:grid;grid-template-columns:30px 100px 1fr;gap:12px;padding:10px 0;align-items:start}
-.gp-it.wide{grid-template-columns:30px 260px 1fr}
-.gp-n{font-size:9px;padding-top:70px}
-.gp-ph img{width:100%;max-height:176px;object-fit:cover;display:block}
-.gp-noimg{height:120px;border:1px dashed #bbb;display:flex;align-items:center;justify-content:center;font-size:9px;color:#888}
-.gp-tx{font-size:11.5px;line-height:1.45;min-width:0}
-.gp-desc{margin-top:6px;white-space:pre-wrap}
-.gp-coml{display:flex;gap:6px;align-items:flex-end;margin-top:8px}.gp-coml b{flex:1;border-bottom:1px solid #888;height:1px;margin-bottom:4px}
-.gp-com{position:relative}
-.gp-rules i{display:block;height:23px;border-bottom:1px solid #aaa}
-.gp-ct{position:absolute;inset:0;line-height:23px;white-space:pre-wrap;font-size:11.5px;color:#0b3d91;padding-top:2px}
-.gp-resp{margin-top:6px;font-size:9.5px;color:#444}.gp-resp img{display:block;max-width:160px;max-height:110px;margin-top:3px;object-fit:cover}
-.gp-foot{display:flex;justify-content:space-between;font-size:8.5px;color:#444;border-top:1px solid #111;padding-top:8px}
+.gp-body{flex:1;overflow:hidden;min-height:0;padding-top:15px}
+.gp-it{display:grid;grid-template-columns:19px 105px 15px 1fr;padding-bottom:22px;align-items:start}
+.gp-it.wide{grid-template-columns:19px 331px 15px 1fr}
+.gp-n{font-size:9.5px;align-self:center;margin-top:-18px}
+.gp-ph{grid-column:2}
+.gp-ph img{width:100%;height:185px;object-fit:cover;display:block}
+.gp-noimg{height:185px;border:1px dashed #bbb;display:flex;align-items:center;justify-content:center;font-size:9.5px;color:#888}
+.gp-tx{grid-column:4;font-size:13.2px;line-height:21px;min-width:0;padding-top:2px}
+.gp-desc{white-space:pre-wrap}
+.gp-com{position:relative;margin-top:7px}
+.gp-coml{display:flex;gap:7px;align-items:flex-end;height:18px;padding-bottom:0}
+.gp-coml span{line-height:1;padding-bottom:3px;white-space:nowrap}
+.gp-coml b{flex:1;border-bottom:1.3px solid #888;height:0}
+.gp-rules i{display:block;height:26.7px;border-bottom:1.3px solid #9a9a9a;box-sizing:border-box}
+.gp-ct{position:absolute;left:0;right:0;top:-8.7px;line-height:26.7px;padding-top:4px;text-indent:var(--ind,88px);white-space:pre-wrap;word-break:break-word;font-size:13.2px;color:#0b3d91}
+.gp-resp{margin-top:8px;font-size:9.5px;line-height:1.3;color:#444}.gp-resp img{display:block;max-width:180px;max-height:120px;margin-top:3px;object-fit:cover}
+.gp-foot{display:flex;justify-content:space-between;font-size:9.5px;color:#444;border-top:1.3px solid #111;padding-top:12px;height:25px;box-sizing:border-box}
 /* Mapeamentos */
 .noscroll{overflow:hidden}
 .maps-head{display:flex;justify-content:flex-end;margin-bottom:10px}
@@ -2423,17 +2426,25 @@ async function exportGapePdf() {
     const headHtml = `<div class="gp-head"><div><span>Criada:</span>${esc(r.criada || "")}</div><div><span>Localização:</span>${esc(r.local || "")}</div><div><span>Título:</span>${esc(r.titulo || "")}</div><div><span>No. Items:</span>${L.length}</div></div>`;
     const rules = n => Array.from({length: n}, () => `<i></i>`).join("");
     const itemHtml = (it, i) => {
-      const [src, rsrc] = srcs[i], com = String(it.com || "").trim(), nLines = Math.max(5, Math.ceil(com.length / 62) + com.split("\n").length);
+      const [src, rsrc] = srcs[i], com = String(it.com || "").trim();
       return `<div class="gp-it${it.img && it.img.w > it.img.h * 1.2 ? " wide" : ""}"><div class="gp-n">(${i + 1})</div><div class="gp-ph">${src ? `<img src="${src}" alt="">` : `<div class="gp-noimg">sem foto</div>`}</div>
         <div class="gp-tx"><div>Criada:&nbsp; ${esc(it.criada || "")}</div><div class="gp-desc">${esc(it.desc || "")}</div>
-          <div class="gp-coml"><span>Comentários</span><b></b></div><div class="gp-com"><div class="gp-rules">${rules(nLines)}</div><div class="gp-ct">${esc(com)}</div></div>
+          <div class="gp-com"><div class="gp-coml"><span>Comentários</span><b></b></div><div class="gp-rules">${rules(5)}</div>${com ? `<div class="gp-ct">${esc(com)}</div>` : ""}</div>
           ${rsrc ? `<div class="gp-resp"><span>Foto da correção</span><img src="${rsrc}" alt=""></div>` : ""}</div></div>`;
+    };
+    // o comentário começa na linha de "Comentários" e segue sobre as pautas; cria pautas extras se o texto for longo
+    const fitComment = el => {
+      const ct = $(".gp-ct", el); if (!ct) return;
+      ct.style.setProperty("--ind", ($(".gp-coml span", el).offsetWidth + 8) + "px");
+      const LH = 26.7, rl = $(".gp-rules", el), need = Math.ceil((ct.scrollHeight - 4) / LH) - 1;
+      for (let k = rl.children.length; k < need; k++) rl.appendChild(document.createElement("i"));
     };
     const pages = [], newPage = () => { const p = document.createElement("div"); p.className = "gp-page"; p.innerHTML = headHtml + `<div class="gp-body"></div><div class="gp-foot"><div>Gerado pelo Sistema de FVs · ${esc(fmtFull(nowIso()))}${r.origem === "importado" ? " · resposta ao relatório do GAPE" : ""}</div><div class="gp-pg"></div></div>`; root.appendChild(p); pages.push(p); return p; };
     let pg = newPage();
     for (let i = 0; i < L.length; i++) {
       const body = $(".gp-body", pg); body.insertAdjacentHTML("beforeend", itemHtml(L[i], i));
       await Promise.all($$("img", body.lastElementChild).map(im => im.decode ? im.decode().catch(() => {}) : null));
+      fitComment(body.lastElementChild);
       if (body.scrollHeight > body.clientHeight + 1 && body.children.length > 1) { const last = body.lastElementChild; pg = newPage(); $(".gp-body", pg).appendChild(last); }
     }
     pages.forEach((p, i) => { $(".gp-pg", p).textContent = `página ${i + 1} de ${pages.length}`; });
