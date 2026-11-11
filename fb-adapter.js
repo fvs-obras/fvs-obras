@@ -7,7 +7,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
-  doc, collection, query, orderBy, limit, getDoc, getDocs, setDoc, updateDoc, deleteDoc, onSnapshot, FieldPath, writeBatch
+  doc, collection, query, orderBy, limit, where, getDoc, getDocs, setDoc, updateDoc, deleteDoc, deleteField, onSnapshot, FieldPath, writeBatch
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const $ = s => document.querySelector(s);
@@ -198,7 +198,20 @@ const userApi = {
 window.__fb = {
   accessExists: () => !!accessDoc,
   getAccess: async () => ({ editors: [], viewers: [], ...(await readAccess() || {}) }),
-  setAccess: async acc => { await setDoc(doc(fs, "config/access"), { editors: acc.editors || [], viewers: acc.viewers || [], updatedAt: new Date().toISOString(), updatedBy: current.email }); accessDoc = acc; },
+  setAccess: async acc => { await setDoc(doc(fs, "config/access"), { editors: acc.editors || [], viewers: acc.viewers || [], updatedAt: new Date().toISOString(), updatedBy: current.email }, { merge: true }); accessDoc = { ...(accessDoc || {}), editors: acc.editors || [], viewers: acc.viewers || [] }; },
+  // Aprovação manual (para quem não recebe o e-mail de confirmação, como e-mails corporativos).
+  pendingUsers: async () => (await getDocs(query(collection(fs, "users"), where("pendente", "==", true)))).docs.map(d => ({ uid: d.id, ...d.data() })),
+  approve: async (uid, email, role) => {
+    const e = String(email).toLowerCase(), a = { editors: [], viewers: [], ...(await readAccess() || {}) };
+    const editors = (a.editors || []).filter(x => x !== e), viewers = (a.viewers || []).filter(x => x !== e);
+    (role === "viewers" ? viewers : editors).push(e);
+    await setDoc(doc(fs, "config/access"), { editors, viewers, aprovados: { [uid]: e }, updatedAt: new Date().toISOString(), updatedBy: current.email }, { merge: true });
+    await setDoc(doc(fs, "users", uid), { pendente: false, aprovadoEm: new Date().toISOString() }, { merge: true });
+    await readAccess();
+  },
+  reject: async uid => { await setDoc(doc(fs, "users", uid), { pendente: false, recusadoEm: new Date().toISOString() }, { merge: true }); },
+  revoke: async uid => { await updateDoc(doc(fs, "config/access"), new FieldPath("aprovados", uid), deleteField()); await readAccess(); },
+  approvedList: () => Object.entries((accessDoc && accessDoc.aprovados) || {}).map(([uid, email]) => ({ uid, email })),
   exportAll, importAll, blobData,
   signOut: () => signOut(auth).then(() => location.reload())
 };
@@ -268,14 +281,29 @@ function showLogin(mode = "in", msg = "", ok = false) {
   };
 }
 // E-mail ainda não confirmado (contas com senha ou Microsoft): pede a confirmação antes de liberar.
-let verifySent = false;
+let verifySent = false, asked = false;
+const codeOf = u => u.uid.replace(/[^a-z0-9]/gi, "").slice(0, 6).toUpperCase();
+// Aprovado manualmente: a lista de acesso só fica legível depois que o administrador aprova esta conta.
+async function isApproved(u) {
+  try { const a = await readAccess(); return !!(a && a.aprovados && String(a.aprovados[u.uid] || "").toLowerCase() === String(u.email).toLowerCase()); }
+  catch { accessDoc = null; return false; }
+}
 async function showVerify(u, msg = "", ok = false) {
   if (!verifySent) { verifySent = true; try { await sendEmailVerification(u); } catch (e) { if (!msg) msg = e && e.code === "auth/too-many-requests" ? "Já enviamos o link há pouco. Veja a caixa de entrada e o spam." : ""; } }
   gate(`<p>Para proteger o sistema, confirme o seu e-mail.</p>
     <p>Enviamos um link para <b>${esc(u.email)}</b>. Abra o e-mail (veja também o <b>spam</b>), toque no link e depois volte aqui.</p>
     <button class="btn primary" type="button" id="g-verified">Já confirmei</button>
     <div class="auth-links"><button type="button" class="linkbtn" id="g-resend">Reenviar e-mail</button><button type="button" class="linkbtn" id="g-other">Sair / outra conta</button></div>
+    <div class="auth-or"><span>não chegou o e-mail?</span></div>
+    ${asked ? `<p>Pedido enviado. Mostre este código ao administrador:</p><p class="auth-code">${codeOf(u)}</p><p style="font-size:12.5px">Depois que ele aprovar, toque abaixo.</p><button class="btn" type="button" id="g-approved">Já fui aprovado</button>`
+      : `<p style="font-size:13px">O administrador pode liberar sua conta sem o e-mail.</p><button class="btn" type="button" id="g-ask">Pedir aprovação ao administrador</button>`}
     ${msg ? `<p class="auth-msg${ok ? " ok" : ""}">${esc(msg)}</p>` : ""}`);
+  const ask = $("#g-ask"); if (ask) ask.onclick = async () => {
+    ask.disabled = true;
+    try { await setDoc(doc(fs, "users", u.uid), { email: u.email, name: u.displayName || pendingName || "", pendente: true, codigo: codeOf(u), pedidoEm: new Date().toISOString() }, { merge: true }); asked = true; showVerify(u); }
+    catch { ask.disabled = false; showVerify(u, "Não foi possível enviar o pedido. Verifique a internet e tente de novo."); }
+  };
+  const ap = $("#g-approved"); if (ap) ap.onclick = async () => { if (await isApproved(u)) enter(u); else showVerify(u, "Ainda não aprovado. Confirme com o administrador e tente de novo."); };
   $("#g-verified").onclick = async () => {
     try { await u.reload(); } catch {}
     if (auth.currentUser && auth.currentUser.emailVerified) { await auth.currentUser.getIdToken(true).catch(() => {}); enter(auth.currentUser); }
@@ -299,7 +327,7 @@ async function enter(u) {
   current = u;
   gate(`<p>Entrando como <b>${esc(u.email)}</b>…</p>`);
   const nm = u.displayName || pendingName;
-  setDoc(doc(fs, "users", u.uid), { ...(nm ? { name: nm } : {}), email: u.email, photo: u.photoURL || "", lastSeen: new Date().toISOString() }, { merge: true }).catch(() => {});
+  setDoc(doc(fs, "users", u.uid), { ...(nm ? { name: nm } : {}), email: u.email, photo: u.photoURL || "", lastSeen: new Date().toISOString(), pendente: false }, { merge: true }).catch(() => {});
   try { await readAccess(); } catch { accessDoc = null; }
   role = computeRole(u.email);
   if (role === "none") {
@@ -313,6 +341,12 @@ async function enter(u) {
 onAuthStateChanged(auth, u => {
   if (!u) { if (resolved) location.reload(); else showLogin(); return; }
   if (!u.email) { gate(`<p>Essa conta não informou um e-mail. Entre de outra forma.</p><button class="gbtn" type="button" id="g-other">Voltar</button>`); $("#g-other").onclick = () => window.__fb.signOut(); return; }
-  if (!u.emailVerified) { showVerify(u); return; }
+  if (!u.emailVerified) {
+    isApproved(u).then(ok => {
+      if (ok) return enter(u);
+      getDoc(doc(fs, "users", u.uid)).then(s => { if (s.exists() && s.data().pendente) asked = true; }).catch(() => {}).finally(() => showVerify(u));
+    });
+    return;
+  }
   enter(u);
 });

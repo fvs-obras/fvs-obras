@@ -317,6 +317,11 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
 .linkbtn{background:none;border:0;padding:4px 0;color:var(--red);font-weight:600;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .gate-card .auth-msg{color:var(--bad);font-size:13px;line-height:1.4}
 .gate-card .auth-msg.ok{color:#2e7d32}
+.gate-card .auth-code{font:800 28px/1.1 var(--f);letter-spacing:.18em;text-align:center;background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:10px;margin:2px 0}
+.appr-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.appr-row:first-child{border-top:0}
+.appr-row .code{font-weight:800;letter-spacing:.12em;font-size:15px}
+.appr-row .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .userbox{display:flex;align-items:center;gap:8px;color:#fff;font-size:12px;font-weight:600}
 .userbox img{width:28px;height:28px;border-radius:50%;border:2px solid rgba(255,255,255,.7)}
 .userbox button{border:1px solid rgba(255,255,255,.6);background:transparent;color:#fff;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:600}
@@ -2144,13 +2149,14 @@ async function renderTeam() {
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Somente leitura</h2><div class="sub">Podem ver tudo e baixar PDFs, mas não editam.</div>
         <div class="team-list">${list(acc.viewers, "viewers")}</div>
         <div class="addrow"><input type="text" id="add-vi" placeholder="email@gmail.com" aria-label="E-mail de leitura"><button class="btn" type="button" data-add="viewers">Adicionar</button></div></div>
+      <div class="panel" id="appr-panel"></div>
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Backup</h2><div class="sub">Baixe uma cópia completa ou importe um arquivo de backup (como o <b>dados-iniciais.json</b> com os modelos, as ITs/ETs e o que já estava no Claude).</div>
         <label style="display:flex;gap:8px;align-items:center;margin:12px 0;font-size:13px"><input type="checkbox" id="bk-files" checked style="width:18px;height:18px"> Incluir fotos e arquivos enviados</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn dark" type="button" id="bk-export">Exportar tudo</button><button class="btn" type="button" id="bk-import">Importar arquivo…</button></div>
         <input type="file" id="bk-file" accept="application/json,.json" class="hidden"><div class="sub" id="bk-status" style="margin-top:10px"></div></div>
       <div class="panel" id="map-panel"></div>
     </div>`;
-  renderMapPanel();
+  renderMapPanel(); renderApprovals();
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
   v.querySelectorAll("[data-add]").forEach(b => b.onclick = () => {
     const k = b.dataset.add, inp = $(k === "editors" ? "#add-ed" : "#add-vi", v), e = inp.value.trim().toLowerCase();
@@ -2181,6 +2187,38 @@ async function renderTeam() {
     try { await window.__fb.importAll(json, m => st.textContent = m); st.textContent = `Importação concluída: ${n} registros.`; toast("Importação concluída."); banner("team", ""); }
     catch { st.textContent = "A importação parou no meio. Rode de novo: os registros já gravados são apenas substituídos."; }
   };
+}
+
+/* aprovação manual de contas (quando o e-mail de confirmação não chega) */
+async function renderApprovals() {
+  const pn = $("#appr-panel"); if (!pn || !window.__fb.pendingUsers) return;
+  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Aguardando aprovação</h2><div class="sub">Carregando…</div>`;
+  let pend = []; try { pend = await window.__fb.pendingUsers(); } catch {}
+  const ok = window.__fb.approvedList();
+  pend.sort((a, b) => (b.pedidoEm || "").localeCompare(a.pedidoEm || ""));
+  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Aguardando aprovação</h2>
+    <div class="sub">Para quem não recebe o e-mail de confirmação (comum em e-mail da empresa). Confira com a pessoa se o <b>código</b> é o mesmo que aparece na tela dela antes de aprovar.</div>
+    <div style="margin-top:10px">${pend.length ? pend.map(p => `<div class="appr-row"><div><div class="code">${esc(p.codigo || "")}</div><div><b>${esc(p.name || "Sem nome")}</b> · ${esc(p.email || "")}</div><div class="sub" style="font-size:11.5px">Pedido em ${fmtFull(p.pedidoEm)}</div></div>
+        <div class="acts"><button class="btn sm primary" type="button" data-appr="${esc(p.uid)}">Aprovar</button><button class="btn sm ghost danger" type="button" data-rej="${esc(p.uid)}">Recusar</button></div></div>`).join("")
+      : `<div class="sub" style="text-align:center;padding:8px">Nenhum pedido no momento. <button class="linkbtn" type="button" data-reload style="color:var(--red);background:none;border:0;text-decoration:underline;font-weight:600">Atualizar</button></div>`}</div>
+    ${ok.length ? `<div class="sub" style="margin-top:12px;font-weight:700">Contas aprovadas manualmente</div>${ok.map(a => `<div class="appr-row"><div>${esc(a.email)}</div><div class="acts"><button class="btn sm ghost danger" type="button" data-revoke="${esc(a.uid)}" data-e="${esc(a.email)}">Revogar</button></div></div>`).join("")}` : ""}`;
+  const rl = $("[data-reload]", pn); if (rl) rl.onclick = renderApprovals;
+  $$("[data-appr]", pn).forEach(b => b.onclick = async () => {
+    const p = pend.find(x => x.uid === b.dataset.appr); if (!p) return;
+    const role = await modal({title: "Aprovar conta", body: `<p style="margin:0 0 8px">Confirme que a tela de <b>${esc(p.name || p.email)}</b> mostra o código:</p><p style="font:800 26px var(--f);letter-spacing:.18em;text-align:center;margin:6px 0 12px">${esc(p.codigo || "")}</p>
+        <label class="fld">Acesso de ${esc(p.email || "")}<select id="ap-role"><option value="editors">Editor (preenche as FVs)</option><option value="viewers">Somente leitura</option></select></label>`,
+      actions: [{label: "Cancelar", value: null}, {label: "Aprovar", cls: "primary", value: bg => $("#ap-role", bg).value}]});
+    if (!role) return;
+    try { await window.__fb.approve(p.uid, p.email, role); toast("Conta aprovada. A pessoa já pode tocar em “Já fui aprovado”."); renderTeam(); } catch { toast("Não foi possível aprovar. Confira se as regras novas foram publicadas."); }
+  });
+  $$("[data-rej]", pn).forEach(b => b.onclick = async () => {
+    if (!(await confirmBox("Recusar pedido?", "O pedido sai da lista. A pessoa não ganha acesso.", "Recusar", true))) return;
+    try { await window.__fb.reject(b.dataset.rej); renderApprovals(); } catch { toast("Não foi possível recusar."); }
+  });
+  $$("[data-revoke]", pn).forEach(b => b.onclick = async () => {
+    if (!(await confirmBox("Revogar aprovação?", `A conta de <b>${esc(b.dataset.e)}</b> volta a precisar confirmar o e-mail para entrar. Para tirar o acesso de vez, remova o e-mail de Editores ou Somente leitura.`, "Revogar", true))) return;
+    try { await window.__fb.revoke(b.dataset.revoke); renderApprovals(); } catch { toast("Não foi possível revogar."); }
+  });
 }
 
 /* mapa de trechos: painel do administrador */
