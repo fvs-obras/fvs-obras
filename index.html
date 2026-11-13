@@ -94,6 +94,7 @@ label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-we
 .bar{height:6px;background:#e9e9e9;border-radius:3px;overflow:hidden;display:flex}
 .bar i{display:block;height:100%}
 .pill{display:inline-flex;align-items:center;font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;text-transform:uppercase;letter-spacing:.06em}
+.btn.locked{opacity:.75}
 .pill.open{background:var(--red-soft);color:var(--red)} .pill.closed{background:var(--graphite);color:#fff}
 .empty{background:var(--panel);border:1px dashed #c9c9c9;border-radius:var(--r);padding:28px;text-align:center;color:var(--muted)}
 .empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
@@ -352,6 +353,70 @@ td.x .rph:hover{background:#f1f1f1}
 .gtp-assin>div{border-bottom:1px solid #000;padding-bottom:3px}
 .gtp-assin .hw{color:#1a3c8f;font-weight:400}
 .gtp-foot{margin-top:auto;font-size:9px;color:#666;text-align:right}
+.so-bar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:#eee;gap:1px}.so-bar i{display:block;min-width:3px}
+.so-V{background:#2e7d32}.so-A{background:#f0a020}.so-I{background:#f7d58a}.so-F,.so-R{background:var(--red)}.so-Z{background:#d9d9d9}
+.so-id{display:grid;gap:4px;flex:1;min-width:240px}.so-name{font-size:20px;font-weight:800;text-transform:uppercase;border:0;border-bottom:2px solid transparent;background:transparent;padding:2px 0;width:100%}
+.so-name:focus{border-bottom-color:var(--red);outline:0}.so-id select{min-height:0;padding:3px 6px;font-size:12px;width:auto;display:inline-block}
+.so-pend{margin-bottom:12px}.so-pl{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:4px}
+.so-pl li{display:flex;gap:8px;align-items:flex-start;font-size:13px}.so-pl li>span{width:16px;text-align:center;flex:none;font-weight:800}
+.so-pl button{border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer}.so-pl button:hover{text-decoration:underline}
+.so-pl li.bad{color:var(--red);font-weight:700}.so-pl li.info{color:var(--muted)}.so-allok{margin-top:10px;color:#2e7d32;font-weight:700;font-size:13px}
+.so-sheet{min-width:1000px}
+.so-f{border:1px solid var(--paper-line);border-top:0;padding:6px 8px;display:grid;gap:5px}
+.so-r{display:flex;gap:14px;align-items:center;flex-wrap:wrap}.so-r label{flex:1;display:flex;gap:5px;align-items:center;font-weight:700;font-size:10.5px;white-space:nowrap;min-width:200px}
+.so-r input{flex:1;min-width:60px;border:0;border-bottom:1px solid #999;border-radius:0;background:transparent;padding:2px 3px;min-height:0;font-size:12px;font-weight:400}
+.so-q{display:flex;gap:6px;align-items:center;font-weight:700;font-size:10.5px;white-space:nowrap}
+.so-chk{display:inline-flex;gap:4px;align-items:center;border:1px solid #999;background:#fff;border-radius:3px;padding:2px 6px;font-size:10.5px;font-weight:700;cursor:pointer}
+.so-chk i{display:inline-block;width:13px;height:13px;border:1px solid #000;background:#fff;font-style:normal;font-size:11px;line-height:12px;text-align:center}
+.so-chk.on{border-color:var(--red)}.so-chk.on i::before{content:"X";font-weight:800;color:var(--red)}
+.so-regt{border:1px solid var(--paper-line);background:#f1f1f1;text-align:center;font-weight:700;font-size:10.5px;padding:3px;margin-top:8px}
+.so-reg{border:1px solid var(--paper-line);border-top:0;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff}
+.so-reg img{display:block;max-width:100%;max-height:60vh;cursor:pointer}.so-regph{text-align:center;color:#666;font-size:12px;line-height:2;padding:20px}
+.so-obs{border:1px solid var(--paper-line);border-top:0;padding:5px 8px;display:grid;gap:3px}.so-obs textarea{border:0;background:transparent;resize:none;width:100%;font-size:12px;min-height:34px;padding:2px}
+.so-foot{display:grid;grid-template-columns:1fr 1.5fr 1fr;border:1px solid var(--paper-line);border-top:0}
+.so-foot>div{padding:6px 8px;display:grid;gap:5px;font-size:10.5px;font-weight:700;align-content:start}.so-foot>div+div{border-left:1px solid var(--paper-line)}
+.so-foot i{text-align:center;font-weight:400}.so-foot label{display:flex;gap:5px;align-items:center;white-space:nowrap}
+.so-foot input{flex:1;min-width:50px;border:0;border-bottom:1px solid #999;border-radius:0;background:transparent;padding:2px 3px;min-height:0;font-size:12px;font-weight:400}
+.so-anx{font-style:italic;font-weight:400!important;text-align:center;line-height:1.5}
+.modal input[type=number],.so-cg input[type=number]{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:8px 10px;min-height:40px;font-size:14px}
+.so-crit{margin-top:12px}.so-cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px 12px}.so-cg .fld{margin:0}
+.so-cams{display:flex;gap:4px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.so-cam{min-width:30px;text-align:center;font-size:11px;font-weight:800;padding:4px 6px;border-radius:4px;color:#fff}.so-cam.so-I,.so-cam.so-Z,.so-cam.so-A{color:#222}
+.so-ct{min-width:980px}.so-ct th{font-weight:800!important;font-size:10px;text-align:center;background:var(--graphite);color:#fff;height:28px}.so-ct th.nob{background:none}
+.so-ct td{height:30px}.so-ct td.fill{padding:0}
+.so-ct td.fill input{width:100%;border:0;border-radius:0;background:transparent;padding:4px 5px;min-height:28px;font-size:11.5px;box-sizing:border-box}.so-ct td.fill.c input{text-align:center}
+.so-ct td.fill input[type=date]{font-size:10.5px;padding:2px}
+.so-conf{font-size:10.5px;line-height:1.2}.so-conf.ok{color:#2e7d32;font-weight:700}.so-conf.fora{color:var(--red);font-weight:700}.so-conf.inc{color:#888}
+.so-stc{padding:2px!important}.so-stc button{width:100%;min-height:26px;border:1px dashed #bbb;border-radius:4px;background:#fff;font-weight:800;font-size:10px;color:#888;cursor:pointer}
+.so-stc button.v{background:#dff0d8;border:1px solid #2e7d32;color:#1b5e20}.so-stc button.r{background:#fde7e6;border:1px solid var(--red);color:var(--red)}
+.so-ct tr.so-bad td.fill{background:#fff1f0}.so-ct tr.so-rep td.fill input{text-decoration:line-through;color:#888}.so-ct tr.so-val td.fill{background:#f4faf2}
+.so-ct td.x{border:0!important;padding:0 0 0 4px;background:#fff}.so-ct td.x button{border:0;background:none;color:#666;cursor:pointer;font-size:18px;font-weight:700;padding:2px 8px;border-radius:4px;line-height:1}
+.so-ct td.x button:hover{background:#eee;color:#000}.so-alt{font-size:10.5px;color:#555}.so-empty{padding:16px;text-align:center}
+.so-vq{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px}.so-vq span{display:flex;gap:6px;flex-wrap:wrap}
+.so-docs{display:grid;gap:12px}.so-doc{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;background:#fff}
+.so-dh{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.so-dh input[type=text]{flex:1;min-width:180px;font-weight:700}.so-dh input[type=date]{width:150px}.so-dby{font-size:11.5px}
+@media (max-width:640px){.so-foot{grid-template-columns:1fr}.so-foot>div+div{border-left:0;border-top:1px solid var(--paper-line)}}
+.sp-capa{width:1123px;height:794px;padding:26px 30px 22px;box-sizing:border-box;background:#fff;color:#000;font:10.5px/1.3 Arial,Helvetica,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
+.sp-top{display:flex;align-items:center;gap:14px;border:1px solid #000;padding:5px 10px}.sp-top b{flex:1;text-align:center;font-size:13px}.sp-top span{text-align:right;font-weight:700;font-size:9.5px}
+.sp-logo{width:104px;height:38px;flex:none}
+.sp-r{display:flex;gap:16px;align-items:center;font-weight:700;padding:5px 10px 0;border-left:1px solid #000;border-right:1px solid #000}.sp-r>div{white-space:nowrap}.sp-r:nth-of-type(6){padding-bottom:6px}
+.sp-r u{font-weight:400;text-decoration:none;border-bottom:1px solid #000;display:inline-block;min-width:70px;padding:0 4px 1px;color:#1a3c8f}
+.sp-q{display:flex;gap:8px;align-items:center;border:1px solid #000;padding:2px 8px;white-space:nowrap}.sp-ck{display:inline-flex;gap:4px;align-items:center}
+.sp-ck i{display:inline-block;width:14px;height:14px;border:1px solid #000;font-style:normal;font-weight:700;text-align:center;line-height:14px;color:#1a3c8f}
+.sp-regt{border:1px solid #000;background:#eee;text-align:center;font-weight:700;padding:3px}
+.sp-reg{flex:1;min-height:0;border:1px solid #000;border-top:0;display:flex;align-items:center;justify-content:center;overflow:hidden}.sp-reg img{max-width:100%;max-height:100%;display:block}
+.sp-obs{border:1px solid #000;border-top:0;padding:5px 10px;min-height:34px}
+.sp-foot{display:grid;grid-template-columns:1fr 1.6fr 1fr;border:1px solid #000;border-top:0}.sp-foot>div{padding:6px 10px;font-weight:700;line-height:1.9}.sp-foot>div+div{border-left:1px solid #000}
+.sp-foot i{display:block;text-align:center;font-weight:400}.sp-foot u{font-weight:400;text-decoration:none;border-bottom:1px solid #000;display:inline-block;min-width:110px;color:#1a3c8f}
+.sp-anx{font-style:italic;font-weight:400!important;text-align:center;line-height:1.5!important}
+.sp-ctrl{width:794px;height:1123px;padding:34px 40px 24px;box-sizing:border-box;background:#fff;color:#000;font:9.5px/1.25 Arial,Helvetica,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
+.sp-ch{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px}.sp-ct{display:block;font-size:13px;text-align:center;margin-bottom:4px}
+.sp-cb{background:#0d2a4a;color:#fff;font-weight:700;text-align:center;padding:4px;font-size:11px}
+.sp-ctrl table{width:100%;border-collapse:collapse;table-layout:fixed}.sp-ctrl th{background:#e5002b;color:#fff;font-size:8.5px;padding:4px 2px;border:1px solid #fff}
+.sp-ctrl td{border:1px solid #bbb;text-align:center;height:21px;padding:0 2px}.sp-ctrl td.b{font-weight:700}.sp-ctrl td.v{background:#8fd14f}.sp-ctrl td.r{background:#f6b0ac;font-weight:700}
+.sp-ctrl td.sp-grp{background:#8fd14f;font-size:15px;font-weight:400;display:table-cell}
+.sp-end{margin:14px 0 0 auto;display:grid;gap:7px;font-weight:700;width:60%}.sp-end u{text-decoration:none;font-weight:400;color:#1a3c8f}
+.sp-pf{margin-top:auto;font-size:8px;color:#666;text-align:right}
 .gp-page{width:794px;height:1123px;padding:54px 76px 57px;box-sizing:border-box;background:#fff;color:#111;font-family:Inter,Roboto,Arial,sans-serif;display:flex;flex-direction:column;margin-bottom:20px}
 .gp-head{font-size:11.3px;line-height:13.3px;padding-bottom:20px;border-bottom:1.3px solid #111}
 .gp-head span{display:inline-block;width:72px}
@@ -537,6 +602,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
     <nav class="main">
       <a href="#" id="nav-fvs" class="on">FVs</a>
       <a href="#painel" id="nav-painel">Painel</a>
+      <a href="#solos" id="nav-solos">Solos</a>
       <a href="#modelos" id="nav-tpl">Modelos</a>
       <a href="#gape" id="nav-gape">GAPE</a>
       <a href="#equipe" id="nav-team" class="hidden">Equipe</a>
@@ -591,6 +657,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
   <section id="view-team" class="hidden"></section>
   <section id="view-gape" class="hidden"></section>
   <section id="view-painel" class="hidden"></section>
+  <section id="view-solos" class="hidden"></section>
 </main>
 <div class="gate ui" id="gate"><div class="gate-card"><div class="tl-full gate-logo" role="img" aria-label="Tenda"></div><h1>FVs da Obra</h1><div id="gate-body"><p>Carregando…</p></div></div></div>
 <script src="firebase-config.js"></script>
@@ -676,7 +743,7 @@ const confirmBox = (title, text, ok = "Confirmar", danger = false) =>
   modal({title, body:`<p style="margin:0">${text}</p>`, actions:[{label:"Cancelar", value:false},{label:ok, value:true, cls: danger ? "danger" : "primary"}]});
 
 /* ---------- estado ---------- */
-let db = null, user = null, assets = null, me = "anon", canWrite = true, isOwner = false;
+let db = null, user = null, assets = null, me = "anon", canWrite = true, isOwner = false, isGestor = false;
 let fvs = new Map(), templates = new Map(), library = new Map(), dbTemplates = new Map(), fvsLoaded = false, tplQ = "";
 let filt = {status:"aberta", cat:"", q:""};
 let folders = new Map(), foldersLoaded = false, curFolder = "";
@@ -1118,7 +1185,7 @@ function renderBar(fv) {
   $("#b-code").textContent = `${fv.code} · ${CATS[fv.cat] || ""}${fv.obra ? " · " + fv.obra : ""}`;
   $("#b-title").textContent = `${fv.title}${fv.local ? " — " + fv.local : ""}`;
   const pill = $("#b-pill"); pill.className = "pill " + (fv.status === "fechada" ? "closed" : "open"); pill.textContent = fv.status === "fechada" ? "Fechada" : "Aberta";
-  const cb = $("#b-close"); cb.textContent = fv.status === "fechada" ? "Reabrir FV" : "Fechar FV"; cb.className = "btn " + (fv.status === "fechada" ? "" : "primary"); cb.disabled = !canWrite;
+  const cb = $("#b-close"); cb.textContent = fv.status === "fechada" ? "Reabrir FV" : "Fechar FV"; cb.className = "btn " + (fv.status === "fechada" ? "" : "primary") + (isGestor ? "" : " locked"); cb.disabled = false; cb.title = isGestor ? "" : "Somente o gestor pode fechar ou reabrir a FV"; if (!isGestor) cb.textContent = "🔒 " + cb.textContent;
   $("#b-del").disabled = !canWrite; $("#b-dup").disabled = !canWrite;
   const bf = $("#b-folder"); if (document.activeElement !== bf) { bf.innerHTML = folderOptions(folderOf(fv)); bf.value = folderOf(fv); } bf.disabled = !canWrite;
   const back = $("#view-fv .back"); if (back) { const fp = folderOf(fv); back.href = fp ? "#pasta-" + fp : "#"; back.textContent = "← " + (fp ? folders.get(fp).name : "Todas as FVs"); }
@@ -1416,6 +1483,7 @@ function renderPda(fv) {
 /* fechar / excluir */
 async function toggleClose() {
   const fv = fvs.get(cur.id), id = cur.id;
+  if (!isGestor) { await modal({title: fv.status === "fechada" ? "Reabrir FV" : "Fechar FV", body: `<p style="margin:0">Somente o <b>gestor</b> (ou o administrador) pode ${fv.status === "fechada" ? "reabrir" : "fechar"} a FV. Quando a ficha estiver pronta, avise o gestor para ele fazer o fechamento.</p>`, actions: [{label: "Entendi", cls: "primary", value: null}]}); return; }
   if (fv.status === "fechada") { patch(`fvs/${id}`, stamp({status: "aberta"})); logAct(id, "Reabriu a FV"); return; }
   const s = stats(fv), noSol = cur.obs.filter(o => o.problema && !String(o.solucao || "").trim()).length;
   const w = [];
@@ -2157,10 +2225,15 @@ function pickCrop(pl, curRect) {
 }
 
 /* editor em tela cheia */
-async function openMapEditor(mid) {
-  if (!cur || medState) return;
-  const fid = cur.id, fv = fvs.get(fid); let m = cur.maps.find(x => x.id === mid); if (!fv || !m) return;
-  const ro = locked(fv);
+async function openMapEditor(mid, ctx) {
+  if (medState) return;
+  if (!ctx) { // padrão: mapeamento de uma FV
+    if (!cur) return; const f0 = cur.id; if (!fvs.get(f0)) return;
+    ctx = {owner: f0, base: `fvs/${f0}/maps`, find: id => cur && cur.id === f0 ? cur.maps.find(x => x.id === id) : null, ro: () => locked(fvs.get(f0) || {status: "fechada"}), log: t => logAct(f0, t),
+      onClose: () => { if (cur && cur.id === f0) { const f = fvs.get(f0); if (f) renderMaps(f); } }, photos: true};
+  }
+  const fid = ctx.owner; let m = ctx.find(mid); if (!m) return;
+  const ro = ctx.ro(), lp = k => ctx.photos ? linkedPhotos(k) : [];
   const ov = document.createElement("div"); ov.className = "med ui";
   const toolBtns = MTOOLS.map(([k, ic, tt]) => `<button class="tl" type="button" data-tool="${k}" title="${tt}" aria-label="${tt}">${ic}</button>`).join("");
   const colorBtns = MCOLORS.map(([c, n]) => `<button class="sw" type="button" data-color="${c}" title="${n}" aria-label="Cor ${n}" style="background:${c}"></button>`).join("");
@@ -2180,15 +2253,15 @@ async function openMapEditor(mid) {
   const toPlan = p => [m.crop.x + p[0] * (m.crop.w / v.img.width), m.crop.y + p[1] * (m.crop.h / v.img.height)];
   const scr = () => v.k * (v.img.width / m.crop.w); // px de tela por unidade da planta
   let v = null;
-  const close = () => { if (v) v.destroy(); ov.remove(); document.body.classList.remove("noscroll"); document.removeEventListener("keydown", onKey); medState = null; if (cur && cur.id === fid) { const f = fvs.get(fid); if (f) renderMaps(f); } };
+  const close = () => { if (v) v.destroy(); ov.remove(); document.body.classList.remove("noscroll"); document.removeEventListener("keydown", onKey); medState = null; ctx.onClose(); };
   $("[data-x]", ov).onclick = close;
   let im; try { im = await loadImg(m.img.id); } catch { toast("Não foi possível carregar a planta."); return close(); }
   $(".mload", ov).remove();
   const host = $(".med-cv", ov);
   const write = (sid, after) => {
     st.loc[sid] = after;
-    patch(`fvs/${fid}/maps/${mid}`, stamp({shapes: {[sid]: after}}));
-    if (!st.logged) { st.logged = true; logAct(fid, `Editou o mapeamento “${m.title || ""}”`); }
+    patch(`${ctx.base}/${mid}`, stamp({shapes: {[sid]: after}}));
+    if (!st.logged) { st.logged = true; ctx.log(`Editou o mapeamento “${m.title || ""}”`); }
     v.draw(); notes();
   };
   const commit = (sid, before, after) => { write(sid, after); st.undo.push({sid, before, after}); st.redo.length = 0; };
@@ -2200,7 +2273,7 @@ async function openMapEditor(mid) {
     const n = isMk ? (s ? s.n : Math.max(0, ...markersOf(shapesNow()).map(x => x.n || 0)) + 1) : 0;
     const res = await modal({title: isMk ? `Marcador ${n}` : (s ? "Editar texto" : "Novo texto"),
       body: `<label class="fld">${isMk ? "Nota (aparece na lista de notas)" : "Texto"}<textarea id="tx" rows="3" maxlength="400">${esc(s ? s.txt || "" : "")}</textarea></label><p class="sub" style="margin:0">O tamanho vem do controle <b>Tamanho</b> da barra. Para mudar depois, use a ferramenta ↖ Selecionar.</p>`,
-      actions: [...(s ? [{label: "Apagar", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, ...(isMk ? [{label: s ? `📷 Fotos (${linkedPhotos(`mk:${mid}:${s.id}`).length})` : "Salvar e anexar foto", value: bg => ({txt: $("#tx", bg).value.trim(), photos: true})}] : []), {label: "Salvar", cls: "primary", value: bg => ({txt: $("#tx", bg).value.trim()})}]});
+      actions: [...(s ? [{label: "Apagar", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, ...(isMk && ctx.photos ? [{label: s ? `📷 Fotos (${lp(`mk:${mid}:${s.id}`).length})` : "Salvar e anexar foto", value: bg => ({txt: $("#tx", bg).value.trim(), photos: true})}] : []), {label: "Salvar", cls: "primary", value: bg => ({txt: $("#tx", bg).value.trim()})}]});
     if (!res) return;
     if (res === "del") { delShape(s); return; }
     if (res.photos) {
@@ -2290,8 +2363,8 @@ async function openMapEditor(mid) {
   function select(id) { st.sel = id; if (id) { st.tool = "sel"; } syncTools(); v && v.draw(); }
   function notes() {
     const L = markersOf(shapesNow());
-    $(".med-notes", ov).innerHTML = L.length ? L.map(s => { const k = `mk:${mid}:${s.id}`, ph = linkedPhotos(k); return `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${ro && !ph.length ? "" : `<button type="button" class="mph" data-mkph="${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
-    $$(".med-notes img[data-ph]", ov).forEach(im => { const p = cur.photos.find(x => x.id === im.dataset.ph); if (p) mediaSrc(p).then(src => { if (src) im.src = src; }); });
+    $(".med-notes", ov).innerHTML = L.length ? L.map(s => { const k = `mk:${mid}:${s.id}`, ph = lp(k); return `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${!ctx.photos || (ro && !ph.length) ? "" : `<button type="button" class="mph" data-mkph="${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
+    $$(".med-notes img[data-ph]", ov).forEach(im => { const p = cur && cur.photos.find(x => x.id === im.dataset.ph); if (p) mediaSrc(p).then(src => { if (src) im.src = src; }); });
   }
   const mkPhotos = s => openPhotoLinks(`mk:${mid}:${s.id}`, `Fotos do marcador ${s.n}${s.txt ? " – " + s.txt : ""}`, {local: m.title || ""}, !ro);
   $(".med-notes", ov).addEventListener("click", e => {
@@ -2341,9 +2414,9 @@ async function openMapEditor(mid) {
         imgCache.set(id, new Promise((ok, bad) => { const x = new Image(); x.onload = () => ok(x); x.onerror = bad; x.src = url; }));
         const nim = await loadImg(id);
         m = {...m, crop: rect, img: {id, w, h}};
-        patch(`fvs/${fid}/maps/${mid}`, stamp({crop: rect, img: {id, w, h}}));
+        patch(`${ctx.base}/${mid}`, stamp({crop: rect, img: {id, w, h}}));
         if (old) remove(`blobs/${old}`).catch(() => {});
-        logAct(fid, `Recortou o mapeamento “${m.title || ""}”`);
+        ctx.log(`Recortou o mapeamento “${m.title || ""}”`);
         v.setImg(nim); end(); toast("Recorte aplicado. Os desenhos continuam no mesmo lugar da planta.");
       } catch { end(); toast("Não foi possível recortar. Tente de novo."); }
     };
@@ -2549,7 +2622,7 @@ async function importGapeScan(file, pdf, prog) {
   gapes.set(rid, {id: rid, ...base});
   return rid;
 }
-async function renderScans(pdf, prog) {
+async function renderScans(pdf, prog, autoRot = true) {
   const out = [];
   for (let pn = 1; pn <= pdf.numPages; pn++) {
     prog(`Guardando a folha ${pn} de ${pdf.numPages}…`);
@@ -2557,7 +2630,7 @@ async function renderScans(pdf, prog) {
     const c = mkCanvas(Math.floor(vp.width), Math.floor(vp.height)), g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0, 0, c.width, c.height);
     await page.render({canvasContext: g, viewport: vp}).promise;
     const url = toJpeg(c); if (!url) continue;
-    out.push({id: saveBlob(url), w: c.width, h: c.height, rot: v1.width < v1.height ? 270 : 0});
+    out.push({id: saveBlob(url), w: c.width, h: c.height, rot: autoRot && v1.width < v1.height ? 270 : 0});
   }
   return out;
 }
@@ -3164,13 +3237,16 @@ async function renderTeam() {
   if (!isOwner || !window.__fb) { v.innerHTML = `<div class="empty"><b>Somente o administrador acessa esta tela.</b></div>`; return; }
   v.innerHTML = `<div class="empty">Carregando…</div>`;
   let acc; try { acc = await window.__fb.getAccess(); } catch { v.innerHTML = `<div class="empty"><b>Não foi possível ler a lista de acesso.</b>Confira se as regras do Firestore foram publicadas.</div>`; return; }
-  acc.editors = acc.editors || []; acc.viewers = acc.viewers || [];
+  acc.editors = acc.editors || []; acc.viewers = acc.viewers || []; acc.gestores = acc.gestores || [];
   const list = (arr, k) => arr.length ? arr.map(e => `<div><span>${esc(e)}</span><button class="btn sm ghost danger" type="button" data-rmv="${k}" data-e="${esc(e)}">Remover</button></div>`).join("") : `<div style="color:var(--muted);justify-content:center">Ninguém ainda</div>`;
   v.innerHTML = `<div class="page-title"><div><h1>Equipe e backup</h1><div class="sub">Administrador(es): ${esc((window.ADMIN_EMAILS || []).join(", "))}</div></div></div>
     <div class="team-grid">
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Editores</h2><div class="sub">Podem criar e preencher FVs, PDA, observações, fotos e documentos.</div>
         <div class="team-list">${list(acc.editors, "editors")}</div>
         <div class="addrow"><input type="text" id="add-ed" placeholder="email@gmail.com" aria-label="E-mail do editor"><button class="btn primary" type="button" data-add="editors">Adicionar</button></div></div>
+      <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Gestores</h2><div class="sub">Além de editar, são os únicos (junto com o administrador) que podem <b>fechar e reabrir FVs</b>.</div>
+        <div class="team-list">${list(acc.gestores, "gestores")}</div>
+        <div class="addrow"><input type="text" id="add-ge" placeholder="email@gmail.com" aria-label="E-mail do gestor"><button class="btn primary" type="button" data-add="gestores">Adicionar</button></div></div>
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Somente leitura</h2><div class="sub">Podem ver tudo e baixar PDFs, mas não editam.</div>
         <div class="team-list">${list(acc.viewers, "viewers")}</div>
         <div class="addrow"><input type="text" id="add-vi" placeholder="email@gmail.com" aria-label="E-mail de leitura"><button class="btn" type="button" data-add="viewers">Adicionar</button></div></div>
@@ -3184,13 +3260,17 @@ async function renderTeam() {
   renderMapPanel(); renderApprovals();
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
   v.querySelectorAll("[data-add]").forEach(b => b.onclick = () => {
-    const k = b.dataset.add, inp = $(k === "editors" ? "#add-ed" : "#add-vi", v), e = inp.value.trim().toLowerCase();
+    const k = b.dataset.add, inp = $({editors: "#add-ed", viewers: "#add-vi", gestores: "#add-ge"}[k], v), e = inp.value.trim().toLowerCase();
     if (!EMAIL_RE.test(e)) return toast("Digite um e-mail válido.");
-    acc.editors = acc.editors.filter(x => x !== e); acc.viewers = acc.viewers.filter(x => x !== e); acc[k].push(e); save();
+    if (k === "gestores") { acc.gestores = acc.gestores.filter(x => x !== e).concat(e); acc.viewers = acc.viewers.filter(x => x !== e); if (!acc.editors.includes(e)) acc.editors.push(e); return save(); }
+    acc.editors = acc.editors.filter(x => x !== e); acc.viewers = acc.viewers.filter(x => x !== e); acc[k].push(e);
+    if (k === "viewers") acc.gestores = acc.gestores.filter(x => x !== e);
+    save();
   });
   v.querySelectorAll("[data-rmv]").forEach(b => b.onclick = async () => {
-    if (!(await confirmBox("Remover acesso?", `<b>${esc(b.dataset.e)}</b> deixa de ${b.dataset.rmv === "editors" ? "editar" : "ver"} o sistema.`, "Remover", true))) return;
-    acc[b.dataset.rmv] = acc[b.dataset.rmv].filter(x => x !== b.dataset.e); save();
+    const k = b.dataset.rmv;
+    if (!(await confirmBox(k === "gestores" ? "Remover gestor?" : "Remover acesso?", k === "gestores" ? `<b>${esc(b.dataset.e)}</b> deixa de poder fechar e reabrir FVs, mas continua como editor.` : `<b>${esc(b.dataset.e)}</b> deixa de ${k === "editors" ? "editar" : "ver"} o sistema.`, "Remover", true))) return;
+    acc[k] = acc[k].filter(x => x !== b.dataset.e); if (k === "editors") acc.gestores = acc.gestores.filter(x => x !== b.dataset.e); save();
   });
   const st = $("#bk-status", v);
   $("#bk-export", v).onclick = async () => {
@@ -3285,14 +3365,543 @@ function shrinkImage(file, maxW, maxLen) {
     im.src = u;
   });
 }
+/* ---------- SOLOS: mapeamento de compactação (F.045-QUALI) e controle de compactação ---------- */
+let solos = new Map(), scur = null, solTab = "trechos", solFilt = {folder: ""};
+const sNum = v => { const s = String(v ?? "").trim().replace(/\s|%/g, ""); if (!s) return NaN; return parseFloat(s.includes(",") ? s.replace(/\./g, "").replace(",", ".") : s); };
+const sStable = o => o && typeof o === "object" && !Array.isArray(o) ? "{" + Object.keys(o).sort().map(k => JSON.stringify(k) + ":" + sStable(o[k])).join(",") + "}" : JSON.stringify(o ?? null);
+const sFmt = (n, d = 1) => isNaN(n) ? "" : n.toLocaleString("pt-BR", {minimumFractionDigits: d, maximumFractionDigits: d});
+const camKey = v => { const s = norm(v).trim(); if (!s) return ""; if (s[0] === "f") return "F"; const n = parseInt(s, 10); return isNaN(n) ? s.toUpperCase() : String(n); };
+const camLabel = k => k === "F" ? "FUNDO" : k;
+const ensAuto = area => { const a = sNum(area); return !(a > 0) ? 3 : 3 + (a > 400 ? Math.ceil((a - 400) / 150) : 0); };
+function soloCrit(t) {
+  const c = t.crit || {}, n = (v, d) => isNaN(sNum(v)) ? d : sNum(v);
+  const por = sNum(c.porCamada);
+  return {gcMin: n(c.gcMin, 97), gcFim: n(c.gcFim, 100), nFim: Math.max(0, Math.round(n(c.nFim, 3))), umid: n(c.umid, 3), porCamada: por > 0 ? Math.round(por) : ensAuto((t.head || {}).area), auto: !(por > 0), fundo: c.fundo !== false};
+}
+const soloN = t => { const n = parseInt((t.head || {}).nCamadas, 10); return n > 0 && n < 400 ? n : 0; };
+const soloKeys = t => [...(soloCrit(t).fundo ? ["F"] : []), ...Array.from({length: soloN(t)}, (_, i) => String(i + 1))];
+const camReq = (t, k) => { const c = soloCrit(t), N = soloN(t), n = parseInt(k, 10); return k !== "F" && N && n > N - c.nFim ? c.gcFim : c.gcMin; };
+/* confere um ensaio contra o critério */
+function ensEval(t, e) {
+  const c = soloCrit(t), req = camReq(t, camKey(e.cam)), gc = sNum(e.gc), du = sNum(e.ucampo) - sNum(e.uot);
+  if (isNaN(gc)) return {s: "inc", txt: "Falta o G.C."};
+  const why = [];
+  if (gc < req - 1e-9) why.push(`G.C. abaixo de ${sFmt(req, 0)}%`);
+  if (!isNaN(du) && Math.abs(du) > c.umid + 1e-9) why.push(`umidade ${du > 0 ? "+" : "−"}${sFmt(Math.abs(du))} p.p. (limite ±${sFmt(c.umid, 0)})`);
+  return why.length ? {s: "fora", txt: why.join("; ")} : {s: "ok", txt: "Dentro do critério"};
+}
+/* resumo gravado no próprio trecho, para a lista e o painel não precisarem ler todos os ensaios */
+function soloSummary(t, ens, maps, docs) {
+  const by = new Map(); ens.forEach(e => { const k = camKey(e.cam); if (!k) return; if (!by.has(k)) by.set(k, []); by.get(k).push(e); });
+  const exp = soloCrit(t).porCamada, c = {}; let v = 0, r = 0, f = 0, a = 0, fv = 0;
+  ens.forEach(e => { const ev = ensEval(t, e); if (e.st === "V") { v++; if (ev.s === "fora") fv++; } else if (e.st === "R") r++; else if (ev.s === "fora") f++; else if (ev.s === "ok") a++; });
+  new Set([...soloKeys(t), ...by.keys()]).forEach(k => {
+    const rows = by.get(k) || [];
+    if (!rows.length) return;
+    // ensaio reprovado = camada refeita: ele deixa de contar e a camada precisa de ensaios novos no lugar
+    const act = rows.filter(e => e.st !== "R"), evs = act.map(e => ({e, ev: ensEval(t, e)}));
+    c[k] = evs.some(x => x.ev.s === "fora" && x.e.st !== "V") ? "F" : act.length < exp ? (act.length < rows.length ? "R" : "I") : evs.some(x => x.ev.s === "inc" && x.e.st !== "V") ? "I" : act.every(e => e.st === "V") ? "V" : "A";
+  });
+  const dates = ens.map(e => e.data).filter(Boolean).sort();
+  // "c" vai como texto (F:V,1:A,…) para ser sempre substituído inteiro ao gravar
+  return {c: Object.keys(c).map(k => k + ":" + c[k]).join(","), e: ens.length, v, r, f, fv, a, rel: docs.filter(d => d.tipo === "rel").length, val: docs.filter(d => d.tipo === "val").length, map: maps.length, last: dates.length ? dates[dates.length - 1] : ""};
+}
+const SOLO_ST = {ok: ["Concluído", "tab"], bad: ["Com problema", "imp"], run: ["Em andamento", ""], novo: ["Não iniciado", ""]};
+const CAM_ST = {V: "Validada", A: "Aguardando validação", F: "Fora do critério", R: "Refeita, aguardando novo ensaio", I: "Incompleta", Z: "Sem ensaio"};
+/* validação do projetista: só existe quando algum ensaio fica fora do critério e a camada não é refeita */
+const soloNeedsProj = sum => (sum.f || 0) + (sum.fv || 0) > 0;
+const soloValEff = (t, sum) => t.valProj || (soloNeedsProj(sum || t.sum || {}) ? ((sum || t.sum || {}).val ? "sim" : "nao") : "na");
+/* situação e pendências de um trecho (é o que o sistema "fiscaliza") */
+function soloInfo(t, sum) {
+  sum = sum || t.sum || {}; const sc = typeof sum.c === "string" ? Object.fromEntries(sum.c.split(",").filter(Boolean).map(x => x.split(":"))) : (sum.c || {}), h = t.head || {}, keys = soloKeys(t), N = soloN(t);
+  const cams = keys.map(k => ({k, st: sc[k] || "Z"})), cnt = {V: 0, A: 0, F: 0, R: 0, I: 0, Z: 0};
+  cams.forEach(c => cnt[c.st]++);
+  const names = st => { const L = cams.filter(c => c.st === st).map(c => camLabel(c.k).toLowerCase()); return L.length > 8 ? L.slice(0, 8).join(", ") + ` e mais ${L.length - 8}` : L.join(", "); };
+  const pl = (n, a, b) => `${n} ${n === 1 ? a : b}`;
+  const pend = [], add = (sev, tab, txt) => pend.push({sev, tab, txt});
+  if (!N) add("warn", "capa", "Informe na capa a quantidade de camadas do trecho.");
+  if (!(sNum(h.area) > 0) || !(sNum(h.altCamada) > 0)) add("warn", "capa", "Preencha na capa a área da faixa e a altura da camada.");
+  if (!sum.map) add("warn", "dem", "Falta demarcar no projeto a faixa terraplenada.");
+  if (cnt.R) add("bad", "ctrl", `${pl(cnt.R, "camada refeita aguardando", "camadas refeitas aguardando")} o novo ensaio (${names("R")}).`);
+  if (cnt.F) add("bad", "ctrl", `${pl(cnt.F, "camada com ensaio", "camadas com ensaio")} fora do critério (${names("F")}): refazer a camada (marque o ensaio como reprovado e lance o novo) ou pedir a validação do projetista.`);
+  if (sum.fv && !sum.val) add("bad", "val", `${pl(sum.fv, "ensaio fora do critério foi validado", "ensaios fora do critério foram validados")}, mas falta anexar a validação do projetista.`);
+  if (cnt.I) add("warn", "ctrl", `${pl(cnt.I, "camada com ensaios incompletos", "camadas com ensaios incompletos")} (${names("I")}): faltam ensaios ou o G.C.`);
+  if (cnt.Z && N) add("warn", "ctrl", `${pl(cnt.Z, "camada sem ensaio lançado", "camadas sem ensaio lançado")} (${names("Z")}).`);
+  if (cnt.A) add("warn", "ctrl", `${pl(cnt.A, "camada aguardando", "camadas aguardando")} validação (${names("A")}).`);
+  if (sum.e && !sum.rel) add("warn", "rel", "Nenhum relatório de ensaio anexado.");
+  if (t.valProj === "sim" && !sum.val && !sum.fv) add("warn", "val", "Validação do projetista marcada como SIM, mas sem documento anexado.");
+  const allV = N > 0 && cnt.V === cams.length;
+  if (allV && t.concluido !== "sim") add("info", "capa", "Todas as camadas estão validadas: marque o trecho como concluído.");
+  if (t.concluido === "sim") {
+    if (!allV && N) add("bad", "ctrl", "Trecho marcado como concluído, mas ainda há camadas sem validação.");
+    if (!h.fim) add("warn", "capa", "Trecho concluído sem data de conclusão.");
+    if (!(t.gestor && String(t.gestor.nome || "").trim())) add("warn", "capa", "Falta o nome do gestor responsável na capa.");
+  }
+  const state = cnt.R || cnt.F || pend.some(p => p.sev === "bad") ? "bad" : allV && t.concluido === "sim" && !pend.some(p => p.sev === "warn") ? "ok" : sum.e ? "run" : "novo";
+  return {cams, cnt, pend, state, total: cams.length, pct: cams.length ? Math.round(100 * cnt.V / cams.length) : 0, sum};
+}
+const soBar = i => `<div class="so-bar" title="${Object.keys(CAM_ST).filter(k => i.cnt[k]).map(k => `${CAM_ST[k]}: ${i.cnt[k]}`).join(" · ")}">${["V", "A", "I", "F", "R", "Z"].map(k => i.cnt[k] ? `<i class="so-${k}" style="flex:${i.cnt[k]}"></i>` : "").join("") || `<i class="so-Z" style="flex:1"></i>`}</div>`;
+const soLegend = `<div class="pn-legend"><span><i class="so-V"></i>Validada</span><span><i class="so-A"></i>Aguardando validação</span><span><i class="so-I"></i>Incompleta</span><span><i class="so-F"></i>Fora do critério / reprovada</span><span><i class="so-Z"></i>Sem ensaio</span></div>`;
+
+/* ----- lista de trechos e painel de acompanhamento ----- */
+function renderSolos() {
+  const v = $("#view-solos"); if (!v) return; v.dataset.sid = "";
+  const all = [...solos.values()].sort((a, b) => String(a.nome || "").localeCompare(String(b.nome || ""), "pt-BR", {numeric: true}));
+  const L = all.filter(t => inFolder(t, solFilt.folder)).map(t => ({t, i: soloInfo(t)}));
+  const fOpts = [...folders.keys()].map(id => ({id, p: pathText(id)})).sort((a, b) => a.p.localeCompare(b.p, "pt-BR", {numeric: true}));
+  const link = t => `<a href="#solo-${esc(t.id)}"><b>${esc(t.nome || "Trecho sem nome")}</b></a>`;
+  let body;
+  if (solTab === "acomp") {
+    const sum = k => L.reduce((n, x) => n + x.i.cnt[k], 0), camT = L.reduce((n, x) => n + x.i.total, 0), ens = L.reduce((n, x) => n + (x.i.sum.e || 0), 0);
+    const semDoc = L.filter(x => x.i.pend.some(p => p.tab === "rel" || p.tab === "val")).length;
+    const rowsPasta = [{id: "", name: "Sem pasta", depth: 0, list: L.filter(x => !x.t.folder || !folders.has(x.t.folder))}]
+      .concat(fOpts.filter(o => !solFilt.folder || o.id === solFilt.folder || inFolder({folder: o.id}, solFilt.folder)).map(o => ({id: o.id, name: folders.get(o.id).name, depth: folderPath(o.id).length - 1, list: L.filter(x => inFolder(x.t, o.id))}))).filter(r => r.list.length);
+    const agg = list => { const cnt = {V: 0, A: 0, F: 0, R: 0, I: 0, Z: 0}; list.forEach(x => { for (const k in cnt) cnt[k] += x.i.cnt[k]; }); const total = list.reduce((n, x) => n + x.i.total, 0); return {cnt, total, pct: total ? Math.round(100 * cnt.V / total) : 0}; };
+    const pends = L.flatMap(x => x.i.pend.filter(p => p.sev !== "info").map(p => ({...p, t: x.t}))).sort((a, b) => (a.sev === "bad" ? 0 : 1) - (b.sev === "bad" ? 0 : 1));
+    const th = cols => `<thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>`;
+    body = `<div class="pn-kpis">
+        <div class="pn-kpi"><span>Trechos</span><b>${L.length}</b><small>${L.filter(x => x.i.state === "ok").length} concluídos · ${L.filter(x => x.i.state === "run" || x.i.state === "bad").length} em andamento</small></div>
+        <div class="pn-kpi ok"><span>Camadas validadas</span><b>${camT ? Math.round(100 * sum("V") / camT) + "%" : "—"}</b><small>${sum("V")} de ${camT} camadas</small></div>
+        <div class="pn-kpi warn"><span>Aguardando validação</span><b>${sum("A")}</b><small>camadas com ensaio dentro do critério</small></div>
+        <div class="pn-kpi bad"><span>⚠ Fora do critério</span><b>${sum("F") + sum("R")}</b><small>camadas para refazer ou validar com o projetista</small></div>
+        <div class="pn-kpi"><span>Sem ensaio</span><b>${sum("Z") + sum("I")}</b><small>camadas sem ensaio ou incompletas</small></div>
+        <div class="pn-kpi warn"><span>Documentos pendentes</span><b>${semDoc}</b><small>trechos sem relatório ou sem validação anexada</small></div>
+      </div>${soLegend}
+      <div class="pn-grid">
+        <section class="panel pn-sec"><h2>Por pasta</h2>${rowsPasta.length ? `<table class="pn-t">${th(["Pasta", "Trechos", "Camadas", "% validado", "Problemas", "Pendências"])}<tbody>${rowsPasta.map(r => { const a = agg(r.list); return `<tr><td style="padding-left:${8 + r.depth * 14}px">${esc(r.name)}</td><td class="n">${r.list.length}</td><td class="bc">${soBar(a)}</td><td class="n b">${a.total ? a.pct + "%" : "—"}</td><td class="n ${a.cnt.F + a.cnt.R ? "red" : ""}">${a.cnt.F + a.cnt.R}</td><td class="n">${r.list.reduce((n, x) => n + x.i.pend.filter(p => p.sev !== "info").length, 0)}</td></tr>`; }).join("")}</tbody></table>` : `<div class="sub">Nenhum trecho.</div>`}</section>
+        <section class="panel pn-sec"><h2>⚠ Pendências <span class="pn-c">${pends.length}</span></h2>${pends.length ? `<table class="pn-t">${th(["Trecho", "O que falta"])}<tbody>${pends.slice(0, 60).map(p => `<tr><td style="white-space:nowrap">${link(p.t)}</td><td class="${p.sev === "bad" ? "red" : ""}" style="font-weight:${p.sev === "bad" ? 700 : 400}">${esc(p.txt)}</td></tr>`).join("")}</tbody></table>${pends.length > 60 ? `<div class="sub" style="margin-top:6px">+ ${pends.length - 60} outras. Filtre por pasta para ver.</div>` : ""}` : `<div class="sub">Nenhuma pendência. Tudo em dia.</div>`}</section>
+      </div>
+      <section class="panel pn-sec pn-wide"><h2>Por trecho</h2>${L.length ? `<table class="pn-t">${th(["Trecho", "Pasta", "Situação", "Camadas", "% validado", "Ensaios", "Último ensaio", "Projetista", "Pendências"])}<tbody>${L.map(x => `<tr><td>${link(x.t)}</td><td>${esc(pathText(x.t.folder || "") || "—")}</td><td><span class="g-tag ${SOLO_ST[x.i.state][1]}">${SOLO_ST[x.i.state][0]}</span></td><td class="bc">${soBar(x.i)}</td><td class="n b">${x.i.total ? x.i.pct + "%" : "—"}</td><td class="n">${x.i.sum.e || 0}</td><td class="n">${x.i.sum.last ? fmtDate(x.i.sum.last) : "—"}</td><td>${!soloNeedsProj(x.i.sum) && x.t.valProj !== "sim" ? "Não precisa" : x.i.sum.val ? "Anexada ✓" : `<b style="color:var(--red)">Pendente</b>`}</td><td class="n ${x.i.pend.some(p => p.sev === "bad") ? "red" : ""}">${x.i.pend.filter(p => p.sev !== "info").length}</td></tr>`).join("")}</tbody></table>` : `<div class="sub">Nenhum trecho cadastrado.</div>`}</section>`;
+  } else {
+    body = L.length ? `${soLegend}<div class="g-grid">${L.map(({t, i}) => `<a class="g-card" href="#solo-${esc(t.id)}">
+        <div class="g-tag ${SOLO_ST[i.state][1]}">${SOLO_ST[i.state][0]}</div><b>${esc(t.nome || "Trecho sem nome")}</b>
+        <div class="sub">${esc(pathText(t.folder || "") || "Sem pasta")}${i.total ? ` · ${i.total} camadas` : ""}${(t.head || {}).area ? ` · ${esc(t.head.area)} m²` : ""}</div>
+        ${soBar(i)}<div class="sub" style="font-size:11.5px">${i.cnt.V} de ${i.total} camadas validadas · ${i.pend.filter(p => p.sev !== "info").length} pendência(s) · atualizado em ${fmtFull(t.updatedAt || t.createdAt)}</div></a>`).join("")}</div>`
+      : `<div class="empty"><b>${all.length ? "Nenhum trecho nesta pasta" : "Nenhum trecho cadastrado"}</b>Cada trecho é um <b>Mapeamento de compactação de faixa de terraplenagem</b> (F.045-QUALI): capa, demarcação no projeto, controle de compactação por camada, relatórios dos ensaios e validação do projetista.${canWrite ? `<div style="margin-top:14px"><button class="btn primary" type="button" data-snew>+ Novo trecho</button></div>` : ""}</div>`;
+  }
+  v.innerHTML = `<div class="page-title"><div><h1>Solos</h1><div class="sub">Mapeamento e controle de compactação do solo${solFilt.folder ? " · " + esc(pathText(solFilt.folder)) : ""}</div></div>
+      ${canWrite ? `<div class="g-acts"><button class="btn primary" type="button" data-snew>+ Novo trecho</button></div>` : ""}</div>
+    <div class="tabs" role="tablist"><button type="button" role="tab" data-go="solos" class="${solTab === "trechos" ? "on" : ""}">Trechos <span class="n">${all.length}</span></button><button type="button" role="tab" data-go="solos-acomp" class="${solTab === "acomp" ? "on" : ""}">Acompanhamento</button></div>
+    <div class="pn-filters"><label class="fld">Pasta<select id="so-folder"><option value="">Todas as pastas</option>${fOpts.map(o => `<option value="${esc(o.id)}" ${o.id === solFilt.folder ? "selected" : ""}>${esc(o.p)}</option>`).join("")}</select></label></div>
+    ${body}`;
+  $$("[data-go]", v).forEach(b => b.onclick = () => { location.hash = b.dataset.go; });
+  $("#so-folder", v).onchange = e => { solFilt.folder = e.target.value; renderSolos(); };
+  $$("[data-snew]", v).forEach(b => b.onclick = newSolo);
+}
+async function newSolo() {
+  const last = [...solos.values()].sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")))[0], lh = (last && last.head) || {};
+  const res = await modal({title: "Novo trecho de compactação", body: `
+      <label class="fld">Nome do trecho<input type="text" id="sn-nome" placeholder="Ex.: Radier – Bloco 04" maxlength="120"></label>
+      <label class="fld">Pasta<select id="sn-folder">${folderOptions(solFilt.folder, new Set(), "Sem pasta")}</select></label>
+      <label class="fld">Regional – obra<input type="text" id="sn-obra" value="${esc(lh.obra || "")}" placeholder="GO – Parque dos Sonhos V"></label>
+      <div class="g-hgrid"><label class="fld">Área da faixa (m²)<input type="text" inputmode="decimal" id="sn-area"></label><label class="fld">Altura da camada (m)<input type="text" inputmode="decimal" id="sn-alt" value="${esc(lh.altCamada || "0,20")}"></label>
+      <label class="fld">Quantidade de camadas<input type="number" min="0" id="sn-n"></label><label class="fld" style="align-self:end"><span style="display:flex;gap:8px;align-items:center;font-size:13px"><input type="checkbox" id="sn-fundo" checked style="width:18px;height:18px"> Tem fundo de caixa</span></label></div>
+      <p class="sub" style="margin:6px 0 0">Tudo pode ser alterado depois na capa.</p>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Criar", cls: "primary", value: bg => ({nome: $("#sn-nome", bg).value.trim(), folder: $("#sn-folder", bg).value, obra: $("#sn-obra", bg).value.trim(), area: $("#sn-area", bg).value.trim(), alt: $("#sn-alt", bg).value.trim(), n: $("#sn-n", bg).value.trim(), fundo: $("#sn-fundo", bg).checked})}]});
+  if (!res) return;
+  if (!res.nome) return toast("Dê um nome ao trecho.");
+  const sid = uid("so"), at = nowIso();
+  const doc = {nome: res.nome, folder: res.folder || "", head: {obra: res.obra, inicio: "", fim: "", projeto: lh.projeto || "", projetista: lh.projetista || "", executora: lh.executora || "", lab: lh.lab || "", area: res.area, altCamada: res.alt, nCamadas: res.n},
+    concluido: "", valProj: "", obs: "", resp: {nome: ""}, gestor: {nome: "", data: ""}, crit: {gcMin: "97", gcFim: "100", nFim: "3", umid: "3", porCamada: "", fundo: res.fundo}, sum: {}, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+  try { await create(`solos/${sid}`, doc); solos.set(sid, {id: sid, ...doc}); location.hash = "solo-" + sid; } catch {}
+}
+
+/* ----- tela de um trecho ----- */
+function openSolo(sid) {
+  if (scur && scur.id === sid) return;
+  closeSolo();
+  scur = {id: sid, tab: "capa", ens: [], maps: [], docs: [], unsubs: [], got: {}};
+  const sub = (coll, key, q) => scur.unsubs.push(q(db.collection(`solos/${sid}/${coll}`)).onSnapshot(s => {
+    if (!scur || scur.id !== sid) return; scur[key] = s.docs.map(d => ({id: d.id, ...d.data()})); scur.got[key] = true; renderSoloSub(key);
+  }, () => {}));
+  sub("ensaios", "ens", r => r.orderBy("o")); sub("maps", "maps", r => r.orderBy("createdAt")); sub("docs", "docs", r => r.orderBy("createdAt"));
+  renderSoloAll();
+}
+function closeSolo() { if (!scur) return; scur.unsubs.forEach(u => { try { u(); } catch {} }); clearTimeout(scur.sumT); scur = null; }
+const soloCtx = sid => ({owner: sid, base: `solos/${sid}/maps`, find: id => scur && scur.id === sid ? scur.maps.find(x => x.id === id) : null, ro: () => !canWrite, log: () => {}, photos: false,
+  onClose: () => { if (scur && scur.id === sid) renderSoloSub("maps"); }});
+function sBind(el, field, ensId) {
+  autosize(el);
+  const sid = scur.id, save = () => { clearTimeout(el._t); if (!el._dirty) return; el._dirty = false; patch(ensId ? `solos/${sid}/ensaios/${ensId}` : `solos/${sid}`, stamp(field.split(".").reduceRight((v, k) => ({[k]: v}), el.value))); if (ensId) touchSolo(); };
+  el.addEventListener("input", () => { el._dirty = true; autosize(el); clearTimeout(el._t); el._t = setTimeout(save, 700); });
+  el.addEventListener("change", () => { el._dirty = true; save(); }); el.addEventListener("blur", save);
+}
+function touchSolo() { if (scur) patch(`solos/${scur.id}`, stamp({})); }
+function setSoloTab(t) {
+  if (!scur) return; scur.tab = t; const v = $("#view-solos");
+  $$("#so-tabs [data-stab]", v).forEach(b => b.classList.toggle("on", b.dataset.stab === t));
+  ["capa", "dem", "ctrl", "rel", "val"].forEach(k => $("#st-" + k, v).classList.toggle("hidden", k !== t));
+  $$("#st-" + t + " textarea", v).forEach(autosize);
+}
+const sGet = (o, path) => path.split(".").reduce((x, k) => (x || {})[k], o);
+function renderSoloAll() {
+  if (!scur) return; const v = $("#view-solos"), sid = scur.id, t = solos.get(sid), ro = !canWrite;
+  if (!t) { v.dataset.sid = ""; v.innerHTML = `<a class="back" href="#solos">← Solos</a><div class="empty"><b>Trecho não encontrado</b>Ele pode ter sido excluído.</div>`; return; }
+  if (v.dataset.sid !== sid) {
+    v.dataset.sid = sid; const D = ro ? "disabled" : "";
+    const f = (k, cls = "", type = "text", extra = "") => `<input type="${type}" data-s="${k}" class="${cls}" ${extra} ${D}>`;
+    const opt = (k, val, lab) => `<button type="button" class="so-chk" data-sset="${k}:${val}" ${D}><i></i>${lab}</button>`;
+    v.innerHTML = `<a class="back" href="#solos">← Solos</a>
+      <div class="g-top"><div class="so-id"><input type="text" class="so-name" data-s="nome" aria-label="Nome do trecho" maxlength="120" ${D}><label class="sub">Pasta: <select id="so-fsel" ${D}></select></label></div>
+        <div class="g-acts"><span class="g-tag" id="so-pill"></span><button class="btn dark" type="button" id="so-pdf">Baixar PDF</button>${ro ? "" : `<button class="btn ghost danger" type="button" id="so-del">Excluir</button>`}</div></div>
+      <div class="panel so-pend" id="so-pend"></div>
+      <div class="tabs" role="tablist" id="so-tabs"><button type="button" data-stab="capa">Capa F.045</button><button type="button" data-stab="dem">Demarcação <span class="n" id="sn-dem">0</span></button><button type="button" data-stab="ctrl">Controle de compactação <span class="n" id="sn-ctrl">0</span></button><button type="button" data-stab="rel">Relatórios <span class="n" id="sn-rel">0</span></button><button type="button" data-stab="val">Validação do projetista <span class="n" id="sn-val">0</span></button></div>
+      <div id="st-capa"><div class="sheet-wrap"><div class="sheet so-sheet">
+          <table><colgroup><col style="width:118px"><col><col style="width:170px"></colgroup><tr style="height:40px">${markCell()}<td class="ttl">MAPEAMENTO DE COMPACTAÇÃO DE FAIXA DE TERRAPLENAGEM</td><td class="codebox"><b>F.045-QUALI · REV: 00</b>DATA: 03/05/2023</td></tr></table>
+          <div class="so-f">
+            <div class="so-r"><label style="flex:2.2">REGIONAL – OBRA: ${f("head.obra")}</label><label>DATA DE INÍCIO: ${f("head.inicio", "", "date")}</label><label>DATA DE CONCLUSÃO: ${f("head.fim", "", "date")}</label><span class="so-q">TRECHO CONCLUÍDO ${opt("concluido", "sim", "SIM")}${opt("concluido", "nao", "NÃO")}</span></div>
+            <div class="so-r"><label style="flex:2.2">NOME DO TRECHO: ${f("nome")}</label><span style="flex:2"></span><span class="so-q">VALIDAÇÃO DO PROJETISTA ${opt("valProj", "sim", "SIM")}${opt("valProj", "nao", "NÃO")}${opt("valProj", "na", "NA")}</span></div>
+            <div class="so-r"><label>NÚMERO E REVISÃO DO PROJETO REFERÊNCIA: ${f("head.projeto")}</label></div>
+            <div class="so-r"><label>PROJETISTA DE TERRAPLENAGEM: ${f("head.projetista")}</label><label>EMPRESA EXECUTORA DA TERRAPLENAGEM: ${f("head.executora")}</label><label>NOME DO LABORATÓRIO: ${f("head.lab")}</label></div>
+            <div class="so-r"><label>ÁREA DA FAIXA TERRAPLENADA (m²): ${f("head.area", "", "text", 'inputmode="decimal"')}</label><label>ALTURA DA CAMADA (m): ${f("head.altCamada", "", "text", 'inputmode="decimal"')}</label><label>QUANTIDADE DE CAMADAS DO TRECHO: ${f("head.nCamadas", "", "number", 'min="0"')}</label></div>
+          </div>
+          <div class="so-regt">TERRAPLENAGEM – REGIÃO COM ATERRO</div><div class="so-reg" id="so-reg"></div>
+          <div class="so-obs"><b>Observações:</b><textarea data-s="obs" rows="2" ${D}></textarea></div>
+          <div class="so-foot"><div><i>RESPONSÁVEL COLETA DE DADOS</i><label>NOME: ${f("resp.nome")}</label><span>ASS: ______________________</span></div>
+            <div class="so-anx">*ANEXAR RECORTE DO PROJETO COM DEMARCAÇÃO DO TRECHO DA FAIXA TERRAPLENADA.<br>*ANEXAR RELATÓRIOS DOS ENSAIOS DE MASSA ESPECÍFICA APARENTE SECA E TEOR DE UMIDADE (QUANDO HOUVER) DO TRECHO.<br>*ANEXAR VALIDAÇÃO DO PROJETISTA.</div>
+            <div><i>GESTOR RESPONSÁVEL</i><label>NOME: ${f("gestor.nome")}</label><label>ASS: __________ DATA: ${f("gestor.data", "", "date")}</label></div></div>
+        </div></div>
+        <div class="panel so-crit"><h2 style="font-size:14px;text-transform:uppercase;margin:0 0 4px">Critérios da conferência automática</h2><p class="sub" style="margin:0 0 10px">O sistema usa estes números para apontar ensaio fora do critério e camada com ensaio faltando. Padrão: valores da IT e da ET; se o projeto pedir outro, troque aqui.</p>
+          <div class="so-cg"><label class="fld">G.C. mínimo (%)${f("crit.gcMin", "", "text", 'inputmode="decimal"')}</label><label class="fld">G.C. mínimo nas últimas camadas (%)${f("crit.gcFim", "", "text", 'inputmode="decimal"')}</label><label class="fld">Quantas são as “últimas camadas”${f("crit.nFim", "", "number", 'min="0"')}</label>
+            <label class="fld">Desvio máximo de umidade (± p.p.)${f("crit.umid", "", "text", 'inputmode="decimal"')}</label><label class="fld">Ensaios por camada <span class="sub" id="so-auto"></span>${f("crit.porCamada", "", "number", 'min="1" placeholder="automático"')}</label>
+            <label class="fld" style="align-self:end"><span style="display:flex;gap:8px;align-items:center;font-size:13px"><input type="checkbox" id="so-fundo" style="width:18px;height:18px" ${D}> Tem fundo de caixa</span></label></div></div></div>
+      <div id="st-dem" class="hidden"></div>
+      <div id="st-ctrl" class="hidden"><div class="so-cams" id="so-cams"></div>
+        <div class="sheet-wrap"><div class="sheet so-ct"><table><colgroup><col style="width:8%"><col style="width:11%"><col style="width:8%"><col style="width:9%"><col style="width:8%"><col style="width:8%"><col style="width:8%"><col style="width:18%"><col style="width:14%"><col style="width:8%">${ro ? "" : `<col style="width:34px">`}</colgroup>
+          <thead><tr><th>CAMADA</th><th>DATA EXEC.</th><th>Nº MATERIAL</th><th>DENSIDADE</th><th>U. ÓTIMA (%)</th><th>U. CAMPO (%)</th><th>G.C. (%)</th><th>CONFERÊNCIA</th><th>STATUS</th><th>ALTURA</th>${ro ? "" : `<th class="nob"></th>`}</tr></thead><tbody id="so-body"></tbody></table>
+          <div class="so-empty sub hidden" id="so-noens">Nenhum ensaio lançado. Use <b>Gerar linhas das camadas</b> para criar a tabela inteira de uma vez.</div></div></div>
+        ${ro ? "" : `<div class="g-add" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px"><button class="btn" type="button" id="so-add">+ Adicionar ensaio</button><button class="btn" type="button" id="so-gen">+ Gerar linhas das camadas</button><button class="btn primary" type="button" id="so-valall">Validar ensaios dentro do critério…</button></div>`}
+        <p class="hint">A coluna <b>Conferência</b> é automática: compara o G.C. e o desvio de umidade com os critérios da capa. Toque no <b>Status</b> para marcar como validado ou reprovado. Em ⋮ dá para inserir, duplicar, mudar a data da validação e apagar.</p></div>
+      <div id="st-rel" class="hidden"></div><div id="st-val" class="hidden"></div>
+      <input type="file" id="so-file" accept="application/pdf,.pdf,image/*" multiple class="hidden">`;
+    $$("#so-tabs [data-stab]", v).forEach(b => b.onclick = () => setSoloTab(b.dataset.stab));
+    $$("[data-s]", v).forEach(el => sBind(el, el.dataset.s));
+    $("#so-pdf", v).onclick = exportSoloPdf;
+    $("#so-pend", v).addEventListener("click", e => { const b = e.target.closest("[data-gotab]"); if (b) { setSoloTab(b.dataset.gotab); $("#so-tabs", v).scrollIntoView({behavior: "smooth", block: "start"}); } });
+    $("#so-reg", v).addEventListener("click", e => { if (e.target.closest("[data-gotab]")) setSoloTab("dem"); });
+    if (!ro) {
+      $("#so-fsel", v).onchange = e => patch(`solos/${sid}`, stamp({folder: e.target.value}));
+      $("#so-fundo", v).onchange = e => patch(`solos/${sid}`, stamp({crit: {fundo: e.target.checked}}));
+      $$("[data-sset]", v).forEach(b => b.onclick = () => { const [k, val] = b.dataset.sset.split(":"), now = solos.get(sid) || {}; const nv = now[k] === val ? "" : val, up = {[k]: nv}; if (k === "concluido" && nv === "sim" && !(now.head || {}).fim) up.head = {fim: today()}; if (k === "valProj" && b.classList.contains("on") && !now.valProj) up.valProj = val; patch(`solos/${sid}`, stamp(up)); });
+      $("#so-del", v).onclick = deleteSolo;
+      $("#so-add", v).onclick = () => { const L = scur.ens, last = L[L.length - 1] || {}, at = nowIso(); create(`solos/${sid}/ensaios/${uid("e")}`, {o: (last.o || 0) + 1, cam: last.cam || "", data: last.data || "", mat: last.mat || "", dens: last.dens || "", uot: last.uot || "", ucampo: "", gc: "", st: "", stData: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}).catch(() => {}); touchSolo(); };
+      $("#so-gen", v).onclick = genSoloRows; $("#so-valall", v).onclick = validateSoloRows;
+      $("#so-body", v).addEventListener("click", soloRowClick);
+      $("#so-file", v).onchange = e => { const fs = [...e.target.files]; e.target.value = ""; soloUpload(scur.upTipo || "rel", fs); };
+    }
+    setSoloTab(scur.tab);
+  }
+  // valores
+  $$("[data-s]", v).forEach(el => setVal(el, String(sGet(t, el.dataset.s) ?? "")));
+  const fs = $("#so-fsel", v); fs.innerHTML = folderOptions(t.folder || "", new Set(), "Sem pasta");
+  const sumNow = scur.got.ens && scur.got.docs ? soloSummary(t, scur.ens, scur.maps, scur.docs) : (t.sum || {});
+  $$("[data-sset]", v).forEach(b => { const [k, val] = b.dataset.sset.split(":"); b.classList.toggle("on", (k === "valProj" ? soloValEff(t, sumNow) : t[k]) === val); });
+  const c = soloCrit(t); $("#so-fundo", v).checked = c.fundo; $("#so-auto", v).textContent = c.auto ? `(automático pela área: ${c.porCamada})` : "";
+  ["ens", "maps", "docs"].forEach(k => renderSoloSub(k, true));
+  renderSoloPend();
+}
+function renderSoloPend() {
+  if (!scur) return; const v = $("#view-solos"), t = solos.get(scur.id); if (!t || !$("#so-pend", v)) return;
+  const ready = scur.got.ens && scur.got.maps && scur.got.docs, sum = ready ? soloSummary(t, scur.ens, scur.maps, scur.docs) : (t.sum || {}), i = soloInfo(t, sum);
+  const pill = $("#so-pill", v); pill.className = "g-tag " + SOLO_ST[i.state][1]; pill.textContent = SOLO_ST[i.state][0];
+  $$("[data-sset^='valProj:']", v).forEach(b => b.classList.toggle("on", soloValEff(t, sum) === b.dataset.sset.split(":")[1]));
+  const icon = {bad: "⚠", warn: "•", info: "ℹ"};
+  $("#so-pend", v).innerHTML = `<div class="pn-h"><h2 style="font-size:14px;text-transform:uppercase;margin:0">Conferência automática</h2><span class="sub">${i.cnt.V} de ${i.total} camadas validadas${i.total ? ` (${i.pct}%)` : ""} · ${sum.e || 0} ensaios lançados</span></div>${soBar(i)}
+    ${i.pend.length ? `<ul class="so-pl">${i.pend.map(p => `<li class="${p.sev}"><span>${icon[p.sev]}</span><button type="button" data-gotab="${p.tab}">${esc(p.txt)}</button></li>`).join("")}</ul>` : `<div class="so-allok">✓ Nenhuma pendência: trecho concluído, validado e com os documentos anexados.</div>`}`;
+  // camadas (aba controle)
+  const cams = $("#so-cams", v);
+  if (cams) cams.innerHTML = i.cams.length ? i.cams.map(c => `<span class="so-cam so-${c.st}" title="${CAM_ST[c.st]} · G.C. mínimo ${sFmt(camReq(t, c.k), 0)}%">${c.k === "F" ? "Fundo" : c.k}</span>`).join("") + `<span class="sub" style="margin-left:6px">${soloCrit(t).porCamada} ensaio(s) por camada</span>` : `<span class="sub">Informe a quantidade de camadas na capa para o sistema conferir camada por camada.</span>`;
+  // grava o resumo no trecho (para a lista e o painel)
+  if (ready && canWrite && sStable(sum) !== sStable(t.sum || {})) { clearTimeout(scur.sumT); const sid = scur.id; scur.sumT = setTimeout(() => { const now = solos.get(sid); if (scur && scur.id === sid && now) { const s2 = soloSummary(now, scur.ens, scur.maps, scur.docs); if (sStable(s2) !== sStable(now.sum || {})) db.doc(`solos/${sid}`).update({sum: s2}).catch(() => {}); } }, 500); }
+}
+function renderSoloSub(key, noPend) {
+  if (!scur) return; const v = $("#view-solos"), t = solos.get(scur.id); if (!t || v.dataset.sid !== scur.id) return;
+  if (key === "ens") { renderSoloCtrl(t); if (scur.got.docs) renderSoloDocs(t, "val"); }
+  else if (key === "maps") { renderSoloMaps(t); if (medState && medState.fid === scur.id && medState.refresh) { const m = scur.maps.find(x => x.id === medState.mid); if (m) medState.refresh(m); } }
+  else if (key === "docs") { renderSoloDocs(t, "rel"); renderSoloDocs(t, "val"); }
+  if (!noPend) renderSoloPend();
+}
+async function deleteSolo() {
+  const sid = scur.id, t = solos.get(sid);
+  if (!(await confirmBox("Excluir trecho?", `O trecho <b>${esc(t.nome || "")}</b>, com a demarcação, os ensaios e os documentos anexados, será apagado para todos. Isso não pode ser desfeito.`, "Excluir", true))) return;
+  try {
+    const maps = scur.maps.slice(), docs = scur.docs.slice(), ens = scur.ens.slice();
+    closeSolo();
+    for (const e of ens) await remove(`solos/${sid}/ensaios/${e.id}`);
+    for (const m of maps) { await remove(`solos/${sid}/maps/${m.id}`); if (m.img && m.img.id) remove(`blobs/${m.img.id}`).catch(() => {}); }
+    for (const d of docs) { await remove(`solos/${sid}/docs/${d.id}`); (d.pages || []).forEach(p => remove(`blobs/${p.id}`).catch(() => {})); }
+    await remove(`solos/${sid}`); solos.delete(sid); location.hash = "solos"; toast("Trecho excluído.");
+  } catch {}
+}
+
+/* ----- demarcação no projeto (mesmo editor dos mapeamentos das FVs) ----- */
+function renderSoloMaps(t) {
+  const v = $("#view-solos"), box = $("#st-dem", v), sid = scur.id, ro = !canWrite, L = scur.maps;
+  $("#sn-dem", v).textContent = L.length;
+  // quadro "região com aterro" da capa
+  const reg = $("#so-reg", v), first = L[0], rk = first ? `${first.id}:${first.img && first.img.id}:${first.updatedAt || ""}` : "none";
+  if (reg.dataset.key !== rk) {
+    reg.dataset.key = rk;
+    if (!first) reg.innerHTML = `<div class="so-regph">Recorte do projeto com a demarcação da faixa terraplenada.<br><button class="btn sm" type="button" data-gotab="dem">${ro ? "Ver a aba Demarcação" : "Demarcar no projeto"}</button></div>`;
+    else { reg.innerHTML = `<div class="mload">Carregando a demarcação…</div>`; mapImageUrl(first).then(u => { if (reg.dataset.key === rk) reg.innerHTML = `<img src="${u}" alt="Demarcação da faixa terraplenada" data-gotab="dem">${L.length > 1 ? `<div class="sub" style="padding:4px">+ ${L.length - 1} outra(s) demarcação(ões) na aba Demarcação</div>` : ""}`; }).catch(() => { if (reg.dataset.key === rk) reg.innerHTML = `<div class="mload">Não foi possível carregar a imagem.</div>`; }); }
+  }
+  if (!box.dataset.wired) {
+    box.dataset.wired = "1";
+    box.addEventListener("click", async e => {
+      if (!scur) return; const sid2 = scur.id, b = e.target.closest("[data-newmap],[data-open],[data-ren],[data-delmap]"); if (!b) return;
+      if (b.dataset.newmap !== undefined) return newSoloMap();
+      if (b.dataset.open) return openMapEditor(b.dataset.open, soloCtx(sid2));
+      const m = scur.maps.find(x => x.id === (b.dataset.ren || b.dataset.delmap)); if (!m || !canWrite) return;
+      if (b.dataset.ren) { const nv = await modal({title: "Renomear demarcação", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.title || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]}); if (nv) patch(`solos/${sid2}/maps/${m.id}`, stamp({title: nv})); }
+      else if (await confirmBox("Excluir demarcação?", `A demarcação <b>${esc(m.title || "")}</b>, com todos os desenhos, será apagada para todos.`, "Excluir", true)) { try { await remove(`solos/${sid2}/maps/${m.id}`); if (m.img && m.img.id) remove(`blobs/${m.img.id}`).catch(() => {}); touchSolo(); toast("Demarcação excluída."); } catch {} }
+    });
+  }
+  if (!L.length) { box.innerHTML = `<div class="empty"><b>Trecho sem demarcação</b>Escolha o projeto, recorte a área e desenhe por cima a faixa terraplenada (hachura, contorno, textos e marcadores).${ro ? "" : `<div style="margin-top:14px"><button class="btn primary" type="button" data-newmap>+ Demarcar no projeto</button></div>`}</div>`; return; }
+  let list = $(".maps-list", box);
+  if (!list) { box.innerHTML = `<div class="maps-head">${ro ? "" : `<button class="btn primary" type="button" data-newmap>+ Nova demarcação</button>`}</div><div class="maps-list"></div>`; list = $(".maps-list", box); }
+  const seen = new Set();
+  L.forEach((m, i) => {
+    seen.add(m.id);
+    let card = list.querySelector(`[data-mid="${m.id}"]`);
+    if (!card) { card = document.createElement("div"); card.className = "sheet-wrap mcard"; card.dataset.mid = m.id; card.innerHTML = `<div class="sheet msheet"><table class="mtitle"></table><div class="mprev"><div class="mload">Carregando planta…</div></div><div class="mnotes"></div><div class="noprint mbtns"></div></div>`; }
+    if (list.children[i] !== card) list.insertBefore(card, list.children[i] || null);
+    $(".mtitle", card).innerHTML = `<colgroup><col class="c-mark" style="width:118px"><col style="width:24%"><col class="c-act"><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">DEMARCAÇÃO DA FAIXA</td><td class="act c-act">${esc(m.title || "")}</td><td class="codebox"><b>F.045-QUALI</b>${esc(t.nome || "")}</td></tr>`;
+    const mks = markersOf(m.shapes);
+    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => `<li><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}</span></li>`).join("")}</ol>` : "";
+    $(".mbtns", card).innerHTML = `<button class="btn sm primary" type="button" data-open="${m.id}">${ro ? "Abrir" : "Abrir e desenhar"}</button>${ro ? "" : `<button class="btn sm" type="button" data-ren="${m.id}">Renomear</button><button class="btn sm ghost danger" type="button" data-delmap="${m.id}">Excluir</button>`}<span class="sub" style="margin-left:auto">${m.ptitle ? "Projeto: " + esc(m.ptitle) + " · " : ""}Atualizado por ${who(m.updatedBy || m.createdBy)} em ${fmtFull(m.updatedAt || m.createdAt)}</span>`;
+    const pv = $(".mprev", card), key = `${m.img && m.img.id}:${m.updatedAt || ""}`;
+    if (pv.dataset.key !== key && m.img && !(medState && medState.mid === m.id)) {
+      pv.dataset.key = key;
+      mapImageUrl(m).then(u => { if (pv.dataset.key === key) pv.innerHTML = `<img src="${u}" alt="Demarcação ${esc(m.title || "")}" data-open="${m.id}">`; }).catch(() => { if (pv.dataset.key === key) pv.innerHTML = `<div class="mload">Não foi possível carregar a imagem. Verifique a conexão.</div>`; });
+    }
+  });
+  [...list.children].forEach(c => { if (!seen.has(c.dataset.mid)) c.remove(); });
+  fillNames();
+}
+async function newSoloMap() {
+  if (!scur || !canWrite) return; const sid = scur.id, t = solos.get(sid);
+  const pick = await pickPlanta(scur.maps.length ? `Demarcação ${scur.maps.length + 1}` : `Faixa terraplenada – ${t.nome || ""}`.trim()); if (!pick) return;
+  const pl = plantas.get(pick.pid); if (!pl) return;
+  const rect = await pickCrop(pl, null); if (!rect) return;
+  const end = toastHold("Recortando o projeto…");
+  try {
+    const {url, w, h} = await extractRegion(pl, rect), mid = uid("m"), at = nowIso(), imgId = saveBlob(url);
+    await create(`solos/${sid}/maps/${mid}`, {title: pick.title, o: Date.now(), pid: pl.id, ptitle: pl.title || "", crop: rect, img: {id: imgId, w, h}, shapes: {}, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+    touchSolo(); end(); setTimeout(() => openMapEditor(mid, soloCtx(sid)), 150);
+  } catch { end(); toast("Não foi possível recortar o projeto. Verifique a conexão e tente de novo."); }
+}
+
+/* ----- controle de compactação (tabela por camada) ----- */
+const soloAlt = (t, k) => { const a = sNum((t.head || {}).altCamada), n = k === "F" ? 0 : parseInt(k, 10); return isNaN(a) || isNaN(n) ? NaN : n * a; };
+function renderSoloCtrl(t) {
+  const v = $("#view-solos"), sid = scur.id, ro = !canWrite, body = $("#so-body", v); if (!body) return;
+  $("#sn-ctrl", v).textContent = scur.ens.length; $("#so-noens", v).classList.toggle("hidden", !!scur.ens.length);
+  const D = ro ? "disabled" : "";
+  syncRows(body, scur.ens, d => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="fill c"><input type="text" data-f="cam" list="so-camdl" autocomplete="off" ${D}></td><td class="fill"><input type="date" data-f="data" ${D}></td><td class="fill c"><input type="text" data-f="mat" ${D}></td><td class="fill c"><input type="text" inputmode="decimal" data-f="dens" ${D}></td><td class="fill c"><input type="text" inputmode="decimal" data-f="uot" ${D}></td><td class="fill c"><input type="text" inputmode="decimal" data-f="ucampo" ${D}></td><td class="fill c"><input type="text" inputmode="decimal" data-f="gc" ${D}></td><td class="so-conf"></td><td class="so-stc"><button type="button" data-sst ${D}></button></td><td class="c so-alt"></td>${ro ? "" : `<td class="x"><button type="button" data-rmenu title="Inserir, duplicar ou apagar" aria-label="Opções da linha">⋮</button></td>`}`;
+    $$("[data-f]", tr).forEach(i => sBind(i, i.dataset.f, d.id));
+    return tr;
+  }, (tr, d) => {
+    $$("[data-f]", tr).forEach(i => setVal(i, String(d[i.dataset.f] ?? "")));
+    const ev = ensEval(t, d), cf = $(".so-conf", tr), b = $("[data-sst]", tr), k = camKey(d.cam), alt = soloAlt(t, k);
+    cf.textContent = !k && isNaN(sNum(d.gc)) ? "" : ev.txt + (d.st === "V" && ev.s === "fora" ? " · aceito pelo projetista" : d.st === "R" ? " · camada refeita" : ""); cf.className = "so-conf " + ev.s;
+    b.textContent = d.st === "V" ? `VALIDADO${d.stData ? " " + fmtShortDate(d.stData) : ""}` : d.st === "R" ? "REPROVADO" : "Pendente"; b.className = d.st === "V" ? "v" : d.st === "R" ? "r" : "";
+    $(".so-alt", tr).textContent = k === "F" ? "fundo" : isNaN(alt) ? "" : sFmt(alt, 2) + " m";
+    tr.className = d.st === "R" ? "so-rep" : ev.s === "fora" && d.st !== "V" ? "so-bad" : d.st === "V" ? "so-val" : "";
+  });
+  if (!$("#so-camdl", v)) { const dl = document.createElement("datalist"); dl.id = "so-camdl"; v.appendChild(dl); }
+  $("#so-camdl", v).innerHTML = soloKeys(t).map(k => `<option value="${camLabel(k)}"></option>`).join("");
+}
+async function soloRowClick(e) {
+  if (!scur) return; const sid = scur.id, tr = e.target.closest("tr[data-id]"); if (!tr) return; const it = scur.ens.find(x => x.id === tr.dataset.id); if (!it) return;
+  if (e.target.closest("[data-sst]")) { const nx = {"": "V", V: "R", R: ""}[it.st || ""];
+    if (nx === "V" && ensEval(solos.get(sid), it).s === "fora" && !(await confirmBox("Ensaio fora do critério", "Este ensaio está fora do critério. Só valide se o <b>projetista validou</b> o resultado, e anexe o documento na aba <b>Validação do projetista</b>.<br><br>Se a camada foi refeita, toque de novo no status para marcar como <b>reprovado</b> e lance o novo ensaio.", "Validar com o projetista"))) return;
+    patch(`solos/${sid}/ensaios/${it.id}`, stamp({st: nx, stData: nx === "V" ? today() : ""})); touchSolo(); return; }
+  if (!e.target.closest("[data-rmenu]")) return;
+  let act = null;
+  await modal({title: `Ensaio da camada ${camLabel(camKey(it.cam)) || "(sem camada)"}`, body: `<div class="gt-menu"><button class="btn" type="button" data-act="below">↧ Inserir ensaio abaixo (mesma camada)</button><button class="btn" type="button" data-act="dup">⧉ Duplicar linha</button><button class="btn" type="button" data-act="date">📅 Validar com outra data…</button><button class="btn danger" type="button" data-act="del">✕ Apagar linha</button></div>`,
+    onOpen: bg => $$("[data-act]", bg).forEach(b => b.onclick = () => { act = b.dataset.act; $(".acts .btn", bg).click(); }), actions: [{label: "Cancelar", value: null}]});
+  if (!act) return;
+  if (act === "del") { if (await confirmBox("Apagar ensaio?", "A linha será apagada para todos.", "Apagar", true)) { await remove(`solos/${sid}/ensaios/${it.id}`).catch(() => {}); touchSolo(); } return; }
+  if (act === "date") { const d = await modal({title: "Data da validação", body: `<label class="fld">Validado em<input type="date" id="vd" value="${esc(it.stData || today())}"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Validar", cls: "primary", value: bg => $("#vd", bg).value}]}); if (d) { patch(`solos/${sid}/ensaios/${it.id}`, stamp({st: "V", stData: d})); touchSolo(); } return; }
+  const L = scur.ens.slice(), i = L.indexOf(it), at = nowIso(), {id, o, createdBy, createdAt, updatedBy, updatedAt, ...rest} = it;
+  const row = act === "dup" ? rest : {cam: it.cam || "", data: it.data || "", mat: it.mat || "", dens: it.dens || "", uot: it.uot || "", ucampo: "", gc: "", st: "", stData: ""};
+  L.splice(i + 1, 0, {id: uid("e"), _new: {...row, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}});
+  L.forEach((x, k) => { if (x._new) create(`solos/${sid}/ensaios/${x.id}`, {o: k + 1, ...x._new}).catch(() => {}); else if (x.o !== k + 1) patch(`solos/${sid}/ensaios/${x.id}`, {o: k + 1}); });
+  touchSolo();
+}
+async function genSoloRows() {
+  if (!scur) return; const sid = scur.id, t = solos.get(sid), c = soloCrit(t), N = soloN(t), have = new Set(scur.ens.map(e => camKey(e.cam))), last = scur.ens[scur.ens.length - 1] || {};
+  const firstMissing = Array.from({length: N}, (_, i) => String(i + 1)).find(k => !have.has(k)) || "1";
+  const res = await modal({title: "Gerar linhas das camadas", body: `<p class="sub" style="margin:0 0 8px">Cria as linhas em branco para lançar os ensaios. Os dados do laboratório abaixo são copiados para todas as linhas (dá para mudar depois).</p>
+      <div class="g-hgrid"><label class="fld">Da camada<input type="number" id="gs-de" min="1" value="${esc(firstMissing)}"></label><label class="fld">Até a camada<input type="number" id="gs-ate" min="1" value="${N || 1}"></label>
+      <label class="fld">Ensaios por camada<input type="number" id="gs-n" min="1" max="20" value="${c.porCamada}"></label><label class="fld" style="align-self:end"><span style="display:flex;gap:8px;align-items:center;font-size:13px"><input type="checkbox" id="gs-f" ${c.fundo && !have.has("F") ? "checked" : ""} style="width:18px;height:18px"> Incluir o fundo</span></label>
+      <label class="fld">Nº do material<input type="text" id="gs-mat" value="${esc(last.mat || "")}"></label><label class="fld">Densidade máxima<input type="text" inputmode="decimal" id="gs-dens" value="${esc(last.dens || "")}"></label>
+      <label class="fld">Umidade ótima (%)<input type="text" inputmode="decimal" id="gs-uot" value="${esc(last.uot || "")}"></label></div>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Gerar", cls: "primary", value: bg => ({de: +$("#gs-de", bg).value, ate: +$("#gs-ate", bg).value, n: +$("#gs-n", bg).value, f: $("#gs-f", bg).checked, mat: $("#gs-mat", bg).value.trim(), dens: $("#gs-dens", bg).value.trim(), uot: $("#gs-uot", bg).value.trim()})}]});
+  if (!res) return;
+  if (!(res.n >= 1 && res.n <= 20) || !(res.ate >= res.de) || res.ate - res.de > 300) return toast("Confira o intervalo de camadas e a quantidade de ensaios.");
+  const keys = [...(res.f ? ["F"] : []), ...Array.from({length: res.ate - res.de + 1}, (_, i) => String(res.de + i))];
+  let o = Math.max(0, ...scur.ens.map(e => e.o || 0)); const at = nowIso(); let n = 0;
+  keys.forEach(k => { for (let j = 0; j < res.n; j++) create(`solos/${sid}/ensaios/${uid("e")}${n++}`, {o: ++o, cam: camLabel(k), data: "", mat: res.mat, dens: res.dens, uot: res.uot, ucampo: "", gc: "", st: "", stData: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}).catch(() => {}); });
+  touchSolo(); toast(`${n} linhas criadas.`);
+}
+async function validateSoloRows() {
+  if (!scur) return; const sid = scur.id, t = solos.get(sid);
+  const ok = scur.ens.filter(e => !e.st && ensEval(t, e).s === "ok"), fora = scur.ens.filter(e => !e.st && ensEval(t, e).s === "fora").length;
+  if (!ok.length) return toast(fora ? "Não há ensaio pendente dentro do critério. Os que estão fora precisam ser refeitos ou validados um a um." : "Não há ensaio pendente com G.C. lançado.");
+  const d = await modal({title: "Validar ensaios dentro do critério", body: `<p style="margin:0 0 8px"><b>${ok.length}</b> ensaio(s) pendente(s) estão dentro do critério e serão marcados como <b>validados</b>.${fora ? ` Outros <b>${fora}</b> estão fora do critério e continuam pendentes.` : ""}</p><label class="fld">Data da validação<input type="date" id="vd" value="${today()}"></label>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Validar", cls: "primary", value: bg => $("#vd", bg).value}]});
+  if (!d) return;
+  ok.forEach(e => patch(`solos/${sid}/ensaios/${e.id}`, stamp({st: "V", stData: d}))); touchSolo(); toast(`${ok.length} ensaio(s) validados.`);
+}
+
+/* ----- anexos: relatórios dos ensaios e validação do projetista ----- */
+const SOLO_DOC = {rel: {tab: "st-rel", n: "sn-rel", h: "Relatórios dos ensaios", add: "+ Anexar relatório (PDF ou fotos)", sub: "Relatórios do laboratório: massa específica aparente seca “in situ” e teor de umidade do trecho. PDFs e fotos são guardados página por página e saem no fim do PDF do mapeamento.", empty: "Nenhum relatório anexado."},
+  val: {tab: "st-val", n: "sn-val", h: "Documentos da validação", add: "+ Anexar validação (PDF ou fotos)", sub: "E-mail, carta ou laudo do projetista aceitando os ensaios que ficaram fora do critério.", empty: "Nenhum documento de validação anexado."}};
+function renderSoloDocs(t, tipo) {
+  const v = $("#view-solos"), cfg = SOLO_DOC[tipo], box = $("#" + cfg.tab, v), sid = scur.id, ro = !canWrite, L = scur.docs.filter(d => d.tipo === tipo);
+  $("#" + cfg.n, v).textContent = L.length;
+  if (!box.dataset.wired) {
+    box.dataset.wired = "1";
+    box.innerHTML = `${tipo === "val" ? `<div class="panel" style="margin-bottom:12px"><p class="sub" style="margin:0 0 10px">A validação do projetista só existe quando algum ensaio fica <b>fora do critério</b> e a camada não é refeita. Com todos os ensaios dentro do critério, o trecho não precisa dela.</p><div class="so-need" data-need></div>
+        <div class="so-vq" style="margin-top:10px"><b>Validação do projetista na capa:</b><span>${["sim:Sim", "nao:Não", "na:Não se aplica"].map(x => { const [k, l] = x.split(":"); return `<button type="button" class="chip" data-vp="${k}" ${ro ? "disabled" : ""}>${l}</button>`; }).join("")}</span><span class="sub" data-vauto></span></div>
+        <div class="g-hgrid" style="margin-top:10px"><label class="fld">Validado por (projetista)<input type="text" data-sv="val.por" ${ro ? "disabled" : ""}></label><label class="fld">Data da validação<input type="date" data-sv="val.data" ${ro ? "disabled" : ""}></label></div>
+        <label class="fld" style="margin-top:6px">Observações da validação<textarea data-sv="val.obs" rows="2" ${ro ? "disabled" : ""}></textarea></label></div>` : ""}
+      <div class="panel"><div class="pn-h"><h2 style="font-size:14px;text-transform:uppercase;margin:0">${cfg.h} <span class="pn-c" data-cnt></span></h2>${ro ? "" : `<button class="btn primary sm" type="button" data-sadd>${cfg.add}</button>`}</div><p class="sub" style="margin:0 0 10px">${cfg.sub}</p><div class="so-docs"></div></div>`;
+    $$("[data-sv]", box).forEach(el => sBind(el, el.dataset.sv));
+    $$("[data-vp]", box).forEach(b => b.onclick = () => { const now = solos.get(sid) || {}; patch(`solos/${sid}`, stamp({valProj: now.valProj === b.dataset.vp ? "" : b.dataset.vp})); });
+    box.addEventListener("click", async e => {
+      if (!scur) return; const sid2 = scur.id;
+      if (e.target.closest("[data-sadd]")) { scur.upTipo = tipo; $("#so-file", v).click(); return; }
+      const card = e.target.closest("[data-did]"); if (!card) return; const d = scur.docs.find(x => x.id === card.dataset.did); if (!d) return; const pages = d.pages || [];
+      const pv = e.target.closest("[data-pview]"); if (pv) { const p = pages[+pv.dataset.pview], im = await loadImg(p.id).catch(() => null); if (im) gLightbox(await rotatedUrl(im, p.rot || 0)); return; }
+      if (!canWrite) return;
+      const pr = e.target.closest("[data-prot]"); if (pr) { patch(`solos/${sid2}/docs/${d.id}`, stamp({pages: pages.map((p, i) => i === +pr.dataset.prot ? {...p, rot: ((p.rot || 0) + 90) % 360} : p)})); return; }
+      const pd = e.target.closest("[data-pdel]"); if (pd && await confirmBox("Remover página?", "A página sai deste documento.", "Remover", true)) { const p = pages[+pd.dataset.pdel]; patch(`solos/${sid2}/docs/${d.id}`, stamp({pages: pages.filter((_, i) => i !== +pd.dataset.pdel)})); remove(`blobs/${p.id}`).catch(() => {}); return; }
+      if (e.target.closest("[data-ddel]") && await confirmBox("Excluir documento?", `<b>${esc(d.titulo || "Documento")}</b> e todas as páginas serão apagados para todos.`, "Excluir", true)) { try { await remove(`solos/${sid2}/docs/${d.id}`); pages.forEach(p => remove(`blobs/${p.id}`).catch(() => {})); touchSolo(); toast("Documento excluído."); } catch {} }
+    });
+  }
+  $("[data-cnt]", box).textContent = L.length;
+  $$("[data-sv]", box).forEach(el => setVal(el, String(sGet(t, el.dataset.sv) ?? "")));
+  if (tipo === "val") {
+    const sm = soloSummary(t, scur.ens, scur.maps, scur.docs), eff = soloValEff(t, sm), fora = scur.ens.filter(e => e.st !== "R" && ensEval(t, e).s === "fora");
+    $$("[data-vp]", box).forEach(b => b.classList.toggle("on", eff === b.dataset.vp));
+    $("[data-vauto]", box).textContent = t.valProj ? "" : "(preenchido automaticamente)";
+    $("[data-need]", box).innerHTML = !scur.got.ens ? "" : fora.length ? `<div class="banner warn" style="margin:0"><b>${fora.length} ensaio(s) fora do critério ${sm.val ? "" : "precisam de validação do projetista (ou de refazer a camada)"}:</b><ul style="margin:6px 0 0;padding-left:18px">${fora.map(e => `<li>Camada ${esc(camLabel(camKey(e.cam)).toLowerCase())}${e.data ? " · " + fmtDate(e.data) : ""} · G.C. ${esc(e.gc || "—")}% · ${esc(ensEval(t, e).txt)}${e.st === "V" ? " · <b>validado</b>" : ""}</li>`).join("")}</ul></div>`
+      : `<div class="so-allok" style="margin:0">✓ Todos os ensaios lançados estão dentro do critério: este trecho não precisa de validação do projetista.</div>`;
+  }
+  const list = $(".so-docs", box);
+  if (!L.length) { list.innerHTML = `<div class="sub so-nodoc">${cfg.empty}</div>`; return; }
+  const nd = $(".so-nodoc", list); if (nd) nd.remove();
+  syncRows(list, L, d => {
+    const el = document.createElement("div"); el.className = "so-doc";
+    el.innerHTML = `<div class="so-dh"><input type="text" data-df="titulo" aria-label="Título do documento" placeholder="Título" ${ro ? "disabled" : ""}><input type="date" data-df="data" aria-label="Data do documento" ${ro ? "disabled" : ""}><span class="sub so-dby"></span>${ro ? "" : `<button class="btn sm ghost danger" type="button" data-ddel>Excluir</button>`}</div><div class="gt-sgrid so-pg"></div>`;
+    $$("[data-df]", el).forEach(i => { const save = () => { if (!i._dirty) return; i._dirty = false; patch(`solos/${sid}/docs/${d.id}`, stamp({[i.dataset.df]: i.value})); }; i.addEventListener("input", () => { i._dirty = true; clearTimeout(i._t); i._t = setTimeout(save, 700); }); i.addEventListener("change", () => { i._dirty = true; save(); }); i.addEventListener("blur", save); });
+    return el;
+  }, (el, d) => {
+    $$("[data-df]", el).forEach(i => setVal(i, d[i.dataset.df] || ""));
+    const pages = d.pages || [], key = pages.map(p => p.id + ":" + (p.rot || 0)).join("|");
+    $(".so-dby", el).innerHTML = `${pages.length} página(s) · enviado por ${who(d.createdBy)} em ${fmtFull(d.createdAt)}`;
+    const g = $(".so-pg", el);
+    if (g.dataset.key !== key) {
+      g.dataset.key = key;
+      g.innerHTML = pages.map((p, i) => `<div class="gt-sc"><button type="button" class="gt-simg" data-pview="${i}"><img alt="Página ${i + 1}" data-sid="${esc(p.id)}" data-rot="${p.rot || 0}"></button><div class="gt-sbtn"><span class="sub">Pág. ${i + 1}</span>${ro ? "" : `<button class="btn sm ghost" type="button" data-prot="${i}" title="Girar">↻</button><button class="btn sm ghost danger" type="button" data-pdel="${i}" title="Remover">✕</button>`}</div></div>`).join("");
+      $$("img[data-sid]", g).forEach(im => scanThumb(im.dataset.sid, +im.dataset.rot).then(u => { im.src = u; }).catch(() => {}));
+    }
+  });
+  fillNames();
+}
+async function soloUpload(tipo, files) {
+  if (!scur || !canWrite || !files.length) return; const sid = scur.id; let ok = 0;
+  const end = toastHold(`Anexando ${files.length > 1 ? files.length + " arquivos" : files[0].name}…`);
+  for (const f of files) {
+    try {
+      let pages = [];
+      if (/pdf/i.test(f.type) || /\.pdf$/i.test(f.name)) { const L = await loadPdfJs(), pdf = await L.getDocument({data: new Uint8Array(await f.arrayBuffer()), isEvalSupported: false}).promise; pages = await renderScans(pdf, () => {}, false); }
+      else if (f.type.startsWith("image/")) { const {url, w, h} = await shrinkImage(f, 2200, 850000); pages = [{id: saveBlob(url), w, h, rot: 0}]; }
+      else { toast(`${f.name}: envie PDF ou foto.`); continue; }
+      if (!pages.length) throw new Error("vazio");
+      const at = nowIso();
+      await create(`solos/${sid}/docs/${uid("d")}`, {tipo, titulo: f.name.replace(/\.[^.]+$/, ""), data: today(), pages, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+      ok++;
+    } catch { toast(`Não foi possível anexar ${f.name}.`); }
+  }
+  end(); if (ok) { touchSolo(); toast(`${ok} documento${ok > 1 ? "s anexados" : " anexado"}.`); }
+}
+
+/* ----- PDF: capa F.045 com a demarcação + controle de compactação + anexos ----- */
+async function exportSoloPdf() {
+  if (!scur) return; const sid = scur.id, t = solos.get(sid); if (!t) return;
+  const btn = $("#so-pdf"); btn.disabled = true; btn.textContent = "Gerando PDF…";
+  const root = document.createElement("div"); root.id = "print-root"; root.className = "ui"; document.body.appendChild(root);
+  try {
+    const dl = await claude.use("downloads");
+    await Promise.all([loadScript(LIBS.h2c), loadScript(LIBS.jspdf)]).catch(() => { throw Object.assign(new Error("lib"), {code: "lib"}); });
+    const vEff = soloValEff(t, soloSummary(t, scur.ens, scur.maps, scur.docs));
+    const h = t.head || {}, box = (on, lab) => `<span class="sp-ck">${lab}<i>${on ? "X" : ""}</i></span>`, ln = (lab, val, fl = 1) => `<div style="flex:${fl}">${lab} <u>${esc(val || "")}</u></div>`;
+    const maps = []; for (const m of scur.maps) { try { maps.push({m, url: await mapImageUrl(m, 2200)}); } catch {} }
+    const capa = (mp, idx) => { const pg = document.createElement("div"); pg.className = "sp-capa";
+      pg.innerHTML = `<div class="sp-top"><div class="tl-full sp-logo" role="img" aria-label="Tenda"></div><b>MAPEAMENTO DE COMPACTAÇÃO DE FAIXA DE TERRAPLENAGEM</b><span>F.045-QUALI REV: 00<br>DATA: 03/05/2023</span></div>
+        <div class="sp-r">${ln("REGIONAL - OBRA:", h.obra, 2)}${ln("DATA DE INÍCIO:", fmtDate(h.inicio).replace("—", ""))}${ln("DATA DE CONCLUSÃO:", fmtDate(h.fim).replace("—", ""))}<div class="sp-q">TRECHO CONCLUÍDO ${box(t.concluido === "sim", "SIM")}${box(t.concluido === "nao", "NÃO")}</div></div>
+        <div class="sp-r">${ln("NOME DO TRECHO:", t.nome, 2)}<div style="flex:2"></div><div class="sp-q">VALIDAÇÃO DO PROJETISTA ${box(vEff === "sim", "SIM")}${box(vEff === "nao", "NÃO")}${box(vEff === "na", "NA")}</div></div>
+        <div class="sp-r">${ln("NÚMERO E REVISÃO DO PROJETO REFERÊNCIA:", h.projeto)}</div>
+        <div class="sp-r">${ln("PROJETISTA DE TERRAPLENAGEM:", h.projetista)}${ln("EMPRESA EXECUTORA DA TERRAPLENAGEM:", h.executora)}${ln("NOME DO LABORATÓRIO:", h.lab)}</div>
+        <div class="sp-r">${ln("ÁREA DA FAIXA TERRAPLENADA (m²):", h.area)}${ln("ALTURA DA CAMADA (m):", h.altCamada)}${ln("QUANTIDADE DE CAMADAS DO TRECHO:", h.nCamadas)}</div>
+        <div class="sp-regt">TERRAPLENAGEM – REGIÃO COM ATERRO${mp && maps.length > 1 ? ` · ${esc(mp.m.title || "")} (${idx + 1} de ${maps.length})` : ""}</div>
+        <div class="sp-reg">${mp ? `<img src="${mp.url}" alt="">` : ""}</div>
+        <div class="sp-obs"><b>Observações:</b> ${esc(t.obs || "")}${mp && markersOf(mp.m.shapes).length ? `<br>${markersOf(mp.m.shapes).map(s => `<b>${s.n}</b> ${esc(s.txt || "")}`).join(" · ")}` : ""}</div>
+        <div class="sp-foot"><div><i>RESPONSÁVEL COLETA DE DADOS</i>NOME: <u>${esc((t.resp || {}).nome || "")}</u><br>ASS: ____________________</div>
+          <div class="sp-anx">*ANEXAR RECORTE DO PROJETO COM DEMARCAÇÃO DO TRECHO DA FAIXA TERRAPLENADA.<br>*ANEXAR RELATÓRIOS DOS ENSAIOS DE MASSA ESPECÍFICA APARENTE SECA E TEOR DE UMIDADE (QUANDO HOUVER) DO TRECHO.<br>*ANEXAR VALIDAÇÃO DO PROJETISTA.</div>
+          <div><i>GESTOR RESPONSÁVEL</i>NOME: <u>${esc((t.gestor || {}).nome || "")}</u><br>ASS: ______________ DATA: <u>${esc(fmtDate((t.gestor || {}).data).replace("—", ""))}</u></div></div>`;
+      root.appendChild(pg); return pg; };
+    const land = maps.length ? maps.map((mp, i) => capa(mp, i)) : [capa(null, 0)];
+    // tabela de controle, em páginas de 40 linhas, com a altura acumulada agrupada por metro
+    const E = scur.ens, per = 40, port = [], alt = sNum(h.altCamada), N = soloN(t);
+    const grp = e => { const k = camKey(e.cam); if (!(alt > 0)) return ""; const n = k === "F" ? 1 : parseInt(k, 10); if (isNaN(n)) return ""; const m = Math.max(1, Math.ceil(n * alt - 1e-9)); return m === 1 ? "1 METRO" : m + " METROS"; };
+    for (let p = 0; p < Math.max(1, Math.ceil(E.length / per)); p++) {
+      const rows = E.slice(p * per, (p + 1) * per), lastPg = (p + 1) * per >= E.length, pg = document.createElement("div"); pg.className = "sp-ctrl";
+      let trs = ""; for (let i = 0; i < rows.length; i++) { const e = rows[i], g = grp(e); let span = 0; if (i === 0 || grp(rows[i - 1]) !== g) { span = 1; while (i + span < rows.length && grp(rows[i + span]) === g) span++; }
+        const ev = ensEval(t, e), bad = e.st === "R" || (ev.s === "fora" && e.st !== "V");
+        trs += `<tr><td class="b">${esc(camLabel(camKey(e.cam)))}</td><td>${esc(fmtDate(e.data).replace("—", ""))}</td><td>${esc(e.mat || "")}</td><td>${esc(e.dens || "")}</td><td>${isNaN(sNum(e.uot)) ? "" : sFmt(sNum(e.uot), 2) + "%"}</td><td>${isNaN(sNum(e.ucampo)) ? "" : sFmt(sNum(e.ucampo), 2) + "%"}</td><td>${isNaN(sNum(e.gc)) ? "" : sFmt(sNum(e.gc), 2) + "%"}</td><td class="${e.st === "V" ? "v" : bad ? "r" : ""}">${e.st === "V" ? "VALIDADO " + esc(fmtShortDate(e.stData)) : e.st === "R" ? "REPROVADO" : ev.s === "fora" ? "FORA DO CRITÉRIO" : "PENDENTE"}</td>${span ? `<td rowspan="${span}" class="sp-grp">${g}</td>` : ""}</tr>`; }
+      pg.innerHTML = `<div class="sp-ch"><div><b class="sp-ct">CONTROLE DE COMPACTAÇÃO DE TORRES E ANEXOS</b><div><b>REGIONAL- OBRA:</b> ${esc(h.obra || "")}</div><div><b>NOME DO TRECHO/TORRE:</b> ${esc(t.nome || "")}</div><div><b>ALTURA RECOMPACTAÇÃO:</b> ${alt > 0 && N ? sFmt(alt * N, 2).replace(/,00$/, "") + " M" : ""}</div></div><div class="tl-full sp-logo" role="img" aria-label="Tenda"></div></div>
+        <div class="sp-cb">TABELA DE CONTROLE DE COMPACTAÇÃO</div>
+        <table><colgroup><col style="width:8%"><col style="width:11%"><col style="width:10%"><col style="width:10%"><col style="width:9%"><col style="width:9%"><col style="width:9%"><col style="width:18%"><col style="width:16%"></colgroup>
+          <thead><tr><th>CAMADA</th><th>DATA EXEC.</th><th>Nº MATERIAL</th><th>DENSIDADE</th><th>U. ÓTIMA</th><th>U. CAMPO</th><th>G.C.</th><th>STATUS</th><th>ALTURA RECOMPACTAÇÃO</th></tr></thead><tbody>${trs || `<tr><td colspan="9" style="padding:14px">Nenhum ensaio lançado.</td></tr>`}</tbody></table>
+        ${lastPg ? `<div class="sp-end"><div>TRECHO FINALIZADO EM <u>${esc(fmtDate(h.fim).replace("—", "") || "____/____/____")}</u></div><div>TRECHO VALIDADO EM <u>${esc(fmtDate((t.val || {}).data).replace("—", "") || "____/____/____")}</u></div><div>RESPONSÁVEL COLETA DE DADOS: <u>${esc((t.resp || {}).nome || "____________________")}</u></div><div>ASS.: ______________________________</div></div>` : ""}
+        <div class="sp-pf">Gerado pelo Sistema de FVs · ${esc(fmtFull(nowIso()))} · controle ${p + 1} de ${Math.max(1, Math.ceil(E.length / per))}</div>`;
+      root.appendChild(pg); port.push(pg);
+    }
+    await Promise.all($$("img", root).map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+    const {jsPDF} = window.jspdf, pdf = new jsPDF({orientation: "landscape", unit: "mm", format: "a4"}); let first = true;
+    const total = land.length + port.length; let done = 0;
+    for (const pg of land) { btn.textContent = `Gerando PDF… ${++done}/${total}`; const c = await window.html2canvas(pg, {scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: 1280}); if (!first) pdf.addPage("a4", "landscape"); first = false; pdf.addImage(c.toDataURL("image/jpeg", .92), "JPEG", 0, 0, 297, 210); }
+    for (const pg of port) { btn.textContent = `Gerando PDF… ${++done}/${total}`; const c = await window.html2canvas(pg, {scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: 1280}); pdf.addPage("a4", "portrait"); pdf.addImage(c.toDataURL("image/jpeg", .92), "JPEG", 0, 0, 210, 297); }
+    btn.textContent = "Anexando documentos…";
+    for (const d of [...scur.docs.filter(x => x.tipo === "rel"), ...scur.docs.filter(x => x.tipo === "val")]) for (const p of d.pages || []) {
+      const im = await loadImg(p.id).catch(() => null); if (!im) continue;
+      const url = await rotatedUrl(im, p.rot || 0), sw = (p.rot || 0) % 180 !== 0, w = sw ? im.height : im.width, hh = sw ? im.width : im.height, ls = w >= hh, PW = ls ? 297 : 210, PH = ls ? 210 : 297, k = Math.min((PW - 12) / w, (PH - 12) / hh);
+      pdf.addPage("a4", ls ? "landscape" : "portrait"); pdf.addImage(url, "JPEG", (PW - w * k) / 2, (PH - hh * k) / 2, w * k, hh * k);
+    }
+    const safe = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9-]+/g, "_").replace(/^_|_$/g, "");
+    await dl.save({filename: `F045_Compactacao_${safe(t.nome) || "trecho"}_${today()}.pdf`, data: pdf.output("blob")});
+    toast("PDF pronto.");
+  } catch (e) { const c = e && e.code; toast(c === "declined" ? "Download cancelado." : c === "lib" ? "Não foi possível carregar o gerador de PDF. Verifique a internet." : "Não foi possível gerar o PDF."); }
+  finally { root.remove(); btn.disabled = false; btn.textContent = "Baixar PDF"; }
+}
+
 /* ---------- rotas e filtros ---------- */
 function route() {
-  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel";
+  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-");
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
   $("#view-team").classList.toggle("hidden", !isTeam);
   $("#nav-team").classList.toggle("on", isTeam);
   if (isTeam) renderTeam();
-  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape || isPainel);
+  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape || isPainel || isSolos);
+  $("#view-solos").classList.toggle("hidden", !isSolos);
+  $("#nav-solos").classList.toggle("on", isSolos);
+  if (isSolos && db) { if (h.startsWith("solo-")) openSolo(h.slice(5)); else { closeSolo(); solTab = h === "solos-acomp" ? "acomp" : "trechos"; renderSolos(); } } else closeSolo();
   $("#view-painel").classList.toggle("hidden", !isPainel);
   $("#nav-painel").classList.toggle("on", isPainel);
   if (isPainel) renderPainel();
@@ -3301,7 +3910,7 @@ function route() {
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   $("#view-tpl").classList.toggle("hidden", !isTpl);
   $("#view-fv").classList.toggle("hidden", !isFv);
-  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape && !isPainel);
+  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape && !isPainel && !isSolos);
   $("#nav-tpl").classList.toggle("on", isTpl);
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
@@ -3334,6 +3943,7 @@ async function init() {
   if (user) {
     try { me = (await user.id()) || "anon"; } catch {}
     try { isOwner = !!(await user.isOwner()); } catch {}
+    try { isGestor = isOwner || !!(user.isGestor && await user.isGestor()); } catch { isGestor = isOwner; }
     try { if ((await user.can("data.write")) === false) setReadOnly("Você pode ver as FVs, mas não editar. Peça ao administrador para liberar seu e-mail como editor."); } catch {}
     names.set(me, "Você");
     try { const p = await user.me(); if (p && p.name) names.set(me, p.name); } catch {}
@@ -3354,7 +3964,14 @@ async function init() {
     folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
     renderList(); if (cur) { const f = fvs.get(cur.id); if (f) renderBar(f); }
     if (location.hash === "#painel") renderPainel();
+    if (location.hash === "#solos" || location.hash === "#solos-acomp") renderSolos(); else if (scur) renderSoloAll();
   }, () => { foldersLoaded = true; });
+  db.collection("solos").onSnapshot(s => {
+    solos = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}]));
+    const h = location.hash.replace(/^#/, "");
+    if (h.startsWith("solo-")) { if (scur) renderSoloAll(); else openSolo(h.slice(5)); }
+    else if ((h === "solos" || h === "solos-acomp") && !document.activeElement?.closest?.(".pn-filters")) renderSolos();
+  }, () => {});
   db.collection("gape").onSnapshot(s => {
     gapes = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}]));
     const h = location.hash.replace(/^#/, "");

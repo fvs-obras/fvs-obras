@@ -153,6 +153,12 @@ async function exportAll({ files = true, onProgress = () => {} } = {}) {
     put(`gape/${g.id}`, g.data());
     (await getDocs(collection(fs, "gape", g.id, "itens"))).forEach(d => put(`gape/${g.id}/itens/${d.id}`, d.data()));
   }
+  const sSnap = await getDocs(collection(fs, "solos")); i = 0;
+  for (const t of sSnap.docs) {
+    onProgress(`Lendo trechos de solos… ${++i}/${sSnap.size}`);
+    put(`solos/${t.id}`, t.data());
+    for (const sub of ["ensaios", "maps", "docs"]) (await getDocs(collection(fs, "solos", t.id, sub))).forEach(d => put(`solos/${t.id}/${sub}/${d.id}`, d.data()));
+  }
   if (files) { onProgress("Lendo fotos e arquivos…"); (await getDocs(collection(fs, "blobs"))).forEach(d => put(`blobs/${d.id}`, d.data())); }
   return out;
 }
@@ -179,7 +185,7 @@ function computeRole(email) {
   const e = String(email || "").toLowerCase();
   if (ADMINS.includes(e)) return "admin";
   const a = accessDoc || {};
-  if ((a.editors || []).map(x => x.toLowerCase()).includes(e)) return "editor";
+  if ((a.editors || []).map(x => x.toLowerCase()).includes(e) || (a.gestores || []).map(x => x.toLowerCase()).includes(e)) return "editor";
   if ((a.viewers || []).map(x => x.toLowerCase()).includes(e)) return "viewer";
   return "none";
 }
@@ -187,6 +193,8 @@ const profileCache = new Map();
 const userApi = {
   id: async () => current.uid,
   isOwner: () => role === "admin",
+  // Gestor: além do administrador, quem está na lista "gestores" pode fechar e reabrir FVs.
+  isGestor: () => role === "admin" || ((accessDoc && accessDoc.gestores) || []).map(x => String(x).toLowerCase()).includes(String(current.email || "").toLowerCase()),
   canEdit: () => role === "admin" || role === "editor",
   can: name => name === "data.write" ? (role === "admin" || role === "editor") : null,
   me: async () => ({ name: current.displayName || current.email, email: current.email }),
@@ -203,8 +211,8 @@ const userApi = {
 
 window.__fb = {
   accessExists: () => !!accessDoc,
-  getAccess: async () => ({ editors: [], viewers: [], ...(await readAccess() || {}) }),
-  setAccess: async acc => { await setDoc(doc(fs, "config/access"), { editors: acc.editors || [], viewers: acc.viewers || [], updatedAt: new Date().toISOString(), updatedBy: current.email }, { merge: true }); accessDoc = { ...(accessDoc || {}), editors: acc.editors || [], viewers: acc.viewers || [] }; },
+  getAccess: async () => ({ editors: [], viewers: [], gestores: [], ...(await readAccess() || {}) }),
+  setAccess: async acc => { await setDoc(doc(fs, "config/access"), { editors: acc.editors || [], viewers: acc.viewers || [], gestores: acc.gestores || [], updatedAt: new Date().toISOString(), updatedBy: current.email }, { merge: true }); accessDoc = { ...(accessDoc || {}), editors: acc.editors || [], viewers: acc.viewers || [], gestores: acc.gestores || [] }; },
   // Aprovação manual (para quem não recebe o e-mail de confirmação, como e-mails corporativos).
   pendingUsers: async () => (await getDocs(query(collection(fs, "users"), where("pendente", "==", true)))).docs.map(d => ({ uid: d.id, ...d.data() })),
   approve: async (uid, email, role) => {
