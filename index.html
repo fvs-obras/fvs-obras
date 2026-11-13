@@ -95,6 +95,8 @@ label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-we
 .bar i{display:block;height:100%}
 .pill{display:inline-flex;align-items:center;font-size:11px;font-weight:800;border-radius:999px;padding:3px 10px;text-transform:uppercase;letter-spacing:.06em}
 .btn.locked{opacity:.75}
+.folha-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:7px 0 0;font-family:var(--f)}.folha-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.folha-bar .chip{cursor:pointer;padding:5px 12px}.folha-bar .chip small{font-weight:500;opacity:.75;margin-left:4px}.folha-bar .sub{font-size:12px}
 .pill.open{background:var(--red-soft);color:var(--red)} .pill.closed{background:var(--graphite);color:#fff}
 .empty{background:var(--panel);border:1px dashed #c9c9c9;border-radius:var(--r);padding:28px;text-align:center;color:var(--muted)}
 .empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:4px}
@@ -876,6 +878,18 @@ function syncSheetRows(tbody, docs, make, update, minTotal, minBlank) {
 
 /* ---------- status ---------- */
 const activeCols = fv => Object.entries(fv.cols || {}).filter(([, c]) => c && c.name).sort((a, b) => (a[1].o || 0) - (b[1].o || 0));
+/* locais por folha, igual ao arquivo original de cada FV: ACAB e ESTR têm 22 colunas de local; INFR e LOG têm 10 */
+const CAT_COLS = {ACAB: 22, ESTR: 22, INFR: 10, LOG: 10};
+const tplMaxCols = t => { const n = parseInt(t && t.maxCols, 10); return n > 0 ? n : (CAT_COLS[(t && t.cat) || ""] || 22); };
+const fvMaxCols = fv => { const n = parseInt(fv.maxCols, 10); if (n > 0) return n; const t = fv.templateId && templates.get(fv.templateId); return t ? tplMaxCols(t) : (CAT_COLS[fv.cat] || 22); };
+/* cada coluna com a sua folha: usa c.p; colunas antigas (sem folha) são distribuídas pela ordem, respeitando o limite */
+function colPages(fv) {
+  const max = fvMaxCols(fv), all = activeCols(fv), cnt = {}; all.forEach(([, c]) => { if (Number.isInteger(c.p)) cnt[c.p] = (cnt[c.p] || 0) + 1; });
+  let p = 0; return all.map(([cid, c]) => { if (Number.isInteger(c.p)) return [cid, c, c.p]; while ((cnt[p] || 0) >= max) p++; cnt[p] = (cnt[p] || 0) + 1; return [cid, c, p]; });
+}
+const fvFolhas = fv => Math.max(1, parseInt(fv.folhas, 10) || 1, ...colPages(fv).map(x => x[2] + 1));
+/* grava a folha das colunas antigas, para elas não mudarem de folha quando outra coluna entra ou sai */
+const colNorm = fv => { const out = {}; colPages(fv).forEach(([cid, c, p]) => { if (!Number.isInteger(c.p)) out[cid] = {p}; }); return out; };
 function stats(fv) {
   const s = {A:0, R:0, AR:0, NA:0, E:0, total:0}, cols = activeCols(fv), cells = fv.cells || {};
   for (const it of fv.items || []) for (const [cid] of cols) { const v = cells[it.id + "_" + cid] || ""; s[ST[v] ? (v || "E") : "E"]++; s.total++; }
@@ -1025,6 +1039,7 @@ async function tplEditor(id) {
       <label class="fld">Revisão<input type="text" id="t-rev" value="${esc(t.rev)}"></label>
       <label class="fld">Data da revisão<input type="text" id="t-date" value="${esc(t.date)}" placeholder="dd/mm/aaaa"></label>
       <label class="fld">Título das colunas de local<input type="text" id="t-loc" value="${esc(t.localLabel)}"></label>
+      <label class="fld">Locais por folha (como no arquivo original)<input type="number" id="t-max" min="1" max="60" value="${tplMaxCols(t)}"></label>
     </div>
     <label class="fld" style="margin-top:10px">Opções para assinalar (uma por linha, opcional)<textarea id="t-checks" placeholder="Ex.: Forro&#10;Sanca">${esc((t.checks || []).join("\n"))}</textarea></label>
     <h3 style="font-size:15px;margin:14px 0 8px;text-transform:uppercase">Itens de conferência</h3>
@@ -1035,12 +1050,13 @@ async function tplEditor(id) {
   acts.push({label:"Salvar modelo", cls:"primary", validate: bg => { if (!$("#t-code", bg).value.trim() || !$("#t-title", bg).value.trim()) { toast("Preencha código e atividade."); return false; } return true; },
     value: bg => ({
       code: $("#t-code", bg).value.trim(), title: $("#t-title", bg).value.trim(), cat: $("#t-cat", bg).value,
-      rev: $("#t-rev", bg).value.trim(), date: $("#t-date", bg).value.trim(), localLabel: $("#t-loc", bg).value.trim() || "Local",
+      rev: $("#t-rev", bg).value.trim(), date: $("#t-date", bg).value.trim(), localLabel: $("#t-loc", bg).value.trim() || "Local", maxCols: Math.min(60, Math.max(1, parseInt($("#t-max", bg).value, 10) || CAT_COLS[$("#t-cat", bg).value] || 22)),
       checks: $("#t-checks", bg).value.split("\n").map(s => s.trim()).filter(Boolean),
       items: $$(".tpl-item", bg).map(r => ({id: r.dataset.iid, n: $("[data-k=n]", r).value.trim(), g: $("[data-k=g]", r).value.trim(), t: $("[data-k=t]", r).value.trim(), tol: $("[data-k=tol]", r).value.trim()})).filter(i => i.t)
     })});
   const res = await modal({title: id ? "Editar modelo" : "Novo modelo", body, wide:true, actions: acts, onOpen: bg => {
-    const box = $("#t-items", bg);
+    const box = $("#t-items", bg), mx = $("#t-max", bg); mx.oninput = () => { mx._user = true; };
+    $("#t-cat", bg).onchange = e => { if (!mx._user && !(parseInt(t.maxCols, 10) > 0)) mx.value = CAT_COLS[e.target.value] || 22; };
     $("#t-add", bg).onclick = () => { const last = $$(".tpl-item", bg).pop(); const g = last ? $("[data-k=g]", last).value : ""; box.insertAdjacentHTML("beforeend", tplItemRow({id:uid("i"), n:"", g, t:"", tol:""})); $(".tpl-item:last-child [data-k=n]", box).focus(); };
     box.addEventListener("click", e => {
       const r = e.target.closest(".tpl-item"); if (!r) return;
@@ -1087,20 +1103,20 @@ async function newFvDialog(preTpl) {
     tpl: $("#n-tpl", bg).value, folder: $("#n-folder", bg).value, obra: $("#n-obra", bg).value.trim(), local: $("#n-local", bg).value.trim(), abertura: $("#n-ab", bg).value,
     conferente: $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value.trim(), cols: $("#n-cols", bg).value.split(",").map(s => s.trim()).filter(Boolean)
   })}], onOpen: bg => {
-    const upd = () => { const t = templates.get($("#n-tpl", bg).value); $("#n-loclbl", bg).textContent = `Locais inspecionados · ${t?.localLabel || "Local"}`; };
+    const upd = () => { const t = templates.get($("#n-tpl", bg).value); $("#n-loclbl", bg).textContent = `Locais inspecionados · ${t?.localLabel || "Local"} · ${tplMaxCols(t)} por folha (o que passar vai para uma nova folha)`; };
     $("#n-tpl", bg).onchange = upd; upd();
     $("#n-filter", bg).addEventListener("input", e => { const sel = $("#n-tpl", bg), v = sel.value; sel.innerHTML = tplOptions(list, v, e.target.value); if (!sel.value && sel.options.length) sel.selectedIndex = 0; upd(); });
     if (preTpl) $("#n-cols", bg).focus(); else $("#n-filter", bg).focus();
   }});
   if (!res) return;
   const t = templates.get(res.tpl); if (!t) return;
-  const id = uid("f"), at = nowIso(), cols = {};
-  res.cols.forEach((n, i) => cols[uid("c") + i] = {name: n, o: i + 1});
+  const id = uid("f"), at = nowIso(), cols = {}, maxCols = tplMaxCols(t);
+  res.cols.forEach((n, i) => cols[uid("c") + i] = {name: n, o: i + 1, p: Math.floor(i / maxCols)});
   const doc = {
     templateId: res.tpl, code: t.code, cat: t.cat || "OUTRO", title: t.title, rev: t.rev || "", revDate: t.date || "", localLabel: t.localLabel || "Local",
     checkOptions: t.checks || [], checks: {}, items: (t.items || []).map(i => ({id: i.id || uid("i"), n: i.n || "", g: i.g || "", t: i.t || "", tol: i.tol || ""})),
     obra: res.obra, local: res.local, abertura: res.abertura, fechamento: "", conferente: res.conferente, gestor: res.gestor, almoxarife: "",
-    cols, cells: {}, status: "aberta", assinatura: null, folder: res.folder || "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at
+    cols, maxCols, folhas: Math.max(1, Math.ceil(res.cols.length / maxCols)), cells: {}, status: "aberta", assinatura: null, folder: res.folder || "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at
   };
   try { await create(`fvs/${id}`, doc); logAct(id, `Criou a FV a partir do modelo ${t.code}`); location.hash = "fv-" + id; } catch {}
 }
@@ -1250,11 +1266,18 @@ function renderSheet(fv) {
         <thead><tr><th>ITEM</th><th>PROBLEMA IDENTIFICADO</th><th style="text-align:left">SOLUÇÃO &gt; DESCRIÇÃO/REGISTRO DA AÇÃO PARA REPARO <span class="req">&gt; PREENCHIMENTO OBRIGATÓRIO!</span></th><th class="nob" style="background:#fff"></th></tr></thead><tbody></tbody></table>
       ${dadosBlock()}
     </div></div>
-    <p class="hint">Toque numa célula da grade para marcar. Para incluir um local, digite o nome na coluna em branco do cabeçalho. Se os problemas passarem de 10 linhas, use a aba <b>Observações F.007</b>, como no papel.</p>`;
+    <p class="hint">Toque numa célula da grade para marcar. Para incluir um local, digite o nome na coluna em branco do cabeçalho. Cada folha comporta o mesmo número de locais do arquivo original; quando encher, aparece o botão <b>+ Nova folha</b>. Se os problemas passarem de 10 linhas, use a aba <b>Observações F.007</b>, como no papel.</p>`;
     const sh = $("#sheet-fv", box);
     wireHeaderFields(sh);
     sh.addEventListener("click", e => {
       const b = e.target.closest("td.cell button"); if (b && !b.disabled) showPop(b, b.dataset.it, b.dataset.col);
+      const fb = e.target.closest("[data-folha],[data-newfolha],[data-delfolha]"); if (!fb || !cur) return;
+      const f = fvs.get(cur.id); if (!f) return;
+      if (fb.dataset.folha !== undefined) { cur.folha = +fb.dataset.folha; renderChk(f); return; }
+      if (locked(f)) return;
+      const nF = fvFolhas(f);
+      if (fb.dataset.newfolha !== undefined) { cur.folha = nF; const up = {folhas: nF + 1}, cn = colNorm(f); if (Object.keys(cn).length) up.cols = cn; /* objeto vazio apagaria as colunas */ patch(`fvs/${cur.id}`, stamp(up)); logAct(cur.id, `Adicionou a folha ${nF + 1}`); toast(`Folha ${nF + 1} criada. Digite os locais no cabeçalho.`); }
+      else if (nF > 1) { cur.folha = nF - 2; patch(`fvs/${cur.id}`, stamp({folhas: nF - 1})); logAct(cur.id, `Removeu a folha ${nF} (vazia)`); }
     });
     sh.addEventListener("change", e => {
       const inp = e.target.closest("input[data-col], input[data-newcol]"); if (!inp) return;
@@ -1277,21 +1300,27 @@ function renderSheet(fv) {
 /* grade item × local */
 function renderChk(fv) {
   const box = $("#fv-chk"); if (!box || !cur) return;
-  const lk = locked(fv), cols = activeCols(fv), cells = fv.cells || {}, items = fv.items || [];
+  const lk = locked(fv), cells = fv.cells || {}, items = fv.items || [];
+  const max = fvMaxCols(fv), nF = fvFolhas(fv), cp = colPages(fv), pg = Math.min(Math.max(0, cur.folha || 0), nF - 1); cur.folha = pg;
+  const cols = cp.filter(x => x[2] === pg).map(([cid, c]) => [cid, c]), full = cols.length >= max, perF = Array.from({length: nF}, (_, i) => cp.filter(x => x[2] === i).length), allFull = perF.every(n => n >= max);
   const pic = {}; (cur.photos || []).forEach(p => { if (p.item) pic[p.item] = (pic[p.item] || 0) + 1; });
-  const key = [items.map(i => i.id).join(","), cols.map(([c]) => c).join(","), lk, JSON.stringify(pic)].join("|");
+  const key = [items.map(i => i.id).join(","), cols.map(([c]) => c).join(","), lk, JSON.stringify(pic), pg, perF.join("."), max].join("|");
   if (cur.chkKey !== key) {
     cur.chkKey = key;
     const span = {}; for (let i = 0; i < items.length; i++) { const g = items[i].g; if (i && items[i - 1].g === g && g) { span[i] = 0; } else { let k = 1; while (g && items[i + k] && items[i + k].g === g) k++; span[i] = k; } }
-    const nCols = cols.length + 1, colW = 46;
-    const head1 = `<tr><th colspan="3" rowspan="2">ITEM DE CONFERÊNCIA</th><th rowspan="2">TOLERÂNCIA</th><th colspan="${nCols}" class="up">${esc(fv.localLabel || "Local")}</th></tr>`;
-    const head2 = `<tr>${cols.map(([cid, c]) => `<th class="colh fill"><input type="text" data-col="${esc(cid)}" value="${esc(c.name)}" ${lk ? "disabled" : ""} aria-label="Nome do local" title="Apague o nome para remover o local"></th>`).join("")}<th class="colh fill"><input type="text" data-newcol placeholder="+ local" ${lk ? "disabled" : ""} aria-label="Adicionar local"></th></tr>`;
+    const addCell = !full && !lk, nCols = Math.max(1, cols.length + (full ? 0 : 1)), colW = 46;
+    const head1 = `<tr><th colspan="3" rowspan="2">ITEM DE CONFERÊNCIA</th><th rowspan="2">TOLERÂNCIA</th><th colspan="${nCols}" class="up">${esc(fv.localLabel || "Local")}${nF > 1 ? ` · FOLHA ${pg + 1} DE ${nF}` : ""}</th></tr>`;
+    const emptyLast = nF > 1 && pg === nF - 1 && !cols.length;
+    const bar = `<div class="folha-bar noprint">${nF > 1 ? `<span class="folha-tabs">${perF.map((n, i) => `<button type="button" class="chip ${i === pg ? "on" : ""}" data-folha="${i}">Folha ${i + 1} <small>${n}/${max}</small></button>`).join("")}</span>` : ""}
+      <span class="sub">${nF > 1 ? `Folha ${pg + 1}: ` : ""}<b>${cols.length} de ${max}</b> locais${full ? " · folha cheia, como no arquivo original" : ""}</span>
+      ${lk ? "" : allFull ? `<button type="button" class="btn sm primary" data-newfolha>+ Nova folha</button>` : full ? `<span class="sub">Ainda há espaço em outra folha.</span>` : ""}${!lk && emptyLast ? `<button type="button" class="btn sm ghost danger" data-delfolha>Remover folha vazia</button>` : ""}</div>`;
+    const head2 = `<tr>${cols.map(([cid, c]) => `<th class="colh fill"><input type="text" data-col="${esc(cid)}" value="${esc(c.name)}" ${lk ? "disabled" : ""} aria-label="Nome do local" title="Apague o nome para remover o local"></th>`).join("")}${full ? "" : `<th class="colh fill"><input type="text" data-newcol placeholder="+ local" ${lk ? "disabled" : ""} aria-label="Adicionar local"></th>`}</tr>`;
     const rows = items.map((it, i) => {
       const [lbl, txt] = splitLbl(it.t);
       return `<tr>${span[i] ? `<td class="grp" rowspan="${span[i]}">${esc(it.g)}</td>` : ""}<td class="num">${esc(it.n)}</td><td class="desc">${lbl ? `<b>${esc(lbl)}:</b> ` : ""}${esc(txt)}${pic[it.id] ? `<span class="pics" title="Fotos deste item">· ${pic[it.id]} foto${pic[it.id] > 1 ? "s" : ""}</span>` : ""}</td><td class="tol">${esc(it.tol || "NA")}</td>` +
-        cols.map(([cid, c]) => `<td class="cell fill"><button type="button" data-it="${esc(it.id)}" data-col="${esc(cid)}" ${lk ? "disabled" : ""}></button></td>`).join("") + `<td class="cell fill dead"></td></tr>`;
+        cols.map(([cid, c]) => `<td class="cell fill"><button type="button" data-it="${esc(it.id)}" data-col="${esc(cid)}" ${lk ? "disabled" : ""}></button></td>`).join("") + (full ? "" : `<td class="cell fill dead"></td>`) + `</tr>`;
     }).join("");
-    box.innerHTML = `<table class="blk chk-tbl" style="min-width:${880 + nCols * colW}px"><colgroup><col style="width:90px"><col style="width:42px"><col style="width:430px"><col style="width:96px">${cols.map(() => `<col style="width:${colW}px">`).join("")}<col style="width:${colW}px"></colgroup><thead>${head1}${head2}</thead><tbody>${rows}</tbody></table>`;
+    box.innerHTML = `${bar}<table class="blk chk-tbl" style="min-width:${880 + nCols * colW}px"><colgroup><col style="width:90px"><col style="width:42px"><col style="width:430px"><col style="width:96px">${cols.map(() => `<col style="width:${colW}px">`).join("")}${full ? "" : `<col style="width:${colW}px">`}</colgroup><thead>${head1}${head2}</thead><tbody>${rows}</tbody></table>`;
   }
   $$("th.colh input[data-col]", box).forEach(inp => { const c = (fv.cols || {})[inp.dataset.col]; if (c) setVal(inp, c.name); });
   $$("td.cell button", box).forEach(b => {
@@ -1307,16 +1336,23 @@ async function colChange(inp) {
   const v = inp.value.trim();
   if (inp.hasAttribute("data-newcol")) {
     if (!v) return;
-    const names = v.split(",").map(s => s.trim()).filter(Boolean);
-    let o = Math.max(0, ...activeCols(fv).map(([, c]) => c.o || 0));
-    const cols = {}; names.forEach((n, i) => cols[uid("c") + i] = {name: n, o: ++o});
-    inp.value = "";
-    patch(`fvs/${id}`, stamp({cols})); logAct(id, `Adicionou local(is): ${names.join(", ")}`);
+    let names = v.split(",").map(s => s.trim()).filter(Boolean);
+    const max = fvMaxCols(fv), cp = colPages(fv), pg = cur.folha || 0, cnt = {}; cp.forEach(x => { cnt[x[2]] = (cnt[x[2]] || 0) + 1; });
+    const space = Math.max(0, max - (cnt[pg] || 0));
+    if (names.length > space) {
+      const extra = names.length - space;
+      if (!(await confirmBox("Folha cheia", `A folha ${pg + 1} comporta <b>${max} locais</b>, como no arquivo original, e só ${space === 1 ? "cabe mais 1" : "cabem mais " + space}.<br><br>Colocar ${extra === 1 ? "o outro local" : "os outros " + extra + " locais"} em uma <b>nova folha</b> desta FV?`, "Usar nova folha"))) names = names.slice(0, space);
+    }
+    inp.value = ""; if (!names.length) return;
+    let o = Math.max(0, ...activeCols(fv).map(([, c]) => c.o || 0)), p = pg, nF = fvFolhas(fv);
+    const cols = colNorm(fv); names.forEach((n, i) => { while ((cnt[p] || 0) >= max) p++; cnt[p] = (cnt[p] || 0) + 1; cols[uid("c") + i] = {name: n, o: ++o, p}; });
+    const up = {cols}; if (p + 1 > nF) up.folhas = p + 1;
+    patch(`fvs/${id}`, stamp(up)); logAct(id, `Adicionou local(is): ${names.join(", ")}${p > pg ? ` (até a folha ${p + 1})` : ""}`);
     return;
   }
   const cid = inp.dataset.col, c = (fv.cols || {})[cid]; if (!c) return;
   if (!v) {
-    if (await confirmBox("Remover local?", `A coluna <b>${esc(c.name)}</b> e as marcações dela deixam de aparecer na FV.`, "Remover", true)) { patch(`fvs/${id}`, stamp({cols: {[cid]: {name: ""}}})); logAct(id, `Removeu o local ${c.name}`); }
+    if (await confirmBox("Remover local?", `A coluna <b>${esc(c.name)}</b> e as marcações dela deixam de aparecer na FV.`, "Remover", true)) { patch(`fvs/${id}`, stamp({cols: {...colNorm(fv), [cid]: {name: ""}}})); logAct(id, `Removeu o local ${c.name}`); }
     else inp.value = c.name;
     return;
   }
@@ -3143,7 +3179,17 @@ async function exportPdf() {
     const page = (inner, foot) => { const d = document.createElement("div"); d.className = "sheet-page"; d.appendChild(inner);
       const ct = inner.querySelector(".chk-tbl"), need = ct ? parseInt(ct.style.minWidth || "0", 10) + 36 : 0; if (need > 1160) d.style.width = need + "px"; const f = document.createElement("div"); f.className = "pfoot"; f.textContent = foot || stamp; d.appendChild(f); root.appendChild(d); return d; };
     const sections = [];
-    const fvSheet = $("#sheet-fv"); if (fvSheet) sections.push(page(staticize(fvSheet, fvSheet.cloneNode(true))));
+    const fvSheet = $("#sheet-fv");
+    if (fvSheet) {
+      const nF = fvFolhas(fv), back = cur.folha || 0;
+      for (let k = 0; k < nF; k++) {
+        cur.folha = k; renderChk(fv);
+        const c = staticize(fvSheet, fvSheet.cloneNode(true));
+        if (k) c.querySelectorAll("table.prob-tbl").forEach(e => e.remove()); // os problemas saem só na primeira folha
+        sections.push(page(c, nF > 1 ? `Folha ${k + 1} de ${nF} · ${stamp}` : stamp));
+      }
+      cur.folha = back; renderChk(fv);
+    }
     const mapSheet = $("#sheet-map"); if (mapSheet && mapa && mapa.img) { const c = staticize(mapSheet, mapSheet.cloneNode(true)); c.querySelectorAll(".zoom").forEach(e => e.classList.remove("zoom")); sections.push(page(c)); }
     for (const m of cur.maps) {
       if (!m.img) continue;
@@ -3204,7 +3250,7 @@ async function exportPdf() {
 /* ---------- duplicar FV ---------- */
 async function duplicateFv() {
   const src = fvs.get(cur.id); if (!src || !canWrite) return;
-  const cols = activeCols(src);
+  const cols = colPages(src);
   const body = `<p class="sub" style="margin:0 0 10px">Cria FVs novas com o mesmo modelo (${esc(src.code)}) e a mesma obra, em branco, prontas para outro local.</p><div class="grid2">
     <label class="fld" style="grid-column:1/-1">Local(is) das novas FVs<input type="text" id="d-locais" placeholder="Separe por vírgula para criar várias. Ex.: T2, T3, T4"></label>
     <label class="fld" style="grid-column:1/-1">Pasta<select id="d-folder">${folderOptions(folderOf(src))}</select></label>
@@ -3218,11 +3264,11 @@ async function duplicateFv() {
   const ids = [];
   for (const local of r.locais) {
     const id = uid("f"), at = nowIso(), nc = {};
-    if (r.cols) cols.forEach(([, c], i) => nc[uid("c") + i] = {name: c.name, o: i + 1});
+    if (r.cols) cols.forEach(([, c, p], i) => nc[uid("c") + i] = {name: c.name, o: i + 1, p});
     const doc = {templateId: src.templateId || "", code: src.code, cat: src.cat, title: src.title, rev: src.rev || "", revDate: src.revDate || "", localLabel: src.localLabel || "Local",
       checkOptions: src.checkOptions || [], checks: {}, items: JSON.parse(JSON.stringify(src.items || [])),
       obra: src.obra || "", local, abertura: today(), fechamento: "", conferente: r.people ? (src.conferente || "") : "", gestor: r.people ? (src.gestor || "") : "", almoxarife: "",
-      cols: nc, cells: {}, status: "aberta", assinatura: null, folder: r.folder || "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+      cols: nc, maxCols: fvMaxCols(src), folhas: r.cols ? fvFolhas(src) : 1, cells: {}, status: "aberta", assinatura: null, folder: r.folder || "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
     try { await create(`fvs/${id}`, doc); logAct(id, `Criou a FV duplicando ${src.code} – ${src.local || ""}`); ids.push(id); } catch { break; }
   }
   if (!ids.length) return;
