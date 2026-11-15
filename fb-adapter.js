@@ -136,11 +136,11 @@ const SUBS = ["pda", "obs", "photos", "docs", "log", "maps"];
 async function exportAll({ files = true, onProgress = () => {} } = {}) {
   const out = { app: "fvs-da-obra", version: 1, exportedAt: new Date().toISOString(), docs: {} };
   const put = (p, d) => { out.docs[p] = d; };
-  for (const c of ["templates", "folders", "users", "library", "plantas"]) {
+  for (const c of ["templates", "folders", "users", "library", "plantas", "lixeira"]) {
     onProgress(`Lendo ${c}…`);
     (await getDocs(collection(fs, c))).forEach(d => put(`${c}/${d.id}`, d.data()));
   }
-  for (const p of ["config/access"]) { const s = await getDoc(doc(fs, p)); if (s.exists()) put(p, s.data()); }
+  for (const p of ["config/access", "config/dict"]) { const s = await getDoc(doc(fs, p)); if (s.exists()) put(p, s.data()); }
   const fvSnap = await getDocs(collection(fs, "fvs")); let i = 0;
   for (const f of fvSnap.docs) {
     onProgress(`Lendo FVs… ${++i}/${fvSnap.size}`);
@@ -163,15 +163,23 @@ async function exportAll({ files = true, onProgress = () => {} } = {}) {
   return out;
 }
 async function importAll(json, onProgress = () => {}) {
-  const entries = Object.entries(json.docs || {}).filter(([p]) => p.split("/").length % 2 === 0);
+  const all = Object.entries(json.docs || {}).filter(([p]) => p.split("/").length % 2 === 0);
+  // Histórico das FVs e registros da lixeira são só de acréscimo: o que já existe no banco fica como está.
+  const isAppend = p => /^fvs\/[^/]+\/log\//.test(p) || p.startsWith("lixeira/");
+  const entries = all.filter(([p]) => !isAppend(p)), extra = all.filter(([p]) => isAppend(p));
   let batch = writeBatch(fs), n = 0, bytes = 0, done = 0;
-  const flush = async () => { if (!n) return; await batch.commit(); done += n; onProgress(`Importando… ${done}/${entries.length}`); batch = writeBatch(fs); n = 0; bytes = 0; };
+  const flush = async () => { if (!n) return; await batch.commit(); done += n; onProgress(`Importando… ${done}/${all.length}`); batch = writeBatch(fs); n = 0; bytes = 0; };
   for (const [p, d] of entries) {
     const size = JSON.stringify(d).length;
     if (n >= 400 || bytes + size > 8 * 1024 * 1024) await flush();
     batch.set(doc(fs, p), d); n++; bytes += size;
   }
   await flush();
+  for (let i = 0; i < extra.length; i += 40) {
+    const part = extra.slice(i, i + 40);
+    await Promise.all(part.map(([p, d]) => setDoc(doc(fs, p), d).catch(() => {})));
+    done += part.length; onProgress(`Importando… ${done}/${all.length}`);
+  }
 }
 
 /* ---------- login e permissões ---------- */

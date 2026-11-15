@@ -583,6 +583,46 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
 .tpl-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--graphite);border-radius:var(--r);padding:10px 12px;margin-bottom:6px;flex-wrap:wrap}
 .tpl-row .code{font-size:11px;font-weight:700;color:var(--muted)}
 .tpl-row b{text-transform:uppercase;font-size:13px}
+.modal.sens{border-top-color:var(--bad)}
+.sens-tag{justify-self:start;background:var(--bad-soft);color:var(--bad);font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 12px}
+.sens-note{font-size:12px;color:var(--muted);border-left:3px solid var(--bad);padding:2px 0 2px 10px}
+.btn.danger.solid{background:var(--bad);color:#fff;border-color:var(--bad)}
+.btn.danger.solid:hover{background:#9c120c;border-color:#9c120c}
+nav.main .nv-n{display:inline-block;min-width:18px;padding:0 5px;border-radius:999px;background:#fff;color:var(--red);font-size:11px;font-weight:800;text-align:center;line-height:18px;margin-left:2px}
+nav.main a.on .nv-n{background:var(--red);color:#fff}
+@media (max-width:760px){header.top .userbox{order:2;margin-left:auto}nav.main{order:3;flex:1 1 100%;margin-left:0;flex-wrap:wrap;padding-bottom:8px}nav.main a{padding:6px 10px;white-space:nowrap}}
+.lx-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:8px}
+.lx-badge{display:grid;place-items:center;min-width:74px;height:40px;padding:0 8px;border-radius:6px;font-weight:800;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--graphite);text-align:center;line-height:1.1}
+.lx-badge.k-fv{background:var(--red)}
+.lx-main b{display:block;overflow-wrap:anywhere}
+.lx-main .meta{display:flex;gap:2px 12px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:2px}
+.lx-exp{font-weight:800;font-size:13px;text-align:right;white-space:nowrap}
+.lx-exp small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.lx-exp.soon{color:var(--bad)}
+.lx-acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.lx-act{font-weight:700}
+.lx-act.a-rest{color:var(--ok)}.lx-act.a-apag,.lx-act.a-exp{color:var(--bad)}
+.lx-what{color:var(--muted);font-size:12.5px;margin-top:2px;overflow-wrap:anywhere}
+.lx-what b{color:var(--ink)}
+@media (max-width:640px){.lx-item{grid-template-columns:auto minmax(0,1fr)}.lx-exp{grid-column:1/-1;text-align:left;display:flex;gap:6px;align-items:baseline}.lx-exp small{display:inline}.lx-acts{grid-column:1/-1;justify-content:flex-start}}
+.spell{position:fixed;bottom:16px;right:16px;width:min(380px,calc(100vw - 24px));background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;box-shadow:0 12px 36px rgba(0,0,0,.22);z-index:90;padding:10px 12px;display:grid;gap:8px;font-size:13px}
+.spell .sp-h{display:flex;align-items:center;gap:8px}
+.spell .sp-h b{text-transform:uppercase;font-size:11px;letter-spacing:.06em;color:var(--warn)}
+.spell .sp-h span{color:var(--muted);font-size:12px;flex:1}
+.spell .sp-h button{border:0;background:none;font-size:20px;line-height:1;color:var(--muted);padding:0 4px}
+.spell .sp-i{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:8px}
+.spell s,.sr-sug s{color:var(--bad)}.spell .sp-w b,.sr-sug b{color:var(--ok)}.spell .sp-w i{color:var(--muted);font-size:12px}
+.spell .sp-w{overflow-wrap:anywhere}
+.spell .sp-b{display:flex;gap:6px}
+.spell .sp-all{display:flex;justify-content:flex-end}
+@media (max-width:640px){.spell{top:8px;bottom:auto;right:12px;left:12px;width:auto}}
+.sp-chip{justify-self:start;border-color:var(--warn);color:var(--warn);background:var(--warn-soft)}
+.sr-row{display:flex;gap:12px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding:10px 0}
+.sr-row:first-child{border-top:0}
+.sr-on{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.sr-tx{margin:2px 0;overflow-wrap:anywhere}
+.sr-tx mark{background:var(--warn-soft);color:inherit;border-bottom:2px solid var(--warn);padding:0 1px}
+.sr-sug{font-size:12.5px}
 .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--graphite);color:#fff;padding:10px 16px;border-radius:8px;z-index:80;font-size:13px;max-width:90vw}
 .mk{display:inline-grid;place-items:center;min-width:26px;height:20px;border:1px solid #000;font-weight:800;font-size:11px;font-style:normal;padding:0 3px}
 .mk.E{background:var(--fill)}
@@ -607,6 +647,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
       <a href="#solos" id="nav-solos">Solos</a>
       <a href="#modelos" id="nav-tpl">Modelos</a>
       <a href="#gape" id="nav-gape">GAPE</a>
+      <a href="#lixeira" id="nav-lix">Lixeira</a>
       <a href="#equipe" id="nav-team" class="hidden">Equipe</a>
     </nav>
     <div class="userbox" id="userbox"></div>
@@ -660,6 +701,7 @@ body::before{content:"";position:fixed;right:-5vmin;bottom:-7vmin;width:min(64vm
   <section id="view-gape" class="hidden"></section>
   <section id="view-painel" class="hidden"></section>
   <section id="view-solos" class="hidden"></section>
+  <section id="view-lix" class="hidden"></section>
 </main>
 <div class="gate ui" id="gate"><div class="gate-card"><div class="tl-full gate-logo" role="img" aria-label="Tenda"></div><h1>FVs da Obra</h1><div id="gate-body"><p>Carregando…</p></div></div></div>
 <script src="firebase-config.js"></script>
@@ -722,10 +764,10 @@ function pdcaSvg(v, size = 40) {
 }
 
 /* ---------- diálogo ---------- */
-function modal({title, body = "", wide = false, actions = [{label:"Fechar", value:null}], onOpen}) {
+function modal({title, body = "", wide = false, sens = false, actions = [{label:"Fechar", value:null}], onOpen}) {
   return new Promise(resolve => {
     const bg = document.createElement("div"); bg.className = "modal-bg ui";
-    bg.innerHTML = `<div class="modal ${wide ? "wide" : ""}" role="dialog" aria-modal="true" aria-label="${esc(title)}"><h2>${esc(title)}</h2><div class="mbody">${body}</div><div class="acts"></div></div>`;
+    bg.innerHTML = `<div class="modal ${wide ? "wide" : ""} ${sens ? "sens" : ""}" role="${sens ? "alertdialog" : "dialog"}" aria-modal="true" aria-label="${esc(title)}">${sens ? `<div class="sens-tag">⚠ Ação sensível</div>` : ""}<h2>${esc(title)}</h2><div class="mbody">${body}</div>${sens ? `<div class="sens-note">Confira antes de confirmar. Esta ação afeta todos que usam o sistema.</div>` : ""}<div class="acts"></div></div>`;
     const acts = $(".acts", bg);
     const close = v => { bg.remove(); document.removeEventListener("keydown", onKey); resolve(v); };
     actions.forEach(a => {
@@ -738,11 +780,12 @@ function modal({title, body = "", wide = false, actions = [{label:"Fechar", valu
     bg.addEventListener("mousedown", e => { if (e.target === bg) close(null); });
     document.body.appendChild(bg);
     onOpen && onOpen(bg);
-    const f = $("input,select,textarea", bg); f && f.focus();
+    const f = sens ? $(".acts .btn", bg) : $("input,select,textarea", bg); f && f.focus();
   });
 }
 const confirmBox = (title, text, ok = "Confirmar", danger = false) =>
-  modal({title, body:`<p style="margin:0">${text}</p>`, actions:[{label:"Cancelar", value:false},{label:ok, value:true, cls: danger ? "danger" : "primary"}]});
+  modal({title, sens: danger, body:`<p style="margin:0">${text}</p>`, actions:[{label:"Cancelar", value:false},{label:ok, value:true, cls: danger ? "danger solid" : "primary"}]});
+const gestorOnly = (title, what) => modal({title, body: `<p style="margin:0">Somente o <b>gestor</b> (ou o administrador) pode ${what}.</p>`, actions: [{label: "Entendi", cls: "primary", value: null}]});
 
 /* ---------- estado ---------- */
 let db = null, user = null, assets = null, me = "anon", canWrite = true, isOwner = false, isGestor = false;
@@ -802,17 +845,25 @@ function setReadOnly(msg) {
 }
 
 /* ---------- histórico ---------- */
-let lastLog = null;
+// Só de acréscimo: cada ação vira um registro novo; nada é editado nem apagado (as regras do banco também impedem).
+let logMem = null;
 function logAct(fvId, act) {
   if (!db || !canWrite || !act) return;
-  const t = Date.now(), at = nowIso();
-  if (lastLog && lastLog.fv === fvId && t - lastLog.t < 600000) {
-    lastLog.t = t; lastLog.acts = lastLog.acts.filter(a => a !== act).concat(act).slice(-15);
-    const L = lastLog; L.ready.then(() => patch(`fvs/${fvId}/log/${L.id}`, {at, acts: L.acts}));
-  } else {
-    const id = uid("l"); lastLog = {fv: fvId, id, t, acts: [act]};
-    lastLog.ready = db.doc(`fvs/${fvId}/log/${id}`).set({by: me, start: at, at, acts: [act]}).catch(() => {});
+  const t = Date.now();
+  if (!logMem || logMem.fv !== fvId || t - logMem.t > 600000) logMem = {fv: fvId, t, acts: new Set()};
+  if (logMem.acts.has(act)) return; // a mesma ação repetida em seguida não gera outro registro
+  logMem.acts.add(act);
+  db.doc(`fvs/${fvId}/log/${uid("l")}`).set({by: me, at: nowIso(), acts: [act]}).catch(() => {});
+}
+function logGroups(list) {
+  const out = [];
+  for (const l of list) {
+    const g = out[out.length - 1];
+    if (g && g.by === l.by && new Date(g.first) - new Date(l.at) < 600000) { g.first = l.at; g.acts = (l.acts || []).concat(g.acts); }
+    else out.push({by: l.by, at: l.at, first: l.at, acts: (l.acts || []).slice()});
   }
+  out.forEach(g => { g.acts = [...new Set(g.acts)]; });
+  return out;
 }
 function touchFv(fvId, act) { patch(`fvs/${fvId}`, stamp({})); logAct(fvId, act); }
 
@@ -1130,14 +1181,14 @@ function openFv(id) {
   buildFvSkeleton();
   const sub = (coll, key, q) => {
     const ref = q(db.collection(`fvs/${id}/${coll}`));
-    cur.unsubs.push(ref.onSnapshot(s => { if (!cur || cur.id !== id) return; cur[key] = s.docs.map(d => ({id: d.id, ...d.data()})); renderSub(key); }, () => {}));
+    cur.unsubs.push(ref.onSnapshot(s => { if (!cur || cur.id !== id) return; cur[key] = s.docs.map(d => ({id: d.id, ...d.data()})).filter(x => !x.trashAt); renderSub(key); }, () => {}));
   };
   sub("pda", "pda", r => r.orderBy("createdAt"));
   sub("obs", "obs", r => r.orderBy("createdAt"));
   sub("photos", "photos", r => r.orderBy("createdAt"));
   sub("docs", "docs", r => r.orderBy("createdAt"));
   sub("maps", "maps", r => r.orderBy("createdAt"));
-  sub("log", "log", r => r.orderBy("at", "desc").limit(150));
+  sub("log", "log", r => r.orderBy("at", "desc").limit(400));
   renderFvAll();
 }
 function closeFv() { if (!cur) return; cur.unsubs.forEach(u => { try { u(); } catch {} }); cur = null; hidePop(); }
@@ -1176,6 +1227,7 @@ function renderFvAll(force) {
   renderBar(fv); renderSheet(fv); renderMap(fv); ["pda","obs","docs","photos","log","maps"].forEach(renderSub);
 }
 function renderSub(key) {
+  if (key !== "log" && key !== "docs") setTimeout(renderSpellChip, 0);
   if (!cur) return; const fv = fvs.get(cur.id); if (!fv || !$("#fvbar")) return;
   if (key === "pda") { $("#n-pda").textContent = cur.pda.length; renderPda(fv); }
   else if (key === "obs") { $("#n-f007").textContent = cur.obs.filter(o => o.sheet === "f007").length; renderProbRows(fv, "fv"); renderF007(fv); }
@@ -1194,7 +1246,8 @@ function renderBar(fv) {
     h.innerHTML = `<div class="r1"><div><div class="c" id="b-code"></div><div class="t" id="b-title"></div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="b-pill"></span><button class="btn dark" id="b-pdf" type="button">Baixar PDF</button><button class="btn" id="b-dup" type="button">Duplicar para outros locais</button><button class="btn" id="b-close" type="button"></button><button class="btn ghost danger" id="b-del" type="button">Excluir</button></div></div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select></div>
-      <div id="b-stats"></div><div class="lastedit" id="b-last"></div>`;
+      <div id="b-stats"></div><button class="btn sm sp-chip hidden" id="b-spell" type="button"></button><div class="lastedit" id="b-last"></div>`;
+    $("#b-spell").onclick = spellReview;
     $("#b-close").onclick = toggleClose; $("#b-del").onclick = deleteFv; $("#b-dup").onclick = duplicateFv; $("#b-pdf").onclick = exportPdf;
     $("#b-folder").onchange = e => { const id = cur.id, v = e.target.value; patch(`fvs/${id}`, stamp({folder: v})); logAct(id, `Moveu para a pasta ${v ? pathText(v) : "Início"}`); toast(`FV movida para ${v ? pathText(v) : "Início"}.`); };
   }
@@ -1202,10 +1255,11 @@ function renderBar(fv) {
   $("#b-title").textContent = `${fv.title}${fv.local ? " — " + fv.local : ""}`;
   const pill = $("#b-pill"); pill.className = "pill " + (fv.status === "fechada" ? "closed" : "open"); pill.textContent = fv.status === "fechada" ? "Fechada" : "Aberta";
   const cb = $("#b-close"); cb.textContent = fv.status === "fechada" ? "Reabrir FV" : "Fechar FV"; cb.className = "btn " + (fv.status === "fechada" ? "" : "primary") + (isGestor ? "" : " locked"); cb.disabled = false; cb.title = isGestor ? "" : "Somente o gestor pode fechar ou reabrir a FV"; if (!isGestor) cb.textContent = "🔒 " + cb.textContent;
-  $("#b-del").disabled = !canWrite; $("#b-dup").disabled = !canWrite;
+  const bd = $("#b-del"); bd.disabled = !canWrite; bd.textContent = (isGestor ? "" : "🔒 ") + "Excluir"; bd.classList.toggle("locked", !isGestor); bd.title = isGestor ? "" : "Somente o gestor pode excluir a FV"; $("#b-dup").disabled = !canWrite;
   const bf = $("#b-folder"); if (document.activeElement !== bf) { bf.innerHTML = folderOptions(folderOf(fv)); bf.value = folderOf(fv); } bf.disabled = !canWrite;
   const back = $("#view-fv .back"); if (back) { const fp = folderOf(fv); back.href = fp ? "#pasta-" + fp : "#"; back.textContent = "← " + (fp ? folders.get(fp).name : "Todas as FVs"); }
   $("#b-stats").innerHTML = barHtml(s) + `<div style="margin-top:8px">${countsHtml(s)}</div>`;
+  renderSpellChip();
   $("#b-last").innerHTML = `Criada por ${who(fv.createdBy)} em ${fmtFull(fv.createdAt)} · Última edição: ${who(fv.updatedBy)}, ${fmtFull(fv.updatedAt)}`;
   fillNames();
 }
@@ -1416,7 +1470,7 @@ function probRowFactory(fv, sheet) {
     wireRowPhoto(tr, "obs", () => ({item: $("[data-f=item]", tr).value || "", local: fv.local || ""}));
     $("[data-del]", tr).onclick = async () => {
       if (!tr.dataset.id) return;
-      if (await confirmBox("Apagar linha?", "O problema e a solução desta linha serão apagados para todos.", "Apagar", true)) { await remove(`fvs/${id}/obs/${tr.dataset.id}`).catch(()=>{}); touchFv(id, "Apagou uma linha de problema"); }
+      if (await confirmBox("Apagar linha?", "O problema e a solução desta linha serão apagados para todos. Linhas não vão para a lixeira: isso não pode ser desfeito.", "Apagar", true)) { await remove(`fvs/${id}/obs/${tr.dataset.id}`).catch(()=>{}); touchFv(id, "Apagou uma linha de problema"); }
     };
     return tr;
   };
@@ -1495,7 +1549,7 @@ function renderPda(fv) {
     wireRowPhoto(tr, "pda", () => ({local: fv.local || ""}));
     $("[data-del]", tr).onclick = async () => {
       if (!tr.dataset.id) return;
-      if (await confirmBox("Apagar ação do PDA?", "Essa linha do PDA será apagada para todos.", "Apagar", true)) { await remove(`fvs/${id}/pda/${tr.dataset.id}`).catch(()=>{}); touchFv(id, "Apagou uma ação do PDA"); }
+      if (await confirmBox("Apagar ação do PDA?", "Essa linha do PDA será apagada para todos. Linhas não vão para a lixeira: isso não pode ser desfeito.", "Apagar", true)) { await remove(`fvs/${id}/pda/${tr.dataset.id}`).catch(()=>{}); touchFv(id, "Apagou uma ação do PDA"); }
     };
     return tr;
   };
@@ -1520,30 +1574,30 @@ function renderPda(fv) {
 async function toggleClose() {
   const fv = fvs.get(cur.id), id = cur.id;
   if (!isGestor) { await modal({title: fv.status === "fechada" ? "Reabrir FV" : "Fechar FV", body: `<p style="margin:0">Somente o <b>gestor</b> (ou o administrador) pode ${fv.status === "fechada" ? "reabrir" : "fechar"} a FV. Quando a ficha estiver pronta, avise o gestor para ele fazer o fechamento.</p>`, actions: [{label: "Entendi", cls: "primary", value: null}]}); return; }
-  if (fv.status === "fechada") { patch(`fvs/${id}`, stamp({status: "aberta"})); logAct(id, "Reabriu a FV"); return; }
+  if (fv.status === "fechada") {
+    if (!(await confirmBox("Reabrir FV?", `A FV <b>${esc(fv.code)} – ${esc(fv.local || fv.title)}</b> volta a ficar <b>aberta para edição</b> por todos os editores. A reabertura fica registrada no histórico com o seu nome.`, "Reabrir FV", true))) return;
+    patch(`fvs/${id}`, stamp({status: "aberta"})); logAct(id, "Reabriu a FV"); return;
+  }
   const s = stats(fv), noSol = cur.obs.filter(o => o.problema && !String(o.solucao || "").trim()).length;
   const w = [];
   if (s.E) w.push(`${s.E} verificação(ões) ainda “a verificar”`);
   if (s.R) w.push(`${s.R} item(ns) reprovado(s) sem reinspeção`);
   if (noSol) w.push(`${noSol} problema(s) sem solução registrada`);
+  const nSp = fvSpell(fv).reduce((a, x) => a + x.is.length, 0);
+  if (nSp) w.push(`${nSp} possível(is) erro(s) de ortografia (botão “revisar” na barra da FV)`);
   if (!(await confirmBox("Fechar FV?", (w.length ? `Atenção:<br>• ${w.join("<br>• ")}<br><br>` : "") + "A data de fechamento será hoje (se estiver vazia) e a ficha e a F.007 ficam somente leitura até a FV ser reaberta. O <b>PDA continua liberado</b> para problemas que aparecerem depois. O gestor(a) tem até 72 h para assinar.", "Fechar FV"))) return;
   patch(`fvs/${id}`, stamp({status: "fechada", fechamento: fv.fechamento || today()})); logAct(id, "Fechou a FV");
 }
 async function deleteFv() {
   const fv = fvs.get(cur.id), id = cur.id;
-  if (!(await confirmBox("Excluir FV?", `A FV <b>${esc(fv.code)} – ${esc(fv.local || fv.title)}</b>, com PDA, observações, fotos, mapeamentos e histórico, será apagada para todos. Isso não pode ser desfeito.`, "Excluir FV", true))) return;
+  if (!isGestor) { await gestorOnly("Excluir FV", "excluir uma FV. Se esta ficha foi criada por engano, avise o gestor"); return; }
+  if (!(await confirmBox("Excluir FV?", `A FV <b>${esc(fv.code)} – ${esc(fv.local || fv.title)}</b>, com PDA, observações, fotos, mapeamentos e histórico, vai para a <b>Lixeira</b>. O gestor ou o administrador pode restaurar em até ${TRASH_DAYS} dias; depois disso ela é apagada de vez.`, "Excluir FV", true))) return;
   try {
-    for (const c of ["pda","obs","docs","photos","log","maps"]) {
-      const s = await db.collection(`fvs/${id}/${c}`).get();
-      for (const d of s.docs) {
-        if ((c === "photos" || c === "docs") && assets && d.data().assetId) { try { await assets.delete(d.data().assetId); } catch {} }
-        if (c === "maps" && d.data().img && d.data().img.id) { try { await db.doc(`blobs/${d.data().img.id}`).delete(); } catch {} }
-        await db.doc(`fvs/${id}/${c}/${d.id}`).delete();
-      }
-    }
     const fp = folderOf(fv);
-    await remove(`fvs/${id}`); toast("FV excluída."); location.hash = fp ? "pasta-" + fp : "";
-  } catch { toast("Não foi possível excluir tudo. Tente de novo."); }
+    logAct(id, "Excluiu a FV (enviada para a lixeira)");
+    await toTrash("fv", `fvs/${id}`, `${fv.code} – ${fv.local || fv.title}`, [fv.title, fp ? "Pasta " + pathText(fp) : ""].filter(Boolean).join(" · "));
+    toast("FV enviada para a lixeira."); location.hash = fp ? "pasta-" + fp : "";
+  } catch { toast("Não foi possível excluir. Tente de novo."); }
 }
 
 /* ===== Documentos IT/ET ===== */
@@ -1596,8 +1650,8 @@ function renderDocs(fv) {
       <div class="doc-acts">${d.assetId ? `<button class="btn sm dark" type="button" data-openblob="${esc(d.assetId)}">Abrir</button>` : `<a class="btn sm dark" href="${esc(docUrl(d))}" target="_blank" rel="noopener">Abrir</a>`}${lk ? "" : `<button class="btn sm ghost danger" type="button" data-rm="${esc(d.id)}">Remover</button>`}</div>`;
     const ob = $("[data-openblob]", el); if (ob) ob.onclick = () => openBlob(d.assetId, d.title);
     const rm = $("[data-rm]", el); if (rm) rm.onclick = async () => {
-      if (!(await confirmBox("Remover documento?", `<b>${esc((d.code ? d.code + " · " : "") + d.title)}</b> deixa de ficar anexado a esta FV.${d.assetId ? " O arquivo enviado será apagado." : " O arquivo no Drive não é apagado."}`, "Remover", true))) return;
-      try { await remove(`fvs/${cur.id}/docs/${d.id}`); if (d.assetId && assets) { try { await assets.delete(d.assetId); } catch {} } touchFv(cur.id, `Removeu o documento ${d.code || d.title}`); } catch {}
+      if (!(await confirmBox("Remover documento?", `<b>${esc((d.code ? d.code + " · " : "") + d.title)}</b> deixa de ficar anexado a esta FV e vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Remover", true))) return;
+      try { await toTrash("doc", `fvs/${cur.id}/docs/${d.id}`, (d.code ? d.code + " · " : "") + d.title, fvCtx(cur.id), `fvs/${cur.id}`); touchFv(cur.id, `Removeu o documento ${d.code || d.title}`); toast("Documento enviado para a lixeira."); } catch {}
     };
   });
   fillNames();
@@ -1709,9 +1763,9 @@ function renderPhotos(fv) {
     $$("[data-f]", el).forEach(i => bind(i, path, i.dataset.f, id, `Editou foto (${lbl[i.dataset.f]})`));
     $(".img", el).onclick = () => lightbox(d.id);
     $("[data-del]", el).onclick = async () => {
-      if (!(await confirmBox("Excluir foto?", "A foto e as anotações dela serão apagadas para todos.", "Excluir", true))) return;
-      const p = cur.photos.find(x => x.id === d.id);
-      try { await remove(path); if (assets && p && p.assetId) { try { await assets.delete(p.assetId); } catch {} } touchFv(id, "Excluiu uma foto"); } catch {}
+      if (!(await confirmBox("Excluir foto?", `A foto e as anotações dela saem da FV e vão para a <b>Lixeira</b>, onde podem ser restauradas em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+      const p = cur.photos.find(x => x.id === d.id) || {};
+      try { await toTrash("foto", path, ["Foto", p.item && "item " + p.item, p.local, p.nota].filter(Boolean).join(" · "), fvCtx(id), `fvs/${id}`); touchFv(id, "Excluiu uma foto"); toast("Foto enviada para a lixeira."); } catch {}
     };
     return el;
   }, (el, d) => {
@@ -1846,8 +1900,8 @@ function syncRowPhoto(tr, kind, d, lk) {
 /* ===== Histórico ===== */
 function renderLog() {
   const box = $("#tab-log"); if (!box) return;
-  box.innerHTML = `<div class="panel"><div class="section-head"><div><h2>Histórico de edições</h2><div class="sub">Quem alterou esta FV e quando. Ações seguidas da mesma pessoa ficam agrupadas.</div></div></div>
-    ${cur.log.length ? `<div class="log">${cur.log.map(l => `<div class="e"><div class="when">${fmtFull(l.at)}</div><div>${who(l.by)}<ul>${(l.acts || []).map(a => `<li>${esc(a)}</li>`).join("")}</ul></div></div>`).join("")}</div>` : `<div class="empty"><b>Sem registros ainda</b>As edições aparecem aqui assim que alguém alterar a FV.</div>`}</div>`;
+  box.innerHTML = `<div class="panel"><div class="section-head"><div><h2>Histórico de edições</h2><div class="sub">Quem alterou esta FV e quando. Ações seguidas da mesma pessoa ficam agrupadas. O histórico só recebe registros novos: nada pode ser editado nem apagado.</div></div></div>
+    ${cur.log.length ? `<div class="log">${logGroups(cur.log).map(l => `<div class="e"><div class="when">${fmtFull(l.at)}</div><div>${who(l.by)}<ul>${(l.acts || []).map(a => `<li>${esc(a)}</li>`).join("")}</ul></div></div>`).join("")}</div>` : `<div class="empty"><b>Sem registros ainda</b>As edições aparecem aqui assim que alguém alterar a FV.</div>`}</div>`;
   fillNames();
 }
 
@@ -2161,8 +2215,8 @@ async function mapsClick(e) {
   if (t.dataset.ren) {
     const v = await modal({title: "Renomear mapeamento", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.title || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]});
     if (v) { patch(`fvs/${fid}/maps/${m.id}`, stamp({title: v})); logAct(fid, `Renomeou o mapeamento para “${v}”`); }
-  } else if (await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.title || "")}</b>, com todos os desenhos e notas, será apagado para todos.`, "Excluir", true)) {
-    try { await remove(`fvs/${fid}/maps/${m.id}`); if (m.img && m.img.id) remove(`blobs/${m.img.id}`).catch(() => {}); logAct(fid, `Excluiu o mapeamento “${m.title || ""}”`); toast("Mapeamento excluído."); } catch {}
+  } else if (await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.title || "")}</b>, com todos os desenhos e notas, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true)) {
+    try { await toTrash("map", `fvs/${fid}/maps/${m.id}`, m.title || "Mapeamento", fvCtx(fid), `fvs/${fid}`); logAct(fid, `Excluiu o mapeamento “${m.title || ""}”`); toast("Mapeamento enviado para a lixeira."); } catch {}
   }
 }
 
@@ -2204,8 +2258,8 @@ async function pickPlanta(defTitle) {
       $("#pl-list", bg).addEventListener("click", async e => {
         const d = e.target.closest("[data-delpl]"); if (!d) return; e.preventDefault();
         const p = plantas.get(d.dataset.delpl); if (!p) return;
-        if (!(await confirmBox("Excluir planta?", `A planta <b>${esc(p.title || "")}</b> sai da lista. Os mapeamentos já criados continuam, mas não poderão ser recortados de novo.`, "Excluir", true))) return;
-        try { await remove(`plantas/${p.id}`); [...(p.tiles && p.tiles.ids || []), p.ov && p.ov.id].filter(Boolean).forEach(id => remove(`blobs/${id}`).catch(() => {})); plantas.delete(p.id); if (chosen === p.id) chosen = null; draw(bg); } catch {}
+        if (!(await confirmBox("Excluir planta?", `A planta <b>${esc(p.title || "")}</b> sai da lista e vai para a <b>Lixeira</b> (${TRASH_DAYS} dias para restaurar). Os mapeamentos já criados continuam, mas não poderão ser recortados de novo enquanto ela estiver lá.`, "Excluir", true))) return;
+        try { await toTrash("planta", `plantas/${p.id}`, p.title || "Planta", "Plantas dos mapeamentos"); plantas.delete(p.id); if (chosen === p.id) chosen = null; draw(bg); } catch {}
       });
       $("#pl-up", bg).onclick = () => $("#pl-file", bg).click();
       $("#pl-file", bg).onchange = async e => {
@@ -2700,8 +2754,8 @@ function renderGapeTable(r, spec) {
     $("#g-pdf", v).onclick = exportGapePdf;
     if (!ro) {
       $("#g-del", v).onclick = async () => {
-        if (!(await confirmBox("Excluir ficha?", `A ficha <b>${esc(spec.nome)}${r.head && r.head.torre ? " – Torre " + esc(r.head.torre) : ""}</b> e todas as linhas serão apagadas para todos.`, "Excluir", true))) return;
-        try { for (const it of gItems()) await remove(`gape/${rid}/itens/${it.id}`); (gapes.get(rid).scans || []).forEach(s => remove(`blobs/${s.id}`).catch(() => {})); await remove(`gape/${rid}`); gapes.delete(rid); location.hash = "gape"; toast("Ficha excluída."); } catch {}
+        if (!(await confirmBox("Excluir ficha?", `A ficha <b>${esc(spec.nome)}${r.head && r.head.torre ? " – Torre " + esc(r.head.torre) : ""}</b> e todas as linhas vão para a <b>Lixeira</b>, onde podem ser restauradas em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+        try { await toTrash("gape", `gape/${rid}`, `${spec.nome}${r.head && r.head.torre ? " – Torre " + r.head.torre : ""}`, "GAPE" + (r.head && r.head.obra ? " · " + r.head.obra : "")); gapes.delete(rid); location.hash = "gape"; toast("Ficha enviada para a lixeira."); } catch {}
       };
       $("#gt-add", v).onclick = () => { const o = Math.max(0, ...gItems().map(i => i.o || 0)) + 1, at = nowIso(); create(`gape/${rid}/itens/${uid("i")}`, {o, apto: "", tipo: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); touchGape(); };
       const gen = $("#gt-gen", v); if (gen) gen.onclick = async () => {
@@ -2907,8 +2961,8 @@ function renderGape() {
     if (!ro) {
       $("#g-add", v).onclick = () => { const o = Math.max(0, ...gItems().map(i => i.o || 0)) + 1, at = nowIso(); create(`gape/${rid}/itens/${uid("i")}`, {o, criada: gNow(), desc: "", com: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); touchGape(); setTimeout(() => { const last = $("#g-items .gi:last-child [data-f=desc]"); if (last) last.focus(); }, 400); };
       $("#g-del", v).onclick = async () => {
-        if (!(await confirmBox("Excluir relatório?", `O relatório <b>${esc(r.titulo || "sem título")}</b>, com todos os itens, fotos e comentários, será apagado para todos.`, "Excluir", true))) return;
-        try { for (const it of gItems()) { await remove(`gape/${rid}/itens/${it.id}`); [it.img, it.fotoResp].forEach(x => x && x.id && remove(`blobs/${x.id}`).catch(() => {})); } await remove(`gape/${rid}`); gapes.delete(rid); location.hash = "gape"; toast("Relatório excluído."); } catch {}
+        if (!(await confirmBox("Excluir relatório?", `O relatório <b>${esc(r.titulo || "sem título")}</b>, com todos os itens, fotos e comentários, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+        try { await toTrash("gape", `gape/${rid}`, r.titulo || "Relatório GAPE", "GAPE"); gapes.delete(rid); location.hash = "gape"; toast("Relatório enviado para a lixeira."); } catch {}
       };
       ["#g-pic", "#g-cam"].forEach(sel => $(sel, v).onchange = async e => {
         const f = e.target.files[0], tgt = v._picTarget; e.target.value = ""; if (!f || !tgt) return;
@@ -3290,7 +3344,7 @@ async function renderTeam() {
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Editores</h2><div class="sub">Podem criar e preencher FVs, PDA, observações, fotos e documentos.</div>
         <div class="team-list">${list(acc.editors, "editors")}</div>
         <div class="addrow"><input type="text" id="add-ed" placeholder="email@gmail.com" aria-label="E-mail do editor"><button class="btn primary" type="button" data-add="editors">Adicionar</button></div></div>
-      <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Gestores</h2><div class="sub">Além de editar, são os únicos (junto com o administrador) que podem <b>fechar e reabrir FVs</b>.</div>
+      <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Gestores</h2><div class="sub">Além de editar, são os únicos (junto com o administrador) que podem <b>fechar, reabrir e excluir FVs</b>, restaurá-las da lixeira e excluir itens de vez.</div>
         <div class="team-list">${list(acc.gestores, "gestores")}</div>
         <div class="addrow"><input type="text" id="add-ge" placeholder="email@gmail.com" aria-label="E-mail do gestor"><button class="btn primary" type="button" data-add="gestores">Adicionar</button></div></div>
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Somente leitura</h2><div class="sub">Podem ver tudo e baixar PDFs, mas não editam.</div>
@@ -3302,12 +3356,15 @@ async function renderTeam() {
         <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn dark" type="button" id="bk-export">Exportar tudo</button><button class="btn" type="button" id="bk-import">Importar arquivo…</button></div>
         <input type="file" id="bk-file" accept="application/json,.json" class="hidden"><div class="sub" id="bk-status" style="margin-top:10px"></div></div>
       <div class="panel" id="map-panel"></div>
+      <div class="panel" id="dict-panel"></div>
     </div>`;
-  renderMapPanel(); renderApprovals();
+  renderMapPanel(); renderApprovals(); renderDictPanel();
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
-  v.querySelectorAll("[data-add]").forEach(b => b.onclick = () => {
+  v.querySelectorAll("[data-add]").forEach(b => b.onclick = async () => {
     const k = b.dataset.add, inp = $({editors: "#add-ed", viewers: "#add-vi", gestores: "#add-ge"}[k], v), e = inp.value.trim().toLowerCase();
     if (!EMAIL_RE.test(e)) return toast("Digite um e-mail válido.");
+    const pode = {editors: "criar e preencher FVs, PDA, fotos, GAPE e Solos", gestores: "editar tudo e também <b>fechar, reabrir e excluir FVs</b>", viewers: "ver tudo e baixar PDFs, sem editar"}[k];
+    if (!(await confirmBox("Liberar acesso?", `<b>${esc(e)}</b> passa a poder ${pode}. Confirme se o e-mail está certo e se a pessoa faz parte da equipe da obra.`, "Liberar acesso", true))) return;
     if (k === "gestores") { acc.gestores = acc.gestores.filter(x => x !== e).concat(e); acc.viewers = acc.viewers.filter(x => x !== e); if (!acc.editors.includes(e)) acc.editors.push(e); return save(); }
     acc.editors = acc.editors.filter(x => x !== e); acc.viewers = acc.viewers.filter(x => x !== e); acc[k].push(e);
     if (k === "viewers") acc.gestores = acc.gestores.filter(x => x !== e);
@@ -3334,7 +3391,7 @@ async function renderTeam() {
     let json; try { json = JSON.parse(await f.text()); } catch { return toast("Esse arquivo não é um backup válido."); }
     const n = json && json.docs ? Object.keys(json.docs).length : 0;
     if (!n) return toast("Esse arquivo não tem registros para importar.");
-    if (!(await confirmBox("Importar backup?", `${n} registros serão gravados. Registros com o mesmo código serão substituídos pela versão do arquivo.`, "Importar"))) return;
+    if (!(await confirmBox("Importar backup?", `${n} registros serão gravados. Registros com o mesmo código serão <b>substituídos</b> pela versão do arquivo (o histórico das FVs não é alterado).`, "Importar", true))) return;
     try { await window.__fb.importAll(json, m => st.textContent = m); st.textContent = `Importação concluída: ${n} registros.`; toast("Importação concluída."); banner("team", ""); }
     catch { st.textContent = "A importação parou no meio. Rode de novo: os registros já gravados são apenas substituídos."; }
   };
@@ -3358,7 +3415,7 @@ async function renderApprovals() {
     const p = pend.find(x => x.uid === b.dataset.appr); if (!p) return;
     const role = await modal({title: "Aprovar conta", body: `<p style="margin:0 0 8px">Confirme que a tela de <b>${esc(p.name || p.email)}</b> mostra o código:</p><p style="font:800 26px var(--f);letter-spacing:.18em;text-align:center;margin:6px 0 12px">${esc(p.codigo || "")}</p>
         <label class="fld">Acesso de ${esc(p.email || "")}<select id="ap-role"><option value="editors">Editor (preenche as FVs)</option><option value="viewers">Somente leitura</option></select></label>`,
-      actions: [{label: "Cancelar", value: null}, {label: "Aprovar", cls: "primary", value: bg => $("#ap-role", bg).value}]});
+      sens: true, actions: [{label: "Cancelar", value: null}, {label: "Aprovar", cls: "primary", value: bg => $("#ap-role", bg).value}]});
     if (!role) return;
     try { await window.__fb.approve(p.uid, p.email, role); toast("Conta aprovada. A pessoa já pode tocar em “Já fui aprovado”."); renderTeam(); } catch { toast("Não foi possível aprovar. Confira se as regras novas foram publicadas."); }
   });
@@ -3558,7 +3615,7 @@ function openSolo(sid) {
   closeSolo();
   scur = {id: sid, tab: "capa", ens: [], maps: [], docs: [], unsubs: [], got: {}};
   const sub = (coll, key, q) => scur.unsubs.push(q(db.collection(`solos/${sid}/${coll}`)).onSnapshot(s => {
-    if (!scur || scur.id !== sid) return; scur[key] = s.docs.map(d => ({id: d.id, ...d.data()})); scur.got[key] = true; renderSoloSub(key);
+    if (!scur || scur.id !== sid) return; scur[key] = s.docs.map(d => ({id: d.id, ...d.data()})).filter(x => !x.trashAt); scur.got[key] = true; renderSoloSub(key);
   }, () => {}));
   sub("ensaios", "ens", r => r.orderBy("o")); sub("maps", "maps", r => r.orderBy("createdAt")); sub("docs", "docs", r => r.orderBy("createdAt"));
   renderSoloAll();
@@ -3669,14 +3726,11 @@ function renderSoloSub(key, noPend) {
 }
 async function deleteSolo() {
   const sid = scur.id, t = solos.get(sid);
-  if (!(await confirmBox("Excluir trecho?", `O trecho <b>${esc(t.nome || "")}</b>, com a demarcação, os ensaios e os documentos anexados, será apagado para todos. Isso não pode ser desfeito.`, "Excluir", true))) return;
+  if (!(await confirmBox("Excluir trecho?", `O trecho <b>${esc(t.nome || "")}</b>, com a demarcação, os ensaios e os documentos anexados, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
   try {
-    const maps = scur.maps.slice(), docs = scur.docs.slice(), ens = scur.ens.slice();
     closeSolo();
-    for (const e of ens) await remove(`solos/${sid}/ensaios/${e.id}`);
-    for (const m of maps) { await remove(`solos/${sid}/maps/${m.id}`); if (m.img && m.img.id) remove(`blobs/${m.img.id}`).catch(() => {}); }
-    for (const d of docs) { await remove(`solos/${sid}/docs/${d.id}`); (d.pages || []).forEach(p => remove(`blobs/${p.id}`).catch(() => {})); }
-    await remove(`solos/${sid}`); solos.delete(sid); location.hash = "solos"; toast("Trecho excluído.");
+    await toTrash("solo", `solos/${sid}`, t.nome || "Trecho", ["Solos", t.folder && folders.has(t.folder) ? "Pasta " + pathText(t.folder) : ""].filter(Boolean).join(" · "));
+    solos.delete(sid); location.hash = "solos"; toast("Trecho enviado para a lixeira.");
   } catch {}
 }
 
@@ -3699,7 +3753,7 @@ function renderSoloMaps(t) {
       if (b.dataset.open) return openMapEditor(b.dataset.open, soloCtx(sid2));
       const m = scur.maps.find(x => x.id === (b.dataset.ren || b.dataset.delmap)); if (!m || !canWrite) return;
       if (b.dataset.ren) { const nv = await modal({title: "Renomear demarcação", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.title || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]}); if (nv) patch(`solos/${sid2}/maps/${m.id}`, stamp({title: nv})); }
-      else if (await confirmBox("Excluir demarcação?", `A demarcação <b>${esc(m.title || "")}</b>, com todos os desenhos, será apagada para todos.`, "Excluir", true)) { try { await remove(`solos/${sid2}/maps/${m.id}`); if (m.img && m.img.id) remove(`blobs/${m.img.id}`).catch(() => {}); touchSolo(); toast("Demarcação excluída."); } catch {} }
+      else if (await confirmBox("Excluir demarcação?", `A demarcação <b>${esc(m.title || "")}</b>, com todos os desenhos, vai para a <b>Lixeira</b>, onde pode ser restaurada em até ${TRASH_DAYS} dias.`, "Excluir", true)) { try { await toTrash("smap", `solos/${sid2}/maps/${m.id}`, m.title || "Demarcação", soloCtxTxt(sid2), `solos/${sid2}`); touchSolo(); toast("Demarcação enviada para a lixeira."); } catch {} }
     });
   }
   if (!L.length) { box.innerHTML = `<div class="empty"><b>Trecho sem demarcação</b>Escolha o projeto, recorte a área e desenhe por cima a faixa terraplenada (hachura, contorno, textos e marcadores).${ro ? "" : `<div style="margin-top:14px"><button class="btn primary" type="button" data-newmap>+ Demarcar no projeto</button></div>`}</div>`; return; }
@@ -3826,7 +3880,7 @@ function renderSoloDocs(t, tipo) {
       if (!canWrite) return;
       const pr = e.target.closest("[data-prot]"); if (pr) { patch(`solos/${sid2}/docs/${d.id}`, stamp({pages: pages.map((p, i) => i === +pr.dataset.prot ? {...p, rot: ((p.rot || 0) + 90) % 360} : p)})); return; }
       const pd = e.target.closest("[data-pdel]"); if (pd && await confirmBox("Remover página?", "A página sai deste documento.", "Remover", true)) { const p = pages[+pd.dataset.pdel]; patch(`solos/${sid2}/docs/${d.id}`, stamp({pages: pages.filter((_, i) => i !== +pd.dataset.pdel)})); remove(`blobs/${p.id}`).catch(() => {}); return; }
-      if (e.target.closest("[data-ddel]") && await confirmBox("Excluir documento?", `<b>${esc(d.titulo || "Documento")}</b> e todas as páginas serão apagados para todos.`, "Excluir", true)) { try { await remove(`solos/${sid2}/docs/${d.id}`); pages.forEach(p => remove(`blobs/${p.id}`).catch(() => {})); touchSolo(); toast("Documento excluído."); } catch {} }
+      if (e.target.closest("[data-ddel]") && await confirmBox("Excluir documento?", `<b>${esc(d.titulo || "Documento")}</b> e todas as páginas vão para a <b>Lixeira</b>, onde podem ser restaurados em até ${TRASH_DAYS} dias.`, "Excluir", true)) { try { await toTrash("sdoc", `solos/${sid2}/docs/${d.id}`, d.titulo || "Documento", soloCtxTxt(sid2), `solos/${sid2}`); touchSolo(); toast("Documento enviado para a lixeira."); } catch {} }
     });
   }
   $("[data-cnt]", box).textContent = L.length;
@@ -3937,14 +3991,391 @@ async function exportSoloPdf() {
   finally { root.remove(); btn.disabled = false; btn.textContent = "Baixar PDF"; }
 }
 
+/* ---------- ortografia: palavras conhecidas (documentos da Tenda + vocabulário de obra); as primeiras servem de sugestão ---------- */
+const SP_T = "de e da do ou projeto a conf com em verificar procedimento das dos o execução torre se para infr no trecho bloco instalação concreto montagem acabamento as sem na fixação realizar tipo os água material aplicação acab hall locação posição base quantidade que superfície limpeza teste apto piso unidade resistência tubulações ausência entre projetista armação forma parede está nos ao dimensões por altura nas pontos realização cimento materiais não conforme estão integridade uniforme comprimento espaçadores estrutura pintura slump solo caixas fator garantindo posicionamento profundidade bitolas característica controle diâmetro mapeamento presença tamanho alinhamento arranques camada proteção cobrimento laje após como falhas instalações passagem prumada compactação concretagem data impermeabilização todas eixos final gabarito identificação página área consultor drenagem ensaios garantir ligação madeira montado revisão ser sistema abertura bem cada conexões estacas ferragem fissuras muro paredes reaterro sobre taludes tubulação antes camadas corte elétricas entrada equipamento juntas manchas mapa preparação serviço tela todos uma é adequada corretamente definida marcação obra processo quando são terreno um à bolhas conferir conferência cota escavação espessura gás inclinação inspeção irregularidades locados terraplenagem tubos argamassa aço deve elétrica encontro estaca estrutural lona massa umidade vedação abatimento aplicável areia blocos buracos caso corpo equipamentos esquadro estanqueidade foi funcionamento impeçam nível pelo pode radier realizada rede tratamento utilização aterro até batimento cobertura compactado componentes determinação drywall durante eletrodutos figura fria livre planicidade respeitando segurança sendo adequado assentamento barras dilatação distribuição elementos esgoto esquadrias formas interna local medidas mesmo orientações prumo revestimento talude toda valas volume acordo condições devidamente divisa enterrada enterradas excentricidade executada finalização fundação fundo hidráulicas mais necessário nivelamento onde parafusos pedra placas platibanda quanto quebras região regularização seca seja shaft superior tecnológico ter testes utilizados vala vão alvenaria assim auxílio brita cabos cantos cotas cura danos elevador especificação espuma estabilidade esteja executar fechamento ferro guarda isenta magro meio método nivelada podem preenchimento profundidades projetos pé quadro realizado resíduos será solos spda suporte tampas telhado totalmente trena técnica visual acabamentos adequados anexos arrasamento aterros atividades caixa carga continuidade corrosão cortes demais desforma devem dias distância ensaio escada escorrimentos espaçamento especificações esquadria esse evitar executado fabricante faixa fim fundações ilustração indicado mínimas mínimo peça peças plástica portas rebarbas seguir seu soltos sua superficial tinta uso validação às áreas abrigo arrimo berço bombas chuva construção correto definitiva demãos dentro desmontagem dia dimensão elétricos embutidos estranhos executadas fixações fornecedor furos grama hidráulica importante inclinações inicial junta largura limpa linha localização longo melhor modo muito niveladas operação pavimentação pavimento pilaretes ponto porta poço pó pós qualidade ralo ralos referência reforços remoção responsável rolo sempre seção também tem tenda utilizar adequadas alinhados análise aparente apartamento apenas aplicada aplicado armado atenção aterramento caixinhas calafetação canaletas castelo cerâmica cerâmico completamente contra demarcação depressões deverá diferença emendas específica estejam etapa executados existentes fita fixado fixados fornecedores geral geralmente grau guia horizontais houver há identificado implantação início janelas lado louças manta manter manual mecânico medição máximo necessidade necessária parque passantes passeio pela perímetro poliéster possível precisa prevista produto ramal recomposição registros regiões regular retirada rugas segregações segundo sentido sinais sonhos teto textura todo transferência transversal utilizando vazamentos vigas visita íntegra abaixo acompanhar ainda algum alguns alinhadas amassados anexo apresente ar arremate bota características casos coberta colocação comentários compactador considerar construtivo construções contato correspondentes criada cuidados dados definido devendo deverão dispositivos elevação elétrico emissão erosão escadas escoramento espaços esta estanque evitando excentricidades excesso exemplo exposto extensão fachada fiada firmes fixadas folgas for fora furo gape geometria gerado gerais global grauteamento guias hidráulicos homogênea homologados horas horizontal houve impermeabilizante indicar iniciais iniciar instaladas items jogo junção já laminado laterais laudo liberação locais maneira melhoria montantes movimentação máxima obras ondulações ordem painel pequenos peso pilar pinos piscina placa plantio plataformas posicionada posicionadas pouco prumadas qualquer realizando reforço regularizada remover report reportandrun respingos resultados retirar riscos rugosidade seguindo selador selante serviços sistemas sobrelargura tanques tempo terra terraplenada topo torres traço título utilizado vegetação vãos úmida abaulada abaulado aberta aberto aberturas abraçadeira abril abrir acabar academia acender acerca acesso acessos acidente acima acionar acrílico adaptar adequadamente adequar aderir adesivo afastada afastado afrouxar afundamento afundar agora agosto aguardar ajustar ajuste ajustes alambrado alertar alguma algumas ali alinhada alinhado alinhar alisar alizar alta alterar alteração alto alturas alumínio alçapão amanhã amarela amarelo amarrar amarração amassada amassado amassar ambas ambiente ambientes ambos amostra analisando analisar ancoragem andaime andaimes andar anexar ano anos anotação ante antena antiga antigo aos apagar aparafusado aparentemente aparência apertar aperto aplicar apoio apontar apresentar aprovada aprovado aprovar aprovação aproximadamente aprumada aprumado aprumar aquecedor aquecer aquela aquelas aquele aqueles aqui aquilo aramado arame armador armadura armar arranhado arranhão arremates arruela asfalto aspecto aspirar assegurando assentada assentado assentar assoreamento atende atender aterrar atividade atualizar auditoria ausente avaliar avanço avaria avariado avenida avisar aviso azul azulejista azulejo aí bacia baixa baixo balançar balcão balcões baldrame bancada bandeja banheiro barra barrilete barro batente bater bege beiral berma bermas betoneira bica bicheira bicheiras bicicletário bloquete boa boas boca bolha bolor bom bomba bombear bons borda bordas borracha branca branco brilhante brilho brocas bronze bucha buchas bueiro buraco cabeamento cabeça cabo cadeado caibro caimento cair caixilho cal calafetar calcular calha calhas calor calçada caminho caminhão campainha campo canaleta cano canos canteiro canto capacete cargas carpinteiro carrinho carro casa casas causa causas cavalete cavo caçamba ceder cem central centralizado centro centímetro centímetros cerca certa certo chamada chamar chapa chapas chapiscar chapisco chata chave chaves chegar cheia cheio cheiro choque chumbador chumbar churrasqueira chuvas chuveiro cimbramento cinco cinta cinto cinza circulação cisalhamento cisterna clara claro cliente clientes coberto cobrar cobre cobrir coisa coisas cola colar coletiva colher colocar combinar começar começo compactada compactar complemento completar comprar comunicar concerto concluir conclusão concluída concluído concretar condição conduíte cone conectar cones conexão conformidade confrontante consequência consertar conserto consertos conservar constatar consultar contaminado continuar contramarco contrapiso contraverga contudo copa cor cores corredor corrente correta correção correções corrida corrigir corrimão corroído cortar cozinha cremalheira crista cronograma crítica crítico cuba cuidar cuja cujas cujo cujos cumeeira cumprir cupim cupins curar curta curto curva custo código códigos cômodo cômodos dada dadas dado dando danificada danificado dano daquela daquele dar dará decidir declividade deem defeito defeitos definir definitivo definição deformado deformar degrau degraus deixar dela delas dele deles demarcado demarcar demolir demolição demão depois depressão depósito deram desalinhada desalinhado desalinhamento desaprumada desaprumado desaprumo desarmado desarmando desarmar desbotado desbotamento descascado descascamento descascando descentralizado descer descoberta descoberto descolada descolado descolamento descolando descolar desconectar desde desempenadeira desempenar desencaixar desentupir desformar desigual desligar deslizamento deslocada deslocado desmontar desnivelada desnivelado desnível desobstruir despensa desplacamento desplacando desprotegido desrosquear dessa dessas desse desses desta destas deste destes desvio desvios detalhamento detalhar detalhe detalhes detritos deu devemos dever devia devida devido devo devolver dez dezembro diagonal diferente difícil dimensionamento dimensionar direcionado direcionar direita direito direta direto disjuntor disjuntores dispensa dispensar disse disso distante disto distribuir dito divergente divergência diversas diversos dividir diz dizem dizer dobra dobradiça dobrar dobro dois domingo dosar dou doze drenar dreno drenos duas ducha dum duma dura duro duto dá dão décimo dê efeito eflorescência eixo ela elas ele eles eletricista eletroduto emassar embora emboçar emboço emendar empena empenada empenado empenar empeno emperrar empoçada empoçado empoçamento empoçando empreiteira empreiteiro empresa encaixar encaminhamento encanador encarregado encharcada encharcado encher encontrar encostada encostado encostar encunhamento energia enferrujado engenheira engenheiro enquanto enrugamento ensaiar entanto entortar entrar entrega entregar entretanto entulho entupida entupido entupimento então enviar enxugar equipe era eram erosões errada errado erro erros escadaria escavadeira escavar escoamento escoar escora escorar escoras escorregamento escorrido escorrimento escovar escura escuro esfriar esgotar esmalte espalhar especificada especificado específico específicos espelho esperar esquerda esquerdo esquina essa essas esses estacionamento estado estagiária estagiário estamos estando estaqueamento estar estará estarão estas estava estavam este estes esteve esticar estique estiver estiveram estivesse estocar estoque estou estourar estreita estreito estribo estribos estrita estrito estruturas estudar estuque esvaziar etapas eu excessiva excessivo exceto existe existem existente existia existir existência expansiva expansão exposta exterior externa externo extintor extremidades face faces fachadeira facial faixas falha falta faltando faltante faltar fará farão fase faz fazem fazemos fazendo fazer fazia faça façam faço fechada fechado fechadura fechar feira feita feitas feito feitos ferramenta ferramentas ferrugem festas fevereiro fez fiadas fiação fibra fica ficam ficando ficar ficaram ficará ficha fichas ficou fina finais finalizada finalizado finalizar fino fio fios fique fiquem firme fissura fissurada fissurado fissurar fixada fixar fizeram flexível fogo folga folgar folha folhas foram forem formato formiga forro forte força fosca fosco fosse fossem foto fotografar fotos fraco franco fração frente fresta frestas frio frontal frouxa frouxo funcionar fundos função furar fácil fôrma galeria galho galvanizado garagem gasta gasto gelado generalizada generalizado gente geotecnia geotécnica geotécnico geotêxtil gesseiro gesso gestor gestora gordura goteira gotejamento gradil grande grandes granito graus graute grave graxa greide grelha grossa grosso grua grudar grão grãos guarita guarnição guincho haja havendo haver haverá havia havido hidrante hidrômetro hoje hora ia iam identificada identificar ido igual imagem impedir imperfeições impermeabilizar impossível inacabada inacabado inadequada inadequado inclusive incompatibilidade incompleta incompleto inconformidade incorreta incorretamente incorreto incêndio individual individualmente indo inferior infiltrar infiltração infiltrações informar informações infra inox inseto inspecionar instalada instalado instalar instrução instruções insuficiente interfone interior interno interruptor interruptores intertravado invertida invertido ir irregular irregularidade irá irão isento isolada isolado isolamento isolar isopor isso isto item itens janeiro janela jardim jardineira joelho julho junho juntar junto laboratório lajes lama larga largo lasca lascada lascado laser lastro lateral latão lavabo lavanderia lavar lavatório leste levantamento levar leve lhe lhes liberar ligar limites limpar limpo lisa liso litro litros lixa lixamento lixar lixeira lixo lobo locada locado localizada localizado logo longa longe lote louça luminária luva luvas luz lá lâmpada lógica maio maior mal mancha manchada manchado manchar mandar mangueira manhã mantas manutenção marca marcada marcado marcar marcas marcações marco marrom março mas mastique mato maçaneta me mecânica medida medidor medir melhorar membrana menor menos meses mesma mesmas mesmos mestre metade metais metal metro metros metálica meu meus mexer mil milímetro milímetros minha minhas mini minuto minutos misturador misturar modelo modelos modificar modulação mofo mola moldado moldura mole molhada molhado molhar montante montar morador moradora moradores mossa mostrar motivo mudar muita muitas muitos máquina máquinas mármore mão mãos média médio mês mínima módulo nada naquela naquele naquilo natural necessitar necessárias nela nelas nele neles nenhum nenhuma nessa nessas nesse nesses nesta nestas neste nestes ninho ninhos nivelado nivelar noite nome nomes nono norma normalmente normas norte nossa nossas nosso nossos notar nova novamente novas nove novembro novo novos num numa numas nunca nuns nós número números obedecer objetivo obrigatório observar observação observações obstrução obstruída obstruído oca ocas oco ocorre ocorrem ocorrer ocorreu ocos oculta oculto oeste oitavo oito olho ondulado ondulação ontem onze operador oposta oposto orgânica orgânico orgânicos orientar orientação origem outra outras outro outros outubro oxidada oxidado oxidação pagar painéis paisagismo pano papel papelão parafusado parafusar parafuso parar parcial parcialmente parte partes partículas parâmetros passar passo pastilha patamar pedir pedreiro pedrisco pegar peitoril pelas pelos pendente pendência pendências penetrar pequena pequeno perante perceber percussão perfil perfis perfurar perigo permanente permitida permitido permitir persiana perto pesado pessoa pessoas pia pilares pilarete pincel pingadeira pingar pintada pintado pintar pintor piorar piquete piquetes pisos planejar planeza planta plantas plaqueamento platô playground pluviais pluvial plástico podemos podendo poder poderá poderão podia poeira pois policarbonato polietileno pondo pontuais pontual porca porcelanato porcento porque porquê portaria portão porém posicionado posicionar posições possa possam posso possua possuir possíveis posta postas posto postos potência pouca poucas poucos poça poças pra prazo prazos precisam precisar preencher preenchidas prego pregos premissas prender preparador preparar pressurizador pressão preta preto prever previamente previsto preço primeira primeiro primer principais principal principalmente problema problemas procedimentos profunda profundo programar pronta pronto proprietário proteger protegida protegido providenciar provisória provisórias provisório própria próprias próprio próprios próxima próximo puderam puxador pôde pôr pôs põe põem quadra quadros quais quaisquer qual quali quanta quantas quantos quarta quarto quase quatro quebra quebrada quebrado quebrar queda queimar quem quente quilo quilos quinas quinta quinto quê rachada rachado rachadura rachaduras rachar rachão raiz rampa raspar rato raízes reaplicar reassentar reação rebarba rebite rebites rebocar reboco recalque receber recolocar recompor redução reexecutar reexecução refazer refazimento refixar reforçar registrar registro regularizar reinspecionar reinspeção reinstalar rejuntada rejuntado rejuntamento rejuntar rejunte relatório relatórios relação remanescente reparar reparo reparos repintar repor reposição reprovada reprovado reprovar reprovação requadro reservatório respeitar respingo responsabilidade responsáveis ressalto ressaltos resto restos resultado resultar resíduo retocar retomar retoque retoques retrabalho retroescavadeira revestimentos revestir revisar rica rico ripa riscada riscado riscar risco rodapé rodateto roldana romper rosca rosquear rua rufo rufos rugosa rugoso ruim ruins régua rígida rígido sacada saia saibro sair sala saliência saliências salão sanca sanitário sapata sapatas sapo sarjeta sarrafear saturada saturado saída secar seco segregação segunda seis seixo sejam selagem selar semana semanas sensor separar sequência serralheiro servente serão sete setembro setor seus sexta sexto sido sifonada sifão silicone sim simples sinalizado sinalizar sinalização situação sob sobra sobrar sobras sol soldar soleira solicitar solta soltando soltar soltas solto solução soluções som somente somos sondagem sondagens sou sprinkler suas subcobertura subir subsolo substituir substituição suficiente suja sujar sujeira sujidade sujo sul superiores suportes suíte sábado série sétimo síndico só talabarte talvez tampa tampo tampão tanque tanta tantas tanto tantos tapume tarde te telas telecom telefonia telha telhas temos temperatura temporário tendo tenha tenham tenho tensão teor terceira terceirizada terceiro terminar terraplanagem terraço terá terão terça terço tesoura testar teve texturizar tido tijolo tijolos tinha tinham tipos tiver tiveram tivesse todavia tolerância tomada tomadas tonalidade tonelada topografia topógrafo torneira torrão torta torto total trabalho tratamentos tratar trator trava travamento travar travas trazer tração trilho trilhos trinca trincada trincado trincar trincas trinco trinta troca trocada trocado trocar três tu tubo tudo tão técnicas técnico término térreo tê têm umas umedecer unidades unido unir uns urgente usado usar vaga vai valeta validar valor vamos varanda varrer vaso vazamento vazando vazar vazia vazio vazios vazão veda vedada vedado vedar veem veio vejo velha velho vem vendo veneziana venha vento ver verde verga vergalhão verificação vermelha vermelho verniz vertical verá vez vezes veículo via vibrador vida vidro vidros viela vieram viga vindo vinte vir viram virá visitante vista vistas visto vistoria vistos visíveis visível viu vizinha vizinho você vocês voltar vou válvula válvulas várias vários vê vêm vídeo vídeos zebrada zinco zona árvore árvores áspera áspero ático ângulo óculos óleo última último úmido única único únicos abacaxi acabadas acesse aderência adjacente adotada adotados aeração ajustada alimentação ambiental amostras anticorrosivo apresenta areias argila através aumentar avaliação bases bitola bocas borrachão caderno ciclo circular code coleta compactando competência complementares composta concretada conjunto contendo contenções contrário corpos correspondente corretas corretos corta cravação critérios danificadas descida descontinuidades descrição desformada direcionando disponível diâmetros dnit dúvidas embasamento emenda enterrados entorno envelopamento enviados escavado escavações espaçamentos espaço específicas espelhos espera espécies estucagem estudos excessos expansivos externas finalizadas fundamental furação geogrelha geomanta geomantas geométrica grampo homogeneização ideal iluminação independentemente indicados indicação instalados insumos inteira internas lançamento limite margarida matéria misto mistura monitoramento muros obrigatória obstruções obstáculos obter partir pasta pead perceba permanecer período pilão plana plásticos porcentagem portinholas possibilidade poços previstos processos projeção proporção protegidos protetor provenientes provisórios práticas química realizados removendo requisitos reservatórios responsabilidades ressalta rochas rolado sarjetas secagem seguinte seguintes silte sobreposição solda sonda soquete sugestão superficiais supressão tampar tarucel telhados tento tintas tipologias trajeto transporte trechos umedecimento uniformes utilizadas variar ventokit verifique verticais vibratória ótima";
+const SP_K = "aaptp abastecido abastecimento abertas abnt abranger abraçadeiras abrigos absorver acabado aceita acelerar acessado acessibilidade acessórios acionamento acionando acolchoado acompanhado acompanhamento acopladas acrescentar acrescidos acréscimo acrílica acumuladas acumulado acusttico acético acúmulo acúmulos acústica acústico adaptados adaptações adequações aderida aderido adesivos adicionais adicional adição adjacentes admissível adotadas adotamse adotando adotar adoção adquirido adquirir adubo adubos aduelas afastador afastamento afugentada afugentamento agentes aglomerante aglutinantes agregadas agregados ajuda ajudar ajudaria ajudou ajustando alagada alarme alcançar aleatórios alicerce alimentadores alinhadores alisares alizares almoxarifado altas alteamento altear alternativamente alternativas alvani alçadas além alívio amarre amassamento amb ambientais amplitude anaeróbicas analisada analisados analista ancorado ancoragens andares anilha animais animal anormais anterior anteriores anteriormente anti antiaprisionamento antichamas anticorrosiva antigas antigos análises anéis aparecimento aparelho aparentam apartamentos apiloamento apios aplicações aplicáveis apoios apresentando apropriada apropriado aprovador aprovados aproveitado aproveite apta aquosa aquática arames arandelas arbóreo arcará arenosas arenoso arenosos arestas argamassada argamassas argilas argilominerais argilosa argilosas argilosos armazenadas armazenamento armazenar arquivados arrancamento arranhões arrebite arredondados arrematar artificial asc ascamadas ascensão aspergidor aspiração ass assentos assinado assinatura associadas atendam atendem atendendo atendidas atentar aterrada aterramentos atestada atinge atingimento atingir atingiu atinja atinjam ativa atmosféricas atropelamento atua atual atualmente atuam auger aumentada aumento auricular automaticamente autorizadas auxiliar avaliada avaliado avaliados avaliando avance aves ação baguete baguetes baixas balancim balancins baldrames bancadas bancos banheiros barbacã barbacãs bargoa barramento basculante basculantes baseia basicamente bastante bata bate batentes batidas bicos biólogo blindado blindados bloquear boletim bombeiros borra borrachudo borrifando botacomposite botoeiras botão box brinquedos britas broca bulbo bulno busca buscam bushing buzinote básica cabe cabeamentos cabeceira caiação caixaria caixinha calafetadas calafetados calda califórnia calços caminhamento caminhões camisinha cana canas canoplas cantoneira cantoneiras capa capacho capacidade captação captor caracterizada caracterização característico carneiro caro carreamento carregadores carta cascalhos caseira castelos causando causar cause cautela cavas cavidades centralizador centralizadores certificar certificação cerâmicos cestos chamadas chamam chanfrados chanfros chavetas check chicote chicotes chumbada chumbado chumbados chumbamento chão cid cidade cilindro cima cintamento cintas circuitos citadas citados clandestinos claras classe classificados classificação clicpex clima climáticas coadeiras cobarta cobartas coberturasolar cobrado cobrimentos coco coeficiente coesivos coesão colante colapsáveis coleterefletivo coletoras colisão coloca colocada colocadas colocados coloque coloração colunas comando comercializados começam compactadas compactadores compatibilizada compatíveis compatível compensador compensação complementar complementos completa completo comportam composite composição composto compostos compreenda compreendida compreendidos compreensão compressor comprime comprimentos comprometer comprometida comprovando comumente comunicação comunique comunitários comuns concebida concentração concluídos concretos condicionada condicionado condutor condutores conectados conectividade conectorização conferente configuram configurações confinamento confinante confirase confirmar confirmatórias conformação conformeprojeto confrontantes conhecido conjugados conquista consecutivos consegue conservação considera consideradas considerado considerando consideração considerações consiste consistindo consistência consorciação constante constantes constar constituída constituídos construir construído construídos consulte consultivo consultoria conta contador contaminados contaminações contempla contemplando contenção continuação contraem contrair contrasta contratação contração controlada controlado controlando controles contínua convém coordenadas coordenador corbatas cordo cordoalhas cordões correlatas corresponde corridas cortado costumam costurado covas coxins coz cozinhas criar criação crimpagem critério cruciais cruzado cruzamentos críticas cuidado cuidando cumprirá cunhas curso curvas cálculo células céu cód danificados danificar decomposição decomposta dedos deficiente definem definidaemprojeto definidos definitivas definitivos definições deformabilidade deformada deformará deformação deformações degradação deixado deixando delimitador delimitar delimitação demanda demandam demandariam demandará demarcadas demolições dentada depender depositados derivações desacordo desagregado desagregados desagregação desarme descampadas descargas descobrir descolamentos desconectado descritas descrito descritos desejada desejado desempenha desempenho desengrosso desgastado designado deslizamentos deslocamento deslocamentos desmanchem desmatamento desmobilizado desmobilizar desmoldante desniveladas desnivelados desníveis desobstrução desobstruído despesas desplacamentos destacar destinada destinados destocamento detalhada determina determinada determinado determinar determine deveram diariamente diferenciais diferentes diferenças dificuldade dificuldades difíceis dilatar dim dimensionada diretamente diretor diretriz diretrizes direção discrepância dispersão dispor dispositivo disposição distintos distribuições distribuídas distribuído distribuídos divergirem divide divididas divisas divisão divisória dner doalambrado dobradiças dobras doc documento doméstico dono dormitórios dospilaretes double drenagens duração dúvida econômicos edafo edificações efetuar eficiente eficientee eficientes eficiência elaborador elaboração elemento eletrocalha eletrocalhas eletrodo eletrofusão elevada elevado elevadores eliminar embalagens embeber emborrachado embutidas embutimento emergente emergência empolamento empregada emprego empréstimo empréstimos encaixada encaixado encaixe encaixem encaixes encaminhados encaminhar encontra encontros encosta encostas endurecer enfiação engenharia engenheiros enrugamentos entender entroncamentos entulhos entupimentos enviadas enviado envio envolve envolvidas envolvidos epc epcs epe epi epis eps epóxi erguido erosivos escalonamento escavada escavadeiras escavando escoa escolha escorregamentos esfarelamentos esfrega esfregando esmagamento esmectita esp espalhamento espatulada especiais especialistas especialmente especificadas especificar esperas espessas espessuras espátula esquadros esquemáticas estabelece estabelecem estabelecer estabelecidas estabelecido estabelecidos estabilização estacademadeira estacasdemadeira estaiamento estanques estaquear estatístico esterco esticamento estimada estimados estimativa estr estreitas estrias estruturada estruturado estruturais estucamentos estudo etc ete etiquetas eventuais evidências exata exaustor excedente excessivamente excessivas exceção exclusivo execute executivas executivos executor executora exemplificando exemplos exigidos exigência exigências exista existam expandir expostas expostos extensas extensões externamente externos extintores extra extravasor extravasores fabricada fabricadas fabricados fabricação faceada fachadas facilitando facilitar facilmente faqueta faquetas farofa fauna fechamentos feche fecho fenômeno fertilizantes fibras fibrosa figuras fileira filtro finalidade finalizando finas finos firmemente fissuradas fitas fitness fixa fixo flexíveis florecimento florestal flutuante flutuantes fluxo fluxograma fluxogramas foras formados formal formalmente formando formar fornecido forros fortes forças fotográfico fragilizada fragilizem fragmentos franki franklin fretagem frisos frontais funciona funcionais funcional funcionando fundamentada fundas fungicida furados furações fuste gabião gabriela gaiolas galvanizada galvanizadas ganchos garanta garantam geminadas genéricos geogrelhas geossintético geossintéticos geotécnicas gerar geração gerente germinação getec gex giz golpeando gradativamente grade grampeado grampeados grampos granulares granulometria granulométrica grauteados gravatas grelhas grossos grumos guarnições guindaste habilitado haste hectare herbácea hidarulico hidrantes hidromecânica hidrossanitárias hidrossemeadura hidrômetros hilf histórico hlikw hollow homogeneamente homogeneidade homologadas homologação horada horizontalidade horizonte hélice hídrico identificações identifique iia iib ilustrativa imediatamente imediato imediatos imerso impacto impermeabilizada impermeável implantada implica implicar importados importe impregnam impurezas inadequados inclinada inclinadas inclui incluindo incluir inclusão incêndios independente indesejada indica indicada indicadas indicador indicando indicações indivíduo industrializada inertes inferiores infiltra infiltrando informativos informação informes infraestrutura inicia inicialmente iniciando inicie injeção inserido inseridos inserindo inspecione inspeções instabilidade instação insumo integralmente inteiro intenção intercaladas interesse interferências intermediários internos interrupção intervalo intervenções introduzida introdução intumescente investigação irrigação isc isentas isentos isoladas isomanta içamento jateamento jazida jogando jogos jugular junções justificativa kanban laboratorista lacre ladrão lança lançada lançado lanço lascas lata latex laudos lava lavagem legalmente legendapara legislação leia leira leis leito leitos lembrando lenta lento ler levando levemente leves liberada licenciada licença ligações lightwall limitar limitação limitações limpas limpos lingueta linhas liquidez lisos liz localizados loco log longitudinais longitudinal lugar lugares lumínicos luvade lâmpadas líquido maciço madeiras madeirite maiores majoritariamente mangue mangueiras mantê manuais manuseio manutenções manômetros maquinários mar marcados marcos marinheiro marreta martelo mastro meação mecanismos mediante medido medidores medindo meia melhore memorial mencionado mesa mesas meta metálicas metálico metálicos microcoveamento microvoamento micáceos min mineral mineralite minigrua minimizam mista mistos misturada mobilização modelagem moderada modulares molas moldada moldadas moldar molduras moles molhadas momento monitorados montagemdaarmação montmorilonita morrido motosserras mourão mourões movimentados movimento movimentos mpa mto mudanças mudas multiplicada multiplicação multímetro máscara máx máximas médios métodos mínimos módulos móveis natura natureza necessariamente necessidades necessita necessários nega negativa nem neoprene nervurada nichos nivelados normal normativas nutriente nutrientes nutrição nylon níveis núcleo obedecendo objetivam obrigatoriamente obrigatórioplantio obrigatórios obrigação obs observa observando obtendo obtida ocorra ocorram ocorrência ocupada odor off offsets onda onf opcional operacional opeçaração opilareteeaarmação opção opções organizado organização originais original originalmente osso ouro oxidados padronizadas padronizados padronização palanques paliteiro palma paradas paralisar particularidades passado passeios passivo passíveis pastosas patologias pavimentadas pavimentos pcmat pda pedaços pedestres pedológicos pedras pedregulho pedregulhos pegue peitoris peliculas pelota penetrante penetração penetrômetro pequenas percentual percorram perfeitamente perfeito perfilados perfurante perfurantes perfuratriz perfuração perfurações pergolado periféricos perigosos periódicas permanência permeabilidade permeável permitam permitindo perneira pertence pertencente períodos pesada pesados pescoço pex picking pilha pingadeiras pintando pinturas pipa pisa piscinas pista piteira pitons pitágoras placasdeconcreto planejado planejamento plano plantadas plaqueado plasticidade plataforma plena plásticas pne pneumático pneus polegar poliesportiva polimérica polímero ponta pontaletes pontas pontodereferência porosos portanto portátil porção posicionados positiva positivo possibilidades possibilitar possuem possui poste posteriores posteriormente postes praia preceitos precisariam precisão predecessoras predominante predominância preenchida preenchido preenchidos preferencialmente prensagemdemembros preparada preparado preparaçãoepré presente preservados preservar preservação pressurização prevalecerá prevenção prevê primeiras primordialmente priorizados prismas proceder procedimen proctornormal procure produtividade produtivo produzido profissional profundas proibida projetada projetistas promover prontas proporcionar proporções propriedade protegidas protetora proteções providências provoca provocar prática prático práticos pré prédios prévios próximasaosolo próximos pud pulsador pulveriza punção puras puros qualifica quantitativo quea quedasdemateriais queima raios ramo ranhuras rasas raspa raspagem rastreabilidade reais realiza realizadas realize reaperto rebaixado rebaixar recall recalques recebimento recipiente recirculação recobrimento recomendadas recomendam recomendação recompactação recompostas reconstruindo recoortes recorte recortes recubra recuos recuperadas recuperação recurso recém redes redor redutora redutoras reduzir reentrâncias ref referenciais referentes referências refletores reflui reforçada reforçado reforçados regimento regionais regional regra regras regulamentado regulamentação regulamentos regularidade regularizado regularizador regularizações regularmente relacionada relacionados relativamente rele remanescentes removida removido removidos repaginação repique representando representante representativa requer reservas resiliente resiste resistente resolução respectivas respectivo respiro ressecam restabelecer restante resulta resultando reta retenção reter retirado retirados retornando retorno retrabalhos retrátil rev revegetação revestido revestidos revisada revisões ria ricos rigorosamente rocha rodapés rodas rodatetos rojeto rolada rolos roseta rotativo roçadeiras run ruídos rápidos rígidos saber sabão sacos salva sancas sapinho sarrafo sarrafos saturados secas seg segmentos segue seguem seguida seguido seguidos seguro seguros seixos seladoraacrílica selagens selecionado selo semelhante sementes semi sentidos sentir separação serem servem servindo servir set sets setup sexigidos shafts siac sifões siga sigasflex significativa siltes siltosas siltosos simbólicos similar simétrica sinal sinta situ situada situações snecessários sobrecarga sobrelargurado sobrelargurapara sobreomurodedivisa sobreposições socada sofrem sofrer sofreu soldas soleiras solexcessivo solicita solicitado solicitando solicitação solucionados sonoro sonoros sqla sso status stop strauss sub subindo subleito substitua substitui substituídas sucessivas sucção sujeiras sujidades sulcos sumário superfícies suportar suprimida surgimento surgirem sustentar sustentação séculos símbolos sóculo sólidos tabela taipa tais tampado tamponamento tapete tarefas tartarugas tecidos telefone telescópico temperaturas tende tendem tensionamento tensões tentos teores terminabilidade terminais terminal terraplanadas testando tetas tijolinho tirantes tocos todaextremidade tonalidades topograficamente tops torneiras torno toros torrões touca trabalhadas trabalhados transpasse transportados transversais trata tratada tratativa tratores travadas traves trejor trepante trincheira tráfego tubulão tubulões turfas tátil tátilvisual técnicos térmica térmico títulodaatividade ultilizazão ultrapassado umedecidos umedeça unidos uniformemente união usando usinado utilizada utilizam utilizamos vagas valer validade validado validarem valores vaqueta variação variações vassourado vazaram vegetais vegetal vegetações ventilação ventos vergalhões verificada verificadas verificando verificações verticalidade veículos vias vibra vibradores vibratório vibratórios vibrações vidas vincos vinculação violento visa visualmente vizinhos volumes volumétricas válidos véu webp zero águas árabe íconeinformativo ícones índice íngremes íntegras íntegros íntimo óculosde ôhmico últimas";
+/* ---------- ortografia: confere problemas, notas dos mapeamentos e locais enquanto a pessoa escreve ---------- */
+const spDea = w => w.normalize("NFD").replace(/[̀-ͯ]/g, "");
+const SP = {known: new Set(), dea: new Map(), extra: new Set(), ign: new Set()};
+SP_T.split(" ").forEach(w => { SP.known.add(w); const d = spDea(w); if (!SP.dea.has(d)) SP.dea.set(d, w); });
+SP_K.split(" ").forEach(w => SP.known.add(w));
+const SP_SHORT = {ja: "já", ha: "há", so: "só", pe: "pé"};
+const SP_VERB = [
+  [["ado","ada","ados","adas","ando","ou","ava","avam","am","aram","ará","arão","aria","e","em","o","a","as","amos","asse","arem"], "ar"],
+  [["ido","ida","idos","idas","endo","eu","ia","iam","em","eram","erá","erão","eria","e","a","am","o","emos","esse","erem"], "er"],
+  [["ido","ida","idos","idas","indo","iu","ia","iam","em","iram","irá","irão","iria","e","a","am","o","imos","isse","irem"], "ir"]
+];
+const SP_PHON = {s: "zcx", z: "s", c: "sqk", x: "sz", g: "j", j: "g", l: "u", u: "lo", e: "i", i: "e", o: "u", m: "n", n: "m", q: "c", k: "c"};
+const SP_DIG = [["x", "ch"], ["ch", "x"], ["ss", "c"], ["c", "ss"], ["sc", "c"], ["c", "sc"], ["li", "lh"], ["lh", "li"], ["ni", "nh"], ["nh", "ni"], ["rr", "r"], ["n", "m"], ["m", "n"]];
+const SP_SUB = {a: "qwsz", b: "vghn", c: "xdfv", d: "serfxc", e: "wrds", f: "drtgcv", g: "ftyhvb", h: "gyujbn", i: "uokj", j: "huiknm", k: "jiolm", l: "kop", m: "njk", n: "bhjm", o: "iplk", p: "ol", q: "wa", r: "etfd", s: "awedzx", t: "rygf", u: "yijh", v: "cfgb", w: "qesa", x: "zsdc", y: "tuhg", z: "asx"};
+const SP_RULES = [[/coes$/, "ções"], [/cao$/, "ção"], [/soes$/, "sões"], [/sao$/, "são"], [/oes$/, "ões"], [/([b-df-hj-np-tv-z])ao$/, "$1ão"], [/aveis$/, "áveis"], [/iveis$/, "íveis"], [/avel$/, "ável"], [/ivel$/, "ível"],
+  [/encia(s?)$/, "ência$1"], [/ancia(s?)$/, "ância$1"], [/ario(s?)$/, "ário$1"], [/orio(s?)$/, "ório$1"], [/icio(s?)$/, "ício$1"]];
+function spKnown(w, deep = 0) {
+  const has = x => SP.known.has(x) || SP.extra.has(x);
+  if (has(w)) return true;
+  const n = w.length, cut = (k, add = "") => w.slice(0, n - k) + add;
+  if (n > 3 && w.endsWith("s")) {
+    if (has(cut(1))) return true;
+    if (w.endsWith("es") && has(cut(2))) return true;
+    if ((w.endsWith("ões") || w.endsWith("ães")) && has(cut(3, "ão"))) return true;
+    if (w.endsWith("ais") && has(cut(3, "al"))) return true;
+    if ((w.endsWith("éis") || w.endsWith("eis")) && (has(cut(3, "el")) || has(cut(3, "il")))) return true;
+    if (w.endsWith("is") && has(cut(2, "il"))) return true;
+    if (w.endsWith("ns") && has(cut(2, "m"))) return true;
+    if (w.endsWith("as") && has(cut(2, "o"))) return true;
+    if (n > 5 && !deep && spKnown(cut(1), 1)) return true; // plural de forma flexionada (aplicadas, corrigidos)
+  }
+  if (n > 3 && w.endsWith("a") && has(cut(1, "o"))) return true;
+  if (n > 3 && w.endsWith("o") && has(cut(1, "a"))) return true;
+  for (const [sufs, inf] of SP_VERB) for (const s of sufs) if (n - s.length >= 3 && w.endsWith(s) && has(cut(s.length, inf))) return true;
+  if (n > 8 && w.endsWith("mente") && !deep && spKnown(cut(5), 1)) return true;
+  if (w.endsWith("ção") && has(cut(3, "r"))) return true;
+  if (w.endsWith("ções") && has(cut(4, "r"))) return true;
+  if (w.endsWith("mento") && has(cut(5, "r"))) return true;
+  if (w.endsWith("mentos") && has(cut(6, "r"))) return true;
+  if ((w.endsWith("dor") || w.endsWith("vel")) && has(cut(3, "r"))) return true;
+  if (w.endsWith("dora") && has(cut(4, "r"))) return true;
+  return false;
+}
+/* falta ou sobra de acento / cedilha: usa as palavras conhecidas e as terminações regulares do português */
+function spAccent(w) {
+  const d = spDea(w), g = k => SP.dea.get(k), n = d.length;
+  let m;
+  if ((m = g(d)) && m !== w) return m;
+  if (n > 3 && d.endsWith("s") && (m = g(d.slice(0, -1))) && spDea(m) !== m) return m + "s";
+  if (n > 3 && d.endsWith("a") && (m = g(d.slice(0, -1) + "o")) && spDea(m) !== m) return m.slice(0, -1) + "a";
+  if (n > 4 && d.endsWith("as") && (m = g(d.slice(0, -2) + "o")) && spDea(m) !== m) return m.slice(0, -1) + "as";
+  if (n > 3 && d.endsWith("o") && (m = g(d.slice(0, -1) + "a")) && spDea(m) !== m) return m.slice(0, -1) + "o";
+  if (n > 3 && d === w) {
+    if (/cao$/.test(d) && spKnown(d.slice(0, -2) + "ão")) return d.slice(0, -2) + "ão";                        // balcão, furacão
+    for (const [re, to] of SP_RULES) if (re.test(d)) { const r = d.replace(re, to); if (spKnown(r) || (n > 6 && /c(ao|oes)$/.test(d))) return r; }
+    if (/[^aeiou]us?$/.test(d)) { const r = d.replace(/u(s?)$/, "o$1"); if (spKnown(r)) return r; }             // oxidadu → oxidado
+    if (/[^aeiou]is?$/.test(d) && n > 4) { const r = d.replace(/i(s?)$/, "e$1"); if (spKnown(r)) return r; }     // paredi → parede
+  }
+  return "";
+}
+/* letra trocada, faltando, sobrando ou invertida em palavra conhecida */
+function spNear(w) {
+  const d = spDea(w), n = d.length; if (n < 5) return "";
+  let best = "", rank = 1e9;
+  const tryC = (c, bonus = 0) => { const t = SP.dea.get(c); if (!t || t === w) return; let p = 0; while (p < c.length && p < n && c[p] === d[p]) p++; if (p >= Math.max(n, c.length) - 1) return; // só a última letra muda: é flexão, não erro
+    const r = (SP.rank.has(t) ? SP.rank.get(t) : 9000) - bonus; if (r < rank) { rank = r; best = t; } };
+  for (let i = 0; i < n - 1; i++) if (d[i] !== d[i + 1]) tryC(d.slice(0, i) + d[i + 1] + d[i] + d.slice(i + 2), 1e5);        // letras invertidas
+  for (let i = 0; i < n; i++) if (d[i] === d[i + 1]) tryC(d.slice(0, i) + d.slice(i + 1), 2e5);                               // letra dobrada a mais
+  for (let i = 1; i <= n; i++) tryC(d.slice(0, i) + d[i - 1] + d.slice(i), 2e5);                                              // faltou dobrar (ss, rr)
+  for (let i = 1; i < n - 1; i++) for (const c of SP_PHON[d[i]] || "") tryC(d.slice(0, i) + c + d.slice(i + 1), 5e4);         // som parecido (s/z, g/j, e/i…)
+  for (const [a, b] of SP_DIG) for (let i = d.indexOf(a); i >= 0; i = d.indexOf(a, i + 1)) tryC(d.slice(0, i) + b + d.slice(i + a.length), 5e4); // x/ch, ss/ç, lh/li…
+  if (n >= 7 && !best) {
+    const A = "abcdefghijklmnopqrstuvwxyz";
+    for (let i = 0; i < n; i++) tryC(d.slice(0, i) + d.slice(i + 1));                                                         // letra sobrando
+    for (let i = 1; i <= n; i++) for (const c of A) tryC(d.slice(0, i) + c + d.slice(i));                                     // letra faltando
+    for (let i = 1; i < n; i++) for (const c of SP_SUB[d[i]] || "") tryC(d.slice(0, i) + c + d.slice(i + 1));                 // tecla vizinha
+  }
+  return best;
+}
+SP.rank = new Map(SP_T.split(" ").map((w, i) => [w, i]));
+const spCase = (orig, sug) => orig === orig.toUpperCase() && orig.length > 1 ? sug.toUpperCase() : orig[0] === orig[0].toUpperCase() ? sug[0].toUpperCase() + sug.slice(1) : sug;
+function spellIssues(text) {
+  text = String(text || ""); const out = [], re = /[A-Za-zÀ-ÖØ-öø-ÿ]+/g; let m, prev = null, first = true;
+  const letters = text.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ]/g, ""), allCaps = letters.length > 3 && letters === letters.toUpperCase();
+  while ((m = re.exec(text))) {
+    const w = m[0], i = m.index, j = i + w.length, lw = w.toLowerCase(), wasFirst = first; first = false;
+    const rep = prev && prev.lw === lw && lw.length > 1 && /^\s+$/.test(text.slice(prev.j, i)); prev = {lw, j};
+    if (rep) { out.push({i: i - (text.slice(prev.j0 || 0, i).length ? 0 : 0), j, w, sug: "", kind: "rep", i0: text.slice(0, i).replace(/\s+$/, "").length}); continue; }
+    if (/\d/.test(text[i - 1] || "") || /\d/.test(text[j] || "")) continue;   // códigos: TR3, 2B, T02
+    if (SP.ign.has(lw) || SP.extra.has(lw)) continue;
+    const caps = w === w.toUpperCase(), sigla = caps && w.length <= 4, proper = !caps && w[0] !== lw[0] && !wasFirst && !allCaps;
+    let sug = "";
+    if (w.length < 3) { if (!caps && SP_SHORT[lw]) sug = SP_SHORT[lw]; }
+    else if (spKnown(lw)) continue;
+    else if (sigla) { const t = SP.dea.get(lw); if (t && t !== lw && allCaps) sug = t; }
+    else sug = spAccent(lw) || (proper ? "" : spNear(lw));
+    if (sug && sug !== lw) out.push({i, j, w, sug: spCase(w, sug), kind: spDea(sug) === spDea(lw) ? "acento" : "grafia"});
+  }
+  return out;
+}
+function spellFix(text, is) { return is.kind === "rep" ? text.slice(0, is.i0) + text.slice(is.j) : text.slice(0, is.i) + is.sug + text.slice(is.j); }
+/* ---- ortografia: aviso enquanto escreve ---- */
+const SPELL_SEL = '[data-f=problema],[data-f=solucao],[data-f=acao],[data-f=desc],[data-f=com],[data-f=nota],[data-f=local],#tx,#mn,input[data-col],input[data-newcol],#n-local,#n-cols,#d-locais';
+let spEl = null, spT = null, spHideT = null;
+const spOn = el => el && el.matches && el.matches(SPELL_SEL) && !el.disabled && !el.readOnly;
+const spHide = () => { const t = $("#spell"); if (t) t.classList.add("hidden"); };
+const spItem = x => x.kind === "rep" ? `<s>${esc(x.w)} ${esc(x.w)}</s> <i>palavra repetida</i>` : `<s>${esc(x.w)}</s> → <b>${esc(x.sug)}</b>`;
+function spTray() {
+  let t = $("#spell");
+  if (!t) {
+    t = document.createElement("div"); t.id = "spell"; t.className = "spell ui hidden"; t.setAttribute("role", "status"); document.body.appendChild(t);
+    t.addEventListener("mousedown", e => e.preventDefault()); // não tira o foco do campo que está sendo escrito
+    t.addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      if (b.dataset.spx !== undefined) { spellIssues(spEl ? spEl.value : "").forEach(x => SP.ign.add(x.w.toLowerCase())); return spHide(); }
+      if (b.dataset.spall !== undefined) return spApply(() => true);
+      const word = b.dataset.w;
+      if (b.dataset.spfix !== undefined) return spApply(x => x.w === word);
+      if (b.dataset.spok !== undefined) { SP.extra.add(word.toLowerCase()); saveDict(); const el = spTarget(); if (el) spCheck(el); else spHide(); renderSpellChip(); }
+    });
+  }
+  return t;
+}
+function spCheck(el) {
+  spEl = el; el._spVal = el.value; clearTimeout(spHideT);
+  const is = spellIssues(el.value), t = spTray();
+  if (!is.length) return spHide();
+  t.innerHTML = `<div class="sp-h"><b>Ortografia</b><span>${is.length === 1 ? "1 possível erro" : is.length + " possíveis erros"}</span><button type="button" data-spx aria-label="Ignorar e fechar" title="Ignorar e fechar">×</button></div>` +
+    is.slice(0, 4).map(x => `<div class="sp-i"><div class="sp-w">${spItem(x)}</div><div class="sp-b"><button type="button" class="btn sm primary" data-spfix data-w="${esc(x.w)}">Corrigir</button>${x.kind === "rep" || !canWrite ? "" : `<button type="button" class="btn sm" data-spok data-w="${esc(x.w)}" title="A palavra está certa: não avisar mais (vale para toda a equipe)">Está certo</button>`}</div></div>`).join("") +
+    (is.length > 1 ? `<div class="sp-all"><button type="button" class="btn sm dark" data-spall>Corrigir tudo (${is.length})</button></div>` : "");
+  t.classList.remove("hidden");
+  if (document.activeElement !== el) spHideT = setTimeout(spHide, 25000);
+}
+/* o campo pode ter sido redesenhado depois de salvar (ex.: nome do local): procura de novo pelo texto */
+function spTarget() {
+  if (spEl && spEl.isConnected && spEl.value === spEl._spVal) return spEl;
+  const v = spEl && spEl._spVal; if (!v) return null;
+  return $$(SPELL_SEL).find(x => !x.disabled && !x.readOnly && x.value.trim() === v.trim()) || null;
+}
+function spApply(pick) {
+  const el = spTarget(); if (!el) { spHide(); return toast("Abra o campo de novo para corrigir."); }
+  let v = el.value; for (const x of spellIssues(v).filter(pick).reverse()) v = spellFix(v, x);
+  if (v === el.value) return spCheck(el);
+  el.value = v; el.dispatchEvent(new Event("input", {bubbles: true}));
+  if (document.activeElement !== el) el.dispatchEvent(new Event("change", {bubbles: true}));
+  el._spVal = v; setTimeout(() => { const n = spTarget(); if (n) spCheck(n); else spHide(); }, 350);
+}
+document.addEventListener("input", e => { const el = e.target; if (!spOn(el)) return; clearTimeout(spT); spT = setTimeout(() => spCheck(el), 600); }, true);
+document.addEventListener("focusin", e => { const el = e.target; if (!spOn(el)) return; el.spellcheck = true; el.lang = "pt-BR"; clearTimeout(spT); spCheck(el); });
+document.addEventListener("change", e => { const el = e.target; if (spOn(el)) { spEl = el; el._spVal = el.value; } }, true); // antes de o campo ser salvo (e talvez redesenhado)
+document.addEventListener("focusout", e => { if (e.target !== spEl) return; clearTimeout(spT); setTimeout(() => { const t = spTarget(); if (t) spCheck(t); else spHide(); }, 300); });
+window.addEventListener("hashchange", spHide);
+const saveDict = () => { if (db && canWrite) db.doc("config/dict").set({words: [...SP.extra].sort(), updatedAt: nowIso(), updatedBy: me}).catch(writeErr); };
+
+/* ---- ortografia: revisão da FV inteira (para o dia da auditoria) ---- */
+function fvSpell(fv) {
+  const out = [], id = cur.id, lk = locked(fv);
+  const add = (onde, text, fix, can) => { const is = spellIssues(text); if (is.length) out.push({onde, text: String(text), is, fix, can}); };
+  add("Local da FV", fv.local, v => patch(`fvs/${id}`, stamp({local: v})), !lk);
+  Object.entries(fv.cols || {}).forEach(([cid, c]) => add(`${fv.localLabel || "Local"} inspecionado`, c && c.name, v => patch(`fvs/${id}`, stamp({cols: {[cid]: {name: v}}})), !lk));
+  cur.obs.forEach(o => { const w = (o.sheet || "fv") === "fv" ? "Problema na ficha" : "Observações F.007";
+    add(w, o.problema, v => patch(`fvs/${id}/obs/${o.id}`, stamp({problema: v})), !lk); add(w + " · solução", o.solucao, v => patch(`fvs/${id}/obs/${o.id}`, stamp({solucao: v})), !lk); });
+  cur.pda.forEach(p => { add("PDA · problema", p.problema, v => patch(`fvs/${id}/pda/${p.id}`, stamp({problema: v})), canWrite); add("PDA · ação", p.acao, v => patch(`fvs/${id}/pda/${p.id}`, stamp({acao: v})), canWrite); });
+  cur.maps.forEach(m => liveShapes(m.shapes).forEach(s => { if (s.txt) add(`Mapeamento “${m.title || ""}”${s.t === "mk" ? " · nota " + s.n : " · texto"}`, s.txt, v => patch(`fvs/${id}/maps/${m.id}`, stamp({shapes: {[s.id]: {txt: v}}})), !lk); }));
+  cur.photos.forEach(p => { add("Foto · anotação", p.nota, v => patch(`fvs/${id}/photos/${p.id}`, stamp({nota: v})), !lk); add("Foto · local", p.local, v => patch(`fvs/${id}/photos/${p.id}`, stamp({local: v})), !lk); });
+  return out;
+}
+function renderSpellChip() {
+  const b = $("#b-spell"); if (!b || !cur) return; const fv = fvs.get(cur.id); if (!fv) return;
+  const n = fvSpell(fv).reduce((a, x) => a + x.is.length, 0);
+  b.classList.toggle("hidden", !n); b.textContent = n ? `⚠ ${n === 1 ? "1 possível erro" : n + " possíveis erros"} de ortografia · revisar` : "";
+}
+async function spellReview() {
+  const id = cur.id; let list = [];
+  const mark = x => { let h = "", p = 0; x.is.forEach(i => { const a = i.kind === "rep" ? i.i0 : i.i; h += esc(x.text.slice(p, a)) + `<mark>${esc(x.text.slice(a, i.j))}</mark>`; p = i.j; }); return h + esc(x.text.slice(p)); };
+  const fixOne = x => { let v = x.text; for (const i of x.is.slice().reverse()) v = spellFix(v, i); x.fix(v); };
+  const draw = bg => {
+    list = cur && cur.id === id && fvs.get(id) ? fvSpell(fvs.get(id)) : [];
+    $("#sr-body", bg).innerHTML = list.length ? list.map((x, k) => `<div class="sr-row" data-k="${k}"><div><div class="sr-on">${esc(x.onde)}</div><div class="sr-tx">${mark(x)}</div><div class="sr-sug">${x.is.map(spItem).join(" · ")}</div></div>${x.can ? `<button class="btn sm primary" type="button" data-srfix>Corrigir</button>` : `<span class="sub">FV fechada</span>`}</div>`).join("")
+      : `<div class="empty"><b>Nenhum erro encontrado</b>Problemas, notas dos mapeamentos, locais e anotações das fotos desta FV estão sem erros de ortografia conhecidos.</div>`;
+    const all = $(".acts .primary", bg); if (all) all.disabled = !list.some(x => x.can);
+  };
+  await modal({title: "Revisão de ortografia", wide: true,
+    body: `<p class="sub" style="margin:0">O sistema confere os problemas, as notas dos mapeamentos, os locais e as anotações das fotos desta FV. São <b>sugestões</b>: confira antes de aceitar. Se a palavra estiver certa (nome, sigla, termo da obra), clique no campo e escolha “Está certo”.</p><div id="sr-body" style="margin-top:4px"></div>`,
+    actions: [{label: "Fechar", value: null}, {label: "Corrigir tudo", cls: "primary", value: () => { const ok = list.filter(x => x.can); ok.forEach(fixOne); if (ok.length) { touchFv(id, "Corrigiu a ortografia da FV"); toast(ok.length === 1 ? "1 texto corrigido." : ok.length + " textos corrigidos."); } return null; }}],
+    onOpen: bg => { draw(bg); $("#sr-body", bg).addEventListener("click", e => { const b = e.target.closest("[data-srfix]"); if (!b) return; const x = list[+b.closest(".sr-row").dataset.k]; if (!x) return; fixOne(x); touchFv(id, "Corrigiu a ortografia da FV"); b.closest(".sr-row").remove(); setTimeout(() => { if (bg.isConnected) draw(bg); }, 500); }); }});
+  setTimeout(renderSpellChip, 500);
+}
+function renderDictPanel() {
+  const pn = $("#dict-panel"); if (!pn) return;
+  const ws = [...SP.extra].sort((a, b) => a.localeCompare(b, "pt-BR"));
+  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Dicionário da obra</h2><div class="sub">Palavras que a equipe marcou como certas na verificação de ortografia (nomes, siglas, termos da obra). Remova as que entraram por engano.</div>
+    <div class="chips" style="margin-top:10px">${ws.length ? ws.map(w => `<span class="chip">${esc(w)}<button type="button" data-dw="${esc(w)}" aria-label="Remover ${esc(w)}" style="border:0;background:none;color:var(--bad);font-weight:800;margin-left:6px;padding:0">×</button></span>`).join("") : `<span class="sub">Nenhuma palavra adicionada ainda.</span>`}</div>
+    <div class="addrow"><input type="text" id="dict-add" placeholder="Adicionar palavra" aria-label="Palavra para o dicionário"><button class="btn" type="button" id="dict-btn">Adicionar</button></div>`;
+  $$("[data-dw]", pn).forEach(b => b.onclick = () => { SP.extra.delete(b.dataset.dw); saveDict(); renderDictPanel(); });
+  $("#dict-btn", pn).onclick = () => { const w = $("#dict-add", pn).value.trim().toLowerCase(); if (!/^[a-zà-öø-ÿ]{2,30}$/.test(w)) return toast("Digite uma palavra só, sem números."); SP.extra.add(w); saveDict(); renderDictPanel(); };
+}
+
+/* ---------- lixeira: o que é excluído fica 30 dias antes de ser apagado de vez ---------- */
+const TRASH_DAYS = 30;
+let lixo = new Map(), lixTab = "itens", lixSwept = false, lixBusy = false;
+const trashed = {fv: new Map(), gape: new Map(), solo: new Map(), planta: new Map()}, LX_COLL = {fv: "fvs", gape: "gape", solo: "solos", planta: "plantas"};
+/* registros da lixeira + itens marcados como excluídos que ficaram sem registro (ex.: falha de conexão no meio da exclusão) */
+function lixAll() {
+  const out = [...lixo.values()], have = new Set(out.filter(e => e.st === "lix").map(e => e.path));
+  for (const k in trashed) trashed[k].forEach((v, id) => {
+    const path = `${LX_COLL[k]}/${id}`; if (have.has(path)) return;
+    const label = k === "fv" ? `${v.code} – ${v.local || v.title}` : k === "gape" ? (v.titulo || "Ficha GAPE") : k === "solo" ? (v.nome || "Trecho") : (v.title || "Planta");
+    out.push({id: "v_" + path.replace("/", "_"), kind: k, path, label, ctx: k === "fv" ? (v.title || "") : "", pai: "", at: v.trashAt, by: v.trashBy || "", exp: new Date(new Date(v.trashAt).getTime() + TRASH_DAYS * 864e5).toISOString(), st: "lix"});
+  });
+  return out;
+}
+function lixNav() {
+  const n = lixAll().filter(e => e.st === "lix" && lxDays(e) > 0).length, nb = $("#nav-lix");
+  if (nb) nb.innerHTML = "Lixeira" + (n ? ` <span class="nv-n">${n}</span>` : "");
+  if (location.hash === "#lixeira") renderLixeira();
+}
+const lixFilt = {q: "", kind: "", by: "", act: ""};
+const LX = {
+  fv: {nome: "FV", gestor: true}, map: {nome: "Mapeamento"}, foto: {nome: "Foto"}, doc: {nome: "Documento"},
+  gape: {nome: "GAPE"}, solo: {nome: "Trecho de solos", tag: "Solos"}, smap: {nome: "Demarcação de solos", tag: "Demarc."},
+  sdoc: {nome: "Documento de solos", tag: "Doc. solos"}, planta: {nome: "Planta"}
+};
+const LX_ACT = {exc: "Excluiu (enviou para a lixeira)", rest: "Restaurou", apag: "Excluiu de vez", exp: `Prazo de ${TRASH_DAYS} dias venceu: apagado automaticamente`};
+const lxMark = (e, data) => String(e.id).startsWith("v_") ? Promise.resolve() : db.doc(`lixeira/${e.id}`).update(data);
+const lxDays = e => Math.ceil((new Date(e.exp) - Date.now()) / 864e5);
+const lxCan = e => canWrite && (!(LX[e.kind] || {}).gestor || isGestor);
+const lxNorm = t => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+const fvCtx = id => { const f = fvs.get(id); return f ? `FV ${f.code} – ${f.local || f.title}` : "FV"; };
+const soloCtxTxt = sid => { const t = solos.get(sid); return "Solos" + (t && t.nome ? " · " + t.nome : ""); };
+async function ensureNames(ids) {
+  const miss = [...new Set(ids)].filter(i => i && !names.has(i));
+  if (!miss.length || !user || !user.profiles) return false;
+  try { const ps = await user.profiles(miss); miss.forEach(i => names.set(i, (ps && ps[i] && ps[i].name) || "Alguém")); } catch { return false; }
+  return true;
+}
+/* exclusão reversível: o registro só ganha a marca "trashAt" e some das telas */
+async function toTrash(kind, path, label, ctx = "", pai = "") {
+  if (!db || !canWrite) { toast("Você não tem permissão para excluir."); throw new Error("sem permissão"); }
+  const at = nowIso();
+  try {
+    await db.doc(path).update({trashAt: at, trashBy: me});
+    await db.doc(`lixeira/${uid("x")}`).set({kind, path, label: String(label || "").slice(0, 200), ctx: String(ctx || "").slice(0, 200), pai, at, by: me, exp: new Date(Date.now() + TRASH_DAYS * 864e5).toISOString(), st: "lix"});
+  } catch (e) { writeErr(e); throw e; }
+}
+/* exclusão definitiva (só a partir da lixeira) */
+const delBlob = id => { if (!id) return; if (assets) assets.delete(id).catch(() => {}); else db.doc(`blobs/${id}`).delete().catch(() => {}); };
+async function delColl(path, each) {
+  const s = await db.collection(path).get();
+  for (const d of s.docs) { if (each) each(d.data() || {}); await db.doc(`${path}/${d.id}`).delete(); }
+}
+async function purgePath(kind, path) {
+  const s = await db.doc(path).get(), d = (s.exists && s.data()) || {};
+  const img = x => delBlob(x.img && x.img.id), file = x => delBlob(x.assetId), pages = x => (x.pages || []).forEach(p => delBlob(p.id));
+  if (kind === "fv") {
+    for (const c of ["pda", "obs"]) await delColl(`${path}/${c}`);
+    await delColl(`${path}/docs`, file); await delColl(`${path}/photos`, file); await delColl(`${path}/maps`, img);
+    await delColl(`${path}/log`); // o histórico só sai junto com a FV, depois dos 30 dias
+  } else if (kind === "gape") {
+    await delColl(`${path}/itens`, x => [x.img, x.fotoResp].forEach(i => delBlob(i && i.id)));
+    (d.scans || []).forEach(sc => delBlob(sc.id));
+  } else if (kind === "solo") {
+    await delColl(`${path}/ensaios`); await delColl(`${path}/maps`, img); await delColl(`${path}/docs`, pages);
+  } else if (kind === "map" || kind === "smap") img(d);
+  else if (kind === "foto" || kind === "doc") file(d);
+  else if (kind === "sdoc") pages(d);
+  else if (kind === "planta") [...((d.tiles && d.tiles.ids) || []), d.ov && d.ov.id].forEach(delBlob);
+  await db.doc(path).delete();
+}
+async function purgeEntry(e, st) {
+  try { await purgePath(e.kind, e.path); } catch (err) { return false; }
+  const end = {st, endAt: nowIso(), endBy: me};
+  try {
+    await lxMark(e, end);
+    for (const c of [...lixo.values()]) if (c.st === "lix" && c.pai === e.path) await db.doc(`lixeira/${c.id}`).update(end);
+  } catch {}
+  return true;
+}
+async function restoreEntry(e) {
+  const k = LX[e.kind] || {nome: "Item"};
+  if (k.gestor && !isGestor) return gestorOnly("Restaurar FV", "restaurar uma FV da lixeira");
+  if (lxDays(e) <= 0) return toast(`O prazo de ${TRASH_DAYS} dias deste item já acabou.`);
+  const pai = e.pai && lixAll().find(x => x.st === "lix" && x.path === e.pai);
+  if (!(await confirmBox("Restaurar item?", `<b>${esc(k.nome)}: ${esc(e.label)}</b> volta para o lugar de onde foi excluído.${pai ? `<br><br><b>Atenção:</b> ${esc((LX[pai.kind] || {}).nome || "o item")} <b>${esc(pai.label)}</b>, onde ele fica, também está na lixeira. O item só volta a aparecer quando ela for restaurada.` : ""}`, "Restaurar"))) return;
+  try {
+    const s = await db.doc(e.path).get();
+    if (!s.exists) { await lxMark(e, {st: "apag", endAt: nowIso(), endBy: me}); return toast("Este item não existe mais no banco de dados."); }
+    await db.doc(e.path).update(stamp({trashAt: "", trashBy: ""}));
+    await lxMark(e, {st: "rest", endAt: nowIso(), endBy: me});
+    const fid = e.kind === "fv" ? e.path.split("/")[1] : (String(e.pai || "").startsWith("fvs/") ? e.pai.split("/")[1] : "");
+    if (fid) logAct(fid, e.kind === "fv" ? "Restaurou a FV da lixeira" : `Restaurou da lixeira: ${k.nome.toLowerCase()} “${e.label}”`);
+    toast(`${k.nome} restaurad${/^(FV|Foto|Planta|Demarcação)/.test(k.nome) ? "a" : "o"}.`);
+  } catch (err) { writeErr(err); }
+}
+/* passou de 30 dias: apaga de vez (FVs só quando um gestor ou o administrador abre o sistema) */
+async function sweepTrash() {
+  if (!db || !canWrite || lixBusy) return;
+  lixBusy = true;
+  try { for (const e of lixAll()) if (e.st === "lix" && lxDays(e) <= 0 && lxCan(e)) await purgeEntry(e, "exp"); }
+  finally { lixBusy = false; }
+}
+function lixEvents() {
+  const evs = [];
+  lixAll().forEach(e => { evs.push({e, at: e.at, by: e.by, act: "exc"}); if (e.st !== "lix" && e.endAt) evs.push({e, at: e.endAt, by: e.st === "exp" ? "" : e.endBy, act: e.st}); });
+  return evs.sort((a, b) => String(b.at).localeCompare(String(a.at)));
+}
+function renderLixeira() {
+  const v = $("#view-lix"); if (!v || v.classList.contains("hidden")) return;
+  if (!v.dataset.built) {
+    v.dataset.built = "1";
+    v.innerHTML = `<div class="page-title"><div><h1>Lixeira</h1><div class="sub" style="max-width:760px">O que é excluído fica aqui por <b>${TRASH_DAYS} dias</b> e depois é apagado de vez. <b>FVs</b> só são restauradas pelo gestor ou pelo administrador; mapeamentos, fotos e os demais itens, por qualquer editor. Linhas de problemas, de PDA e de fichas não passam pela lixeira.</div></div></div>
+      <div class="tabs" role="tablist"><button type="button" role="tab" data-lt="itens">Itens na lixeira <span class="n" id="lx-n">0</span></button><button type="button" role="tab" data-lt="hist">Histórico de ações <span class="n" id="lx-nh">0</span></button></div>
+      <div class="pn-filters">
+        <label class="fld">Buscar<input type="search" id="lx-q" placeholder="Nome, código ou local" autocomplete="off"></label>
+        <label class="fld">Tipo<select id="lx-kind"><option value="">Todos os tipos</option>${Object.entries(LX).map(([k, x]) => `<option value="${k}">${esc(x.nome)}</option>`).join("")}</select></label>
+        <label class="fld"><span id="lx-by-l">Excluído por</span><select id="lx-by"></select></label>
+        <label class="fld" id="lx-act-f">Ação<select id="lx-act"><option value="">Todas as ações</option>${Object.entries(LX_ACT).map(([k, t]) => `<option value="${k}">${esc(t.split(":")[0])}</option>`).join("")}</select></label>
+      </div><div id="lx-list"></div>`;
+    $$("[data-lt]", v).forEach(b => b.onclick = () => { lixTab = b.dataset.lt; lixFilt.by = ""; drawLix(); });
+    $("#lx-q", v).oninput = e => { lixFilt.q = e.target.value; drawLix(); };
+    $("#lx-kind", v).onchange = e => { lixFilt.kind = e.target.value; drawLix(); };
+    $("#lx-by", v).onchange = e => { lixFilt.by = e.target.value; drawLix(); };
+    $("#lx-act", v).onchange = e => { lixFilt.act = e.target.value; drawLix(); };
+    $("#lx-list", v).addEventListener("click", async ev => {
+      const row = ev.target.closest(".lx-item"), e = row && lixAll().find(x => x.id === row.dataset.id); if (!e || lixBusy) return;
+      if (ev.target.closest("[data-lrest]")) { lixBusy = true; try { await restoreEntry(e); } finally { lixBusy = false; } }
+      else if (ev.target.closest("[data-lpurge]")) {
+        if (!isGestor) return gestorOnly("Excluir de vez", "apagar itens da lixeira antes do prazo");
+        if (!(await confirmBox("Excluir de vez?", `<b>${esc((LX[e.kind] || {}).nome || "Item")}: ${esc(e.label)}</b> será apagado agora, sem esperar os ${TRASH_DAYS} dias. <b>Isso não pode ser desfeito.</b>`, "Excluir de vez", true))) return;
+        lixBusy = true;
+        try { toast((await purgeEntry(e, "apag")) ? "Item apagado de vez." : "Não foi possível apagar agora. Tente de novo."); } finally { lixBusy = false; }
+      }
+    });
+  }
+  drawLix();
+}
+function drawLix() {
+  const v = $("#view-lix"); if (!v || !v.dataset.built) return;
+  const f = lixFilt, q = lxNorm(f.q), hist = lixTab === "hist";
+  const itens = lixAll().filter(e => e.st === "lix" && lxDays(e) > 0).sort((a, b) => String(b.at).localeCompare(String(a.at)));
+  const evs = lixEvents();
+  const match = (e, by, act) => (!f.kind || e.kind === f.kind) && (!f.by || by === f.by) && (!hist || !f.act || act === f.act) && (!q || lxNorm(`${e.label} ${e.ctx} ${(LX[e.kind] || {}).nome}`).includes(q));
+  $("#lx-n", v).textContent = itens.length; $("#lx-nh", v).textContent = evs.length;
+  $$("[data-lt]", v).forEach(b => b.classList.toggle("on", b.dataset.lt === lixTab));
+  $("#lx-act-f", v).classList.toggle("hidden", !hist);
+  $("#lx-by-l", v).textContent = hist ? "Quem fez" : "Excluído por";
+  const people = [...new Set((hist ? evs.map(x => x.by) : itens.map(e => e.by)).filter(Boolean))];
+  const sel = $("#lx-by", v);
+  if (document.activeElement !== sel) { sel.innerHTML = `<option value="">Todas as pessoas</option>` + people.map(p => `<option value="${esc(p)}">${esc(names.get(p) || "…")}</option>`).join(""); sel.value = people.includes(f.by) ? f.by : ""; }
+  ensureNames(people).then(ch => { if (ch) drawLix(); });
+  const box = $("#lx-list", v);
+  if (!hist) {
+    const list = itens.filter(e => match(e, e.by, ""));
+    box.innerHTML = list.length ? list.map(e => {
+      const k = LX[e.kind] || {nome: e.kind}, d = lxDays(e), can = lxCan(e);
+      return `<div class="lx-item" data-id="${esc(e.id)}"><span class="lx-badge k-${esc(e.kind)}">${esc(k.tag || k.nome)}</span>
+        <div class="lx-main"><b>${esc(e.label || k.nome)}</b><div class="meta">${e.ctx ? `<span>${esc(e.ctx)}</span>` : ""}<span>Excluído por ${who(e.by)} em ${fmtFull(e.at)}</span></div></div>
+        <div class="lx-exp ${d <= 5 ? "soon" : ""}">${d === 1 ? "Último dia" : d + " dias"}<small>para apagar de vez</small></div>
+        <div class="lx-acts">${canWrite ? `<button class="btn sm dark ${can ? "" : "locked"}" type="button" data-lrest ${can ? "" : `title="Somente o gestor ou o administrador restaura FVs"`}>${can ? "" : "🔒 "}Restaurar</button>` : ""}${isGestor ? `<button class="btn sm ghost danger" type="button" data-lpurge>Excluir de vez</button>` : ""}</div></div>`;
+    }).join("") : `<div class="empty"><b>${itens.length ? "Nada encontrado com esse filtro" : "A lixeira está vazia"}</b>${itens.length ? "Limpe a busca ou escolha outro tipo." : "FVs, mapeamentos, fotos, documentos, fichas GAPE e trechos de solos excluídos aparecem aqui."}</div>`;
+  } else {
+    const list = evs.filter(x => match(x.e, x.by, x.act)), shown = list.slice(0, 300);
+    box.innerHTML = list.length ? `<div class="panel"><div class="log">${shown.map(x => {
+      const k = LX[x.e.kind] || {nome: x.e.kind};
+      return `<div class="e"><div class="when">${fmtFull(x.at)}</div><div><span class="lx-act a-${x.act}">${esc(LX_ACT[x.act] || x.act)}</span>${x.by ? " · " + who(x.by) : ""}<div class="lx-what"><b>${esc(k.nome)}:</b> ${esc(x.e.label || "")}${x.e.ctx ? ` · ${esc(x.e.ctx)}` : ""}</div></div></div>`;
+    }).join("")}</div>${list.length > shown.length ? `<div class="sub" style="margin-top:8px">Mostrando as 300 ações mais recentes de ${list.length}. Use os filtros para ver as mais antigas.</div>` : ""}</div>`
+      : `<div class="empty"><b>${evs.length ? "Nada encontrado com esse filtro" : "Sem ações registradas ainda"}</b>${evs.length ? "Limpe a busca ou escolha outra ação." : "Cada exclusão, restauração e remoção definitiva fica registrada aqui, com data e nome."}</div>`;
+  }
+  fillNames();
+}
+
 /* ---------- rotas e filtros ---------- */
 function route() {
-  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-");
+  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-");
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
   $("#view-team").classList.toggle("hidden", !isTeam);
   $("#nav-team").classList.toggle("on", isTeam);
   if (isTeam) renderTeam();
-  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape || isPainel || isSolos);
+  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix);
+  $("#view-lix").classList.toggle("hidden", !isLix);
+  $("#nav-lix").classList.toggle("on", isLix);
+  if (isLix && db) { renderLixeira(); sweepTrash(); }
   $("#view-solos").classList.toggle("hidden", !isSolos);
   $("#nav-solos").classList.toggle("on", isSolos);
   if (isSolos && db) { if (h.startsWith("solo-")) openSolo(h.slice(5)); else { closeSolo(); solTab = h === "solos-acomp" ? "acomp" : "trechos"; renderSolos(); } } else closeSolo();
@@ -3956,7 +4387,7 @@ function route() {
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   $("#view-tpl").classList.toggle("hidden", !isTpl);
   $("#view-fv").classList.toggle("hidden", !isFv);
-  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape && !isPainel && !isSolos);
+  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape && !isPainel && !isSolos && !isLix);
   $("#nav-tpl").classList.toggle("on", isTpl);
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
@@ -3999,12 +4430,13 @@ async function init() {
   if (isOwner && window.__fb && !window.__fb.accessExists()) banner("team", `Primeiro acesso: abra <a href="#equipe"><b>Equipe</b></a> para importar os modelos e o arquivo de dados iniciais e liberar os e-mails da equipe.`);
   const loadTimer = setTimeout(() => { if (!fvsLoaded) banner("slow", "Os dados estão demorando para carregar. Verifique a conexão; a página continua tentando.", "warn"); }, 10000);
   db.collection("fvs").onSnapshot(s => {
-    const next = new Map(); s.docs.forEach(d => next.set(d.id, d.data()));
+    const next = new Map(); trashed.fv = new Map(); s.docs.forEach(d => { const v = d.data(); (v.trashAt ? trashed.fv : next).set(d.id, v); });
     const prevCur = cur ? fvs.get(cur.id) : null;
     fvs = next;
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
     renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
+    lixNav();
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
@@ -4013,19 +4445,26 @@ async function init() {
     if (location.hash === "#solos" || location.hash === "#solos-acomp") renderSolos(); else if (scur) renderSoloAll();
   }, () => { foldersLoaded = true; });
   db.collection("solos").onSnapshot(s => {
-    solos = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}]));
+    const allS = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.solo = new Map(allS.filter(([, v]) => v.trashAt)); solos = new Map(allS.filter(([, v]) => !v.trashAt));
     const h = location.hash.replace(/^#/, "");
     if (h.startsWith("solo-")) { if (scur) renderSoloAll(); else openSolo(h.slice(5)); }
     else if ((h === "solos" || h === "solos-acomp") && !document.activeElement?.closest?.(".pn-filters")) renderSolos();
+    lixNav();
   }, () => {});
   db.collection("gape").onSnapshot(s => {
-    gapes = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}]));
+    const allG = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.gape = new Map(allG.filter(([, v]) => v.trashAt)); gapes = new Map(allG.filter(([, v]) => !v.trashAt));
     const h = location.hash.replace(/^#/, "");
-    if (h === "gape") renderGapeList(); else if (h.startsWith("gape-") && gcur) renderGape();
+    if (h === "gape") renderGapeList(); else if (h.startsWith("gape-") && gcur) renderGape(); lixNav();
   }, () => {});
-  db.collection("plantas").onSnapshot(s => { plantas = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}])); }, () => {});
+  db.collection("plantas").onSnapshot(s => { const allP = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.planta = new Map(allP.filter(([, v]) => v.trashAt)); plantas = new Map(allP.filter(([, v]) => !v.trashAt)); lixNav(); }, () => {});
+  db.collection("lixeira").onSnapshot(s => {
+    lixo = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}]));
+    lixNav();
+    if (!lixSwept) { lixSwept = true; setTimeout(sweepTrash, 4000); }
+  }, () => {});
   db.doc("library/docs").onSnapshot(s => { docLib = (s.exists && s.data().list) || []; if (cur) renderSub("docs"); }, () => {});
   db.doc("library/mapa").onSnapshot(s => { mapa = (s.exists && s.data()) || null; if (cur) { const f = fvs.get(cur.id); if (f) renderMap(f); } if (location.hash === "#equipe") renderMapPanel(); }, () => {});
+  db.doc("config/dict").onSnapshot(s => { SP.extra = new Set((s.exists && s.data().words) || []); renderSpellChip(); if (location.hash === "#equipe") renderDictPanel(); }, () => {});
   db.collection("templates").onSnapshot(s => { dbTemplates = new Map(); s.docs.forEach(d => dbTemplates.set(d.id, d.data())); mergeTemplates(); }, () => {});
   route();
 }
