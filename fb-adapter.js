@@ -7,7 +7,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
-  doc, collection, query, orderBy, limit, where, getDoc, getDocs, setDoc, updateDoc, deleteDoc, deleteField, onSnapshot, FieldPath, writeBatch
+  doc, collection, query, orderBy, limit, where, getDoc, getDocs, setDoc, updateDoc, deleteDoc, deleteField, onSnapshot, FieldPath, writeBatch, waitForPendingWrites
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const $ = s => document.querySelector(s);
@@ -37,7 +37,11 @@ const mapErr = e => {
   if (c === "not-found") return { code: "not_found", message: e.message };
   return { code: "unavailable", message: (e && e.message) || "" };
 };
-const report = e => { const m = mapErr(e); if (m.code === "not_found") return; console.warn("Firestore:", e); window.__onWriteError && window.__onWriteError(m); };
+const report = (e, path = "") => { const m = mapErr(e); if (m.code === "not_found") return; console.warn("Firestore:", e); window.__onWriteError && window.__onWriteError(m, path); };
+/* alterações gravadas no aparelho que o servidor ainda não confirmou (sem internet ou sinal fraco) */
+let pendingN = 0, carry = true;
+const emitPending = () => window.dispatchEvent(new CustomEvent("fb-pending", { detail: { n: pendingN, carry } }));
+const track = (p, path) => { pendingN++; emitPending(); p.catch(e => report(e, path)).finally(() => { pendingN = Math.max(0, pendingN - 1); emitPending(); }); return Promise.resolve(); };
 
 /* ---------- banco (Firestore) ---------- */
 const isPlain = v => v && typeof v === "object" && !Array.isArray(v) && Object.getPrototypeOf(v) === Object.prototype;
@@ -58,12 +62,12 @@ function wrapDoc(path) {
     id: ref.id, path,
     get: async () => snapDoc(await getDoc(ref)),
     // Escritas não esperam o servidor: funcionam offline e sincronizam quando o sinal voltar.
-    set: data => { setDoc(ref, data).catch(report); return Promise.resolve(); },
+    set: data => track(setDoc(ref, data), path),
     update: data => {
       const pairs = flatten(data); if (!pairs.length) return Promise.resolve();
-      const args = pairs.flat(); updateDoc(ref, ...args).catch(report); return Promise.resolve();
+      return track(updateDoc(ref, ...pairs.flat()), path);
     },
-    delete: () => { deleteDoc(ref).catch(report); return Promise.resolve(); },
+    delete: () => track(deleteDoc(ref), path),
     onSnapshot: (next, err) => onSnapshot(ref, s => next(snapDoc(s)), e => { err && err(mapErr(e)); }),
     collection: sub => wrapQuery(`${path}/${sub}`)
   };
@@ -110,7 +114,7 @@ const assetsApi = {
     else { data = await toDataURL(blob); if (data.length > MAX_B64) throw { code: "too_large" }; }
     const id = "b_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
     blobCache.set(id, data);
-    setDoc(doc(fs, "blobs", id), { data, type: data.startsWith("data:image/jpeg") ? "image/jpeg" : (blob.type || ""), size: blob.size || 0, by: auth.currentUser.uid, at: new Date().toISOString() }).catch(e => { blobCache.delete(id); report(e); });
+    track(setDoc(doc(fs, "blobs", id), { data, type: data.startsWith("data:image/jpeg") ? "image/jpeg" : (blob.type || ""), size: blob.size || 0, by: auth.currentUser.uid, at: new Date().toISOString() }), "blobs/" + id);
     return { id, url: "", sizeBytes: blob.size, contentType: blob.type };
   },
   delete: async id => { blobCache.delete(id); deleteDoc(doc(fs, "blobs", id)).catch(() => {}); },
@@ -239,7 +243,13 @@ window.__fb = {
   revoke: async uid => { await updateDoc(doc(fs, "config/access"), new FieldPath("aprovados", uid), deleteField()); await readAccess(); },
   approvedList: () => Object.entries((accessDoc && accessDoc.aprovados) || {}).map(([uid, email]) => ({ uid, email })),
   exportAll, importAll, blobData,
-  signOut: () => signOut(auth).then(() => location.reload())
+  signOut: async (why = "saida") => {
+    if (window.__beforeSignOut && !(await window.__beforeSignOut(why))) return;
+    signOut(auth).then(() => location.reload());
+  },
+  pending: () => ({ n: pendingN, carry }),
+  canEdit: async () => { try { await readAccess(); } catch {} const r = computeRole(current && current.email); return r === "admin" || r === "editor"; },
+  email: () => (current && current.email) || "",
 };
 
 const googleBtn = `<button class="gbtn" type="button" id="g-login"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Entrar com Google</button>`;
@@ -352,6 +362,8 @@ getRedirectResult(auth).catch(e => { if (!quiet(e)) showLogin("in", authMsg(e));
 let resolved = false;
 async function enter(u) {
   current = u;
+  waitForPendingWrites(fs).then(() => { carry = false; emitPending(); }).catch(() => {});
+  setTimeout(emitPending, 1500);
   try { sessionStorage.removeItem("fvs-idle-out"); } catch {}
   gate(`<p>Entrando como <b>${esc(u.email)}</b>…</p>`);
   const nm = u.displayName || pendingName;

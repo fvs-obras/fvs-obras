@@ -619,7 +619,43 @@ nav.main a.on .nv-n{background:var(--red);color:#fff}
 .lx-what{color:var(--muted);font-size:12.5px;margin-top:2px;overflow-wrap:anywhere}
 .lx-what b{color:var(--ink)}
 @media (max-width:640px){.lx-item{grid-template-columns:auto minmax(0,1fr)}.lx-exp{grid-column:1/-1;text-align:left;display:flex;gap:6px;align-items:baseline}.lx-exp small{display:inline}.lx-acts{grid-column:1/-1;justify-content:flex-start}}
+.net-chip{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:999px;padding:5px 12px;font:700 12px var(--f);cursor:pointer;background:#fff;color:var(--ink);white-space:nowrap}
+.net-chip .dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.net-chip.off{background:#1d1d1b;color:#ffd166}
+.net-chip.slow{background:#fff1d6;color:#7a4700}
+.net-chip.ok{background:#e1f3e7;color:#147a3d}
+.hc-btn{display:inline-flex;align-items:center;gap:6px;border:1.5px solid rgba(255,255,255,.75);background:transparent;color:#fff;border-radius:999px;padding:4px 11px;font:700 12px var(--f);cursor:pointer}
+.hc-btn[aria-pressed=true]{background:#fff;color:#000;border-color:#fff}
+@media (max-width:760px){.hc-btn .hc-t{display:none}.net-chip{order:2}}
+.acc-wide{grid-column:1/-1}
+.acc-f{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.acc-f .fld{min-width:160px}
+.acc-list{max-height:420px;overflow:auto;border:1px solid var(--line);border-radius:var(--r)}
+.acc-t{width:100%;border-collapse:collapse;font-size:12.5px}
+.acc-t th{position:sticky;top:0;background:var(--fill);text-align:left;padding:6px 8px;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+.acc-t td{padding:6px 8px;border-top:1px solid var(--line);vertical-align:top}
+.acc-t .sub{font-size:11px}
+/* modo sol: preto no branco, bordas fortes, sem tons claros que somem no sol */
+body.hc{--ink:#000;--graphite:#000;--muted:#1a1a1a;--line:#000;--bg:#fff;--panel:#fff;--fill:#e0e0e0;--red:#c00000;--red-dk:#8a0000;--red-soft:#ffe3e3;--ok:#005a1f;--bad:#a30000;--warn:#6b3a00;--na:#222;color:#000}
+body.hc::before{display:none}
+body.hc .panel,body.hc .card,body.hc .doc-row,body.hc .lx-item,body.hc .fvbar,body.hc .modal{border:2px solid #000;box-shadow:none}
+body.hc .btn{border-width:2px;border-color:#000;font-weight:800}
+body.hc .btn.primary{background:#c00000;border-color:#000;color:#fff}
+body.hc .btn.ghost{color:#000;text-decoration:underline}
+body.hc .sub,body.hc .meta,body.hc .when,body.hc label.fld{color:#000;font-weight:600}
+body.hc .ui input,body.hc .ui select,body.hc .ui textarea{border:2px solid #000;color:#000;background:#fff}
+body.hc .tabs{border-bottom:3px solid #000}
+body.hc .tabs [data-tab]{color:#000;font-weight:800}
+body.hc .tabs [data-tab].on{background:#000;color:#fff}
+body.hc .chk-tbl td,body.hc .chk-tbl th,body.hc .sheet td,body.hc .sheet th{border-color:#000 !important}
+body.hc .sheet{font-weight:600}
+body.hc .pill,body.hc .chip{border:2px solid #000;color:#000;background:#fff;font-weight:800}
+body.hc .chip.on{background:#000;color:#fff}
+body.hc :focus-visible{outline:3px solid #000 !important;outline-offset:2px}
+body.hc .sp-u{text-decoration-color:#d00000;text-decoration-thickness:2px}
 .idle-bg{z-index:300}
+.idle-lock{position:fixed;inset:0;z-index:400;background:#1d1d1b;color:#fff;display:grid;place-items:center;padding:24px;text-align:center}
+.idle-lock b{font-size:20px}.idle-lock p{max-width:420px;margin:10px auto 0;line-height:1.5}.idle-lock .sub{color:#ffd166}
 .sp-mir{position:absolute;margin:0;pointer-events:none;color:transparent !important;background:transparent !important;overflow:hidden;z-index:3;border-style:solid;border-color:transparent;-webkit-text-fill-color:transparent;box-shadow:none;outline:0}
 .sp-u{text-decoration:underline wavy #e3000f;text-decoration-skip-ink:none;text-underline-offset:3px;text-decoration-thickness:1.4px}
 .sp-menu{position:fixed;z-index:200;min-width:190px;max-width:min(300px,calc(100vw - 16px));background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.22);padding:4px 0;font-size:14px}
@@ -851,7 +887,12 @@ async function remove(path) { try { await db.doc(path).delete(); } catch (e) { w
 function writeErr(e, path = "") {
   const c = e && e.code, fp = /^fvs\/([^/]+)/.exec(path), fvx = fp && fvs.get(fp[1]);
   if (c === "invalid_argument" && fvx && fvx.status === "fechada") { toast("Esta FV está fechada: a alteração não foi salva. Só o gestor pode reabrir a FV para editar."); return; }
-  if (c === "invalid_argument") setReadOnly("Você não tem permissão para editar. Peça ao administrador para liberar seu e-mail como editor em <b>Equipe</b>.");
+  if (c === "invalid_argument") {
+    if (path.startsWith("acessos/")) return;
+    const ro = () => setReadOnly("Você não tem permissão para editar. Peça ao administrador para liberar seu e-mail como editor em <b>Equipe</b>.");
+    if (window.__fb && window.__fb.canEdit) window.__fb.canEdit().then(ok => ok ? toast("O servidor recusou esta alteração (conteúdo grande demais ou ação não permitida para o seu acesso).") : ro(), ro);
+    else ro();
+  }
   else if (c === "quota_exceeded") toast("Limite de armazenamento atingido. Exclua FVs ou fotos antigas.");
   else if (c === "resource_exhausted") toast("Muitas alterações seguidas. Aguarde alguns segundos.");
   else toast("Não foi possível salvar agora. Verifique a conexão e tente de novo.");
@@ -3591,8 +3632,9 @@ async function renderTeam() {
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Somente leitura</h2><div class="sub">Veem tudo e baixam PDFs, mas não editam.</div><div class="team-list">${list(acc.viewers, "viewers")}</div></div>
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Gestores</h2><div class="sub">Só o administrador adiciona ou remove gestores.</div><div class="team-list">${list(acc.gestores, "gestores")}</div></div>
         <div class="panel" id="dict-panel"></div>
+        <div class="panel acc-wide" id="acc-panel"></div>
       </div>`;
-    renderDictPanel();
+    renderDictPanel(); renderAccessPanel();
     v.querySelectorAll("[data-rmv]").forEach(b => b.onclick = async () => {
       const k = b.dataset.rmv, e = b.dataset.e;
       if (!(await confirmBox("Remover acesso?", `<b>${esc(e)}</b> deixa de ${k === "editors" ? "editar" : "ver"} o sistema na hora, inclusive se estiver com ele aberto agora. A remoção fica com o seu nome.`, "Remover", true))) return;
@@ -3621,9 +3663,10 @@ async function renderTeam() {
       <div class="panel" id="dict-panel"></div>
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Saída automática</h2><div class="sub">Depois de quanto tempo sem uso o sistema sai da conta sozinho, em todos os aparelhos (útil no computador do contêiner e em tablet compartilhado). Dois minutos antes aparece um aviso para continuar conectado.</div>
         <label class="fld" style="margin-top:10px;max-width:280px">Sair depois de<select id="idle-sel">${[[15, "15 minutos"], [30, "30 minutos"], [60, "1 hora"], [120, "2 horas"], [0, "Nunca sair sozinho"]].map(([m, t]) => `<option value="${m}" ${m === idleMin ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+      <div class="panel acc-wide" id="acc-panel"></div>
     </div>`;
   $("#idle-sel", v).onchange = async e => { const m = +e.target.value; try { await db.doc("config/access").update({idleMin: m}); idleMin = m; toast(m ? `O sistema vai sair sozinho depois de ${e.target.selectedOptions[0].textContent} sem uso.` : "Saída automática desligada."); } catch { toast("Não foi possível salvar."); } };
-  renderMapPanel(); renderApprovals(); renderDictPanel();
+  renderMapPanel(); renderApprovals(); renderDictPanel(); renderAccessPanel();
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
   v.querySelectorAll("[data-add]").forEach(b => b.onclick = async () => {
     const k = b.dataset.add, inp = $({editors: "#add-ed", viewers: "#add-vi", gestores: "#add-ge"}[k], v), e = inp.value.trim().toLowerCase();
@@ -4256,6 +4299,98 @@ async function exportSoloPdf() {
   finally { root.remove(); btn.disabled = false; btn.textContent = "Baixar PDF"; }
 }
 
+/* ---------- sem internet: o que é preenchido fica no aparelho e sobe sozinho quando o sinal volta ---------- */
+let netPend = {n: 0, carry: false}, netSlowT = null, netWasOff = false, netOkT = null;
+function netChip() {
+  let el = $("#net");
+  if (!el) { el = document.createElement("button"); el.type = "button"; el.id = "net"; el.className = "net-chip hidden"; el.onclick = netInfo; $("header.top .wrap").insertBefore(el, $("#userbox")); }
+  return el;
+}
+function renderNet() {
+  const el = netChip(), off = !navigator.onLine, n = netPend.n, waiting = n > 0 || netPend.carry;
+  clearTimeout(netOkT);
+  if (off) { netWasOff = true; el.className = "net-chip off"; el.innerHTML = `<span class="dot"></span>Sem internet${waiting ? ` · ${n ? n + " para enviar" : "dados para enviar"}` : " · salvando no aparelho"}`; return; }
+  if (waiting && el.dataset.slow === "1") { el.className = "net-chip slow"; el.innerHTML = `<span class="dot"></span>Sinal fraco · enviando ${n ? n + " alteraç" + (n > 1 ? "ões" : "ão") : "dados"}…`; return; }
+  if (!waiting && netWasOff) { netWasOff = false; el.className = "net-chip ok"; el.innerHTML = `<span class="dot"></span>Tudo enviado`; netOkT = setTimeout(() => el.className = "net-chip hidden", 4000); return; }
+  if (!waiting) el.className = "net-chip hidden";
+}
+window.addEventListener("fb-pending", e => {
+  netPend = e.detail || {n: 0, carry: false};
+  const el = netChip();
+  if (netPend.n > 0 || netPend.carry) { if (!netSlowT && el.dataset.slow !== "1") netSlowT = setTimeout(() => { netSlowT = null; el.dataset.slow = "1"; netWasOff = true; renderNet(); }, 5000); }
+  else { clearTimeout(netSlowT); netSlowT = null; el.dataset.slow = ""; }
+  renderNet();
+});
+window.addEventListener("online", () => { renderNet(); toast("Internet de volta. Enviando o que foi preenchido…"); });
+window.addEventListener("offline", () => { renderNet(); toast("Sem internet. Pode continuar preenchendo: tudo fica salvo neste aparelho e é enviado quando o sinal voltar."); });
+function netInfo() {
+  const n = netPend.n;
+  modal({title: navigator.onLine ? "Enviando alterações" : "Sem internet", body: `<p style="margin:0 0 8px">${navigator.onLine ? (n ? `Há <b>${n}</b> alteraç${n > 1 ? "ões" : "ão"} esperando o servidor confirmar. Com sinal fraco isso pode levar alguns minutos.` : "Tudo o que foi preenchido já está no servidor.") : `Pode continuar preenchendo FVs, problemas, PDA e fotos: tudo fica salvo <b>neste aparelho</b> e é enviado sozinho quando o sinal voltar${n ? ` (${n} alteraç${n > 1 ? "ões" : "ão"} na fila)` : ""}.`}</p>
+    <ul class="sub" style="margin:0;padding-left:18px"><li>Não saia da conta nem limpe os dados do navegador antes de tudo ser enviado.</li><li>FVs e fotos que você ainda não tinha aberto neste aparelho podem não aparecer sem internet.</li><li>Ações que dependem do servidor (lixeira, equipe, backup) esperam o sinal voltar.</li></ul>`,
+    actions: [{label: "Entendi", cls: "primary", value: null}]});
+}
+window.__beforeSignOut = async why => {
+  const p = window.__fb && window.__fb.pending ? window.__fb.pending() : {n: 0};
+  if (why === "inatividade") return true;
+  if (p.n > 0 || (p.carry && !navigator.onLine)) {
+    const ok = await confirmBox("Sair com alterações não enviadas?", `Há ${p.n ? `<b>${p.n}</b> alteraç${p.n > 1 ? "ões" : "ão"}` : "alterações"} salva${p.n > 1 ? "s" : ""} só neste aparelho, esperando internet. Se sair agora, ${p.n > 1 ? "elas podem" : "ela pode"} ser perdida${p.n > 1 ? "s" : ""}. O melhor é esperar o aviso <b>Tudo enviado</b>.`, "Sair mesmo assim", true);
+    if (!ok) return false;
+  }
+  await logAccess("saida");
+  return true;
+};
+if ("serviceWorker" in navigator && location.protocol !== "file:") window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+
+/* ---------- modo sol (alto contraste) ---------- */
+const hcOn = () => { try { return localStorage.getItem("fvs-hc") === "1"; } catch { return false; } };
+function setHc(on) {
+  document.body.classList.toggle("hc", on);
+  try { localStorage.setItem("fvs-hc", on ? "1" : "0"); } catch {}
+  const b = $("#hc-btn"); if (b) { b.setAttribute("aria-pressed", on); b.title = on ? "Voltar às cores normais" : "Modo sol: alto contraste para usar na obra"; }
+}
+(function () {
+  const b = document.createElement("button"); b.type = "button"; b.id = "hc-btn"; b.className = "hc-btn"; b.innerHTML = `<span aria-hidden="true">☀</span><span class="hc-t">Modo sol</span>`;
+  b.onclick = () => { setHc(!document.body.classList.contains("hc")); toast(document.body.classList.contains("hc") ? "Modo sol ligado neste aparelho." : "Modo sol desligado."); };
+  $("header.top .wrap").insertBefore(b, $("#userbox"));
+  setHc(hcOn());
+})();
+
+/* ---------- registro de acessos: quem entrou, quando e de qual aparelho ---------- */
+function devInfo() {
+  const ua = navigator.userAgent || "", P = navigator.userAgentData && navigator.userAgentData.platform;
+  const os = /iPhone/.test(ua) ? "iPhone" : /iPad|Macintosh.*Mobile/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1) ? "iPad" : /Android/.test(ua) ? (/Mobile/.test(ua) ? "Celular Android" : "Tablet Android") : /Windows/.test(ua) ? "Windows" : /Mac OS X|Macintosh/.test(ua) ? "Mac" : /CrOS/.test(ua) ? "Chromebook" : /Linux/.test(ua) ? "Linux" : (P || "Aparelho");
+  const br = /Edg\//.test(ua) ? "Edge" : /OPR\//.test(ua) ? "Opera" : /SamsungBrowser/.test(ua) ? "Samsung Internet" : /CriOS|Chrome\//.test(ua) ? "Chrome" : /FxiOS|Firefox\//.test(ua) ? "Firefox" : /Safari\//.test(ua) ? "Safari" : "navegador";
+  let id = ""; try { id = localStorage.getItem("fvs-aparelho") || ""; if (!id) { id = Math.random().toString(36).slice(2, 6).toUpperCase(); localStorage.setItem("fvs-aparelho", id); } } catch {}
+  return {aparelho: `${os} · ${br}`, devId: id, tela: `${screen.width}×${screen.height}`, mobile: /Mobi|Android|iPhone|iPad/.test(ua)};
+}
+async function logAccess(kind) {
+  if (!db || !user) return;
+  try {
+    const em = String((window.__fb && window.__fb.email && window.__fb.email()) || "").toLowerCase();
+    const d = devInfo();
+    await db.doc(`acessos/${uid("ac")}`).set({uid: me, email: em, name: names.get(me) || "", at: nowIso(), kind, aparelho: d.aparelho, devId: d.devId, tela: d.tela, online: navigator.onLine});
+  } catch {}
+}
+const ACC_KIND = {entrada: "Entrou", saida: "Saiu", inatividade: "Saída automática (inatividade)"};
+async function renderAccessPanel() {
+  const pn = $("#acc-panel"); if (!pn) return;
+  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Registro de acessos</h2><div class="sub">Carregando…</div>`;
+  let L = [];
+  try { const s = await db.collection("acessos").orderBy("at", "desc").limit(500).get(); L = s.docs.map(d => d.data()); }
+  catch { pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Registro de acessos</h2><div class="sub">Não foi possível ler o registro. Confira se as regras novas do Firebase foram publicadas.</div>`; return; }
+  const people = [...new Set(L.map(a => a.email).filter(Boolean))].sort();
+  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Registro de acessos</h2>
+    <div class="sub">Cada vez que alguém abre o sistema, sai ou é desconectado por inatividade. O aparelho aparece com um código (ex.: <b>#K3P9</b>) para você reconhecer o mesmo celular ou computador. Mostrando os 500 mais recentes.</div>
+    <div class="acc-f"><label class="fld">Pessoa<select id="acc-p"><option value="">Todas</option>${people.map(p => `<option>${esc(p)}</option>`).join("")}</select></label><label class="fld">Desde<input type="date" id="acc-d"></label></div>
+    <div class="acc-list" id="acc-l"></div>`;
+  const draw = () => {
+    const p = $("#acc-p", pn).value, d = $("#acc-d", pn).value, since = d ? new Date(d + "T00:00:00") : null;
+    const R = L.filter(a => (!p || a.email === p) && (!since || new Date(a.at) >= since));
+    $("#acc-l", pn).innerHTML = R.length ? `<table class="acc-t"><thead><tr><th>Quando</th><th>Quem</th><th>Aparelho</th><th>Evento</th></tr></thead><tbody>${R.map(a => `<tr><td>${fmtFull(a.at)}</td><td><b>${esc(a.name || a.email.split("@")[0])}</b><div class="sub">${esc(a.email)}</div></td><td>${esc(a.aparelho || "—")}${a.devId ? ` <span class="sub">#${esc(a.devId)}</span>` : ""}${a.online === false ? ` <span class="sub">(sem internet)</span>` : ""}</td><td>${esc(ACC_KIND[a.kind] || a.kind)}</td></tr>`).join("")}</tbody></table>` : `<div class="sub" style="padding:10px 0">Nenhum acesso nesse filtro.</div>`;
+  };
+  $("#acc-p", pn).onchange = draw; $("#acc-d", pn).onchange = draw; draw();
+}
+
 /* ---------- saída automática por inatividade (computador do contêiner, tablet compartilhado) ---------- */
 const IDLE_KEY = "fvs-ultima-atividade";
 let idleMin = 30, idleLast = Date.now(), idleSaved = 0, idleWarn = null, idleTick = null, idleOut = false;
@@ -4271,8 +4406,16 @@ async function idleLogout() {
   if (idleOut) return; idleOut = true; idleClose();
   try { document.activeElement && document.activeElement.blur && document.activeElement.blur(); } catch {}   // salva o campo que estava sendo escrito
   await new Promise(r => setTimeout(r, 1500));
+  const pend = () => (window.__fb && window.__fb.pending ? window.__fb.pending().n : 0);
+  if (pend() > 0) {   // sem internet: tela bloqueada até o que foi preenchido subir, para não perder nada
+    const lk = document.createElement("div"); lk.className = "idle-lock ui";
+    lk.innerHTML = `<div><b>Sessão bloqueada por inatividade</b><p>Há alterações salvas só neste aparelho esperando internet. O sistema sai da conta sozinho assim que elas forem enviadas.</p><p class="sub" id="idle-n"></p></div>`;
+    document.body.appendChild(lk);
+    while (pend() > 0) { const e = $("#idle-n"); if (e) e.textContent = `${pend()} alteraç${pend() > 1 ? "ões" : "ão"} na fila · ${navigator.onLine ? "enviando…" : "sem internet"}`; await new Promise(r => setTimeout(r, 2000)); }
+  }
+  await logAccess("inatividade");
   try { sessionStorage.setItem("fvs-idle-out", String(idleMin)); } catch {}
-  if (window.__fb && window.__fb.signOut) window.__fb.signOut();
+  if (window.__fb && window.__fb.signOut) window.__fb.signOut("inatividade");
 }
 function idleCheck() {
   if (!idleMin || !user || idleOut) return;
@@ -4873,7 +5016,8 @@ async function init() {
   window.__onWriteError = writeErr;
   if (isGestor) $("#nav-team").classList.remove("hidden");
   try { const a = window.__fb && await window.__fb.getAccess(); if (a && a.idleMin !== undefined && a.idleMin !== null) idleMin = +a.idleMin || 0; } catch {}
-  idleTouch();
+  idleTouch(); renderNet();
+  try { if (sessionStorage.getItem("fvs-acesso") !== me) { sessionStorage.setItem("fvs-acesso", me); setTimeout(() => logAccess("entrada"), 2500); } } catch {}
   if (isOwner && window.__fb && !window.__fb.accessExists()) banner("team", `Primeiro acesso: abra <a href="#equipe"><b>Equipe</b></a> para importar os modelos e o arquivo de dados iniciais e liberar os e-mails da equipe.`);
   const loadTimer = setTimeout(() => { if (!fvsLoaded) banner("slow", "Os dados estão demorando para carregar. Verifique a conexão; a página continua tentando.", "warn"); }, 10000);
   db.collection("fvs").onSnapshot(s => {
