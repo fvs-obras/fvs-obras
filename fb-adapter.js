@@ -83,30 +83,34 @@ function wrapQuery(path, cons = []) {
 const dbApi = { doc: p => wrapDoc(p), collection: p => wrapQuery(p) };
 
 /* ---------- arquivos e fotos (guardados no Firestore, sem precisar do Storage pago) ---------- */
-const MAX_B64 = 900 * 1024; // documento do Firestore aceita até ~1 MB
+const MAX_B64 = 900 * 1024; // documento do Firestore aceita até ~1 MB (PDFs e plantas)
+const MAX_IMG = 500 * 1024; // fotos: no máximo ~370 KB cada, para caber mais fotos no 1 GB do plano gratuito
+const OK_TYPES = /^(image\/(jpeg|png|webp|gif|bmp)|application\/pdf)$/i;
 const toDataURL = blob => new Promise((ok, bad) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = bad; r.readAsDataURL(blob); });
 async function shrinkImage(blob) {
   let url = await toDataURL(blob);
-  if (url.length <= MAX_B64) return url;
+  if (url.length <= MAX_IMG) return url;
   const bmp = await createImageBitmap(blob);
   for (const [max, q] of [[1600, .75], [1400, .7], [1200, .65], [1000, .6], [800, .55]]) {
     const s = Math.min(1, max / Math.max(bmp.width, bmp.height));
     const c = document.createElement("canvas"); c.width = Math.round(bmp.width * s); c.height = Math.round(bmp.height * s);
     c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
     url = c.toDataURL("image/jpeg", q);
-    if (url.length <= MAX_B64) return url;
+    if (url.length <= MAX_IMG) return url;
   }
   throw { code: "too_large" };
 }
 const blobCache = new Map();
 const assetsApi = {
   upload: async blob => {
+    if (!blob || !OK_TYPES.test(blob.type || "")) throw { code: "bad_type" };     // só fotos e PDF
+    if (blob.size > 40 * 1024 * 1024) throw { code: "too_large" };               // arquivo original acima de 40 MB
     let data;
     if (blob.type && blob.type.startsWith("image/")) data = await shrinkImage(blob);
     else { data = await toDataURL(blob); if (data.length > MAX_B64) throw { code: "too_large" }; }
     const id = "b_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
     blobCache.set(id, data);
-    setDoc(doc(fs, "blobs", id), { data, type: blob.type || "", size: blob.size || 0, by: auth.currentUser.uid, at: new Date().toISOString() }).catch(e => { blobCache.delete(id); report(e); });
+    setDoc(doc(fs, "blobs", id), { data, type: data.startsWith("data:image/jpeg") ? "image/jpeg" : (blob.type || ""), size: blob.size || 0, by: auth.currentUser.uid, at: new Date().toISOString() }).catch(e => { blobCache.delete(id); report(e); });
     return { id, url: "", sizeBytes: blob.size, contentType: blob.type };
   },
   delete: async id => { blobCache.delete(id); deleteDoc(doc(fs, "blobs", id)).catch(() => {}); },
@@ -268,7 +272,8 @@ async function popupLogin(provider, mode) {
 let pendingName = "";
 function showLogin(mode = "in", msg = "", ok = false) {
   const up = mode === "up";
-  gate(`<p>Entre para ver e preencher as fichas de verificação.</p>
+  let idle = ""; try { idle = sessionStorage.getItem("fvs-idle-out") || ""; } catch {}
+  gate(`${idle ? `<p class="auth-msg ok" role="status">Você saiu automaticamente depois de ${esc(idle)} minutos sem usar o sistema. Entre de novo para continuar.</p>` : ""}<p>Entre para ver e preencher as fichas de verificação.</p>
     <div class="auth-btns">${googleBtn}${window.LOGIN_MICROSOFT ? msBtn : ""}</div>
     <div class="auth-or"><span>ou com e-mail e senha</span></div>
     <form id="g-form" class="auth-form" novalidate>
@@ -347,6 +352,7 @@ getRedirectResult(auth).catch(e => { if (!quiet(e)) showLogin("in", authMsg(e));
 let resolved = false;
 async function enter(u) {
   current = u;
+  try { sessionStorage.removeItem("fvs-idle-out"); } catch {}
   gate(`<p>Entrando como <b>${esc(u.email)}</b>…</p>`);
   const nm = u.displayName || pendingName;
   setDoc(doc(fs, "users", u.uid), { ...(nm ? { name: nm } : {}), email: u.email, photo: u.photoURL || "", lastSeen: new Date().toISOString(), pendente: false }, { merge: true }).catch(() => {});
