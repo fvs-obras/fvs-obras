@@ -597,6 +597,14 @@ nav.main a.on .nv-n{background:var(--red);color:#fff}
 .lg-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:2px 0 6px;font-size:13px;color:var(--muted)}
 .log mark{background:#fff2a8;color:inherit;padding:0 1px;border-radius:2px}
 @media (max-width:900px){.lg-filters{grid-template-columns:1fr 1fr}.lg-filters .lg-q{grid-column:1/-1}}
+.doc-badge.PJ{background:#2f5d50;font-size:11px}
+.pj-list{max-height:52vh;overflow:auto;border:1px solid var(--line);border-radius:var(--r)}
+.pj-pick{display:flex;align-items:center;gap:8px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.pj-pick:last-child{border-bottom:0}
+.pj-pick label{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer}
+.pj-pick label input{width:18px;height:18px;flex:none}
+.pj-pick .k{flex:none;min-width:40px;text-align:center;background:#2f5d50;color:#fff;font-weight:800;font-size:11px;border-radius:4px;padding:4px 6px}
+.pj-pick.done{opacity:.65}
 .lx-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px;margin-bottom:8px}
 .lx-badge{display:grid;place-items:center;min-width:74px;height:40px;padding:0 8px;border-radius:6px;font-weight:800;font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--graphite);text-align:center;line-height:1.1}
 .lx-badge.k-fv{background:var(--red)}
@@ -1187,7 +1195,7 @@ $("#btn-new").onclick = () => newFvDialog();
 function openFv(id) {
   if (cur && cur.id === id) return;
   closeFv();
-  cur = {id, tab: "fv", unsubs: [], pda: [], obs: [], photos: [], log: [], docs: [], maps: []};
+  cur = {id, tab: "fv", unsubs: [], pda: [], obs: [], photos: [], log: [], docs: [], maps: [], projs: []};
   buildFvSkeleton();
   const sub = (coll, key, q) => {
     const ref = q(db.collection(`fvs/${id}/${coll}`));
@@ -1197,6 +1205,7 @@ function openFv(id) {
   sub("obs", "obs", r => r.orderBy("createdAt"));
   sub("photos", "photos", r => r.orderBy("createdAt"));
   sub("docs", "docs", r => r.orderBy("createdAt"));
+  sub("projs", "projs", r => r.orderBy("createdAt"));
   sub("maps", "maps", r => r.orderBy("createdAt"));
   sub("log", "log", r => r.orderBy("at", "desc").limit(400));
   renderFvAll();
@@ -1214,17 +1223,18 @@ function buildFvSkeleton() {
       <button data-tab="f007" type="button" role="tab">Observações F.007 <span class="n" id="n-f007">0</span></button>
       <button data-tab="pda" type="button" role="tab">PDA <span class="n" id="n-pda">0</span></button>
       <button data-tab="docs" type="button" role="tab">Documentos IT/ET <span class="n" id="n-docs">0</span></button>
+      <button data-tab="projs" type="button" role="tab">Projetos <span class="n" id="n-projs">0</span></button>
       <button data-tab="photos" type="button" role="tab">Fotos <span class="n" id="n-photos">0</span></button>
       <button data-tab="log" type="button" role="tab">Histórico</button>
     </div>
-    <div id="tab-fv"></div><div id="tab-map" class="hidden"><div class="sheet-wrap"><div class="sheet" id="sheet-map"></div></div></div><div id="tab-maps" class="hidden"></div><div id="tab-f007" class="hidden"></div><div id="tab-pda" class="hidden"></div><div id="tab-docs" class="hidden"></div><div id="tab-photos" class="hidden"></div><div id="tab-log" class="hidden"></div>`;
+    <div id="tab-fv"></div><div id="tab-map" class="hidden"><div class="sheet-wrap"><div class="sheet" id="sheet-map"></div></div></div><div id="tab-maps" class="hidden"></div><div id="tab-f007" class="hidden"></div><div id="tab-pda" class="hidden"></div><div id="tab-docs" class="hidden"></div><div id="tab-projs" class="hidden"></div><div id="tab-photos" class="hidden"></div><div id="tab-log" class="hidden"></div>`;
   $("#view-fv .tabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) setTab(b.dataset.tab); });
   setTab("fv", true);
 }
 function setTab(t, silent) {
   if (!cur) return; cur.tab = t;
   $$("#view-fv .tabs [data-tab]").forEach(b => { b.classList.toggle("on", b.dataset.tab === t); b.setAttribute("aria-selected", b.dataset.tab === t); });
-  ["fv","map","maps","f007","pda","docs","photos","log"].forEach(k => $("#tab-" + k).classList.toggle("hidden", k !== t));
+  ["fv","map","maps","f007","pda","docs","projs","photos","log"].forEach(k => $("#tab-" + k).classList.toggle("hidden", k !== t));
   $$("#tab-" + t + " textarea").forEach(autosize);
   if (!silent) window.scrollTo({top: Math.min(window.scrollY, $("#view-fv .tabs").offsetTop - 70)});
 }
@@ -1234,15 +1244,16 @@ function renderFvAll(force) {
   if (!fv) { if (fvsLoaded) $("#view-fv").innerHTML = `<a class="back" href="#">← Todas as FVs</a><div class="empty"><b>FV não encontrada</b>Ela pode ter sido excluída.</div>`; return; }
   if (!$("#fvbar")) buildFvSkeleton();
   if (force) cur.chkKey = null;
-  renderBar(fv); renderSheet(fv); renderMap(fv); ["pda","obs","docs","photos","log","maps"].forEach(renderSub);
+  renderBar(fv); renderSheet(fv); renderMap(fv); ["pda","obs","docs","projs","photos","log","maps"].forEach(renderSub);
 }
 function renderSub(key) {
-  if (key !== "log" && key !== "docs") setTimeout(renderSpellChip, 0);
+  if (key !== "log" && key !== "docs" && key !== "projs") setTimeout(renderSpellChip, 0);
   if (!cur) return; const fv = fvs.get(cur.id); if (!fv || !$("#fvbar")) return;
   if (key === "pda") { $("#n-pda").textContent = cur.pda.length; renderPda(fv); }
   else if (key === "obs") { $("#n-f007").textContent = cur.obs.filter(o => o.sheet === "f007").length; renderProbRows(fv, "fv"); renderF007(fv); }
   else if (key === "photos") { $("#n-photos").textContent = cur.photos.length; renderPhotos(fv); renderChk(fv); }
   else if (key === "docs") { $("#n-docs").textContent = cur.docs.length; renderDocs(fv); }
+  else if (key === "projs") renderProjs(fv);
   else if (key === "log") renderLog();
   if (key === "photos") { if (photoLinkUI) photoLinkUI.refresh(); renderPda(fv); renderProbRows(fv, "fv"); renderProbRows(fv, "f007"); renderMaps(fv); if (medState && medState.notes) medState.notes(); }
   else if (key === "maps") { renderMaps(fv); if (medState && medState.fid === cur.id && medState.refresh) { const m = cur.maps.find(x => x.id === medState.mid); if (m) medState.refresh(m); } }
@@ -1907,6 +1918,158 @@ function syncRowPhoto(tr, kind, d, lk) {
   b.innerHTML = photoBtnHtml(key || "-");
   b.style.visibility = n || (canWrite && !lk) ? "visible" : "hidden";
   b.title = n ? `${n} foto${n > 1 ? "s" : ""} anexada${n > 1 ? "s" : ""}` : "Anexar foto";
+}
+
+/* ===== Projetos: biblioteca da obra (gestor/administrador carrega) + projetos anexados em cada FV ===== */
+const DISC = [["ARQ", "Arquitetura"], ["EST", "Estrutura"], ["FUN", "Fundação"], ["HID", "Hidrossanitário"], ["ELE", "Elétrico"], ["INC", "Incêndio"], ["IMP", "Implantação"], ["TER", "Terraplenagem"], ["DRE", "Drenagem"], ["PAV", "Pavimentação"], ["PAI", "Paisagismo"], ["OUT", "Outros"]];
+const discName = k => (DISC.find(d => d[0] === k) || [k, "Outros"])[1];
+const DISC_BY_CAT = {INFR: ["TER", "DRE", "PAV", "IMP", "FUN"], ESTR: ["EST", "FUN"], ACAB: ["ARQ", "HID", "ELE", "INC"], LOG: ["IMP"]};
+let projLib = new Map();
+const PROJ_MAX = 25 * 1024 * 1024, CHUNK = 600 * 1024; // pedaços de 600 KB (cada um vira um registro de ~800 KB)
+const fmtMB = n => n >= 1048576 ? (n / 1048576).toLocaleString("pt-BR", {maximumFractionDigits: 1}) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB";
+const projOk = f => /^(application\/pdf|image\/(jpeg|png|webp))$/i.test(f.type || "") || /\.pdf$/i.test(f.name || "");
+/* arquivo inteiro guardado em pedaços: o PDF continua vetorial (zoom sem perder qualidade) */
+async function storeChunks(file, prog) {
+  const buf = new Uint8Array(await file.arrayBuffer()), ids = [], n = Math.ceil(buf.length / CHUNK), type = /\.pdf$/i.test(file.name || "") ? "application/pdf" : (file.type || "application/pdf");
+  for (let i = 0; i < n; i++) {
+    prog(`Enviando ${file.name}… parte ${i + 1} de ${n}`);
+    const part = buf.subarray(i * CHUNK, Math.min(buf.length, (i + 1) * CHUNK));
+    let bin = ""; for (let k = 0; k < part.length; k += 32768) bin += String.fromCharCode.apply(null, part.subarray(k, k + 32768));
+    const id = uid("b_pj");
+    await create(`blobs/${id}`, {data: btoa(bin), type, size: part.length, by: me, at: nowIso()});
+    ids.push(id);
+  }
+  return {chunks: ids, type, size: buf.length, arquivo: file.name};
+}
+async function openProj(p) {
+  const w = window.open("", "_blank");
+  try {
+    if (p.url && !p.chunks) { if (w) w.location.href = p.url; else location.href = p.url; return; }
+    const lib = p.ref && projLib.get(p.ref), src = lib && lib.chunks ? lib : p;
+    if (!src.chunks || !src.chunks.length) throw new Error("sem arquivo");
+    if (w) w.document.write(`<p style="font:16px sans-serif;padding:24px">Abrindo ${esc(p.title || "projeto")}…</p>`);
+    const parts = await Promise.all(src.chunks.map(id => window.__fb.blobData(id)));
+    if (parts.some(x => !x)) throw new Error("pedaço faltando");
+    const blob = new Blob(parts.map(b64 => { const s = atob(b64), a = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }), {type: src.type || "application/pdf"});
+    const u = URL.createObjectURL(blob); if (w) w.location.href = u; else location.href = u;
+  } catch { if (w) w.close(); toast(`Não foi possível abrir ${p.title || "o projeto"}. Ele pode ter sido apagado da biblioteca.`); }
+}
+/* formulário de projeto novo (arquivo ou link) */
+async function projForm({lib, file, link}) {
+  const big = file && file.size > 10 * 1024 * 1024;
+  const r = await modal({title: link ? "Projeto por link" : lib ? "Adicionar à biblioteca de projetos" : "Enviar projeto para esta FV", body: `
+    ${file ? `<p class="sub" style="margin:0 0 6px"><b>${esc(file.name)}</b> · ${fmtMB(file.size)}${big ? ` · ocupa bastante espaço do plano gratuito (1 GB no total)` : ""}</p>` : ""}
+    <div class="grid2"><label class="fld">Código / folha<input type="text" id="pj-code" placeholder="Ex.: ARQ-01, EST-03" maxlength="60"></label>
+      <label class="fld">Revisão<input type="text" id="pj-rev" placeholder="Ex.: R02" maxlength="20"></label>
+      <label class="fld" style="grid-column:1/-1">Nome do projeto<input type="text" id="pj-t" value="${esc(file ? file.name.replace(/\.[^.]+$/, "").replace(/[_]+/g, " ") : "")}" maxlength="200"></label>
+      <label class="fld" style="grid-column:1/-1">Disciplina<select id="pj-d">${DISC.map(([k, t]) => `<option value="${k}">${t}</option>`).join("")}</select></label>
+      ${link ? `<label class="fld" style="grid-column:1/-1">Link (Drive, SharePoint etc.)<input type="text" id="pj-u" placeholder="https://"></label>` : ""}
+      ${!lib && isGestor ? `<label style="grid-column:1/-1;display:flex;gap:8px;align-items:center;font-size:13px"><input type="checkbox" id="pj-lib" checked style="width:18px;height:18px"> Guardar também na biblioteca de projetos (fica disponível para todas as FVs)</label>` : ""}</div>`,
+    actions: [{label: "Cancelar", value: null}, {label: link ? "Salvar" : "Enviar", cls: "primary",
+      validate: bg => { if (!$("#pj-t", bg).value.trim()) { toast("Digite o nome do projeto."); return false; } if (link && !/^https?:\/\//i.test($("#pj-u", bg).value.trim())) { toast("O link precisa começar com https://"); return false; } return true; },
+      value: bg => ({code: $("#pj-code", bg).value.trim(), rev: $("#pj-rev", bg).value.trim(), title: $("#pj-t", bg).value.trim(), disc: $("#pj-d", bg).value, url: link ? $("#pj-u", bg).value.trim() : "", toLib: lib || !!($("#pj-lib", bg) && $("#pj-lib", bg).checked)})}],
+    onOpen: bg => { const fv = cur && fvs.get(cur.id), d = fv && DISC_BY_CAT[fv.cat]; if (d) $("#pj-d", bg).value = d[0]; }});
+  return r;
+}
+/* envia arquivo (ou link) e devolve o registro; vai para a biblioteca e/ou para a FV */
+async function addProj({lib, link}) {
+  if (!canWrite) return;
+  let file = null;
+  if (!link) {
+    file = await new Promise(ok => { const i = document.createElement("input"); i.type = "file"; i.accept = "application/pdf,.pdf,image/jpeg,image/png"; i.onchange = () => ok(i.files[0] || null); i.click(); });
+    if (!file) return;
+    if (!projOk(file)) return toast(`${file.name}: formato não aceito. Envie o projeto em PDF (ou imagem JPG/PNG).`);
+    if (file.size > PROJ_MAX) return toast(`${file.name} tem ${fmtMB(file.size)}. O limite é 25 MB: separe as pranchas em arquivos menores ou use um link do Drive.`);
+  }
+  const f = await projForm({lib, file, link}); if (!f) return;
+  const fid = cur && cur.id, at = nowIso();
+  const st = document.createElement("div"); st.className = "toast"; st.setAttribute("role", "status"); document.body.appendChild(st);
+  try {
+    const stored = file ? await storeChunks(file, m => st.textContent = m) : {url: f.url, type: "", size: 0, arquivo: ""};
+    const rec = {code: f.code, rev: f.rev, title: f.title, disc: f.disc, ...stored};
+    let ref = "";
+    if (f.toLib && isGestor) { ref = uid("pj"); await create(`projetos/${ref}`, {...rec, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); projLib.set(ref, {id: ref, ...rec}); }
+    if (!lib && fid) {
+      await create(`fvs/${fid}/projs/${uid("pp")}`, {...rec, ref, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+      touchFv(fid, `Anexou o projeto ${f.code ? f.code + " – " : ""}${f.title}`);
+    }
+    st.remove(); toast(lib ? "Projeto adicionado à biblioteca." : "Projeto anexado.");
+    return ref;
+  } catch { st.remove(); toast("O envio não terminou. Verifique a internet e tente de novo."); }
+}
+async function attachProjs(ids) {
+  if (!cur || !canWrite || !ids.length) return;
+  const id = cur.id, have = new Set(cur.projs.map(p => p.ref).filter(Boolean)); let n = 0;
+  for (const pid of ids) {
+    const p = projLib.get(pid); if (!p || have.has(pid)) continue;
+    const at = nowIso();
+    try { await create(`fvs/${id}/projs/${uid("pp")}`, {ref: pid, code: p.code || "", rev: p.rev || "", title: p.title, disc: p.disc || "OUT", url: p.url || "", chunks: p.chunks || null, type: p.type || "", size: p.size || 0, arquivo: p.arquivo || "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); n++; logAct(id, `Anexou o projeto ${p.code ? p.code + " – " : ""}${p.title}`); } catch { break; }
+  }
+  if (n) { patch(`fvs/${id}`, stamp({})); toast(`${n} projeto${n > 1 ? "s anexados" : " anexado"}.`); }
+}
+async function projPicker() {
+  const fv = fvs.get(cur.id), sug = DISC_BY_CAT[fv.cat] || [], have = new Set(cur.projs.map(p => p.ref).filter(Boolean)), picked = new Set();
+  let disc = "", q = "";
+  const listHtml = () => {
+    const nq = norm(q).trim();
+    const L = [...projLib.values()].filter(p => (!disc || p.disc === disc) && (!nq || norm(`${p.code} ${p.title} ${discName(p.disc)} ${p.rev}`).includes(nq)))
+      .sort((a, b) => (sug.indexOf(a.disc) < 0 ? 99 : sug.indexOf(a.disc)) - (sug.indexOf(b.disc) < 0 ? 99 : sug.indexOf(b.disc)) || String(a.code || a.title).localeCompare(String(b.code || b.title), "pt-BR", {numeric: true}));
+    return L.length ? L.map(p => `<div class="pj-pick ${have.has(p.id) ? "done" : ""}"><label><input type="checkbox" value="${esc(p.id)}" ${have.has(p.id) ? "checked disabled" : ""}><span class="k">${esc(p.disc || "OUT")}</span><span><b>${esc(p.code ? p.code + " · " : "")}${esc(p.title)}</b>${p.rev ? ` <span class="sub">(${esc(p.rev)})</span>` : ""}<span class="sub" style="display:block;font-size:11.5px">${esc(discName(p.disc))}${p.size ? " · " + fmtMB(p.size) : p.url ? " · link" : ""}${have.has(p.id) ? " · já anexado" : ""}</span></span></label>${isGestor ? `<button class="btn sm ghost danger" type="button" data-pjdel="${esc(p.id)}">Excluir</button>` : ""}</div>`).join("")
+      : `<div class="empty" style="margin:8px 0"><b>${projLib.size ? "Nada encontrado" : "A biblioteca de projetos está vazia"}</b>${projLib.size ? "Mude a busca ou a disciplina." : isGestor ? "Use <b>+ Adicionar à biblioteca</b> para carregar os projetos da obra." : "Peça ao gestor para carregar os projetos da obra, ou use <b>+ Enviar PDF</b> para anexar um projeto só nesta FV."}</div>`;
+  };
+  const r = await modal({title: "Anexar projeto da biblioteca", wide: true, body: `
+    <div class="toolbar" style="margin:0"><input class="grow" type="search" id="pj-q" placeholder="Buscar por código, nome ou revisão">${isGestor ? `<button class="btn" type="button" id="pj-addlib">+ Adicionar à biblioteca</button><button class="btn" type="button" id="pj-addlink">+ Link na biblioteca</button>` : ""}</div>
+    <div class="chips" id="pj-ds" style="margin-top:8px"><button class="chip on" type="button" data-d="">Todas</button>${DISC.filter(([k]) => [...projLib.values()].some(p => p.disc === k)).map(([k, t]) => `<button class="chip" type="button" data-d="${k}">${t}</button>`).join("")}</div>
+    <div class="pj-list" id="pj-list" style="margin-top:8px"></div><div class="sub" id="pj-n">Nenhum selecionado</div>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Anexar selecionados", cls: "primary", value: () => [...picked]}],
+    onOpen: bg => {
+      const L = $("#pj-list", bg), upd = () => { L.innerHTML = listHtml(); $$("input", L).forEach(i => { if (picked.has(i.value)) i.checked = true; }); };
+      upd();
+      $("#pj-q", bg).addEventListener("input", e => { q = e.target.value; upd(); });
+      $("#pj-ds", bg).addEventListener("click", e => { const b = e.target.closest("[data-d]"); if (!b) return; disc = b.dataset.d; $$("#pj-ds .chip", bg).forEach(c => c.classList.toggle("on", c === b)); upd(); });
+      L.addEventListener("change", e => { const i = e.target; if (i.disabled) return; i.checked ? picked.add(i.value) : picked.delete(i.value); $("#pj-n", bg).textContent = picked.size ? `${picked.size} selecionado(s)` : "Nenhum selecionado"; });
+      L.addEventListener("click", async e => {
+        const b = e.target.closest("[data-pjdel]"); if (!b) return;
+        const p = projLib.get(b.dataset.pjdel); if (!p) return;
+        if (!(await confirmBox("Excluir da biblioteca?", `<b>${esc((p.code ? p.code + " · " : "") + p.title)}</b> sai da biblioteca e vai para a <b>Lixeira</b> (${TRASH_DAYS} dias para restaurar). As FVs que já anexaram continuam abrindo enquanto ele estiver na lixeira; depois de apagado de vez, deixam de abrir.`, "Excluir", true))) return;
+        try { await toTrash("projeto", `projetos/${p.id}`, (p.code ? p.code + " · " : "") + p.title, "Biblioteca de projetos · " + discName(p.disc)); projLib.delete(p.id); picked.delete(p.id); upd(); toast("Projeto enviado para a lixeira."); } catch {}
+      });
+      const al = $("#pj-addlib", bg); if (al) al.onclick = async () => { await addProj({lib: true}); upd(); };
+      const ak = $("#pj-addlink", bg); if (ak) ak.onclick = async () => { await addProj({lib: true, link: true}); upd(); };
+    }});
+  if (r && r.length) attachProjs(r);
+}
+function renderProjs(fv) {
+  const box = $("#tab-projs"); if (!box || !cur) return;
+  const lk = !canWrite;
+  $("#n-projs").textContent = cur.projs.length;
+  if (!box.dataset.built) {
+    box.dataset.built = "1";
+    box.innerHTML = `<div class="section-head"><div><h2>Projetos</h2><div class="sub">Plantas e projetos usados para conferir esta FV. Toque em <b>Abrir</b> para ver o PDF com zoom.</div></div>
+        <div class="title-actions"><button class="btn primary" id="pj-pick" type="button">+ Anexar da biblioteca</button><button class="btn" id="pj-up" type="button">+ Enviar PDF</button><button class="btn" id="pj-link" type="button">+ Link</button></div></div>
+      <div class="doc-list" id="pj-rows"></div><div id="pj-empty"></div>`;
+    $("#pj-pick", box).onclick = projPicker;
+    $("#pj-up", box).onclick = () => addProj({});
+    $("#pj-link", box).onclick = () => addProj({link: true});
+    $("#pj-rows", box).addEventListener("click", async e => {
+      const row = e.target.closest("[data-id]"), p = row && cur.projs.find(x => x.id === row.dataset.id); if (!p) return;
+      if (e.target.closest("[data-pjopen]")) return openProj(p);
+      if (e.target.closest("[data-pjrm]")) {
+        if (!(await confirmBox("Remover projeto?", `<b>${esc((p.code ? p.code + " · " : "") + p.title)}</b> deixa de ficar anexado a esta FV e vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.${p.ref ? " A biblioteca de projetos não muda." : ""}`, "Remover", true))) return;
+        try { await toTrash("proj", `fvs/${cur.id}/projs/${p.id}`, (p.code ? p.code + " · " : "") + p.title, fvCtx(cur.id), `fvs/${cur.id}`); touchFv(cur.id, `Removeu o projeto ${p.code || p.title}`); toast("Projeto enviado para a lixeira."); } catch {}
+      }
+    });
+  }
+  ["#pj-pick", "#pj-up", "#pj-link"].forEach(s => $(s, box).disabled = lk);
+  const n = [...projLib.values()].length;
+  $("#pj-empty", box).innerHTML = cur.projs.length ? "" : `<div class="empty"><b>Nenhum projeto anexado</b>Use <b>+ Anexar da biblioteca</b> para escolher entre os ${n} projeto${n === 1 ? "" : "s"} da obra, ou <b>+ Enviar PDF</b> para anexar um arquivo só nesta FV.</div>`;
+  $("#pj-rows", box).innerHTML = cur.projs.map(p => {
+    const gone = p.ref && !projLib.has(p.ref) && !p.chunks && !p.url;
+    return `<div class="doc-row" data-id="${esc(p.id)}"><span class="doc-badge PJ">${esc(p.disc || "OUT")}</span>
+      <div><b>${esc(p.code ? p.code + " · " : "")}${esc(p.title)}</b><div class="meta"><span>${esc(discName(p.disc))}</span>${p.rev ? `<span>Revisão ${esc(p.rev)}</span>` : ""}${p.size ? `<span>${fmtMB(p.size)}</span>` : p.url ? "<span>Link</span>" : ""}<span>${p.ref ? "Da biblioteca" : "Enviado nesta FV"} · ${who(p.createdBy)} · ${fmtWhen(p.createdAt)}</span>${gone ? `<span style="color:var(--bad)">Apagado da biblioteca</span>` : ""}</div></div>
+      <div class="doc-acts"><button class="btn sm dark" type="button" data-pjopen>Abrir</button>${lk ? "" : `<button class="btn sm ghost danger" type="button" data-pjrm>Remover</button>`}</div></div>`;
+  }).join("");
+  fillNames();
 }
 
 /* ===== Histórico ===== */
@@ -4473,13 +4636,13 @@ function renderDictPanel() {
 /* ---------- lixeira: o que é excluído fica 30 dias antes de ser apagado de vez ---------- */
 const TRASH_DAYS = 30;
 let lixo = new Map(), lixTab = "itens", lixSwept = false, lixBusy = false;
-const trashed = {fv: new Map(), gape: new Map(), solo: new Map(), planta: new Map()}, LX_COLL = {fv: "fvs", gape: "gape", solo: "solos", planta: "plantas"};
+const trashed = {fv: new Map(), gape: new Map(), solo: new Map(), planta: new Map(), projeto: new Map()}, LX_COLL = {fv: "fvs", gape: "gape", solo: "solos", planta: "plantas", projeto: "projetos"};
 /* registros da lixeira + itens marcados como excluídos que ficaram sem registro (ex.: falha de conexão no meio da exclusão) */
 function lixAll() {
   const out = [...lixo.values()], have = new Set(out.filter(e => e.st === "lix").map(e => e.path));
   for (const k in trashed) trashed[k].forEach((v, id) => {
     const path = `${LX_COLL[k]}/${id}`; if (have.has(path)) return;
-    const label = k === "fv" ? `${v.code} – ${v.local || v.title}` : k === "gape" ? (v.titulo || "Ficha GAPE") : k === "solo" ? (v.nome || "Trecho") : (v.title || "Planta");
+    const label = k === "fv" ? `${v.code} – ${v.local || v.title}` : k === "gape" ? (v.titulo || "Ficha GAPE") : k === "solo" ? (v.nome || "Trecho") : k === "projeto" ? ((v.code ? v.code + " · " : "") + (v.title || "Projeto")) : (v.title || "Planta");
     out.push({id: "v_" + path.replace("/", "_"), kind: k, path, label, ctx: k === "fv" ? (v.title || "") : "", pai: "", at: v.trashAt, by: v.trashBy || "", exp: new Date(new Date(v.trashAt).getTime() + TRASH_DAYS * 864e5).toISOString(), st: "lix"});
   });
   return out;
@@ -4493,7 +4656,7 @@ const lixFilt = {q: "", kind: "", by: "", act: ""};
 const LX = {
   fv: {nome: "FV", gestor: true}, map: {nome: "Mapeamento"}, foto: {nome: "Foto"}, doc: {nome: "Documento"},
   gape: {nome: "GAPE"}, solo: {nome: "Trecho de solos", tag: "Solos"}, smap: {nome: "Demarcação de solos", tag: "Demarc."},
-  sdoc: {nome: "Documento de solos", tag: "Doc. solos"}, planta: {nome: "Planta"}
+  sdoc: {nome: "Documento de solos", tag: "Doc. solos"}, planta: {nome: "Planta"}, proj: {nome: "Projeto"}, projeto: {nome: "Projeto da biblioteca", tag: "Bibl. proj.", gestor: true}
 };
 const LX_ACT = {exc: "Excluiu (enviou para a lixeira)", rest: "Restaurou", apag: "Excluiu de vez", exp: `Prazo de ${TRASH_DAYS} dias venceu: apagado automaticamente`};
 const lxMark = (e, data) => String(e.id).startsWith("v_") ? Promise.resolve() : db.doc(`lixeira/${e.id}`).update(data);
@@ -4529,6 +4692,7 @@ async function purgePath(kind, path) {
   if (kind === "fv") {
     for (const c of ["pda", "obs"]) await delColl(`${path}/${c}`);
     await delColl(`${path}/docs`, file); await delColl(`${path}/photos`, file); await delColl(`${path}/maps`, img);
+    await delColl(`${path}/projs`, x => { if (!x.ref) (x.chunks || []).forEach(delBlob); });
     await delColl(`${path}/log`); // o histórico só sai junto com a FV, depois dos 30 dias
   } else if (kind === "gape") {
     await delColl(`${path}/itens`, x => [x.img, x.fotoResp].forEach(i => delBlob(i && i.id)));
@@ -4538,6 +4702,7 @@ async function purgePath(kind, path) {
   } else if (kind === "map" || kind === "smap") img(d);
   else if (kind === "foto" || kind === "doc") file(d);
   else if (kind === "sdoc") pages(d);
+  else if (kind === "projeto" || (kind === "proj" && !d.ref)) (d.chunks || []).forEach(delBlob);   // projeto anexado da biblioteca usa o arquivo da biblioteca
   else if (kind === "planta") [...((d.tiles && d.tiles.ids) || []), d.ov && d.ov.id].forEach(delBlob);
   await db.doc(path).delete();
 }
@@ -4557,7 +4722,7 @@ async function restoreEntry(e) {
   const pai = e.pai && lixAll().find(x => x.st === "lix" && x.path === e.pai);
   if (!(await confirmBox("Restaurar item?", `<b>${esc(k.nome)}: ${esc(e.label)}</b> volta para o lugar de onde foi excluído.${pai ? `<br><br><b>Atenção:</b> ${esc((LX[pai.kind] || {}).nome || "o item")} <b>${esc(pai.label)}</b>, onde ele fica, também está na lixeira. O item só volta a aparecer quando ela for restaurada.` : ""}`, "Restaurar"))) return;
   const fp = String(e.pai || "").startsWith("fvs/") ? fvs.get(e.pai.split("/")[1]) : null;
-  if (fp && fp.status === "fechada") return modal({title: "FV fechada", body: `<p style="margin:0">A FV <b>${esc(fp.code)} – ${esc(fp.local || fp.title)}</b> está fechada. Para restaurar ${esc(k.nome.toLowerCase())} nela, o gestor precisa reabrir a FV primeiro.</p>`, actions: [{label: "Entendi", cls: "primary", value: null}]});
+  if (fp && fp.status === "fechada" && !["doc", "proj"].includes(e.kind)) return modal({title: "FV fechada", body: `<p style="margin:0">A FV <b>${esc(fp.code)} – ${esc(fp.local || fp.title)}</b> está fechada. Para restaurar ${esc(k.nome.toLowerCase())} nela, o gestor precisa reabrir a FV primeiro.</p>`, actions: [{label: "Entendi", cls: "primary", value: null}]});
   try {
     const s = await db.doc(e.path).get();
     if (!s.exists) { await lxMark(e, {st: "apag", endAt: nowIso(), endBy: me}); return toast("Este item não existe mais no banco de dados."); }
@@ -4744,6 +4909,7 @@ async function init() {
     lixNav();
     if (!lixSwept) { lixSwept = true; setTimeout(sweepTrash, 4000); }
   }, () => {});
+  db.collection("projetos").onSnapshot(s => { const all = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.projeto = new Map(all.filter(([, v]) => v.trashAt)); projLib = new Map(all.filter(([, v]) => !v.trashAt)); if (cur) renderSub("projs"); lixNav(); }, () => {});
   db.doc("library/docs").onSnapshot(s => { docLib = (s.exists && s.data().list) || []; if (cur) renderSub("docs"); }, () => {});
   db.doc("library/mapa").onSnapshot(s => { mapa = (s.exists && s.data()) || null; if (cur) { const f = fvs.get(cur.id); if (f) renderMap(f); } if (location.hash === "#equipe") renderMapPanel(); }, () => {});
   db.doc("config/dict").onSnapshot(s => { SP.extra = new Set((s.exists && s.data().words) || []); renderSpellChip(); spSoon(); if (location.hash === "#equipe") renderDictPanel(); }, () => {});
