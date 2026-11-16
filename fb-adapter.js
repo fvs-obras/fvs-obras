@@ -67,6 +67,8 @@ function wrapDoc(path) {
       const pairs = flatten(data); if (!pairs.length) return Promise.resolve();
       return track(updateDoc(ref, ...pairs.flat()), path);
     },
+    // cria o documento se ainda não existir e junta os campos (mapas aninhados são mesclados)
+    merge: data => track(setDoc(ref, data, { merge: true }), path),
     delete: () => track(deleteDoc(ref), path),
     onSnapshot: (next, err) => onSnapshot(ref, s => next(snapDoc(s)), e => { err && err(mapErr(e)); }),
     collection: sub => wrapQuery(`${path}/${sub}`)
@@ -167,13 +169,19 @@ async function exportAll({ files = true, onProgress = () => {} } = {}) {
     put(`solos/${t.id}`, t.data());
     for (const sub of ["ensaios", "maps", "docs"]) (await getDocs(collection(fs, "solos", t.id, sub))).forEach(d => put(`solos/${t.id}/${sub}/${d.id}`, d.data()));
   }
+  const qSnap = await getDocs(collection(fs, "planic")); i = 0;
+  for (const q of qSnap.docs) {
+    onProgress(`Lendo planilhas de planicidade… ${++i}/${qSnap.size}`);
+    put(`planic/${q.id}`, q.data());
+    for (const sub of ["lin", "log"]) (await getDocs(collection(fs, "planic", q.id, sub))).forEach(d => put(`planic/${q.id}/${sub}/${d.id}`, d.data()));
+  }
   if (files) { onProgress("Lendo fotos e arquivos…"); (await getDocs(collection(fs, "blobs"))).forEach(d => put(`blobs/${d.id}`, d.data())); }
   return out;
 }
 async function importAll(json, onProgress = () => {}) {
   const all = Object.entries(json.docs || {}).filter(([p]) => p.split("/").length % 2 === 0);
   // Histórico das FVs e registros da lixeira são só de acréscimo: o que já existe no banco fica como está.
-  const isAppend = p => /^fvs\/[^/]+\/log\//.test(p) || p.startsWith("lixeira/");
+  const isAppend = p => /^(fvs|planic)\/[^/]+\/log\//.test(p) || p.startsWith("lixeira/");
   const entries = all.filter(([p]) => !isAppend(p)), extra = all.filter(([p]) => isAppend(p));
   let batch = writeBatch(fs), n = 0, bytes = 0, done = 0;
   const flush = async () => { if (!n) return; await batch.commit(); done += n; onProgress(`Importando… ${done}/${all.length}`); batch = writeBatch(fs); n = 0; bytes = 0; };
@@ -371,7 +379,7 @@ async function enter(u) {
   try { await readAccess(); } catch { accessDoc = null; }
   role = computeRole(u.email);
   if (role === "none") {
-    gate(`<p>O e-mail <b>${esc(u.email)}</b> ainda não tem acesso ao sistema.</p><p>Peça ao administrador para liberar seu e-mail na tela <b>Equipe</b>.</p><button class="gbtn" type="button" id="g-other">Entrar com outra conta</button>`);
+    gate(`<p>O e-mail <b>${esc(u.email)}</b> ainda não tem acesso ao sistema.</p><p>Peça ao administrador para liberar seu e-mail na tela <b>Gestão</b>.</p><button class="gbtn" type="button" id="g-other">Entrar com outra conta</button>`);
     $("#g-other").onclick = () => window.__fb.signOut();
     return;
   }

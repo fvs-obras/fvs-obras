@@ -109,6 +109,12 @@ label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-we
 .lastedit{font-size:12px;color:var(--muted)}
 .who{font-weight:700;color:var(--ink)}
 .tabs{display:flex;gap:4px;margin:0 0 12px;overflow-x:auto;border-bottom:2px solid #e2e2e2}
+.fbar{display:flex;align-items:flex-end;gap:14px;margin:4px 0 14px;border-bottom:2px solid #e2e2e2}
+.fbar .tabs{margin:0;border-bottom:0;flex:1}
+.fbar .tabs a{display:inline-block;padding:10px 14px;font-weight:700;font-size:13px;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em;text-decoration:none}
+.fbar .tabs a.on{color:var(--red);border-bottom-color:var(--red)}
+.fbar-n{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--graphite,#1d1d1b);color:#fff;border-radius:4px;padding:4px 9px;margin-bottom:9px;white-space:nowrap}
+@media (max-width:640px){.fbar{gap:8px}.fbar-n{display:none}}
 .tabs button{border:0;background:none;padding:10px 14px;font-weight:700;font-size:13px;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em}
 .tabs button.on{color:var(--red);border-bottom-color:var(--red)}
 .tabs .n{font-size:11px;background:#ececec;border-radius:4px;padding:1px 6px;margin-left:4px;color:var(--graphite)}
@@ -708,6 +714,77 @@ body.hc .sp-u{text-decoration-color:#d00000;text-decoration-thickness:2px}
   .log .e{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== Qualidade · planicidade e esquadro (F.009) ===== */
+.pl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.pl-card{display:grid;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;text-decoration:none;color:var(--ink);border-top:4px solid var(--graphite)}
+.pl-card:hover{border-color:#bbb}
+.pl-card h3{margin:0;font-size:16px}
+.pl-card .meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.pl-card .bad,.pl-iss .bad,.pl-rv-h .bad{color:var(--red);font-weight:700}
+.pl-bar{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:1px;background:#eee}
+.pl-st{display:inline-block;font-size:11px;font-weight:800;border-radius:4px;padding:2px 7px;white-space:nowrap;letter-spacing:.02em}
+.pl-st.none{background:#eee;color:#777}
+.pl-kpis{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.pl-kpi{display:grid;gap:0;min-width:96px;padding:8px 12px;border:1px solid var(--line);border-left:5px solid var(--c,#999);border-radius:8px;background:var(--panel);text-align:left;font:inherit;color:var(--ink)}
+button.pl-kpi{cursor:pointer}button.pl-kpi:hover{border-color:#999}
+.pl-kpi b{font-size:20px;line-height:1.1}.pl-kpi span{font-size:11px;color:var(--muted);font-weight:600}
+.pl-kpi.big{border-left-color:var(--graphite);margin-left:auto}.pl-kpi.bad{border-left-color:var(--red)}.pl-kpi.bad b{color:var(--red)}
+.pl-fbar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px;align-items:center}
+.pl-fbar select,.pl-fbar input{width:auto;min-height:36px;height:36px;font-size:13px;padding:4px 8px}
+.pl-fbar input[type=search]{min-width:180px;flex:1}
+.pl-acts{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 10px}
+.pl-acts .sub{font-size:12px}
+.pl-tw{overflow:auto;border:1px solid var(--line);border-radius:8px;background:var(--panel);max-height:72vh}
+.pl-tbl{border-collapse:collapse;width:100%;font-size:12.5px}
+.pl-tbl th{position:sticky;top:0;z-index:1;background:#003e62;color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:.03em;padding:7px 6px;text-align:left;white-space:nowrap}
+.pl-tbl th small{display:block;font-weight:400;text-transform:none;opacity:.8}
+.pl-tbl td{padding:3px 4px;border-bottom:1px solid #ececec;vertical-align:middle}
+.pl-tbl tr.warn td{background:#fff8e1}.pl-tbl tr.bad td{background:#fdecea}
+.pl-tbl tr.flash td{animation:plflash 1.6s ease 2}
+@keyframes plflash{50%{background:#ffe082}}
+.pl-tbl select,.pl-tbl input{min-height:32px;height:32px;padding:3px 5px;font-size:12.5px;width:auto;border-radius:6px}
+.pl-tbl input.num{width:64px;text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.pl-tbl input.err{border-color:var(--red);background:#fdecea}
+.pl-tbl input.miss{border-color:#e0b300}
+.pl-tbl input.need{border-color:var(--red);border-style:dashed}
+.pl-pg{display:flex;gap:10px;align-items:center;justify-content:center;margin:10px 0;font-size:13px}
+.pl-rules{background:var(--panel);border:1px solid var(--line);border-left:4px solid #003e62;border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:13px}
+.pl-rules ul{margin:6px 0 0;padding-left:18px;display:grid;gap:3px}
+.pl-h{font-size:14px;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 6px}
+.pl-mxt{border-collapse:separate;border-spacing:3px;font-size:12px}
+.pl-mxt th{font-size:11px;color:var(--muted);padding:2px 6px;white-space:nowrap}
+.pl-mx button{display:grid;min-width:64px;padding:5px 6px;border-radius:6px;border:0;border-left:5px solid var(--c);background:#f6f6f6;font:inherit;cursor:pointer;text-align:left}
+.pl-mx button b{font-size:13px}.pl-mx button small{font-size:10.5px;color:#555}
+.pl-mx.none{background:transparent}
+.pl-iss{background:var(--panel);border:1px solid var(--line);border-left:4px solid #999;border-radius:8px;margin:0 0 8px;padding:8px 12px;font-size:13px}
+.pl-iss.bad{border-left-color:var(--red)}.pl-iss.warn{border-left-color:#e0a800}.pl-iss.info{border-left-color:#1565c0}
+.pl-iss summary{cursor:pointer}.pl-iss .n{font-size:11px;background:#ececec;border-radius:4px;padding:1px 6px;margin-left:4px}
+.pl-iss ul{margin:8px 0 0;padding-left:18px;display:grid;gap:4px}
+.linkish{border:0;background:none;padding:0;font:inherit;color:#003e62;font-weight:700;text-decoration:underline;cursor:pointer}
+.pl-maps{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.pl-map{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:grid}
+.pl-map-img{border:0;padding:0;background:#3a4048;min-height:180px;display:grid;place-items:center;cursor:pointer}
+.pl-map-img img{max-width:100%;max-height:340px;display:block}
+.pl-map-b{padding:10px 12px;display:grid;gap:4px}.pl-map-b .sub{font-size:12px}
+.pl-map-a{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.pl-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin:14px 0 0}
+.pl-legend span{display:inline-flex;gap:5px;align-items:center}.pl-legend i{display:inline-block;width:14px;height:14px;border-radius:3px}
+.pl-med .pl-modes{display:flex;gap:4px;flex-wrap:wrap}
+.pl-med .pl-modes .tl{min-height:36px;padding:0 10px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.pl-med .pl-modes .tl.on{background:#fff;color:#111}
+.pl-ctx label{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:#ddd;margin-right:4px}
+.pl-ctx input,.pl-ctx select{height:36px;min-height:36px;width:auto;padding:3px 7px;background:#fff;color:#111;border-radius:8px;font-size:13px}
+.pl-ctx .pl-ptsbar{display:inline-flex;gap:4px}.pl-ctx .pl-ptsbar .tl{font-size:13px;font-weight:700}
+.pl-side{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.pl-side li{display:grid;grid-template-columns:34px 1fr auto;gap:6px;align-items:center;font-size:12px;padding:5px 6px;border-radius:6px;background:rgba(0,0,0,.04);cursor:pointer;color:var(--ink)}
+.pl-side li.on{outline:2px solid #111}
+.pl-rv-h{font-size:13px;margin:0 0 6px}
+.pl-rv input{width:auto}
+.pl-rv-dest{display:grid;gap:6px;margin-top:10px;font-size:13px}.pl-rv-dest select{width:auto;min-height:32px;height:32px;display:inline-block}
+.modal.xwide{width:min(1180px,100%)}
+#pl-n-aval.bad{background:var(--red);color:#fff}
+@media (max-width:640px){.pl-kpi{min-width:80px;padding:6px 9px}.pl-kpi b{font-size:17px}.pl-kpi.big{margin-left:0}.pl-ctx label{font-size:11px}}
 </style>
 </head>
 <body class="ui">
@@ -715,19 +792,19 @@ body.hc .sp-u{text-decoration-color:#d00000;text-decoration-thickness:2px}
   <div class="wrap">
     <a class="brand" href="#"><i class="tl-sym-w" role="img" aria-label="Tenda"></i><i class="brand-sep" aria-hidden="true"></i><b>FVs da Obra</b><span>Qualidade · Fichas de Verificação</span></a>
     <nav class="main">
-      <a href="#" id="nav-fvs" class="on">FVs</a>
-      <a href="#painel" id="nav-painel">Painel</a>
-      <a href="#solos" id="nav-solos">Solos</a>
-      <a href="#modelos" id="nav-tpl">Modelos</a>
+      <a href="#infra" id="nav-infra" class="on">Infra</a>
+      <a href="#quali" id="nav-quali">Qualidade</a>
       <a href="#gape" id="nav-gape">GAPE</a>
+      <a href="#painel" id="nav-painel">Painel</a>
       <a href="#lixeira" id="nav-lix">Lixeira</a>
-      <a href="#equipe" id="nav-team" class="hidden">Equipe</a>
+      <a href="#equipe" id="nav-team" class="hidden">Gestão</a>
     </nav>
     <div class="userbox" id="userbox"></div>
   </div>
 </header>
 <main class="wrap">
   <div id="banners"></div>
+  <div id="fbar" class="fbar hidden"><span class="fbar-n" id="fbar-n">Infraestrutura</span><div class="tabs" role="tablist" id="fbar-tabs"></div></div>
   <section id="view-list">
     <nav class="crumbs" id="crumbs" aria-label="Pastas"></nav>
     <div class="page-title">
@@ -775,6 +852,7 @@ body.hc .sp-u{text-decoration-color:#d00000;text-decoration-thickness:2px}
   <section id="view-painel" class="hidden"></section>
   <section id="view-solos" class="hidden"></section>
   <section id="view-lix" class="hidden"></section>
+  <section id="view-planic" class="hidden"></section>
 </main>
 <div class="gate ui" id="gate"><div class="gate-card"><div class="tl-full gate-logo" role="img" aria-label="Tenda"></div><h1>FVs da Obra</h1><div id="gate-body"><p>Carregando…</p></div></div></div>
 <script src="firebase-config.js"></script>
@@ -807,6 +885,16 @@ const splitLbl = t => { const i = String(t).indexOf(":"); return i > 0 && i < 80
 const autosize = el => { if (el.tagName !== "TEXTAREA" || el.offsetParent === null) return; el.style.height = "auto"; el.style.height = el.scrollHeight + "px"; };
 const CATS = {INFR:"Infraestrutura", ESTR:"Estrutura", ACAB:"Acabamento", LOG:"Logística", OUTRO:"Outras"};
 const CAT_ORDER = ["INFR","ESTR","ACAB","LOG","OUTRO"];
+/* frentes de trabalho: o menu de cima é dividido por frente (Infra, Qualidade…) */
+const FRENTES = {
+  infra: {nome: "Infraestrutura", curto: "Infra", cats: ["INFR"], tabs: [["infra", "FVs de infra"], ["solos", "Solos"], ["modelos", "Modelos"]]},
+  quali: {nome: "Qualidade", curto: "Qualidade", cats: ["ESTR", "ACAB", "LOG", "OUTRO"], tabs: [["quali", "FVs de qualidade"], ["planic", "Planicidade"], ["modelos", "Modelos"]]}
+};
+let curFrente = (() => { try { return localStorage.getItem("fvs-frente") === "quali" ? "quali" : "infra"; } catch { return "infra"; } })();
+const catFrente = c => (c || "OUTRO") === "INFR" ? "infra" : "quali";
+const fvFrente = f => f && FRENTES[f.frente] ? f.frente : catFrente(f && f.cat);
+const catsOrdered = fr => [...FRENTES[fr].cats, ...CAT_ORDER.filter(c => !FRENTES[fr].cats.includes(c))];
+function setFrente(fr) { if (!FRENTES[fr]) return; if (fr !== curFrente) { curFrente = fr; filt.cat = ""; } try { localStorage.setItem("fvs-frente", fr); } catch {} }
 const ST = {
   "": {mk:"", cls:"E", name:"A verificar"},
   A:  {mk:"O", cls:"A", name:"Aprovado"},
@@ -913,7 +1001,7 @@ function writeErr(e, path = "") {
   if (c === "invalid_argument" && fvx && fvx.status === "fechada") { toast("Esta FV está fechada: a alteração não foi salva. Só o gestor pode reabrir a FV para editar."); return; }
   if (c === "invalid_argument") {
     if (path.startsWith("acessos/")) return;
-    const ro = () => setReadOnly("Você não tem permissão para editar. Peça ao administrador para liberar seu e-mail como editor em <b>Equipe</b>.");
+    const ro = () => setReadOnly("Você não tem permissão para editar. Peça ao administrador para liberar seu e-mail como editor em <b>Gestão</b>.");
     if (window.__fb && window.__fb.canEdit) window.__fb.canEdit().then(ok => ok ? toast("O servidor recusou esta alteração (conteúdo grande demais ou ação não permitida para o seu acesso).") : ro(), ro);
     else ro();
   }
@@ -1071,7 +1159,8 @@ async function folderDialog(id, parentDefault) {
   if (r === "del") return deleteFolder(id);
   if (id) { patch(`folders/${id}`, stamp({name: r.name, parent: r.parent})); toast("Pasta atualizada."); return; }
   const nid = uid("d"), at = nowIso();
-  try { await create(`folders/${nid}`, {name: r.name, parent: r.parent, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); location.hash = "pasta-" + nid; } catch {}
+  const fr = r.parent && folders.get(r.parent) && folders.get(r.parent).frente ? folders.get(r.parent).frente : curFrente;
+  try { await create(`folders/${nid}`, {name: r.name, parent: r.parent, frente: fr, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); location.hash = "pasta-" + nid; } catch {}
 }
 async function deleteFolder(id) {
   const f = folders.get(id); if (!f) return;
@@ -1088,10 +1177,25 @@ async function deleteFolder(id) {
     toast("Pasta excluída."); location.hash = par ? "pasta-" + par : "";
   } catch {}
 }
-function folderStats(id) {
+function folderStats(id, fr = curFrente) {
   const ids = descendants(id); let n = 0, open = 0, bad = 0;
-  fvs.forEach(v => { if (ids.has(folderOf(v))) { n++; if ((v.status || "aberta") === "aberta") open++; if (stats(v).R) bad++; } });
-  return {n, open, bad, subs: childFolders(id).length};
+  fvs.forEach(v => { if (ids.has(folderOf(v)) && (!fr || fvFrente(v) === fr)) { n++; if ((v.status || "aberta") === "aberta") open++; if (stats(v).R) bad++; } });
+  return {n, open, bad, subs: childFolders(id).filter(f => folderInFrente(f.id, fr)).length};
+}
+/* a pasta aparece na frente marcada nela; sem marca, aparece onde tiver FVs daquela frente (pasta vazia aparece nas duas) */
+function folderInFrente(id, fr = curFrente) {
+  const f = folders.get(id); if (!f || !fr) return true;
+  if (f.frente) return f.frente === fr;
+  const ids = descendants(id); let any = false, mine = false;
+  fvs.forEach(v => { if (ids.has(folderOf(v))) { any = true; if (fvFrente(v) === fr) mine = true; } });
+  if (mine) return true; if (any) return false;
+  for (const fid of ids) { const g = folders.get(fid); if (fid !== id && g && g.frente && g.frente !== fr) return false; }
+  return true;
+}
+function frenteOfFolder(id) {
+  const f = folders.get(id); if (!f) return curFrente;
+  if (f.frente) return f.frente;
+  return folderInFrente(id, curFrente) ? curFrente : (curFrente === "infra" ? "quali" : "infra");
 }
 
 /* ---------- lista ---------- */
@@ -1099,22 +1203,24 @@ function renderList() {
   const box = $("#fv-list"); if (!fvsLoaded) return;
   if (curFolder && foldersLoaded && !folders.has(curFolder)) curFolder = "";
   const q = norm(filt.q).trim(), fold = curFolder, path = folderPath(fold);
-  $("#crumbs").innerHTML = fold ? `<a href="#">Início</a>` + path.map((p, i) => `<span class="sep">/</span>${i < path.length - 1 ? `<a href="#pasta-${esc(p.id)}">${esc(p.name)}</a>` : `<span>${esc(p.name)}</span>`}`).join("") : "";
-  $("#list-title").textContent = fold ? folders.get(fold).name : "Fichas de Verificação";
+  const FR = FRENTES[curFrente];
+  $("#crumbs").innerHTML = fold ? `<a href="#${curFrente}">${esc(FR.nome)}</a>` + path.map((p, i) => `<span class="sep">/</span>${i < path.length - 1 ? `<a href="#pasta-${esc(p.id)}">${esc(p.name)}</a>` : `<span>${esc(p.name)}</span>`}`).join("") : "";
+  $("#list-title").textContent = fold ? folders.get(fold).name : (curFrente === "infra" ? "FVs de infraestrutura" : "FVs de qualidade");
+  catSelect();
   $("#btn-edit-folder").classList.toggle("hidden", !fold);
   const scope = fold ? descendants(fold) : null;
-  const inScope = [...fvs.entries()].map(([id, d]) => ({id, ...d})).filter(f => !scope || scope.has(folderOf(f)));
+  const inScope = [...fvs.entries()].map(([id, d]) => ({id, ...d})).filter(f => fvFrente(f) === curFrente && (!scope || scope.has(folderOf(f))));
   const ab = inScope.filter(f => (f.status || "aberta") === "aberta").length;
   $("#list-sub").textContent = inScope.length ? `${ab} aberta${ab !== 1 ? "s" : ""} · ${inScope.length - ab} fechada${inScope.length - ab !== 1 ? "s" : ""}${fold ? " nesta pasta" : ""}` : (fold ? "Pasta vazia" : "Nenhuma FV criada ainda");
   const fbox = $("#folder-list");
-  fbox.innerHTML = q ? "" : childFolders(fold).map(f => { const st = folderStats(f.id); return `<a class="folder-card" href="#pasta-${esc(f.id)}"><span class="ficon" aria-hidden="true"></span><div><b>${esc(f.name)}</b><div class="meta"><span>${st.n} FV${st.n !== 1 ? "s" : ""}</span>${st.open ? `<span>${st.open} aberta${st.open !== 1 ? "s" : ""}</span>` : ""}${st.bad ? `<span class="bad">${st.bad} com reprovado</span>` : ""}${st.subs ? `<span>${st.subs} subpasta${st.subs !== 1 ? "s" : ""}</span>` : ""}</div></div>${canWrite ? `<button class="fmenu" type="button" data-fedit="${esc(f.id)}" aria-label="Editar pasta ${esc(f.name)}" title="Renomear, mover ou excluir">⋯</button>` : ""}</a>`; }).join("");
+  fbox.innerHTML = q ? "" : childFolders(fold).filter(f => folderInFrente(f.id)).map(f => { const st = folderStats(f.id); return `<a class="folder-card" href="#pasta-${esc(f.id)}"><span class="ficon" aria-hidden="true"></span><div><b>${esc(f.name)}</b><div class="meta"><span>${st.n} FV${st.n !== 1 ? "s" : ""}</span>${st.open ? `<span>${st.open} aberta${st.open !== 1 ? "s" : ""}</span>` : ""}${st.bad ? `<span class="bad">${st.bad} com reprovado</span>` : ""}${st.subs ? `<span>${st.subs} subpasta${st.subs !== 1 ? "s" : ""}</span>` : ""}</div></div>${canWrite ? `<button class="fmenu" type="button" data-fedit="${esc(f.id)}" aria-label="Editar pasta ${esc(f.name)}" title="Renomear, mover ou excluir">⋯</button>` : ""}</a>`; }).join("");
   const list = (q ? inScope : inScope.filter(f => folderOf(f) === fold))
     .filter(f => !filt.status || (f.status || "aberta") === filt.status)
     .filter(f => !filt.cat || f.cat === filt.cat)
     .filter(f => !q || norm([f.code, f.title, f.local, f.obra, f.conferente, pathText(folderOf(f))].join(" ")).includes(q))
     .sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
   if (!list.length) {
-    const hasFolders = !q && childFolders(fold).length;
+    const hasFolders = !q && childFolders(fold).filter(f => folderInFrente(f.id)).length;
     box.innerHTML = hasFolders && !inScope.filter(f => folderOf(f) === fold).length ? "" : `<div class="empty" style="grid-column:1/-1"><b>${inScope.length || q ? "Nenhuma FV aqui com esses filtros" : fold ? "Esta pasta ainda não tem FVs" : "Comece criando a primeira FV"}</b>${inScope.length || q ? "Mude o filtro, a busca ou abra uma das pastas." : "Use <b>+ Nova FV</b> para criar uma FV" + (fold ? " dentro desta pasta" : "") + ", ou <b>+ Nova pasta</b> para organizar por torre, bloco ou etapa."}</div>`;
     return;
   }
@@ -1131,6 +1237,12 @@ function renderList() {
   }).join("");
   fillNames();
 }
+function catSelect() {
+  const sel = $("#f-cat"), cats = catsOrdered(curFrente), key = cats.join();
+  if (sel.dataset.k !== key) { sel.dataset.k = key; sel.innerHTML = `<option value="">Todas as categorias</option>` + cats.map(c => `<option value="${c}">${CATS[c]}</option>`).join(""); }
+  if (filt.cat && !cats.includes(filt.cat)) filt.cat = "";
+  sel.value = filt.cat || "";
+}
 $("#folder-list").addEventListener("click", e => { const b = e.target.closest("[data-fedit]"); if (!b) return; e.preventDefault(); e.stopPropagation(); folderDialog(b.dataset.fedit); });
 $("#btn-new-folder").onclick = () => folderDialog(null, curFolder);
 $("#btn-edit-folder").onclick = () => curFolder && folderDialog(curFolder);
@@ -1139,10 +1251,11 @@ $("#btn-edit-folder").onclick = () => curFolder && folderDialog(curFolder);
 const sortedTemplates = () => [...templates.entries()].map(([id, t]) => ({id, ...t}))
   .sort((a, b) => (CAT_ORDER.indexOf(a.cat) - CAT_ORDER.indexOf(b.cat)) || String(a.code).localeCompare(String(b.code)));
 function renderTemplates() {
-  const box = $("#tpl-list"), q = norm(tplQ).trim(), list = sortedTemplates().filter(t => !q || norm(`${t.code} ${t.title}`).includes(q));
+  const box = $("#tpl-list"), q = norm(tplQ).trim(), fc = catsOrdered(curFrente), list = sortedTemplates().filter(t => !q || norm(`${t.code} ${t.title}`).includes(q));
+  const th = $("#view-tpl h1"); if (th) th.textContent = `Modelos de FV · ${FRENTES[curFrente].curto}`;
   if (!list.length && q) { box.innerHTML = `<div class="empty"><b>Nenhum modelo encontrado</b>Tente outra palavra.</div>`; return; }
   if (!list.length) { box.innerHTML = `<div class="empty"><b>Nenhum modelo cadastrado</b>Crie um modelo com os itens de conferência da atividade.</div>`; return; }
-  box.innerHTML = CAT_ORDER.map(c => {
+  box.innerHTML = fc.map(c => {
     const g = list.filter(t => (t.cat || "OUTRO") === c); if (!g.length) return "";
     return `<div class="tpl-group"><h2>${CATS[c]} · ${g.length}</h2>${g.map(t => `<div class="tpl-row"><div><div class="code">${esc(t.code)} · REV. ${esc(t.rev)} · ${(t.items || []).length} ITENS</div><b>${esc(t.title)}</b></div>
       <div style="display:flex;gap:6px"><button class="btn sm primary" data-use="${esc(t.id)}" type="button">Usar</button><button class="btn sm" data-edit="${esc(t.id)}" type="button">Editar</button></div></div>`).join("")}</div>`;
@@ -1164,7 +1277,7 @@ function tplItemRow(it) {
   </div>`;
 }
 async function tplEditor(id) {
-  const t = id ? templates.get(id) : {code:"", cat:"ACAB", title:"", rev:"0", date:"", localLabel:"Unidade / Apto / Hall", checks:[], items:[{id:uid("i"), n:"1.1", g:"", t:"", tol:""}]};
+  const t = id ? templates.get(id) : {code:"", cat: curFrente === "infra" ? "INFR" : "ACAB", title:"", rev:"0", date:"", localLabel:"Unidade / Apto / Hall", checks:[], items:[{id:uid("i"), n:"1.1", g:"", t:"", tol:""}]};
   if (!t) return;
   const body = `<div class="grid2">
       <label class="fld">Código<input type="text" id="t-code" value="${esc(t.code)}" placeholder="FV010-ACAB"></label>
@@ -1221,7 +1334,7 @@ async function tplEditor(id) {
 function tplOptions(list, sel, q) {
   q = norm(q).trim();
   const f = list.filter(t => !q || norm(`${t.code} ${t.title}`).includes(q));
-  return CAT_ORDER.map(c => { const g = f.filter(t => (t.cat || "OUTRO") === c); return g.length ? `<optgroup label="${CATS[c]}">${g.map(t => `<option value="${esc(t.id)}" ${t.id === sel ? "selected" : ""}>${esc(t.code)} · ${esc(t.title)}</option>`).join("")}</optgroup>` : ""; }).join("");
+  return catsOrdered(curFrente).map(c => { const g = f.filter(t => (t.cat || "OUTRO") === c); return g.length ? `<optgroup label="${CATS[c]}">${g.map(t => `<option value="${esc(t.id)}" ${t.id === sel ? "selected" : ""}>${esc(t.code)} · ${esc(t.title)}</option>`).join("")}</optgroup>` : ""; }).join("");
 }
 async function newFvDialog(preTpl) {
   if (!canWrite) return;
@@ -1232,7 +1345,8 @@ async function newFvDialog(preTpl) {
   const body = `<div class="grid2">
     <label class="fld" style="grid-column:1/-1">Buscar modelo<input type="search" id="n-filter" placeholder="Digite parte do nome ou código (ex.: estaca, FV030)"></label>
     <label class="fld" style="grid-column:1/-1">Modelo da FV<select id="n-tpl">${tplOptions(list, preTpl, "")}</select></label>
-    <label class="fld" style="grid-column:1/-1">Pasta<select id="n-folder">${folderOptions(curFolder)}</select></label>
+    <label class="fld">Pasta<select id="n-folder">${folderOptions(curFolder)}</select></label>
+    <label class="fld">Frente (onde a FV aparece)<select id="n-frente">${Object.entries(FRENTES).map(([k, f]) => `<option value="${k}" ${k === curFrente ? "selected" : ""}>${esc(f.nome)}</option>`).join("")}</select></label>
     <label class="fld">Obra<input type="text" id="n-obra" list="dl-obras" value="${esc(lastObra)}" placeholder="Nome da obra"></label>
     <label class="fld">Local (torre/trecho/bloco)<input type="text" id="n-local" placeholder="Ex.: T2 ou TR-03"></label>
     <label class="fld">Data de abertura<input type="date" id="n-ab" value="${today()}"></label>
@@ -1241,7 +1355,7 @@ async function newFvDialog(preTpl) {
     <label class="fld" style="grid-column:1/-1"><span id="n-loclbl">Locais inspecionados</span><input type="text" id="n-cols" placeholder="Separe por vírgula. Ex.: AP 101, AP 102, Hall"></label>
   </div><datalist id="dl-obras">${obras.map(o => `<option value="${esc(o)}">`).join("")}</datalist>`;
   const res = await modal({title:"Nova FV", body, actions:[{label:"Cancelar", value:null},{label:"Criar FV", cls:"primary", value: bg => ({
-    tpl: $("#n-tpl", bg).value, folder: $("#n-folder", bg).value, obra: $("#n-obra", bg).value.trim(), local: $("#n-local", bg).value.trim(), abertura: $("#n-ab", bg).value,
+    tpl: $("#n-tpl", bg).value, folder: $("#n-folder", bg).value, frente: $("#n-frente", bg).value, obra: $("#n-obra", bg).value.trim(), local: $("#n-local", bg).value.trim(), abertura: $("#n-ab", bg).value,
     conferente: $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value.trim(), cols: $("#n-cols", bg).value.split(",").map(s => s.trim()).filter(Boolean)
   })}], onOpen: bg => {
     const upd = () => { const t = templates.get($("#n-tpl", bg).value); $("#n-loclbl", bg).textContent = `Locais inspecionados · ${t?.localLabel || "Local"} · ${tplMaxCols(t)} por folha (o que passar vai para uma nova folha)`; };
@@ -1254,7 +1368,7 @@ async function newFvDialog(preTpl) {
   const id = uid("f"), at = nowIso(), cols = {}, maxCols = tplMaxCols(t);
   res.cols.forEach((n, i) => cols[uid("c") + i] = {name: n, o: i + 1, p: Math.floor(i / maxCols)});
   const doc = {
-    templateId: res.tpl, code: t.code, cat: t.cat || "OUTRO", title: t.title, rev: t.rev || "", revDate: t.date || "", localLabel: t.localLabel || "Local",
+    templateId: res.tpl, code: t.code, cat: t.cat || "OUTRO", frente: FRENTES[res.frente] ? res.frente : curFrente, title: t.title, rev: t.rev || "", revDate: t.date || "", localLabel: t.localLabel || "Local",
     checkOptions: t.checks || [], checks: {}, items: (t.items || []).map(i => ({id: i.id || uid("i"), n: i.n || "", g: i.g || "", t: i.t || "", tol: i.tol || ""})),
     obra: res.obra, local: res.local, abertura: res.abertura, fechamento: "", conferente: res.conferente, gestor: res.gestor, almoxarife: "",
     cols, maxCols, folhas: Math.max(1, Math.ceil(res.cols.length / maxCols)), cells: {}, status: "aberta", assinatura: null, folder: res.folder || "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at
@@ -1338,10 +1452,11 @@ function renderBar(fv) {
     h.dataset.built = "1";
     h.innerHTML = `<div class="r1"><div><div class="c" id="b-code"></div><div class="t" id="b-title"></div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="b-pill"></span><button class="btn dark" id="b-pdf" type="button">Baixar PDF</button><button class="btn" id="b-dup" type="button">Duplicar para outros locais</button><button class="btn" id="b-close" type="button"></button><button class="btn ghost danger" id="b-del" type="button">Excluir</button></div></div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select><label for="b-frente" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-left:6px">Frente</label><select id="b-frente" style="width:auto;min-height:34px;padding:4px 8px">${Object.entries(FRENTES).map(([k, f]) => `<option value="${k}">${esc(f.curto)}</option>`).join("")}</select></div>
       <div id="b-stats"></div><div id="b-rev"></div><button class="btn sm sp-chip hidden" id="b-spell" type="button"></button><div class="lastedit" id="b-last"></div>`;
     $("#b-spell").onclick = spellReview;
     $("#b-close").onclick = toggleClose; $("#b-del").onclick = deleteFv; $("#b-dup").onclick = duplicateFv; $("#b-pdf").onclick = exportPdf;
+    $("#b-frente").onchange = e => { const id = cur.id, v = e.target.value; if (!FRENTES[v]) return; patch(`fvs/${id}`, stamp({frente: v})); logAct(id, `Passou a FV para a frente ${FRENTES[v].nome}`); setFrente(v); ["infra", "quali"].forEach(k => $("#nav-" + k).classList.toggle("on", curFrente === k)); toast(`FV agora aparece em ${FRENTES[v].nome}.`); };
     $("#b-folder").onchange = e => { const id = cur.id, v = e.target.value; patch(`fvs/${id}`, stamp({folder: v})); logAct(id, `Moveu para a pasta ${v ? pathText(v) : "Início"}`); toast(`FV movida para ${v ? pathText(v) : "Início"}.`); };
   }
   $("#b-code").textContent = `${fv.code} · ${CATS[fv.cat] || ""}${fv.obra ? " · " + fv.obra : ""}`;
@@ -1350,6 +1465,7 @@ function renderBar(fv) {
   const cb = $("#b-close"); cb.textContent = fv.status === "fechada" ? "Reabrir FV" : "Fechar FV"; cb.className = "btn " + (fv.status === "fechada" ? "" : "primary") + (isGestor ? "" : " locked"); cb.disabled = false; cb.title = isGestor ? "" : "Somente o gestor pode fechar ou reabrir a FV"; if (!isGestor) cb.textContent = "🔒 " + cb.textContent;
   const bd = $("#b-del"); bd.disabled = !canWrite; bd.textContent = (isGestor ? "" : "🔒 ") + "Excluir"; bd.classList.toggle("locked", !isGestor); bd.title = isGestor ? "" : "Somente o gestor pode excluir a FV"; $("#b-dup").disabled = !canWrite;
   const bf = $("#b-folder"); if (document.activeElement !== bf) { bf.innerHTML = folderOptions(folderOf(fv)); bf.value = folderOf(fv); } bf.disabled = !canWrite;
+  const bfr = $("#b-frente"); if (bfr && document.activeElement !== bfr) { bfr.value = fvFrente(fv); bfr.disabled = !canWrite; }
   const back = $("#view-fv .back"); if (back) { const fp = folderOf(fv); back.href = fp ? "#pasta-" + fp : "#"; back.textContent = "← " + (fp ? folders.get(fp).name : "Todas as FVs"); }
   $("#b-stats").innerHTML = barHtml(s) + `<div style="margin-top:8px">${countsHtml(s)}</div>`;
   $("#b-rev").innerHTML = tplRevBar(fv); const tb = $("#b-tplrev"); if (tb) tb.onclick = tplRevUpdate;
@@ -2525,7 +2641,7 @@ function renderMap(fv) {
     box.dataset.ver = ver;
     box.innerHTML = `<table id="map-title"></table>` + (mapa && mapa.img
       ? `<div class="tmap-scroll" id="tmap"><img src="${mapa.img}" alt="Mapa de trechos da obra"></div><div class="noprint" style="margin-top:8px"><button class="btn sm" type="button" id="tmap-zoom">Ampliar</button></div>`
-      : `<div class="blk" style="padding:18px;border:1px dashed #bbb;text-align:center;color:#555;font-size:12px;line-height:1.5"><b>O mapa de trechos ainda não foi carregado.</b><br>${isOwner ? 'Abra <a href="#equipe">Equipe</a> e importe o arquivo <b>mapa-trechos.json</b> no Backup.' : "Peça ao administrador para importar o mapa em Equipe."}</div>`);
+      : `<div class="blk" style="padding:18px;border:1px dashed #bbb;text-align:center;color:#555;font-size:12px;line-height:1.5"><b>O mapa de trechos ainda não foi carregado.</b><br>${isOwner ? 'Abra <a href="#equipe">Gestão</a> e importe o arquivo <b>mapa-trechos.json</b> no Backup.' : "Peça ao administrador para importar o mapa em Gestão."}</div>`);
     const zb = $("#tmap-zoom", box);
     if (zb) zb.onclick = () => { const z = $("#tmap", box).classList.toggle("zoom"); zb.textContent = z ? "Reduzir" : "Ampliar"; };
   }
@@ -3964,7 +4080,7 @@ async function renderTeam() {
   const canRm = (e, k) => own || (k !== "gestores" && !acc.gestores.includes(e) && !admins.includes(e) && e !== String((user && user.email) || "").toLowerCase());
   const list = (arr, k) => arr.length ? arr.map(e => `<div><span>${esc(e)}</span>${canRm(e, k) ? `<button class="btn sm ghost danger" type="button" data-rmv="${k}" data-e="${esc(e)}">Remover</button>` : (!own && k === "editors" && acc.gestores.includes(e) ? `<span class="sub" style="font-size:11.5px">gestor</span>` : "")}</div>`).join("") : `<div style="color:var(--muted);justify-content:center">Ninguém ainda</div>`;
   if (!own) {
-    v.innerHTML = `<div class="page-title"><div><h1>Equipe</h1><div class="sub" style="max-width:760px">Como gestor(a), você pode <b>remover o acesso</b> de editores e de quem só visualiza (por exemplo, quando alguém sai da obra). A pessoa perde o acesso na hora. Para adicionar pessoas ou mudar gestores, fale com o administrador: ${esc(admins.join(", "))}.</div></div></div>
+    v.innerHTML = `<div class="page-title"><div><h1>Gestão</h1><div class="sub" style="max-width:760px">Equipe da obra. Como gestor(a), você pode <b>remover o acesso</b> de editores e de quem só visualiza (por exemplo, quando alguém sai da obra). A pessoa perde o acesso na hora. Para adicionar pessoas ou mudar gestores, fale com o administrador: ${esc(admins.join(", "))}.</div></div></div>
       <div class="team-grid">
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Editores</h2><div class="sub">Criam e preenchem FVs, PDA, observações, fotos e documentos.</div><div class="team-list">${list(acc.editors, "editors")}</div></div>
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Somente leitura</h2><div class="sub">Veem tudo e baixam PDFs, mas não editam.</div><div class="team-list">${list(acc.viewers, "viewers")}</div></div>
@@ -3981,7 +4097,7 @@ async function renderTeam() {
     });
     return;
   }
-  v.innerHTML = `<div class="page-title"><div><h1>Equipe e backup</h1><div class="sub">Administrador(es): ${esc((window.ADMIN_EMAILS || []).join(", "))}</div></div></div>
+  v.innerHTML = `<div class="page-title"><div><h1>Gestão</h1><div class="sub" style="margin:-2px 0 4px">Equipe, acessos, dicionário e backup</div><div class="sub">Administrador(es): ${esc((window.ADMIN_EMAILS || []).join(", "))}</div></div></div>
     <div class="team-grid">
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Editores</h2><div class="sub">Podem criar e preencher FVs, PDA, observações, fotos e documentos.</div>
         <div class="team-list">${list(acc.editors, "editors")}</div>
@@ -5117,13 +5233,13 @@ function renderDictPanel() {
 /* ---------- lixeira: o que é excluído fica 30 dias antes de ser apagado de vez ---------- */
 const TRASH_DAYS = 30;
 let lixo = new Map(), lixTab = "itens", lixSwept = false, lixBusy = false;
-const trashed = {fv: new Map(), gape: new Map(), solo: new Map(), planta: new Map(), projeto: new Map()}, LX_COLL = {fv: "fvs", gape: "gape", solo: "solos", planta: "plantas", projeto: "projetos"};
+const trashed = {fv: new Map(), gape: new Map(), solo: new Map(), planta: new Map(), projeto: new Map(), planic: new Map()}, LX_COLL = {fv: "fvs", gape: "gape", solo: "solos", planta: "plantas", projeto: "projetos", planic: "planic"};
 /* registros da lixeira + itens marcados como excluídos que ficaram sem registro (ex.: falha de conexão no meio da exclusão) */
 function lixAll() {
   const out = [...lixo.values()], have = new Set(out.filter(e => e.st === "lix").map(e => e.path));
   for (const k in trashed) trashed[k].forEach((v, id) => {
     const path = `${LX_COLL[k]}/${id}`; if (have.has(path)) return;
-    const label = k === "fv" ? `${v.code} – ${v.local || v.title}` : k === "gape" ? (v.titulo || "Ficha GAPE") : k === "solo" ? (v.nome || "Trecho") : k === "projeto" ? ((v.code ? v.code + " · " : "") + (v.title || "Projeto")) : (v.title || "Planta");
+    const label = k === "fv" ? `${v.code} – ${v.local || v.title}` : k === "gape" ? (v.titulo || "Ficha GAPE") : k === "solo" ? (v.nome || "Trecho") : k === "projeto" ? ((v.code ? v.code + " · " : "") + (v.title || "Projeto")) : k === "planic" ? (v.nome || "Planilha de planicidade") : (v.title || "Planta");
     out.push({id: "v_" + path.replace("/", "_"), kind: k, path, label, ctx: k === "fv" ? (v.title || "") : "", pai: "", at: v.trashAt, by: v.trashBy || "", exp: new Date(new Date(v.trashAt).getTime() + TRASH_DAYS * 864e5).toISOString(), st: "lix"});
   });
   return out;
@@ -5141,7 +5257,7 @@ const lixFilt = {q: "", kind: "", by: "", act: ""};
 const LX = {
   fv: {nome: "FV", gestor: true}, map: {nome: "Mapeamento"}, foto: {nome: "Foto"}, doc: {nome: "Documento"},
   gape: {nome: "GAPE"}, solo: {nome: "Trecho de solos", tag: "Solos"}, smap: {nome: "Demarcação de solos", tag: "Demarc."},
-  sdoc: {nome: "Documento de solos", tag: "Doc. solos"}, planta: {nome: "Planta"}, proj: {nome: "Projeto"}, projeto: {nome: "Projeto da biblioteca", tag: "Bibl. proj.", gestor: true}
+  sdoc: {nome: "Documento de solos", tag: "Doc. solos"}, planta: {nome: "Planta"}, planic: {nome: "Planilha de planicidade", tag: "Planicidade"}, proj: {nome: "Projeto"}, projeto: {nome: "Projeto da biblioteca", tag: "Bibl. proj.", gestor: true}
 };
 const LX_ACT = {exc: "Excluiu (enviou para a lixeira)", rest: "Restaurou", apag: "Excluiu de vez", exp: `Prazo de ${TRASH_DAYS} dias venceu: apagado automaticamente`};
 const lxMark = (e, data) => String(e.id).startsWith("v_") ? Promise.resolve() : db.doc(`lixeira/${e.id}`).update(data);
@@ -5184,6 +5300,8 @@ async function purgePath(kind, path) {
     (d.scans || []).forEach(sc => delBlob(sc.id));
   } else if (kind === "solo") {
     await delColl(`${path}/ensaios`); await delColl(`${path}/maps`, img); await delColl(`${path}/docs`, pages);
+  } else if (kind === "planic") {
+    await delColl(`${path}/lin`); await delColl(`${path}/log`); Object.values(d.maps || {}).forEach(m => delBlob(m && m.img && m.img.id));
   } else if (kind === "map" || kind === "smap") img(d);
   else if (kind === "foto" || kind === "doc") file(d);
   else if (kind === "sdoc") pages(d);
@@ -5295,20 +5413,892 @@ function drawLix() {
   fillNames();
 }
 
+/* ---------- QUALIDADE · PLANICIDADE E ESQUADRO (F.009-QUALI R05 · IT 162 / IT.027-ESTR rev. 16) ---------- */
+// Planilha no padrão do F.009 (aba "Dados desvios") + mapeamento na planta (pontos P = paredes, C = esquadros).
+// As medições ficam em planic/{id}/lin/{torre}: um campo por linha, guardado como texto curto.
+let planics = new Map(), pcur = null, plmState = null;
+const PL_OBRAS = [["ACQUA DANÚBIO - F1","RS","A","UK80",0],["ACQUA DANÚBIO F2","RS","A","VM50",0],["ALAMEDA DOS PÁSSAROS - F2","PE","A","UA30",0],["ALTO DA COLINA RS","RS","B","VE90",1],["ALVORADA ARICANDUVA","SP","F","VN00",0],["ARAÇÁ PRIME","PE","B","XE80",1],["ATÍLIO 1407 F1","RS","A","QE10",1],["AURORA IGUAÇU F1","RJ","A","UU50",1],["BANDEIRANTE","PE","T","VU20",0],["BOSQUE JACAREPAGUÁ","RJ","A","VO00",0],["BOSQUE RECIFE","PE","A","VR90",1],["CDW 15 | JD DOS PRADOS","SP","G","UR50",1],["CDW 15 | VILA BUTANTÃ","SP","A","VN60",0],["CITTA VILA PRUDENTE COND I","SP","B","TO80",0],["CITTA VILA PRUDENTE COND II","SP","B","TP00",0],["CITTA VILA PRUDENTE COND III","SP","A","TP10",0],["DÁLIA","SP","F","SA50",1],["DANDARA","SP","B","XF60",1],["ELEVATO ANDALUZ","PR","A","VV80",0],["ELEVATO BONSUCESSO","RJ","C","VH10",0],["ELEVATO RAMOS","RJ","A","VX20",0],["ENCANTO PIATA - F1","BA","A","UX10",0],["ENCANTO PIATA - F2","BA","A","UX20",0],["ENCANTO PIATA - F3","BA","A","UX30",0],["ESTAÇÃO BORDIGNON","PR","A","UX80",1],["ESTAÇÃO RIO","RJ","C","U400",1],["ESTÂNCIA DOURADOS I","GO","A","UD70",0],["ESTÂNCIA DOURADOS II","GO","A","UD90",0],["ESTILO FAIÇALVILLE","GO","A","VV00",1],["FAROL CANTAREIRA","SP","G","UU00",0],["FAROL DO MUCURIPE","CE","A","UR60",0],["GUARAPIRANGA JURITI - CAXIAS","SP","L","VJ90",0],["GUARAPIRANGA TANGARÁ - CAXIAS","SP","L","VJ60",0],["JARDIM ARMAÇÃO PRIME","BA","A","UT60",0],["JARDIM BONSUCESSO","SP","G","UC80",0],["JARDIM DOS PRADOS","SP","G","UR50",1],["JERIVAS","SP","D","TD10",1],["LIFE JAGUARE F1","SP","D","UC40",0],["LIFE JAGUARE F2","SP","D","UC50",0],["MELODIA JAÇANÃ","SP","G","UU20",0],["MESSEJANA PARQUE DA LAGOA II","CE","A","TS60",0],["MESSEJANA PQ. DA LAGOA I","SP","G","UU20",0],["MIRANTE BELVEDERE","PE","A","UZ80",0],["MIRANTE BOA VISTA","RJ","C","VM80",0],["MIRANTE MESSEJANA","CE","B","VX30",0],["MORADA BEBERIBE","PE","B","VB80",0],["MORADA CAPIBARIBE COND II","PE","A","US00",0],["MORADA DAS ESTAÇÕES","BA","B","VA20",1],["MORADA DO CAMPO II","RS","B","UK30",0],["MORADA REAL","BA","C","U630",1],["MORADA SERENA (M3+M4)","RS","A","VL50-1",0],["NOVOS ARES AURORA","GO","B","VB50",1],["OASIS PENHA","SP","B","TZ70",0],["PALERMO","SP","A","VD80",0],["PANORAMA","SP","A","VP30",1],["PARQUE DOS SONHOS IV","GO","A","U540",0],["PARQUE DOS SONHOS V","GO","A","U550",0],["PARQUE HORTÊNCIA","RJ","A","TB30",0],["PARQUE LIMÃO F1 + F2","SP","F","U000",0],["PARQUE ORQUÍDEA","RJ","A","TB10",0],["PARQUE VENTURA III F1","RS","B","VD10",0],["PARQUE VENTURA III F2","RS","B","VD20",0],["PORTAL DA BARRA","CE","B","UT30",0],["PORTAL QUARESMEIRA","CPS","A","UR40",0],["PORTO LIMA","RJ","B","VA50",0],["PORTO VALÊNCIA F2","RJ","B","UF90",0],["QUINTA DO LAGO BOLSENA","RS","B","TB90",0],["RESERVA CARIOCA - F1","RJ","C","UW70",0],["RESERVA CARIOCA - F2","RJ","C","UW80",0],["RESERVA DAS ANDORINHAS","SP","A","U920",0],["RESERVA DAS GARÇAS COND. I","CE","A","U430",0],["RESERVA DAS GARÇAS II","CE","B","U440",0],["RESERVA DOS COLIBRIS","PB","A","VY50",1],["RESIDENCIAL VIDA BOTÂNICA - F2","CE","B","UR80",0],["RESIDENCIAL VISTA DA MANGUEIRA","BA","B","VH70",0],["RESIDENCIAL VISTA DEL SOL","CE","B","VA70",0],["SOL DE CAMARÁS - COND. 2 - F2","PE","A","TL60",0],["SOL DO MEDITERRANEO - F2","BA","C","VD50",0],["SOLAR DO BOSQUE","RS","B","VC80",0],["SOLAR DOS VENTOS PRIME","CE","B","VF20",1],["SOLAR TRINDADE - F2","RJ","B","SC10",0],["SOLARIS CAMAÇARI","BA","C","VD60",0],["SOUL TAQUÁ CLUBE","RJ","C","UR00",0],["TUCUMA","SP","D","UW10",0],["V SALVADOR - FAROL DA BARRA","BA","C","QA70",0],["V SALVADOR - FORTE SÃO MARCELO","BA","C","QA00",0],["V SALVADOR - LAGOA DO ABAETÉ","BA","C","PZ90",0],["VALE DAS TULIPAS","BA","D","UZ40",1],["VALE DOS LÍRIOS - F2","RJ","A","P010",0],["VALE DOS LIRIOS F1","BA","B","UT40",0],["VENEZA PRIME - F1","BA","B","VQ10",0],["VILA BUTANTA","SP","A","VN60",0],["VILA LAURA PRIME","BA","A","UA80",1],["VILA SANTIAGO","BA","C","VK00",0],["VISTA DEL SOL","CE","B","VA70",0],["VISTA DI MARI PRIME","CE","A","VL90",1],["VISTA DO GOLF","PE","A","VA90",0],["VISTA VILA DAS BELEZAS","SP","B","U290",0],["VITALE SANTO ANDRÉ","SP","I","TW60",0],["VIVA CASA AMARELA","PE","B","VK70",0],["VIVA CITY JARAGUÁ","SP","A","UE90",0],["VIVA PARQUE DO CARMO","SP","D","U260",0],["VIVA PRAIA DO FUTURO - F2","CE","A","UE20",0],["VIVENDA REAL","BA","B","U620",0],["VIVER MAIS","SP","F","UF70",0]];
+const PL_TORRES = Array.from({length: 40}, (_, i) => "T" + (i + 1));
+const PL_PAVS = ["PVT", ...Array.from({length: 25}, (_, i) => "PV" + (i + 1))];
+const PL_CICLOS = "ABCDEFGHIJ".split("");
+const PL_PTS = [...Array.from({length: 20}, (_, i) => "P" + (i + 1)), ...Array.from({length: 20}, (_, i) => "C" + (i + 1))];
+const PL_ESC = {A: "APARTAMENTO COMPLETO", H: "HALL"};
+const PL_ST = {
+  A: {l: "A | Aprovado", t: "Aprovado", c: "#2e7d32", fg: "#fff"},
+  AR: {l: "AR | Aprovado com Reinspeção", t: "Aprovado com reinspeção", c: "#1565c0", fg: "#fff"},
+  AC: {l: "AC | Aprovado com Concessão", t: "Aprovado com concessão", c: "#f9a825", fg: "#111"},
+  NC: {l: "NC | Não Conforme", t: "Não conforme", c: "#e1251b", fg: "#fff"}
+};
+const PL_ST_ORDER = ["A", "AR", "AC", "NC"];
+const PL_LIM = 5, PL_LIM_LISA = 10, PL_MAX_PRE = 40, PL_MAX_POS = 15, PL_PAGE = 100;
+const plLisa = p => !!p && p.lisa === "Sim";
+/* regra da coluna STATUS do F.009 (mesma fórmula da planilha oficial) */
+function plStatus(r, lisa) {
+  const d = r.d, m = r.m;
+  if (d == null) return "";
+  if (lisa) { if (d <= PL_LIM) return "A"; if (d <= PL_LIM_LISA) return "AC"; if (m == null) return "NC"; return m <= PL_LIM ? "AR" : "AC"; }
+  if (d <= PL_LIM) return "A"; if (m == null) return "NC"; return m <= PL_LIM ? "AR" : "AC";
+}
+const plPtName = k => String(k || "")[0] === "C" ? "Esquadro" : "Parede";
+const plCanto = k => { const n = +String(k).slice(1); return String(k)[0] === "C" ? `${n}-C${n}:MEDIÇÃO DE ESQUADRO ` : `${n}-P${n}:MEDIÇÃO DE PAREDE`; };
+const plPtOrder = k => (String(k)[0] === "C" ? 100 : 0) + (+String(k).slice(1) || 0);
+const plPavOrder = p => p === "PVT" ? 0 : (+String(p || "").replace(/\D/g, "") || 99);
+const plTorOrder = t => +String(t || "").replace(/\D/g, "") || 999;
+const plKey = r => [r.t || "", r.p || "", r.e || "A", r.s || "", r.k || ""].join("|");
+const plApto = r => [r.t || "", r.p || "", r.e || "A", r.s || ""].join("|");
+const plAptoTxt = r => `${r.t || "?"} · ${r.p || "?"}${(r.e || "A") === "H" ? " · Hall" : ""}${r.s ? " · Apto " + r.s : ""}`;
+const plEnc = r => JSON.stringify([r.t || "", r.p || "", r.c || "", r.e || "A", r.s || "", r.k || "", r.d ?? null, r.dt || "", r.m ?? null, r.o || "", r.by || "", r.at || ""]);
+function plDec(id, s) {
+  if (!s) return null;
+  try { const a = JSON.parse(s); if (!Array.isArray(a)) return null; return {id, t: a[0] || "", p: a[1] || "", c: a[2] || "", e: a[3] || "A", s: a[4] || "", k: a[5] || "", d: a[6] ?? null, dt: a[7] || "", m: a[8] ?? null, o: a[9] || "", by: a[10] || "", at: a[11] || ""}; }
+  catch { return null; }
+}
+const plTk = t => (String(t || "").replace(/[^A-Za-z0-9]/g, "") || "_").slice(0, 20);
+const plNum = v => { if (v == null) return null; const s = String(v).trim().replace(",", "."); if (s === "" || s === "-") return null; const n = Number(s); return isFinite(n) ? Math.round(n * 100) / 100 : null; };
+const plSort = (a, b) => plTorOrder(a.t) - plTorOrder(b.t) || plPavOrder(a.p) - plPavOrder(b.p) || String(a.e).localeCompare(String(b.e))
+  || ((+a.s || 0) - (+b.s || 0)) || String(a.s).localeCompare(String(b.s)) || plPtOrder(a.k) - plPtOrder(b.k) || String(a.at).localeCompare(String(b.at));
+const plObra = nome => PL_OBRAS.find(o => norm(o[0]) === norm(nome));
+const plMaps = p => Object.entries((p && p.maps) || {}).map(([id, m]) => ({id, ...m})).filter(m => !m.del && m.img).sort((a, b) => (a.o || 0) - (b.o || 0));
+const plPts = m => Object.entries(m.pts || {}).filter(([, v]) => v && !v.del).map(([k, v]) => ({k, ...v})).sort((a, b) => plPtOrder(a.k) - plPtOrder(b.k));
+const plStChip = (st, txt) => st ? `<span class="pl-st" style="background:${PL_ST[st].c};color:${PL_ST[st].fg}" title="${esc(PL_ST[st].l)}">${esc(txt || st)}</span>` : `<span class="pl-st none">${esc(txt || "—")}</span>`;
+function plDocWrite(path, data) { if (!db || !canWrite) return; db.doc(path).merge(cleanData(JSON.parse(JSON.stringify(data)))); }
+function plLog(pid, txt) { if (!db || !canWrite) return; db.doc(`planic/${pid}/log/${uid("l")}`).set({txt: String(txt).slice(0, 400), by: me, at: nowIso()}); }
+
+/* ----- gravação das linhas (agrupa por torre, um campo por linha) ----- */
+function plSaveRows(pid, rows, prev = new Map()) {
+  if (!rows.length || !canWrite) return;
+  const at = nowIso(), groups = new Map(), put = (tk, id, v) => { if (!groups.has(tk)) groups.set(tk, {}); groups.get(tk)[id] = v; };
+  rows.forEach(r => {
+    const row = {...r, by: me, at}, old = prev.get(r.id) || (pcur && pcur.id === pid ? pcur.rows.get(r.id) : null);
+    if (old && plTk(old.t) !== plTk(row.t)) put(plTk(old.t), r.id, "");
+    put(plTk(row.t), r.id, plEnc(row));
+  });
+  groups.forEach((r, tk) => {
+    const ids = Object.keys(r);
+    for (let i = 0; i < ids.length; i += 3000) { const part = {}; ids.slice(i, i + 3000).forEach(id => part[id] = r[id]); plDocWrite(`planic/${pid}/lin/${tk}`, {r: part, updatedAt: at, updatedBy: me}); }
+  });
+  plTouch(pid);
+}
+function plDelRows(pid, rows) {
+  const groups = new Map();
+  rows.forEach(r => { const tk = plTk(r.t); if (!groups.has(tk)) groups.set(tk, {}); groups.get(tk)[r.id] = ""; });
+  groups.forEach((r, tk) => plDocWrite(`planic/${pid}/lin/${tk}`, {r, updatedAt: nowIso(), updatedBy: me}));
+  plTouch(pid);
+}
+function plTouch(pid) {
+  if (!pcur || pcur.id !== pid) return;
+  clearTimeout(pcur.sumT);
+  pcur.sumT = setTimeout(() => { if (pcur && pcur.id === pid && pcur.got.lin) patch(`planic/${pid}`, stamp({sum: plSummary(pcur)})); }, 2500);
+}
+function plRowsArr(pc = pcur) { return pc ? [...pc.rows.values()].sort(plSort) : []; }
+function plSummary(pc) {
+  const p = planics.get(pc.id), lisa = plLisa(p), out = {n: 0, A: 0, AR: 0, AC: 0, NC: 0, vaz: 0, pend: 0};
+  pc.rows.forEach(r => { const st = plStatus(r, lisa); if (st) { out.n++; out[st]++; } else out.vaz++; });
+  out.pend = plIssues(pc).filter(i => i.sev === "bad").length;
+  return out;
+}
+
+/* ----- avaliação automática (F.009 R05 + IT 162 rev. 16) ----- */
+function plIssues(pc = pcur) {
+  const p = planics.get(pc.id), lisa = plLisa(p), out = [], rows = plRowsArr(pc), seen = new Map(), td = today();
+  const maps = plMaps(p), ptsByEsc = {}; maps.forEach(m => { const s = ptsByEsc[m.e || "A"] || (ptsByEsc[m.e || "A"] = new Set()); plPts(m).forEach(x => s.add(x.k)); });
+  const aptos = new Map();
+  rows.forEach(r => {
+    const st = plStatus(r, lisa), add = (type, sev, msg) => out.push({type, sev, msg, row: r});
+    if (st === "NC") add("nc", "bad", `Desvio de ${r.d} mm acima de ${lisa ? PL_LIM_LISA : PL_LIM} mm, sem medição pós-tratamento. Corrigir conforme a IT e medir de novo depois do arremate dos Serviços Gerais.`);
+    if (st === "AC") add("ac", "info", `Aprovado com concessão (${r.m != null ? `pós-tratamento ${r.m} mm` : `${r.d} mm em parede lisa`}). Registrar a concessão com a Qualidade.`);
+    if (r.d != null && r.d <= PL_LIM && r.m != null) add("posx", "warn", `Pós-tratamento lançado em ponto já aprovado na primeira medição (${r.d} mm).`);
+    if (r.d != null && (r.d < 0 || r.d > PL_MAX_PRE)) add("faixa", "bad", `Desvio pré de ${r.d} mm fora da faixa do F.009 (0 a ${PL_MAX_PRE} mm). Confira a digitação.`);
+    if (r.m != null && (r.m < 0 || r.m > PL_MAX_POS)) add("faixa", "bad", `Desvio pós de ${r.m} mm fora da faixa do F.009 (0 a ${PL_MAX_POS} mm). Confira a digitação.`);
+    if (r.d == null && r.m != null) add("faixa", "bad", "Desvio pós lançado sem o desvio pré.");
+    const miss = [!r.t && "torre", !r.p && "pavimento", !r.k && "canto/parede", (r.e || "A") === "A" && !r.s && "subdivisão", !r.c && "ciclo", !r.dt && "data de concretagem"].filter(Boolean);
+    if (miss.length) add("inc", r.t && r.p && r.k ? "warn" : "bad", `Falta preencher: ${miss.join(", ")}.`);
+    if (r.d == null && r.m == null) add("vazio", "warn", "Ponto criado sem medição.");
+    if (r.s && /\D/.test(r.s)) add("inc", "warn", `Subdivisão “${r.s}” com letras: o F.009 pede só números.`);
+    if (r.dt && r.dt > td) add("data", "warn", `Data de concretagem no futuro (${fmtDate(r.dt)}).`);
+    const k = plKey(r); if (r.k) { if (seen.has(k)) add("dup", "bad", `Ponto repetido: ${r.k} já foi lançado para este apartamento.`); else seen.set(k, r); }
+    if (r.t && r.p) { const a = plApto(r); if (!aptos.has(a)) aptos.set(a, {r, ks: new Set()}); if (r.k) aptos.get(a).ks.add(r.k); }
+  });
+  aptos.forEach(({r, ks}) => {
+    const exp = ptsByEsc[r.e || "A"]; if (!exp || !exp.size) return;
+    const falta = [...exp].filter(k => !ks.has(k)).sort((a, b) => plPtOrder(a) - plPtOrder(b));
+    if (falta.length) out.push({type: "falta", sev: "warn", msg: `Faltam ${falta.length} ponto(s) do mapeamento: ${falta.join(", ")}.`, row: r, apto: true});
+  });
+  return out;
+}
+const PL_ISS = {
+  nc: ["Não conformes aguardando reinspeção", "bad"], faixa: ["Valores para conferir", "bad"], dup: ["Pontos repetidos", "bad"], inc: ["Linhas incompletas", "warn"],
+  falta: ["Apartamentos com pontos faltando", "warn"], vazio: ["Pontos sem medição", "warn"], posx: ["Pós-tratamento sem necessidade", "warn"], data: ["Datas para conferir", "warn"], ac: ["Concessões para registrar", "info"]
+};
+
+/* ----- lista de planilhas ----- */
+function renderPlanicList() {
+  const v = $("#view-planic"); if (!v || pcur) return;
+  const L = [...planics.values()].sort((a, b) => String(b.updatedAt || b.createdAt || "").localeCompare(String(a.updatedAt || a.createdAt || "")));
+  v.innerHTML = `<div class="page-title"><div><h1>Planicidade e esquadro</h1><div class="sub" style="max-width:820px">F.009-QUALI · controle de planicidade e esquadro das paredes. Lance os desvios na planilha ou direto na planta do mapeamento: um preenche o outro. O sistema avalia cada medição pelas regras do F.009 e da IT 162 (tolerância de ${PL_LIM} mm).</div></div>
+    <div class="title-actions">${canWrite ? `<button class="btn" type="button" id="pl-imp">Importar arquivo</button><button class="btn primary" type="button" id="pl-new">+ Nova planilha</button>` : ""}</div></div>
+    ${L.length ? `<div class="pl-grid">${L.map(p => { const s = p.sum || {}, tot = s.n || 0, ok = (s.A || 0) + (s.AR || 0) + (s.AC || 0);
+      return `<a class="pl-card" href="#planic-${esc(p.id)}"><div class="code">F.009-QUALI · ${esc(p.obra || "Sem obra")}</div><h3>${esc(p.nome || "Planilha de planicidade")}</h3>
+        <div class="pl-bar">${tot ? PL_ST_ORDER.map(k => s[k] ? `<i style="flex:${s[k]};background:${PL_ST[k].c}" title="${esc(PL_ST[k].t)}: ${s[k]}"></i>` : "").join("") : `<i style="flex:1;background:#e5e5e5"></i>`}</div>
+        <div class="meta"><span><b>${tot}</b> medição(ões)</span>${tot ? `<span>${Math.round(ok / tot * 100)}% aprovadas</span>` : ""}${s.NC ? `<span class="bad">${s.NC} NC aguardando</span>` : ""}${s.pend ? `<span class="bad">${s.pend} pendência(s)</span>` : ""}<span>${plMaps(p).length} mapeamento(s)</span></div>
+        <div class="meta"><span>Editada por ${who(p.updatedBy)} · ${fmtWhen(p.updatedAt)}</span></div></a>`; }).join("")}</div>`
+      : `<div class="empty"><b>Nenhuma planilha de planicidade ainda</b>Crie uma planilha para a obra (o F.009 recomenda manter um arquivo só por obra, com o histórico) ou importe um arquivo F.009 que já exista: Excel, PDF ou foto da planilha.</div>`}`;
+  const nb = $("#pl-new", v); if (nb) nb.onclick = () => plNewDialog();
+  const ib = $("#pl-imp", v); if (ib) ib.onclick = () => plImportFlow(null);
+  fillNames();
+}
+function plObraOpts() { return PL_OBRAS.map(o => `<option value="${esc(o[0])}">`).join(""); }
+async function plNewDialog(pre = {}) {
+  if (!canWrite) return null;
+  const last = [...planics.values()].sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)))[0];
+  const obraFv = [...fvs.values()].map(f => f.obra).find(o => o && plObra(o));
+  const obra0 = pre.obra || (last && last.obra) || obraFv || "PARQUE DOS SONHOS V";
+  const res = await modal({title: pre.title || "Nova planilha de planicidade", body: `<div class="grid2">
+      <label class="fld" style="grid-column:1/-1">Obra<input type="text" id="pn-obra" list="dl-plobras" value="${esc(obra0)}" placeholder="Nome da obra como no F.009"></label>
+      <label class="fld" style="grid-column:1/-1">Nome da planilha<input type="text" id="pn-nome" value="${esc(pre.nome || "")}" placeholder="Ex.: Planicidade e esquadro – Torres 1 a 5"></label>
+      <label class="fld">Parede lisa<select id="pn-lisa"><option>Não</option><option>Sim</option></select></label>
+      <div class="fld"><span>Regional · Fábrica</span><div id="pn-rf" class="sub" style="padding:10px 0">—</div></div></div>
+      <datalist id="dl-plobras">${plObraOpts()}</datalist>
+      <p class="sub" style="margin:8px 0 0">Regional, fábrica e parede lisa vêm da lista de obras do F.009 R05. Obra em parede lisa usa a regra própria (até ${PL_LIM_LISA} mm vira concessão na primeira medição).</p>`,
+    onOpen: bg => {
+      const upd = () => { const o = plObra($("#pn-obra", bg).value); $("#pn-rf", bg).textContent = o ? `${o[1]} · ${o[2]}` : "Obra fora da lista do F.009"; if (o) $("#pn-lisa", bg).value = o[4] ? "Sim" : "Não"; if (!$("#pn-nome", bg).dataset.t) $("#pn-nome", bg).value = pre.nome || `Planicidade e esquadro – ${$("#pn-obra", bg).value.trim()}`; };
+      $("#pn-nome", bg).addEventListener("input", e => e.target.dataset.t = "1"); $("#pn-obra", bg).addEventListener("input", upd); upd();
+      if (pre.lisa) $("#pn-lisa", bg).value = pre.lisa;
+    },
+    actions: [{label: "Cancelar", value: null}, {label: pre.ok || "Criar planilha", cls: "primary", validate: bg => !!$("#pn-obra", bg).value.trim() || (toast("Informe a obra."), false),
+      value: bg => ({obra: $("#pn-obra", bg).value.trim(), nome: $("#pn-nome", bg).value.trim(), lisa: $("#pn-lisa", bg).value})}]});
+  if (!res) return null;
+  const o = plObra(res.obra), pid = uid("q"), at = nowIso();
+  const doc = {nome: res.nome || `Planicidade e esquadro – ${res.obra}`, obra: o ? o[0] : res.obra.toUpperCase(), regional: o ? o[1] : "", fabrica: o ? o[2] : "", lisa: res.lisa, form: "F.009-QUALI R05", maps: {}, sum: {n: 0}, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+  try { await create(`planic/${pid}`, doc); planics.set(pid, {id: pid, ...doc}); plLog(pid, "Criou a planilha"); if (!pre.stay) location.hash = "planic-" + pid; return pid; } catch { return null; }
+}
+
+/* ----- planilha aberta ----- */
+function openPlanic(pid) {
+  if (pcur && pcur.id === pid) { renderPlanic(); return; }
+  closePlanic();
+  let f0 = {t: "", p: "", c: "", e: "", s: "", st: "", q: ""};
+  try { f0 = {...f0, ...JSON.parse(sessionStorage.getItem("pl-f-" + pid) || "{}")}; } catch {}
+  pcur = {id: pid, rows: new Map(), log: [], tab: "tab", f: f0, page: 0, unsubs: [], got: {}};
+  pcur.unsubs.push(db.collection(`planic/${pid}/lin`).onSnapshot(s => {
+    if (!pcur || pcur.id !== pid) return;
+    const rows = new Map(); s.docs.forEach(d => { const r = (d.data() || {}).r || {}; for (const id in r) { const x = plDec(id, r[id]); if (x) rows.set(id, x); } });
+    pcur.rows = rows; pcur.got.lin = true; plRefresh();
+  }, () => {}));
+  pcur.unsubs.push(db.collection(`planic/${pid}/log`).orderBy("at").onSnapshot(s => { if (!pcur || pcur.id !== pid) return; pcur.log = s.docs.map(d => ({id: d.id, ...d.data()})); if (pcur.tab === "hist") plBody(); }, () => {}));
+  renderPlanic();
+}
+function closePlanic() { if (!pcur) return; pcur.unsubs.forEach(u => { try { u(); } catch {} }); clearTimeout(pcur.sumT); pcur = null; }
+function plRefresh() {
+  if (!pcur) return;
+  if (plmState && plmState.refresh) plmState.refresh();
+  const a = document.activeElement;
+  if (a && a.closest && a.closest("#pl-body .pl-tbl, #pl-fbar")) { pcur.dirty = true; return; }
+  pcur.dirty = false; renderPlanicHead(); plBody();
+}
+function renderPlanic() {
+  const v = $("#view-planic"), p = planics.get(pcur.id);
+  if (!p) { v.innerHTML = `<a class="back" href="#planic">← Planicidade</a><div class="empty"><b>Planilha não encontrada</b>Ela pode ter sido excluída.</div>`; return; }
+  v.innerHTML = `<a class="back" href="#planic">← Planicidade</a><div id="pl-head"></div>
+    <div class="tabs" role="tablist" id="pl-tabs"><button type="button" data-pt="tab">Planilha <span class="n" id="pl-n-tab">0</span></button><button type="button" data-pt="map">Mapeamento <span class="n" id="pl-n-map">0</span></button><button type="button" data-pt="aval">Avaliação <span class="n" id="pl-n-aval">0</span></button><button type="button" data-pt="hist">Histórico</button></div>
+    <div id="pl-fbar"></div><div id="pl-body"></div>`;
+  $("#pl-tabs", v).onclick = e => { const b = e.target.closest("[data-pt]"); if (b) { pcur.tab = b.dataset.pt; plBody(); } };
+  v.addEventListener("focusout", () => setTimeout(() => { if (pcur && pcur.dirty) { const a = document.activeElement; if (!(a && a.closest && a.closest("#pl-body .pl-tbl, #pl-fbar"))) plRefresh(); } }, 60));
+  renderPlanicHead(); plBody();
+}
+function renderPlanicHead() {
+  const p = planics.get(pcur.id), box = $("#pl-head"); if (!p || !box) return;
+  const s = plSummary(pcur), iss = plIssues(pcur);
+  box.innerHTML = `<div class="page-title"><div><div class="code">F.009-QUALI R05 · Controle de planicidade e esquadro das paredes</div><h1>${esc(p.nome || "Planilha de planicidade")}</h1>
+      <div class="sub"><b>Obra:</b> ${esc(p.obra || "—")}${p.regional ? ` · <b>Regional:</b> ${esc(p.regional)}` : ""}${p.fabrica ? ` · <b>Fábrica:</b> ${esc(p.fabrica)}` : ""} · <b>Parede lisa:</b> ${esc(p.lisa || "Não")} · editada por ${who(p.updatedBy)} ${fmtWhen(p.updatedAt)}</div></div>
+    <div class="title-actions">${canWrite ? `<button class="btn" type="button" id="pl-load">Carregar arquivo</button>` : ""}<button class="btn" type="button" id="pl-xlsx">Baixar Excel</button>${canWrite ? `<button class="btn" type="button" id="pl-more" aria-label="Mais opções">⋯</button>` : ""}</div></div>
+    <div class="pl-kpis">${PL_ST_ORDER.map(k => `<button type="button" class="pl-kpi" data-fst="${k}" style="--c:${PL_ST[k].c}"><b>${s[k] || 0}</b><span>${esc(PL_ST[k].t)}</span></button>`).join("")}<button type="button" class="pl-kpi" data-fst="vaz" style="--c:#9e9e9e"><b>${s.vaz || 0}</b><span>Sem medição</span></button>
+      <div class="pl-kpi big"><b>${s.n ? Math.round(((s.A || 0) / s.n) * 100) : 0}%</b><span>aprovadas na 1ª medição</span></div></div>`;
+  $("#pl-n-tab").textContent = pcur.rows.size; $("#pl-n-map").textContent = plMaps(p).length;
+  const nb = iss.filter(i => i.sev === "bad").length; $("#pl-n-aval").textContent = nb || iss.filter(i => i.sev === "warn").length; $("#pl-n-aval").classList.toggle("bad", !!nb);
+  $$("[data-fst]", box).forEach(b => b.onclick = () => { pcur.f.st = pcur.f.st === b.dataset.fst ? "" : b.dataset.fst; pcur.tab = "tab"; pcur.page = 0; plSaveF(); plBody(); });
+  const lb = $("#pl-load", box); if (lb) lb.onclick = () => plImportFlow(pcur.id);
+  $("#pl-xlsx", box).onclick = () => plExportXlsx(pcur.id);
+  const mb = $("#pl-more", box); if (mb) mb.onclick = () => plMoreMenu(pcur.id);
+  fillNames();
+}
+async function plMoreMenu(pid) {
+  const p = planics.get(pid); if (!p) return;
+  const a = await modal({title: "Planilha", body: `<p class="sub" style="margin:0">${esc(p.nome)}</p>`, actions: [{label: "Excluir planilha", cls: "danger", value: "del"}, {label: "Cancelar", value: null}, {label: "Editar dados", cls: "primary", value: "edit"}]});
+  if (a === "edit") {
+    const r = await modal({title: "Dados da planilha", body: `<div class="grid2"><label class="fld" style="grid-column:1/-1">Nome<input type="text" id="pe-nome" value="${esc(p.nome || "")}"></label>
+      <label class="fld" style="grid-column:1/-1">Obra<input type="text" id="pe-obra" list="dl-plobras2" value="${esc(p.obra || "")}"></label><label class="fld">Parede lisa<select id="pe-lisa"><option ${p.lisa !== "Sim" ? "selected" : ""}>Não</option><option ${p.lisa === "Sim" ? "selected" : ""}>Sim</option></select></label></div><datalist id="dl-plobras2">${plObraOpts()}</datalist>`,
+      actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => ({nome: $("#pe-nome", bg).value.trim(), obra: $("#pe-obra", bg).value.trim(), lisa: $("#pe-lisa", bg).value})}]});
+    if (!r) return;
+    const o = plObra(r.obra), upd = {nome: r.nome || p.nome, obra: o ? o[0] : r.obra, regional: o ? o[1] : (p.regional || ""), fabrica: o ? o[2] : (p.fabrica || ""), lisa: r.lisa};
+    if (upd.lisa !== p.lisa) plLog(pid, `Mudou parede lisa para “${upd.lisa}” (muda a regra de status)`);
+    patch(`planic/${pid}`, stamp(upd)); planics.set(pid, {...p, ...upd}); renderPlanicHead(); plBody(); plTouch(pid);
+  } else if (a === "del") {
+    if (!(await confirmBox("Excluir planilha?", `A planilha <b>${esc(p.nome)}</b>, com ${pcur ? pcur.rows.size : "todas as"} linha(s) e os mapeamentos, vai para a <b>Lixeira</b>. Dá para restaurar em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+    try { await toTrash("planic", `planic/${pid}`, p.nome || "Planilha de planicidade", "Qualidade · Planicidade"); planics.delete(pid); location.hash = "planic"; toast("Planilha enviada para a lixeira."); } catch {}
+  }
+}
+function plSaveF() { try { sessionStorage.setItem("pl-f-" + pcur.id, JSON.stringify(pcur.f)); } catch {} }
+const plUniq = (rows, k, base = []) => [...new Set([...base, ...rows.map(r => r[k]).filter(Boolean)])];
+function plFilterBar(withSt = true) {
+  const f = pcur.f, rows = plRowsArr(), box = $("#pl-fbar");
+  const tor = plUniq(rows, "t").sort((a, b) => plTorOrder(a) - plTorOrder(b)), pav = plUniq(rows, "p").sort((a, b) => plPavOrder(a) - plPavOrder(b));
+  const sub = plUniq(rows.filter(r => (!f.t || r.t === f.t) && (!f.p || r.p === f.p)), "s").sort((a, b) => (+a || 0) - (+b || 0) || String(a).localeCompare(String(b)));
+  const opt = (L, v, lbl) => `<option value="">${lbl}</option>` + L.map(x => `<option ${x === v ? "selected" : ""}>${esc(x)}</option>`).join("");
+  box.innerHTML = `<div class="pl-fbar"><select data-ff="t" aria-label="Torre">${opt(tor.length ? tor : PL_TORRES.slice(0, 10), f.t, "Todas as torres")}</select><select data-ff="p" aria-label="Pavimento">${opt(pav.length ? pav : PL_PAVS.slice(0, 6), f.p, "Todos os pavimentos")}</select>
+    <select data-ff="s" aria-label="Subdivisão">${opt(sub, f.s, "Todas as subdivisões")}</select><select data-ff="e" aria-label="Escopo"><option value="">Todos os escopos</option><option value="A" ${f.e === "A" ? "selected" : ""}>Apartamento completo</option><option value="H" ${f.e === "H" ? "selected" : ""}>Hall</option></select>
+    ${withSt ? `<select data-ff="st" aria-label="Status"><option value="">Todos os status</option>${PL_ST_ORDER.map(k => `<option value="${k}" ${f.st === k ? "selected" : ""}>${esc(PL_ST[k].l)}</option>`).join("")}<option value="vaz" ${f.st === "vaz" ? "selected" : ""}>Sem medição</option><option value="pend" ${f.st === "pend" ? "selected" : ""}>Com pendência</option></select>
+    <input type="search" data-ff="q" value="${esc(f.q)}" placeholder="Buscar (ex.: P3, C2, 21)" aria-label="Buscar">` : ""}
+    ${Object.values(f).some(Boolean) ? `<button type="button" class="btn sm ghost" data-fclear>Limpar filtros</button>` : ""}</div>`;
+  $$("[data-ff]", box).forEach(el => el.addEventListener(el.tagName === "INPUT" ? "input" : "change", () => {
+    f[el.dataset.ff] = el.value; pcur.page = 0; plSaveF();
+    if (el.tagName === "INPUT") { clearTimeout(pcur.qt); pcur.qt = setTimeout(() => plBody(true), 250); } else plBody();
+  }));
+  const c = $("[data-fclear]", box); if (c) c.onclick = () => { pcur.f = {t: "", p: "", c: "", e: "", s: "", st: "", q: ""}; pcur.page = 0; plSaveF(); plBody(); };
+}
+function plFiltered() {
+  const f = pcur.f, p = planics.get(pcur.id), lisa = plLisa(p), q = norm(f.q).trim();
+  const pendIds = f.st === "pend" ? new Set(plIssues().filter(i => i.sev !== "info" && i.row && !i.apto).map(i => i.row.id)) : null;
+  return plRowsArr().filter(r => (!f.t || r.t === f.t) && (!f.p || r.p === f.p) && (!f.s || r.s === f.s) && (!f.e || (r.e || "A") === f.e)
+    && (!f.st || (f.st === "vaz" ? r.d == null : f.st === "pend" ? pendIds.has(r.id) : plStatus(r, lisa) === f.st))
+    && (!q || norm([r.t, r.p, r.c, r.s, r.k, plCanto(r.k), r.o, r.d, r.m].join(" ")).includes(q)));
+}
+function plBody(keepFilterFocus) {
+  if (!pcur) return;
+  $$("#pl-tabs [data-pt]").forEach(b => b.classList.toggle("on", b.dataset.pt === pcur.tab));
+  const box = $("#pl-body"); if (!box) return;
+  if (!pcur.got.lin) { box.innerHTML = `<div class="sub" style="padding:20px">Carregando a planilha…</div>`; return; }
+  if (!keepFilterFocus) { if (pcur.tab === "tab" || pcur.tab === "map") plFilterBar(pcur.tab === "tab"); else $("#pl-fbar").innerHTML = ""; }
+  if (pcur.tab === "tab") plTable(box); else if (pcur.tab === "map") plMapTab(box); else if (pcur.tab === "aval") plAval(box); else plHist(box);
+}
+
+/* ----- aba Planilha ----- */
+function plTable(box) {
+  const p = planics.get(pcur.id), lisa = plLisa(p), L = plFiltered(), pages = Math.max(1, Math.ceil(L.length / PL_PAGE));
+  if (pcur.page >= pages) pcur.page = pages - 1;
+  const part = L.slice(pcur.page * PL_PAGE, (pcur.page + 1) * PL_PAGE), ro = !canWrite;
+  const iss = new Map(); plIssues().forEach(i => { if (i.row && !i.apto && i.sev !== "info") { const a = iss.get(i.row.id) || []; a.push(i); iss.set(i.row.id, a); } });
+  const sel = (k, L2, v, lbl, w) => `<select data-k="${k}" ${ro ? "disabled" : ""} aria-label="${lbl}" style="min-width:${w}px"><option value=""></option>${L2.map(x => Array.isArray(x) ? `<option value="${esc(x[0])}" ${x[0] === v ? "selected" : ""}>${esc(x[1])}</option>` : `<option ${x === v ? "selected" : ""}>${esc(x)}</option>`).join("")}${v && !L2.some(x => (Array.isArray(x) ? x[0] : x) === v) ? `<option selected>${esc(v)}</option>` : ""}</select>`;
+  const ptOpts = PL_PTS.map(k => [k, `${k} · ${plPtName(k).toLowerCase()}`]);
+  box.innerHTML = `<div class="pl-acts">${ro ? "" : `<button class="btn sm primary" type="button" id="pl-addrow">+ Linha</button><button class="btn sm" type="button" id="pl-addapto">+ Apartamento completo</button>`}
+      <span class="sub">${L.length} de ${pcur.rows.size} linha(s)${pages > 1 ? ` · página ${pcur.page + 1} de ${pages}` : ""}. As colunas Regional, Fábrica, Obra e Parede lisa são as da planilha e saem no Excel.</span></div>
+    ${L.length ? `<div class="pl-tw"><table class="pl-tbl"><thead><tr><th>Torre</th><th>Pav.</th><th>Ciclo</th><th>Escopo</th><th title="Apartamento (apenas números)">Subdiv.</th><th>Canto / parede</th><th>Status</th><th>Desvio pré<small>mm</small></th><th>Data concretagem</th><th>Desvio pós<small>mm</small></th><th>Observação</th><th></th></tr></thead><tbody>
+      ${part.map(r => { const st = plStatus(r, lisa), ii = iss.get(r.id) || [], bad = ii.some(i => i.sev === "bad");
+        return `<tr data-rid="${esc(r.id)}" class="${bad ? "bad" : ii.length ? "warn" : ""}" title="${esc(ii.map(i => i.msg).join("\n"))}">
+          <td>${sel("t", PL_TORRES, r.t, "Torre", 62)}</td><td>${sel("p", PL_PAVS, r.p, "Pavimento", 66)}</td><td>${sel("c", PL_CICLOS, r.c, "Ciclo", 46)}</td>
+          <td>${sel("e", [["A", "Apto"], ["H", "Hall"]], r.e || "A", "Escopo", 62)}</td><td><input type="text" inputmode="numeric" data-k="s" value="${esc(r.s)}" ${ro ? "disabled" : ""} aria-label="Subdivisão" style="width:58px"></td>
+          <td>${sel("k", ptOpts, r.k, "Canto/parede", 118)}</td><td>${plStChip(st, st || "—")}</td>
+          <td><input type="text" inputmode="decimal" data-k="d" value="${r.d ?? ""}" ${ro ? "disabled" : ""} aria-label="Desvio pré" class="num ${r.d != null && (r.d > PL_MAX_PRE || r.d < 0) ? "err" : ""}"></td>
+          <td><input type="date" data-k="dt" value="${esc(r.dt)}" ${ro ? "disabled" : ""} aria-label="Data de concretagem" class="${!r.dt ? "miss" : ""}"></td>
+          <td><input type="text" inputmode="decimal" data-k="m" value="${r.m ?? ""}" ${ro ? "disabled" : ""} aria-label="Desvio pós" class="num ${st === "NC" ? "need" : ""} ${r.m != null && (r.m > PL_MAX_POS || r.m < 0) ? "err" : ""}" placeholder="${st === "NC" ? "falta" : ""}" title="${st === "NC" ? "Medir de novo depois da correção e do arremate" : ""}"></td>
+          <td><input type="text" data-k="o" value="${esc(r.o)}" ${ro ? "disabled" : ""} aria-label="Observação" maxlength="200" style="min-width:120px"></td>
+          <td>${ro ? "" : `<button type="button" class="btn sm ghost danger" data-del aria-label="Excluir linha" title="Excluir linha">✕</button>`}</td></tr>`; }).join("")}
+      </tbody></table></div>${pages > 1 ? `<div class="pl-pg"><button class="btn sm" type="button" data-pg="-1" ${pcur.page ? "" : "disabled"}>← Anterior</button><span>Página ${pcur.page + 1} de ${pages}</span><button class="btn sm" type="button" data-pg="1" ${pcur.page < pages - 1 ? "" : "disabled"}>Próxima →</button></div>` : ""}`
+    : `<div class="empty"><b>${pcur.rows.size ? "Nenhuma linha com esses filtros" : "Planilha vazia"}</b>${pcur.rows.size ? "Mude ou limpe os filtros." : "Use <b>+ Apartamento completo</b> para criar os pontos de um apartamento de uma vez, <b>+ Linha</b> para lançar um ponto, ou <b>Carregar arquivo</b> para trazer um F.009 em Excel, PDF ou foto."}</div>`}`;
+  const tb = $(".pl-tbl", box);
+  if (tb && !ro) tb.addEventListener("change", e => {
+    const el = e.target.closest("[data-k]"), tr = e.target.closest("tr[data-rid]"); if (!el || !tr) return;
+    const r = pcur.rows.get(tr.dataset.rid); if (!r) return;
+    const k = el.dataset.k; let v = el.value;
+    if (k === "d" || k === "m") { v = plNum(v); if (el.value.trim() && v == null) { toast("Digite só o número do desvio, em milímetros."); el.value = r[k] ?? ""; return; } }
+    if (k === "s") v = String(v).trim();
+    if ((r[k] ?? "") === (v ?? "")) return;
+    const nr = {...r, [k]: v};
+    plSaveRows(pcur.id, [nr]);
+    if (k === "d" || k === "m") { const st = plStatus(nr, lisa), cell = tr.children[6]; cell.innerHTML = plStChip(st, st || "—"); if (st === "NC" && k === "d") toast(`${nr.k || "Ponto"}: ${nr.d} mm, acima da tolerância. Fica NC até lançar o desvio pós-tratamento (depois do arremate).`); }
+  });
+  if (tb && !ro) tb.addEventListener("click", e => {
+    const b = e.target.closest("[data-del]"); if (!b) return; const tr = b.closest("tr"), r = pcur.rows.get(tr.dataset.rid); if (!r) return;
+    plDelRows(pcur.id, [r]); plLog(pcur.id, `Excluiu a linha ${plAptoTxt(r)} · ${r.k || "sem ponto"}${r.d != null ? ` (pré ${r.d} mm${r.m != null ? `, pós ${r.m} mm` : ""})` : ""}`); tr.remove(); toast("Linha excluída (fica registrada no histórico).");
+  });
+  $$("[data-pg]", box).forEach(b => b.onclick = () => { pcur.page += +b.dataset.pg; plBody(true); window.scrollTo(0, $("#pl-fbar").offsetTop - 10); });
+  const ar = $("#pl-addrow", box); if (ar) ar.onclick = () => plAddRow();
+  const aa = $("#pl-addapto", box); if (aa) aa.onclick = () => plAddApto();
+}
+function plLastDate(t, p) { const L = plRowsArr().filter(r => r.dt && r.t === t && r.p === p).sort((a, b) => String(b.at).localeCompare(String(a.at))); return L[0] ? L[0].dt : ""; }
+function plLastCiclo(t, p) { const L = plRowsArr().filter(r => r.c && r.t === t && r.p === p); return L[0] ? L[0].c : ""; }
+function plAddRow() {
+  const f = pcur.f, e = f.e || "A", used = new Set(plRowsArr().filter(r => r.t === f.t && r.p === f.p && (r.e || "A") === e && r.s === f.s).map(r => r.k));
+  const map = plMaps(planics.get(pcur.id)).find(m => (m.e || "A") === e), order = map ? plPts(map).map(x => x.k) : PL_PTS;
+  const k = order.find(x => !used.has(x)) || "";
+  const r = {id: uid("r"), t: f.t, p: f.p, c: plLastCiclo(f.t, f.p), e, s: f.s, k, d: null, dt: plLastDate(f.t, f.p), m: null, o: ""};
+  plSaveRows(pcur.id, [r]); pcur.f.st = ""; plSaveF(); toast("Linha criada no fim do grupo filtrado.");
+}
+async function plAddApto() {
+  const p = planics.get(pcur.id), f = pcur.f, maps = plMaps(p);
+  const res = await modal({title: "Apartamento completo", wide: true, body: `<div class="grid2">
+      <label class="fld">Torre<select id="pa-t">${PL_TORRES.map(x => `<option ${x === (f.t || "T1") ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+      <label class="fld">Pavimento<select id="pa-p">${PL_PAVS.map(x => `<option ${x === (f.p || "PVT") ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+      <label class="fld">Ciclo de concretagem<select id="pa-c"><option value=""></option>${PL_CICLOS.map(x => `<option>${x}</option>`).join("")}</select></label>
+      <label class="fld">Escopo<select id="pa-e"><option value="A" ${f.e !== "H" ? "selected" : ""}>Apartamento completo</option><option value="H" ${f.e === "H" ? "selected" : ""}>Hall</option></select></label>
+      <label class="fld" style="grid-column:1/-1">Subdivisões (apartamentos)<input type="text" id="pa-s" value="${esc(f.s)}" placeholder="Só números, separados por vírgula. Ex.: 11, 12, 13, 14" inputmode="numeric"></label>
+      <label class="fld">Data de concretagem<input type="date" id="pa-dt"></label>
+      <div class="fld"><span>Pontos</span><div id="pa-pts" class="sub" style="padding:8px 0"></div></div>
+      <div id="pa-man" class="grid2" style="grid-column:1/-1"><label class="fld">Paredes (P1 até…)<input type="number" id="pa-np" min="0" max="20" value="10"></label><label class="fld">Esquadros (C1 até…)<input type="number" id="pa-nc" min="0" max="20" value="10"></label></div></div>
+      <p class="sub" style="margin:8px 0 0">Cria uma linha por ponto, ainda sem desvio, para você preencher na planilha ou tocando nos pontos do mapeamento. Pontos que já existem não são repetidos.</p>`,
+    onOpen: bg => {
+      const upd = () => { const e = $("#pa-e", bg).value, m = maps.find(x => (x.e || "A") === e), L = m ? plPts(m).map(x => x.k) : null;
+        $("#pa-pts", bg).innerHTML = L && L.length ? `Do mapeamento <b>${esc(m.nome || "")}</b>: ${L.length} ponto(s) (${esc(L.join(", "))})` : "Sem mapeamento para este escopo: informe quantos pontos.";
+        $("#pa-man", bg).classList.toggle("hidden", !!(L && L.length));
+        const t = $("#pa-t", bg).value, pv = $("#pa-p", bg).value; if (!$("#pa-dt", bg).dataset.t) $("#pa-dt", bg).value = plLastDate(t, pv); if (!$("#pa-c", bg).dataset.t) $("#pa-c", bg).value = plLastCiclo(t, pv); };
+      ["pa-e", "pa-t", "pa-p"].forEach(i => $("#" + i, bg).addEventListener("change", upd)); $("#pa-dt", bg).addEventListener("input", e => e.target.dataset.t = 1); $("#pa-c", bg).addEventListener("change", e => e.target.dataset.t = 1); upd();
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Criar pontos", cls: "primary", validate: bg => { if ($("#pa-e", bg).value === "A" && !$("#pa-s", bg).value.trim()) { toast("Informe o número do apartamento."); return false; } return true; },
+      value: bg => { const e = $("#pa-e", bg).value, m = maps.find(x => (x.e || "A") === e), L = m && plPts(m).length ? plPts(m).map(x => x.k) : [...Array.from({length: Math.min(20, +$("#pa-np", bg).value || 0)}, (_, i) => "P" + (i + 1)), ...Array.from({length: Math.min(20, +$("#pa-nc", bg).value || 0)}, (_, i) => "C" + (i + 1))];
+        return {t: $("#pa-t", bg).value, p: $("#pa-p", bg).value, c: $("#pa-c", bg).value, e, dt: $("#pa-dt", bg).value, subs: $("#pa-s", bg).value.split(/[,;\s]+/).map(x => x.trim()).filter(Boolean), pts: L}; }}]});
+  if (!res) return;
+  const subs = res.subs.length ? res.subs : [""], have = new Set(plRowsArr().map(plKey)), out = [];
+  subs.forEach(s => res.pts.forEach(k => { const r = {id: uid("r"), t: res.t, p: res.p, c: res.c, e: res.e, s, k, d: null, dt: res.dt, m: null, o: ""}; if (!have.has(plKey(r))) out.push(r); }));
+  if (!out.length) { toast("Esses pontos já estão na planilha."); return; }
+  plSaveRows(pcur.id, out); plLog(pcur.id, `Criou ${out.length} ponto(s): ${res.t} · ${res.p}${res.e === "H" ? " · Hall" : ""} · apto(s) ${subs.join(", ") || "—"}`);
+  pcur.f = {...pcur.f, t: res.t, p: res.p, e: res.e, s: subs.length === 1 ? subs[0] : "", st: ""}; plSaveF(); toast(`${out.length} ponto(s) criados.`);
+}
+
+/* ----- aba Avaliação ----- */
+function plAval(box) {
+  const p = planics.get(pcur.id), lisa = plLisa(p), rows = plRowsArr(), iss = plIssues(), s = plSummary(pcur);
+  const tor = plUniq(rows, "t").sort((a, b) => plTorOrder(a) - plTorOrder(b)), pav = plUniq(rows, "p").sort((a, b) => plPavOrder(a) - plPavOrder(b));
+  const cell = (t, pv) => { const L = rows.filter(r => r.t === t && r.p === pv); if (!L.length) return `<td class="pl-mx none"></td>`;
+    const c = {A: 0, AR: 0, AC: 0, NC: 0, vaz: 0}; L.forEach(r => { const st = plStatus(r, lisa); c[st || "vaz"]++; });
+    const worst = c.NC ? "NC" : c.vaz ? "vaz" : c.AC ? "AC" : c.AR ? "AR" : "A", col = worst === "vaz" ? "#bdbdbd" : PL_ST[worst].c;
+    return `<td class="pl-mx" style="--c:${col}"><button type="button" data-go-t="${esc(t)}" data-go-p="${esc(pv)}" title="${esc(`${t} · ${pv}: ${PL_ST_ORDER.map(k => `${c[k]} ${k}`).join(", ")}, ${c.vaz} sem medição`)}"><b>${L.length - c.vaz}/${L.length}</b>${c.NC ? `<small>${c.NC} NC</small>` : c.vaz ? `<small>${c.vaz} vazio</small>` : `<small>ok</small>`}</button></td>`; };
+  const groups = Object.keys(PL_ISS).map(k => ({k, L: iss.filter(i => i.type === k)})).filter(g => g.L.length);
+  box.innerHTML = `<div class="pl-rules"><b>Como o sistema avalia</b> (F.009-QUALI R05 e IT 162 / IT.027-ESTR rev. 16)
+      <ul><li><b>Primeira medição (pré-tratamento):</b> até ${PL_LIM} mm → <b>A | Aprovado</b>; acima de ${PL_LIM} mm → <b>NC | Não conforme</b> até a correção.${lisa ? ` <b>Parede lisa:</b> de ${PL_LIM} a ${PL_LIM_LISA} mm → AC direto; acima de ${PL_LIM_LISA} mm → NC.` : ""}</li>
+      <li><b>Depois da correção e do arremate dos Serviços Gerais (pós-tratamento):</b> até ${PL_LIM} mm → <b>AR | Aprovado com reinspeção</b>; acima de ${PL_LIM} mm → <b>AC | Aprovado com concessão</b>.</li>
+      <li>Medir com régua e esquadro a <b>1,10 m ± 10 cm</b> do piso; paredes hidráulicas a <b>50 cm ± 10 cm</b>. Considerar o maior espaçamento encontrado. O F.009 aceita pré de 0 a ${PL_MAX_PRE} mm e pós de 0 a ${PL_MAX_POS} mm.</li></ul></div>
+    ${tor.length && pav.length ? `<h3 class="pl-h">Torre × pavimento</h3><p class="sub" style="margin:0 0 6px">Medidos / pontos lançados. A cor mostra o pior caso: vermelho com NC, cinza com ponto sem medição, amarelo com concessão. Toque para abrir na planilha.</p>
+      <div class="pl-tw"><table class="pl-mxt"><thead><tr><th></th>${pav.map(x => `<th>${esc(x)}</th>`).join("")}</tr></thead><tbody>${tor.map(t => `<tr><th>${esc(t)}</th>${pav.map(pv => cell(t, pv)).join("")}</tr>`).join("")}</tbody></table></div>` : ""}
+    <h3 class="pl-h">Pendências e avisos</h3>
+    ${groups.length ? groups.map(g => `<details class="pl-iss ${PL_ISS[g.k][1]}" ${PL_ISS[g.k][1] === "bad" ? "open" : ""}><summary><b>${esc(PL_ISS[g.k][0])}</b> <span class="n">${g.L.length}</span></summary><ul>
+        ${g.L.slice(0, 60).map(i => `<li><button type="button" class="linkish" data-goi="${esc(i.row.id)}">${esc(plAptoTxt(i.row))}${i.apto ? "" : ` · ${esc(i.row.k || "sem ponto")}`}</button> ${esc(i.msg)}</li>`).join("")}${g.L.length > 60 ? `<li class="sub">… e mais ${g.L.length - 60}.</li>` : ""}</ul></details>`).join("")
+      : `<div class="banner ok" style="margin:0">Nenhuma pendência: todas as medições lançadas estão dentro das regras.</div>`}`;
+  $$("[data-go-t]", box).forEach(b => b.onclick = () => { pcur.f = {...pcur.f, t: b.dataset.goT, p: b.dataset.goP, s: "", st: ""}; pcur.tab = "tab"; pcur.page = 0; plSaveF(); plBody(); });
+  $$("[data-goi]", box).forEach(b => b.onclick = () => { const r = pcur.rows.get(b.dataset.goi); if (!r) return; pcur.f = {t: r.t, p: r.p, e: r.e || "A", s: r.s, c: "", st: "", q: ""}; pcur.tab = "tab"; pcur.page = 0; plSaveF(); plBody();
+    setTimeout(() => { const tr = $(`#pl-body tr[data-rid="${CSS.escape(r.id)}"]`); if (tr) { tr.scrollIntoView({block: "center"}); tr.classList.add("flash"); } }, 50); });
+}
+function plHist(box) {
+  const L = [...pcur.log].sort((a, b) => String(b.at).localeCompare(String(a.at)));
+  box.innerHTML = `<p class="sub" style="margin:0 0 10px">Registro das ações na planilha (criação, importações, pontos criados e excluídos, mapeamentos). Cada linha também guarda quem lançou e quando.</p>
+    ${L.length ? `<div class="log">${L.map(l => `<div class="e"><span class="when">${fmtFull(l.at)}</span><span>${who(l.by)} — ${esc(l.txt)}</span></div>`).join("")}</div>` : `<div class="empty"><b>Sem registros ainda</b></div>`}`;
+  fillNames();
+}
+
+/* ----- aba Mapeamento ----- */
+function plMapTab(box) {
+  const p = planics.get(pcur.id), maps = plMaps(p), f = pcur.f, delMaps = Object.entries(p.maps || {}).filter(([, m]) => m && m.del && m.img);
+  const ctxOk = f.t && f.p && (f.e === "H" || f.s);
+  box.innerHTML = `${maps.length ? `<div class="pl-acts">${canWrite ? `<button class="btn sm primary" type="button" id="pl-newmap">+ Novo mapeamento</button>` : ""}<span class="sub">${ctxOk ? `Mostrando os desvios de <b>${esc(plAptoTxt({t: f.t, p: f.p, e: f.e || "A", s: f.s}))}</b>.` : "Escolha torre, pavimento e subdivisão nos filtros para ver os desvios na planta, ou abra o mapeamento e escolha lá."}</span></div>
+      <div class="pl-maps">${maps.map(m => `<div class="pl-map"><button type="button" class="pl-map-img" data-open="${esc(m.id)}" aria-label="Abrir ${esc(m.nome || "mapeamento")}"><img alt="" data-prev="${esc(m.id)}"></button>
+        <div class="pl-map-b"><b>${esc(m.nome || "Mapeamento")}</b><span class="sub">${esc(PL_ESC[m.e || "A"])} · ${plPts(m).filter(x => x.k[0] === "P").length} parede(s) · ${plPts(m).filter(x => x.k[0] === "C").length} esquadro(s)</span>
+        <div class="pl-map-a"><button class="btn sm primary" type="button" data-open="${esc(m.id)}">Abrir</button>${canWrite ? `<button class="btn sm" type="button" data-ren="${esc(m.id)}">Renomear</button><button class="btn sm ghost danger" type="button" data-delm="${esc(m.id)}">Excluir</button>` : ""}</div></div></div>`).join("")}</div>`
+    : `<div class="empty"><b>Nenhum mapeamento ainda</b>Carregue a planta das paredes e esquadros enviada pela Qualidade (PDF ou imagem), recorte o apartamento e coloque os pontos P (paredes) e C (esquadros). Depois é só escolher torre, pavimento e apartamento e tocar nos pontos para lançar os desvios: tudo vai para a planilha, e o que for lançado na planilha aparece na planta.${canWrite ? `<div style="margin-top:14px"><button class="btn primary" type="button" id="pl-newmap">+ Criar mapeamento</button></div>` : ""}</div>`}
+    ${delMaps.length && canWrite ? `<details class="pl-iss info" style="margin-top:14px"><summary>Mapeamentos excluídos <span class="n">${delMaps.length}</span></summary><ul>${delMaps.map(([id, m]) => `<li>${esc(m.nome || "Mapeamento")} <button class="btn sm" type="button" data-restm="${esc(id)}">Restaurar</button></li>`).join("")}</ul></details>` : ""}
+    <div class="pl-legend">${PL_ST_ORDER.map(k => `<span><i style="background:${PL_ST[k].c}"></i>${esc(PL_ST[k].t)}</span>`).join("")}<span><i style="background:#9e9e9e"></i>Sem medição</span><span><i style="background:#fff;border:1px solid #333"></i>Não lançado</span><span><i style="border-radius:50%;background:#fff;border:1px solid #333"></i>Parede (P)</span><span><i style="border-radius:2px;background:#fff;border:1px solid #333"></i>Esquadro (C)</span></div>`;
+  const nm = $("#pl-newmap", box); if (nm) nm.onclick = () => plNewMap();
+  $$("[data-open]", box).forEach(b => b.onclick = () => plOpenMap(b.dataset.open));
+  $$("[data-ren]", box).forEach(b => b.onclick = async () => { const m = (p.maps || {})[b.dataset.ren]; const v = await modal({title: "Renomear mapeamento", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.nome || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]}); if (v) { patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.ren]: {nome: v}}})); } });
+  $$("[data-delm]", box).forEach(b => b.onclick = async () => { const m = (p.maps || {})[b.dataset.delm]; if (!(await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.nome || "")}</b> sai da lista. As medições da planilha continuam. Dá para restaurar aqui mesmo, em “Mapeamentos excluídos”.`, "Excluir", true))) return; patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.delm]: {del: true}}})); plLog(pcur.id, `Excluiu o mapeamento “${m.nome || ""}”`); });
+  $$("[data-restm]", box).forEach(b => b.onclick = () => { patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.restm]: {del: false}}})); plLog(pcur.id, "Restaurou um mapeamento excluído"); });
+  const ctx = ctxOk ? {t: f.t, p: f.p, s: f.s} : null;
+  $$("img[data-prev]", box).forEach(im => { const m = maps.find(x => x.id === im.dataset.prev); if (m) plMapPreview(m, ctx).then(u => { im.src = u; }).catch(() => {}); });
+}
+function plRowsFor(m, ctx) {
+  const out = new Map(); if (!ctx) return out;
+  plRowsArr().forEach(r => { if (r.t === ctx.t && r.p === ctx.p && (r.e || "A") === (m.e || "A") && (r.s || "") === (ctx.s || "") && r.k) out.set(r.k, r); });
+  return out;
+}
+function plPaint(c, m, k, byPt, lisa, sel) {
+  const base = Math.max(m.img.w, m.img.h) / 70, R = Math.max(base, 12 / k);
+  plPts(m).forEach(pt => {
+    const r = byPt.get(pt.k), st = r ? plStatus(r, lisa) : "", fill = st ? PL_ST[st].c : r ? "#9e9e9e" : "#ffffff", fg = st ? PL_ST[st].fg : r ? "#fff" : "#111";
+    c.save(); c.beginPath();
+    if (pt.k[0] === "C") { const s = R * .92; if (c.roundRect) c.roundRect(pt.x - s, pt.y - s, 2 * s, 2 * s, s * .25); else c.rect(pt.x - s, pt.y - s, 2 * s, 2 * s); }
+    else c.arc(pt.x, pt.y, R, 0, Math.PI * 2);
+    c.fillStyle = fill; c.fill(); c.lineWidth = R * (pt.k === sel ? .34 : .16); c.strokeStyle = pt.k === sel ? "#000" : "#1d1d1b"; c.stroke();
+    c.fillStyle = fg; c.font = `800 ${R * (pt.k.length > 2 ? .72 : .86)}px Arial, sans-serif`; c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(pt.k, pt.x, pt.y + R * .04);
+    if (r && r.d != null) {
+      const t = `${r.d}${r.m != null ? " → " + r.m : ""} mm`; c.font = `700 ${R * .7}px Arial, sans-serif`; const w = c.measureText(t).width + R * .6, h = R * 1.0, y = pt.y + R * 1.25;
+      c.fillStyle = "rgba(255,255,255,.95)"; c.strokeStyle = fill === "#ffffff" ? "#333" : fill; c.lineWidth = R * .1; c.beginPath(); if (c.roundRect) c.roundRect(pt.x - w / 2, y, w, h, h / 3); else c.rect(pt.x - w / 2, y, w, h); c.fill(); c.stroke();
+      c.fillStyle = "#111"; c.fillText(t, pt.x, y + h / 2 + R * .03);
+    }
+    c.restore();
+  });
+}
+const plPrevCache = new Map();
+async function plMapPreview(m, ctx, maxW = 900) {
+  const p = planics.get(pcur.id), byPt = plRowsFor(m, ctx), sig = JSON.stringify([m.img.id, m.pts, ctx, [...byPt.values()].map(r => [r.k, r.d, r.m]), p.lisa, maxW]);
+  if (plPrevCache.has(sig)) return plPrevCache.get(sig);
+  const im = await loadImg(m.img.id), k = Math.min(1, maxW / im.width), cv = mkCanvas(Math.round(im.width * k), Math.round(im.height * k)), g = cv.getContext("2d");
+  g.drawImage(im, 0, 0, cv.width, cv.height); const s = cv.width / m.img.w; g.setTransform(s, 0, 0, s, 0, 0);
+  plPaint(g, m, s * 1.6, byPt, plLisa(p), null);
+  const url = cv.toDataURL("image/jpeg", .88); plPrevCache.set(sig, url); return url;
+}
+async function plNewMap() {
+  const p = planics.get(pcur.id), pid = pcur.id; if (!p || !canWrite) return;
+  const has = plMaps(p).map(m => m.e || "A");
+  const e = await modal({title: "Novo mapeamento", body: `<label class="fld">Escopo<select id="nm-e"><option value="A" ${has.includes("A") ? "" : "selected"}>Apartamento completo</option><option value="H" ${has.includes("A") && !has.includes("H") ? "selected" : ""}>Hall</option></select></label>
+      <p class="sub" style="margin:8px 0 0">Na próxima tela, escolha ou envie a planta das paredes e esquadros (PDF ou imagem). Depois recorte a área e coloque os pontos.</p>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Próximo: planta", cls: "primary", value: bg => $("#nm-e", bg).value}]});
+  if (!e) return;
+  const pick = await pickPlanta(`Planta – ${e === "H" ? "Hall" : "Apartamento"}`); if (!pick) return;
+  const pl = plantas.get(pick.pid); if (!pl) return;
+  const rect = await pickCrop(pl, null); if (!rect) return;
+  const end = toastHold("Recortando a planta…");
+  try {
+    const {url, w, h} = await extractRegion(pl, rect), mid = uid("m"), imgId = saveBlob(url);
+    patch(`planic/${pid}`, stamp({maps: {[mid]: {nome: pick.title, e, o: Date.now(), pid: pl.id, ptitle: pl.title || "", crop: rect, img: {id: imgId, w, h}, pts: {}, del: false, by: me, at: nowIso()}}}));
+    const cur_ = planics.get(pid); if (cur_) { cur_.maps = {...(cur_.maps || {}), [mid]: {nome: pick.title, e, o: Date.now(), img: {id: imgId, w, h}, pts: {}}}; }
+    plLog(pid, `Criou o mapeamento “${pick.title}” (${PL_ESC[e].toLowerCase()})`);
+    end(); setTimeout(() => plOpenMap(mid, "pts"), 200);
+  } catch { end(); toast("Não foi possível recortar a planta. Verifique a conexão e tente de novo."); }
+}
+
+/* editor do mapeamento: posicionar pontos e lançar desvios */
+async function plOpenMap(mid, mode0) {
+  if (plmState || !pcur) return;
+  const pid = pcur.id, P = () => planics.get(pid), M = () => { const p = P(); const m = p && p.maps && p.maps[mid]; return m ? {id: mid, ...m} : null; };
+  let m = M(); if (!m) return;
+  const ro = !canWrite, f = pcur.f;
+  const st = plmState = {mode: ro ? "view" : (mode0 || (plPts(m).length ? "lan" : "pts")), next: "P", sel: null, drag: null, ctx: {t: f.t || "T1", p: f.p || "PVT", c: "", s: f.s || "", dt: ""}};
+  st.ctx.c = plLastCiclo(st.ctx.t, st.ctx.p); st.ctx.dt = plLastDate(st.ctx.t, st.ctx.p);
+  if (!st.ctx.s && (m.e || "A") === "A") { const s0 = plRowsArr().find(r => r.t === st.ctx.t && r.p === st.ctx.p && (r.e || "A") === "A" && r.s); if (s0) st.ctx.s = s0.s; }
+  const ov = document.createElement("div"); ov.className = "med ui pl-med";
+  ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-x>✕ Fechar</button><b class="med-title"></b>
+      <div class="pl-modes">${ro ? `<span class="med-tip">Somente visualização</span>` : `<button type="button" class="tl" data-mode="lan" title="Tocar nos pontos para lançar os desvios">✏️ Lançar desvios</button><button type="button" class="tl" data-mode="pts" title="Colocar, mover, renomear ou apagar pontos">📍 Pontos</button>`}<button type="button" class="tl" data-mode="view" title="Mover a planta e dar zoom">✋ Mover</button></div></div>
+    <div class="med-tools pl-ctx"><label>Torre<select data-c="t">${PL_TORRES.map(x => `<option>${x}</option>`).join("")}</select></label><label>Pav.<select data-c="p">${PL_PAVS.map(x => `<option>${x}</option>`).join("")}</select></label>
+      <label>Ciclo<select data-c="c"><option value=""></option>${PL_CICLOS.map(x => `<option>${x}</option>`).join("")}</select></label>
+      <label class="sub-l">${(m.e || "A") === "H" ? "Hall nº" : "Apto"}<input type="text" data-c="s" inputmode="numeric" placeholder="${(m.e || "A") === "H" ? "opcional" : "ex.: 21"}" style="width:70px"></label>
+      <label>Concretagem<input type="date" data-c="dt"></label>
+      <span class="pl-ptsbar hidden"><button type="button" class="tl" data-next="P" title="Próximo toque coloca uma parede">+ Parede (P)</button><button type="button" class="tl" data-next="C" title="Próximo toque coloca um esquadro">+ Esquadro (C)</button></span>
+      <span class="med-tip" data-tip></span></div>
+    <div class="med-main"><div class="med-cv"><div class="mload" style="color:#fff">Carregando planta…</div><div class="med-zoom"><button type="button" data-z="1.4" aria-label="Aproximar">+</button><button type="button" data-z="0.7" aria-label="Afastar">−</button><button type="button" data-z="fit" aria-label="Ajustar">⤢</button></div></div>
+    <aside class="med-side"><div class="mnotes-t" data-sidet>PONTOS</div><ol class="pl-side"></ol><p class="sub med-help" data-help></p></aside></div>`;
+  document.body.appendChild(ov); document.body.classList.add("noscroll");
+  let v = null;
+  const close = () => { if (v) v.destroy(); ov.remove(); document.body.classList.remove("noscroll"); document.removeEventListener("keydown", onKey); plmState = null; if (pcur && pcur.id === pid) { pcur.f = {...pcur.f, t: st.ctx.t, p: st.ctx.p, s: st.ctx.s, e: m.e || "A"}; plSaveF(); plBody(); } };
+  const onKey = e => { if (e.key === "Escape" && !$(".modal-bg")) close(); };
+  document.addEventListener("keydown", onKey);
+  $("[data-x]", ov).onclick = close;
+  $(".med-title", ov).textContent = `${m.nome || "Mapeamento"} · ${PL_ESC[m.e || "A"].toLowerCase()}`;
+  $$("[data-c]", ov).forEach(el => { el.value = st.ctx[el.dataset.c] || ""; el.addEventListener(el.tagName === "INPUT" && el.type !== "date" ? "input" : "change", () => {
+    st.ctx[el.dataset.c] = el.value.trim();
+    if (el.dataset.c === "t" || el.dataset.c === "p") { const c2 = plLastCiclo(st.ctx.t, st.ctx.p), d2 = plLastDate(st.ctx.t, st.ctx.p); if (c2) { st.ctx.c = c2; $("[data-c=c]", ov).value = c2; } if (d2) { st.ctx.dt = d2; $("[data-c=dt]", ov).value = d2; } }
+    side(); v && v.draw(); }); });
+  const lisa = () => plLisa(P());
+  const byPt = () => plRowsFor(m, {t: st.ctx.t, p: st.ctx.p, s: st.ctx.s});
+  const help = () => {
+    const tip = $("[data-tip]", ov), hp = $("[data-help]", ov);
+    $$("[data-mode]", ov).forEach(b => b.classList.toggle("on", b.dataset.mode === st.mode));
+    $(".pl-ptsbar", ov).classList.toggle("hidden", st.mode !== "pts");
+    $$("[data-next]", ov).forEach(b => b.classList.toggle("on", b.dataset.next === st.next));
+    tip.textContent = st.mode === "pts" ? `Toque na planta para colocar ${plNextCode(m, st.next)}. Arraste um ponto para mover; toque nele para renomear ou apagar.` : st.mode === "lan" ? "Toque num ponto para lançar o desvio. O valor vai direto para a planilha." : "Arraste para mover; dois dedos ou a roda do mouse dão zoom.";
+    hp.innerHTML = st.mode === "lan" ? `Pré-tratamento até ${PL_LIM} mm aprova. Acima disso o ponto fica <b>NC</b> até a medição pós-tratamento, depois do arremate.` : st.mode === "pts" ? "P = paredes (planicidade), C = esquadros. Use a mesma numeração da planta enviada pela Qualidade." : "";
+  };
+  const side = () => {
+    const L = plPts(m), bp = byPt(), ol = $(".pl-side", ov), lz = lisa();
+    $("[data-sidet]", ov).textContent = `PONTOS · ${plAptoTxt({t: st.ctx.t, p: st.ctx.p, e: m.e || "A", s: st.ctx.s})}`;
+    ol.innerHTML = L.length ? L.map(x => { const r = bp.get(x.k), s_ = r ? plStatus(r, lz) : ""; return `<li data-pk="${esc(x.k)}" class="${x.k === st.sel ? "on" : ""}"><b>${esc(x.k)}</b><span>${r && r.d != null ? `${r.d}${r.m != null ? " → " + r.m : ""} mm` : r ? "sem medição" : "—"}</span>${plStChip(s_, s_ || "")}</li>`; }).join("") : `<li class="sub" style="display:block">Nenhum ponto. Use 📍 Pontos e toque na planta.</li>`;
+  };
+  $(".pl-side", ov).addEventListener("click", e => { const li = e.target.closest("[data-pk]"); if (!li) return; st.sel = li.dataset.pk; v && v.draw(); side(); if (st.mode === "lan") plEnter(li.dataset.pk); else if (st.mode === "pts") ptMenu(li.dataset.pk); });
+  $$("[data-mode]", ov).forEach(b => b.onclick = () => { st.mode = b.dataset.mode; help(); });
+  $$("[data-next]", ov).forEach(b => b.onclick = () => { st.next = b.dataset.next; help(); });
+  let im; try { im = await loadImg(m.img.id); } catch { toast("Não foi possível carregar a planta."); return close(); }
+  $(".mload", ov).remove();
+  const host = $(".med-cv", ov), sx = () => im.width / m.img.w; // px da imagem carregada por unidade salva
+  const toM = q => [q[0] / sx(), q[1] / sx()];
+  const hit = q => { const p0 = toM(q), base = Math.max(m.img.w, m.img.h) / 70, R = Math.max(base, 12 / (v.k * sx())) * 1.3; let best = null, bd = 1e9; plPts(m).forEach(x => { const d = Math.hypot(x.x - p0[0], x.y - p0[1]); if (d < R && d < bd) { bd = d; best = x; } }); return best; };
+  const savePt = (code, x, y, extra = {}) => { const at = nowIso(); patch(`planic/${pid}`, stamp({maps: {[mid]: {pts: {[code]: {x: Math.round(x), y: Math.round(y), del: false, ...extra}}}}})); m.pts = {...(m.pts || {}), [code]: {x: Math.round(x), y: Math.round(y), del: false}}; if (!st.logged) { st.logged = true; plLog(pid, `Editou os pontos do mapeamento “${m.nome || ""}”`); } };
+  async function ptMenu(code) {
+    const x = (m.pts || {})[code]; if (!x || ro) return;
+    const r = await modal({title: `Ponto ${code}`, body: `<label class="fld">Código do ponto<select id="pm-k">${PL_PTS.map(k => `<option ${k === code ? "selected" : ""} ${k !== code && (m.pts || {})[k] && !(m.pts[k].del) ? "disabled" : ""}>${k}</option>`).join("")}</select></label><p class="sub" style="margin:8px 0 0">P = parede, C = esquadro. Trocar o código não altera as medições já lançadas na planilha.</p>`,
+      actions: [{label: "Apagar ponto", cls: "danger", value: "del"}, {label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#pm-k", bg).value}]});
+    if (!r) return;
+    if (r === "del") { patch(`planic/${pid}`, stamp({maps: {[mid]: {pts: {[code]: {del: true}}}}})); m.pts = {...m.pts, [code]: {...x, del: true}}; st.sel = null; }
+    else if (r !== code) { patch(`planic/${pid}`, stamp({maps: {[mid]: {pts: {[code]: {del: true}, [r]: {x: x.x, y: x.y, del: false}}}}})); m.pts = {...m.pts, [code]: {...x, del: true}, [r]: {x: x.x, y: x.y, del: false}}; st.sel = r; }
+    v.draw(); side(); help();
+  }
+  async function plEnter(code) {
+    const c = st.ctx;
+    if (!c.t || !c.p || ((m.e || "A") === "A" && !c.s)) { toast(`Escolha torre, pavimento e ${(m.e || "A") === "A" ? "o número do apartamento" : "o hall"} na barra de cima antes de lançar.`); const el = $("[data-c=s]", ov); el && el.focus(); return; }
+    const r0 = byPt().get(code), lz = lisa();
+    const res = await modal({title: `${code} · ${plPtName(code)} — ${plAptoTxt({t: c.t, p: c.p, e: m.e || "A", s: c.s})}`, body: `<div class="grid2">
+        <label class="fld">Desvio pré-tratamento (mm)<input type="text" inputmode="decimal" id="pe-d" value="${r0 && r0.d != null ? r0.d : ""}" autocomplete="off"></label>
+        <label class="fld">Desvio pós-tratamento (mm)<input type="text" inputmode="decimal" id="pe-m" value="${r0 && r0.m != null ? r0.m : ""}" autocomplete="off" placeholder="só depois do arremate"></label>
+        <label class="fld" style="grid-column:1/-1">Observação<input type="text" id="pe-o" value="${esc(r0 ? r0.o : "")}" maxlength="200"></label></div>
+        <div id="pe-st" style="margin-top:8px"></div>
+        <p class="sub" style="margin:8px 0 0">Ciclo ${esc(c.c || "—")} · concretagem ${c.dt ? fmtDate(c.dt) : "não informada"} (mude na barra de cima).</p>`,
+      onOpen: bg => {
+        const upd = () => { const d = plNum($("#pe-d", bg).value), mm = plNum($("#pe-m", bg).value), s_ = plStatus({d, m: mm}, lz);
+          $("#pe-st", bg).innerHTML = s_ ? `${plStChip(s_, PL_ST[s_].l)} ${s_ === "NC" ? `<span class="sub">Corrigir conforme a IT e medir de novo depois do arremate.</span>` : ""}` : `<span class="sub">Digite o desvio medido.</span>`; };
+        $$("input", bg).forEach(i => i.addEventListener("input", upd)); upd();
+        $("#pe-d", bg).addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); $$(".acts .btn", bg).pop().click(); } });
+        setTimeout(() => { $("#pe-d", bg).focus(); $("#pe-d", bg).select(); }, 30);
+      },
+      actions: [...(r0 ? [{label: "Apagar medição", cls: "danger", value: "del"}] : []), {label: "Cancelar", value: null}, {label: "Salvar", cls: "", value: bg => ({d: $("#pe-d", bg).value, m: $("#pe-m", bg).value, o: $("#pe-o", bg).value.trim()})}, {label: "Salvar e próximo →", cls: "primary", value: bg => ({d: $("#pe-d", bg).value, m: $("#pe-m", bg).value, o: $("#pe-o", bg).value.trim(), next: true})}]});
+    if (!res) return;
+    if (res === "del") { plDelRows(pid, [r0]); plLog(pid, `Apagou a medição ${plAptoTxt(r0)} · ${code}`); setTimeout(() => { side(); v.draw(); }, 50); return; }
+    const d = plNum(res.d), mm = plNum(res.m);
+    if ((res.d.trim() && d == null) || (res.m.trim() && mm == null)) { toast("Digite só números (em milímetros)."); return plEnter(code); }
+    const row = {...(r0 || {id: uid("r"), e: m.e || "A", k: code}), t: c.t, p: c.p, c: c.c || (r0 && r0.c) || "", s: c.s, dt: c.dt || (r0 && r0.dt) || "", d, m: mm, o: res.o};
+    plSaveRows(pid, [row]);
+    if (res.next) { const L = plPts(m).map(x => x.k), i = L.indexOf(code), nx = L[i + 1]; if (nx) { st.sel = nx; setTimeout(() => plEnter(nx), 120); } else toast("Último ponto deste apartamento."); }
+  }
+  v = new MapViewer(host, im, {
+    tool: () => st.mode === "view" ? "pan" : "draw",
+    start: (q, e) => { st.down = q; st.moved = false; st.lx = e.clientX; st.ly = e.clientY; st.sx0 = e.clientX; st.sy0 = e.clientY; if (st.mode === "pts" && !ro) { const h = hit(q); if (h) st.drag = {k: h.k, x: h.x, y: h.y}; } },
+    drag: (q, e) => { if (!st.down) return; if (Math.hypot(e.clientX - st.sx0, e.clientY - st.sy0) > 7) st.moved = true;
+      if (st.drag && st.moved) { const p0 = toM(q); st.drag.x = p0[0]; st.drag.y = p0[1]; m.pts = {...m.pts, [st.drag.k]: {...m.pts[st.drag.k], x: p0[0], y: p0[1]}}; v.draw(); }
+      else if (st.moved && !st.drag) { v.ox += e.clientX - st.lx; v.oy += e.clientY - st.ly; v.draw(); }
+      st.lx = e.clientX; st.ly = e.clientY; },
+    end: q => {
+      const h = hit(q);
+      if (st.drag && st.moved) { savePt(st.drag.k, st.drag.x, st.drag.y); st.sel = st.drag.k; }
+      else if (!st.moved) {
+        if (h) { st.sel = h.k; if (st.mode === "lan") plEnter(h.k); else if (st.mode === "pts") ptMenu(h.k); }
+        else if (st.mode === "pts" && !ro) { const code = plNextCode(m, st.next); if (!code) toast(`Já existem 20 pontos ${st.next}.`); else { const p0 = toM(q); if (p0[0] >= 0 && p0[1] >= 0 && p0[0] <= m.img.w && p0[1] <= m.img.h) { savePt(code, p0[0], p0[1]); st.sel = code; } } }
+      }
+      st.drag = null; st.down = null; v.draw(); side(); help();
+    },
+    cancel: () => { st.drag = null; st.down = null; },
+    paint: (c, vv) => { const s = sx(); c.save(); c.scale(s, s); plPaint(c, m, vv.k * s, byPt(), lisa(), st.sel); c.restore(); }
+  });
+  host.insertBefore(v.cv, host.firstChild); v.resize();
+  $$(".med-zoom [data-z]", ov).forEach(b => b.onclick = () => b.dataset.z === "fit" ? v.fit() : v.zoomBy(+b.dataset.z));
+  st.refresh = () => { const nm = M(); if (nm && !st.drag) m = nm; v.draw(); side(); };
+  help(); side();
+}
+function plNextCode(m, kind) { const used = new Set(plPts(m).map(x => x.k)); for (let i = 1; i <= 20; i++) if (!used.has(kind + i)) return kind + i; return ""; }
+
+/* ---------- importação: Excel (xlsx/xlsm/csv), PDF (texto ou imagem) e fotos/prints ---------- */
+async function plUnzip(buf, want) {
+  const u8 = new Uint8Array(buf), dv = new DataView(buf), out = new Map();
+  let eocd = -1; for (let i = u8.length - 22; i >= Math.max(0, u8.length - 70000); i--) if (dv.getUint32(i, true) === 0x06054b50) { eocd = i; break; }
+  if (eocd < 0) throw new Error("zip");
+  const n = dv.getUint16(eocd + 10, true); let p = dv.getUint32(eocd + 16, true); const td = new TextDecoder();
+  for (let i = 0; i < n; i++) {
+    if (dv.getUint32(p, true) !== 0x02014b50) break;
+    const meth = dv.getUint16(p + 10, true), csz = dv.getUint32(p + 20, true), nl = dv.getUint16(p + 28, true), xl = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), lo = dv.getUint32(p + 42, true);
+    const name = td.decode(u8.subarray(p + 46, p + 46 + nl)); p += 46 + nl + xl + cl;
+    if (!want(name)) continue;
+    const ln = dv.getUint16(lo + 26, true), lx = dv.getUint16(lo + 28, true), data = u8.subarray(lo + 30 + ln + lx, lo + 30 + ln + lx + csz);
+    if (meth === 0) out.set(name, td.decode(data));
+    else if (meth === 8) { const ds = new DecompressionStream("deflate-raw"); const s = new Blob([data]).stream().pipeThrough(ds); out.set(name, await new Response(s).text()); }
+  }
+  return out;
+}
+const plXmlTxt = s => s.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&amp;/g, "&");
+const plColN = c => { let n = 0; for (const ch of c) n = n * 26 + ch.charCodeAt(0) - 64; return n - 1; };
+async function plReadXlsx(buf) {
+  const meta = await plUnzip(buf, n => /^xl\/(workbook\.xml|_rels\/workbook\.xml\.rels|sharedStrings\.xml|styles\.xml)$/.test(n));
+  const wb = meta.get("xl/workbook.xml") || "", rels = meta.get("xl/_rels/workbook.xml.rels") || "";
+  const att = (tag, a) => (tag.match(new RegExp("\\b" + a + '="([^"]*)"')) || [])[1] || "";
+  const sheets = (wb.match(/<sheet\b[^>]*>/g) || []).map(tag => ({name: plXmlTxt(att(tag, "name")), rid: att(tag, "r:id"), state: att(tag, "state")}));
+  const tgt = {}; [...rels.matchAll(/<Relationship\b[^>]*?Id="([^"]*)"[^>]*?Target="([^"]*)"/g)].forEach(x => tgt[x[1]] = x[2]);
+  [...rels.matchAll(/<Relationship\b[^>]*?Target="([^"]*)"[^>]*?Id="([^"]*)"/g)].forEach(x => tgt[x[2]] = tgt[x[2]] || x[1]);
+  const path = s => { let t = tgt[s.rid] || ""; t = t.replace(/^\/?xl\//, "").replace(/^\//, ""); return "xl/" + t; };
+  const ss = []; const sst = meta.get("xl/sharedStrings.xml") || ""; for (const x of sst.matchAll(/<si>([\s\S]*?)<\/si>/g)) ss.push(plXmlTxt((x[1].match(/<t[^>]*>[\s\S]*?<\/t>/g) || []).join("")));
+  // datas: estilos com formato de data
+  const sty = meta.get("xl/styles.xml") || "", custom = {}; [...sty.matchAll(/<numFmt\b[^>]*numFmtId="(\d+)"[^>]*formatCode="([^"]*)"/g)].forEach(x => custom[x[1]] = x[2]);
+  const xfs = ((sty.match(/<cellXfs[\s\S]*?<\/cellXfs>/) || [""])[0].match(/<xf\b[^>]*>/g) || []).map(x => +((x.match(/numFmtId="(\d+)"/) || [0, 0])[1]));
+  const isDateFmt = id => (id >= 14 && id <= 22) || (id >= 45 && id <= 47) || (custom[id] && /[dy]/i.test(custom[id].replace(/"[^"]*"/g, "").replace(/\[[^\]]*\]/g, "")));
+  const order = [...sheets.filter(s => /desvio/i.test(s.name)), ...sheets.filter(s => !/desvio/i.test(s.name) && !s.state), ...sheets.filter(s => !/desvio/i.test(s.name) && s.state)];
+  for (const s of order.slice(0, 6)) {
+    const xml = (await plUnzip(buf, n => n === path(s))).get(path(s)); if (!xml) continue;
+    const mat = [];
+    for (const row of xml.matchAll(/<row\b[^>]*?(?:\/>|>([\s\S]*?)<\/row>)/g)) {
+      const cells = []; let any = false; if (!row[1]) continue;
+      for (const c of row[1].matchAll(/<c\b([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)) {
+        const a = c[1], inner = c[2] || "", ref = (a.match(/\br="([A-Z]+)\d+"/) || [])[1]; if (!ref) continue;
+        const t = (a.match(/\bt="([^"]+)"/) || [])[1] || "", sIdx = +((a.match(/\bs="(\d+)"/) || [0, 0])[1]);
+        let v = (inner.match(/<v>([\s\S]*?)<\/v>/) || [])[1];
+        if (t === "s") v = v != null ? ss[+v] : ""; else if (t === "inlineStr") v = plXmlTxt((inner.match(/<is>([\s\S]*?)<\/is>/) || ["", ""])[1]); else if (v != null) { v = plXmlTxt(v); if (t !== "str" && t !== "b" && t !== "e" && v !== "" && isFinite(+v)) { v = +v; if (isDateFmt(xfs[sIdx]) && v > 20000 && v < 80000) v = {date: v}; } }
+        if (v == null || v === "") continue; cells[plColN(ref)] = v; any = true;
+      }
+      if (any) mat.push(cells);
+    }
+    const res = plMatrixRows(mat); if (res.rows.length || /desvio/i.test(s.name)) return {...res, sheet: s.name};
+  }
+  return {rows: [], warns: ["Não encontrei a tabela do F.009 (colunas TORRE, PAVIMENTO, CANTO/PAREDE…) nesta planilha."], obra: ""};
+}
+const plSerialIso = n => { const d = new Date(Math.round((n - 25569) * 864e5)); return d.toISOString().slice(0, 10); };
+function plDateIso(v) {
+  if (v == null || v === "") return "";
+  if (typeof v === "object" && v.date) return plSerialIso(v.date);
+  if (typeof v === "number") return v > 20000 && v < 80000 ? plSerialIso(v) : "";
+  const s = String(v).trim(); let m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (m) return `${m[1]}-${m[2]}-${m[3]}`;
+  m = /^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})$/.exec(s); if (m) { const y = m[3].length === 2 ? "20" + m[3] : m[3]; return `${y}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}`; }
+  return "";
+}
+const plFixOcrNum = s => String(s).replace(/[OoQ]/g, "0").replace(/[Il|!]/g, "1").replace(/[Ss]/g, "5").replace(/B/g, "8");
+function plNormTorre(v) { const m = /^\s*T(?:ORRE)?\s*[-.]?\s*([0-9OIl|]{1,2})\s*$/i.exec(String(v || "")); if (m) return "T" + (+plFixOcrNum(m[1])); const n = /^\s*(\d{1,2})\s*$/.exec(String(v || "")); return n ? "T" + (+n[1]) : String(v || "").trim().toUpperCase(); }
+function plNormPav(v) { const s = String(v || "").trim().toUpperCase().replace(/\s+/g, ""); if (/^(PVT|T|TERREO|TÉRREO)$/.test(s)) return "PVT"; const m = /^P[VY]?([0-9OIl|]{1,2})$/.exec(s); if (m) return "PV" + (+plFixOcrNum(m[1])); return s; }
+function plNormPt(v) { const s = String(v || "").toUpperCase(); let m = /(\d{1,2})\s*[-–]\s*([PC])\s*([0-9OIl|]{1,2})/.exec(s); if (m) return m[2] + (+plFixOcrNum(m[3])); m = /\b([PC])\s*[-.]?\s*([0-9OIl|]{1,2})\b/.exec(s); if (m) return m[1] + (+plFixOcrNum(m[2])); if (/ESQUADRO/.test(s)) { const n = /(\d{1,2})/.exec(s); if (n) return "C" + (+n[1]); } if (/PAREDE/.test(s)) { const n = /(\d{1,2})/.exec(s); if (n) return "P" + (+n[1]); } return ""; }
+const plNormEsc = v => /HALL/i.test(String(v || "")) ? "H" : "A";
+const PL_HDR = [["regional", /^REGIONAL/], ["fabrica", /^FABRICA/], ["obra", /^OBRA$/], ["t", /^TORRE/], ["p", /^PAV/], ["c", /^CICLO/], ["e", /^ESCOPO/], ["s", /^SUBDIV/], ["k", /^CANTO|PAREDE\/|^CANTO\/PAREDE/], ["st", /^STATUS/], ["d", /DESVIO\s*PRE/], ["dt", /^DATA/], ["m", /DESVIO\s*POS/], ["lisa", /^PAREDE\s*LISA/], ["o", /^OBS/]];
+function plMatrixRows(mat) {
+  const up = v => norm(v).toUpperCase().replace(/\s+/g, " ").trim();
+  let hr = -1, map = {};
+  for (let i = 0; i < Math.min(mat.length, 60); i++) {
+    const r = mat[i] || [], m2 = {};
+    r.forEach((v, j) => { const u = up(v); for (const [k, re] of PL_HDR) if (!(k in m2) && re.test(u)) { m2[k] = j; break; } });
+    if ("t" in m2 && ("k" in m2 || "d" in m2)) { hr = i; map = m2; break; }
+  }
+  if (hr < 0) return {rows: [], warns: [], obra: ""};
+  const rows = [], warns = [], obras = {};
+  for (let i = hr + 1; i < mat.length; i++) {
+    const r = mat[i] || [], g = k => (k in map ? r[map[k]] : undefined);
+    const t = g("t"), k = g("k"), d = g("d"), mm = g("m");
+    if ((t == null || t === "") && (k == null || k === "") && d == null) continue;
+    const row = {t: plNormTorre(t), p: plNormPav(g("p")), c: String(g("c") ?? "").trim().toUpperCase().slice(0, 2), e: plNormEsc(g("e")), s: String(g("s") ?? "").trim().replace(/\.0+$/, ""), k: plNormPt(k), d: plNum(typeof d === "object" ? null : d), dt: plDateIso(g("dt")), m: plNum(typeof mm === "object" ? null : mm), o: String(g("o") ?? "").trim().slice(0, 200)};
+    const ob = String(g("obra") ?? "").trim(); if (ob) obras[ob] = (obras[ob] || 0) + 1;
+    if (!row.k && row.d == null) { warns.push(`Linha ${i + 1}: sem canto/parede e sem desvio, ignorada.`); continue; }
+    rows.push(row);
+  }
+  const obra = Object.entries(obras).sort((a, b) => b[1] - a[1])[0];
+  return {rows, warns, obra: obra ? obra[0] : ""};
+}
+function plReadCsv(text) {
+  const first = text.split(/\r?\n/).find(l => l.trim()) || "", sep = (first.match(/;/g) || []).length >= (first.match(/,/g) || []).length ? ";" : ",";
+  const mat = []; let row = [], cur_ = "", q = false;
+  for (let i = 0; i < text.length; i++) { const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cur_ += '"'; i++; } else q = false; } else cur_ += ch; }
+    else if (ch === '"') q = true; else if (ch === sep) { row.push(cur_); cur_ = ""; } else if (ch === "\n") { row.push(cur_); mat.push(row); row = []; cur_ = ""; } else if (ch !== "\r") cur_ += ch; }
+  if (cur_ || row.length) { row.push(cur_); mat.push(row); }
+  return plMatrixRows(mat);
+}
+/* texto posicionado (PDF ou leitura de imagem) → linhas da planilha */
+function plTokensRows(tokens) {
+  const T = tokens.filter(t => String(t.s).trim()).map(t => ({...t, s: String(t.s).trim(), yc: (t.y0 + t.y1) / 2, h: Math.max(1, t.y1 - t.y0)}));
+  if (!T.length) return {rows: [], warns: [], obra: ""};
+  const hs = T.map(t => t.h).sort((a, b) => a - b), mh = hs[Math.floor(hs.length / 2)];
+  T.sort((a, b) => a.yc - b.yc);
+  const lines = []; T.forEach(t => { const L = lines[lines.length - 1]; if (L && Math.abs(t.yc - L.y) < mh * .6) { L.items.push(t); L.y = (L.y * (L.items.length - 1) + t.yc) / L.items.length; } else lines.push({y: t.yc, items: [t]}); });
+  const rows = [], warns = [], obras = {};
+  lines.forEach(L => {
+    L.items.sort((a, b) => a.x0 - b.x0);
+    const txt = L.items.map(t => t.s).join(" ");
+    const r = plParseLine(txt);
+    if (r && r.row) { rows.push(r.row); if (r.obra) obras[r.obra] = (obras[r.obra] || 0) + 1; }
+    else if (r && r.why && /\d/.test(txt) && txt.length > 6 && !/TORRE|PAVIMENTO|ESCOPO|ORIENTA|REGRAS|PREENCH/i.test(txt)) warns.push(`Não entendi a linha: “${txt.slice(0, 90)}”`);
+  });
+  // leitura de imagem às vezes perde a torre/pavimento/ciclo/data de uma linha: completa com a linha de cima
+  const fill = {t: 0, p: 0, c: 0, dt: 0};
+  rows.forEach((r, i) => { const a = rows[i - 1]; if (!a) return;
+    if (!r.t && a.t) { r.t = a.t; fill.t++; } if (!r.p && a.p && r.t === a.t) { r.p = a.p; fill.p++; }
+    if (!r.c && a.c && r.t === a.t && r.p === a.p) { r.c = a.c; fill.c++; } if (!r.dt && a.dt && r.t === a.t && r.p === a.p) { r.dt = a.dt; fill.dt++; } });
+  for (let i = rows.length - 2; i >= 0; i--) { const r = rows[i], b = rows[i + 1]; if (!r.t && b.t) { r.t = b.t; fill.t++; } if (!r.p && b.p && r.t === b.t) { r.p = b.p; fill.p++; } }
+  const fl = [["t", "torre"], ["p", "pavimento"], ["c", "ciclo"], ["dt", "data de concretagem"]].filter(([k]) => fill[k]).map(([k, l]) => `${l} em ${fill[k]}`);
+  if (fl.length) warns.unshift(`Completei pela linha de cima: ${fl.join(", ")} linha(s). Confira.`);
+  const obra = Object.entries(obras).sort((a, b) => b[1] - a[1])[0];
+  return {rows, warns, obra: obra ? obra[0] : ""};
+}
+function plParseLine(raw) {
+  let u = " " + norm(String(raw)).toUpperCase().replace(/[|]/g, " | ").replace(/[“”"«»]/g, " ").replace(/\s+/g, " ") + " ";
+  // canto/parede ("3-P3:MEDIÇÃO DE PAREDE" ou só "P3"): divide a linha em antes (identificação) e depois (status, desvios, data)
+  let mk = /(\d{1,4})\s*[-–]\s*([PC])\s*([0-9OIL|]{1,2})\s*[:;.,]?\s*(?:MED[A-Z]*\s*(?:DE\s*)?(?:PAREDE|ESQUADRO)?)?/.exec(u), k = "", extra = "";
+  if (mk) { const n = String(+plFixOcrNum(mk[3])); k = mk[2] + n; if (mk[1].length > n.length && mk[1].endsWith(n)) extra = mk[1].slice(0, -n.length); } // "112-P2": subdivisão 11 grudada no ponto
+  else { mk = /\s([PC])\s?([0-9]{1,2})(?:\s*[:;.]?\s*MED[A-Z]*\s*(?:DE\s*)?(?:PAREDE|ESQUADRO))?(?=\s)/.exec(u); if (mk) k = mk[1] + (+mk[2]); }
+  if (!k) return {why: "sem ponto"};
+  let before = u.slice(0, mk.index) + (extra ? " " + extra : "") + " ", after = " " + u.slice(mk.index + mk[0].length).replace(/(\d)([A-Z])/g, "$1 $2").replace(/([A-Z])(\d)/g, "$1 $2") + " ";
+  // antes: obra, torre, pavimento, ciclo, escopo, subdivisão
+  let obra = ""; for (const o of PL_OBRAS) { const on = norm(o[0]).toUpperCase(), i = before.indexOf(on); if (i >= 0) { obra = o[0]; before = before.slice(0, i) + " ~ " + before.slice(i + on.length); break; } }
+  let t = "", p = "", c = "", e = "A", pos = 0;
+  const mp = /\sP{1,2}\s?[VY]\s?(T|[0-9OIL|]{1,2})(?=\s)/.exec(before); let pIdx = -1;
+  if (mp) { p = mp[1] === "T" ? "PVT" : "PV" + (+plFixOcrNum(mp[1])); pIdx = mp.index; pos = mp.index + mp[0].length; before = before.slice(0, mp.index) + " ^" + " ".repeat(mp[0].length - 2) + before.slice(mp.index + mp[0].length); }
+  const mt = /\sT\s?([0-9OIL|]{1,2})(?=\s)/.exec(before);
+  if (mt) { t = "T" + (+plFixOcrNum(mt[1])); pos = Math.max(pos, mt.index + mt[0].length); before = before.slice(0, mt.index) + " ^" + " ".repeat(mt[0].length - 2) + before.slice(mt.index + mt[0].length); }
+  else if (pIdx > 0) { const mb = /\s([0-9IL|]{1,3})\s*$/.exec(before.slice(0, pIdx)); if (mb) { let nn = plFixOcrNum(mb[1]); if (nn.length > 1 && nn[0] === "1") nn = nn.slice(1); t = "T" + (+nn); before = before.slice(0, mb.index) + " ".repeat(mb[0].length) + before.slice(pIdx); } } // leitura de imagem perde o "T" de "T1"
+  const me_ = /\s(APARTAMENTO\s+COMPLETO|APTO\s+COMPLETO|HALL)(?=\s)/.exec(before); if (me_) { e = /HALL/.test(me_[1]) ? "H" : "A"; before = before.slice(0, me_.index) + " ^" + " ".repeat(me_[0].length - 2) + before.slice(me_.index + me_[0].length); }
+  const mc = /\s([A-J])(?=\s)/g; mc.lastIndex = Math.max(0, pos - 1); const cc = mc.exec(before); if (cc && (t || p)) { c = cc[1]; before = before.slice(0, cc.index) + "  " + before.slice(cc.index + 2); }
+  const nums = [...before.matchAll(/\s(\d{1,6})(?=\s)/g)].filter(x => x.index >= pos - 1).map(x => x[1]);
+  const s = nums.length ? nums[nums.length - 1] : "";
+  // depois: tira o status e o "Sim/Não" da parede lisa; separa data e desvios
+  after = after.replace(/\s(?:A|AC|NC|AR|NA)\s*\|\s*(?:APROVADO(?:\s+COM\s+(?:CONCESSAO|REINSPECAO))?|NAO\s+CONFORME|NAO\s+SE\s+APLICA)/, " ").replace(/\s(?:APROVADO\s+COM\s+(?:CONCESSAO|REINSPECAO)|NAO\s+CONFORME|NAO\s+SE\s+APLICA|APROVADO)(?=\s)/, " ").replace(/\s(?:SIM|NAO)\s*$/, " ");
+  const md = /\s(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})(?=\s)/.exec(after), dt = md ? plDateIso(`${md[1]}/${md[2]}/${md[3]}`) : "";
+  const numsIn = str => [...str.matchAll(/\s(-?\d+(?:[.,]\d+)?)(?=\s)/g)].map(x => plNum(x[1]));
+  let d = null, m = null;
+  if (md) { const pre = numsIn(after.slice(0, md.index) + " "), pst = numsIn(" " + after.slice(md.index + md[0].length)); d = pre.length ? pre[0] : null; m = pst.length ? pst[0] : null; if (d == null && pst.length > 1) { d = pst[0]; m = pst[1]; } }
+  else { const L = numsIn(after); d = L.length ? L[0] : null; m = L.length > 1 ? L[1] : null; }
+  if (!t && !p && d == null) return {why: "incompleta"};
+  return {row: {t, p, c, e, s, k, d, dt, m, o: ""}, obra};
+}
+/* leitura de imagem (OCR) no próprio navegador, com tesseract.js */
+const OCR_SRC = "https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js";
+let ocrWorkerP = null;
+async function plOcr(canvas, prog) {
+  if (!ocrWorkerP) ocrWorkerP = loadScript(OCR_SRC).then(() => window.Tesseract.createWorker("por", 1, {logger: m => { if (m && m.status === "recognizing text") prog(`Lendo a imagem… ${Math.round((m.progress || 0) * 100)}%`); else if (m && m.status) prog("Preparando a leitura da imagem (a primeira vez demora mais)…"); }}))
+    .then(async w => { await w.setParameters({tessedit_pageseg_mode: "6", preserve_interword_spaces: "1"}); return w; }).catch(e => { ocrWorkerP = null; throw Object.assign(new Error("ocr"), {code: "ocr"}); });
+  const w = await ocrWorkerP; const {data} = await w.recognize(canvas);
+  return (data.words || []).map(x => ({s: x.text, x0: x.bbox.x0, y0: x.bbox.y0, x1: x.bbox.x1, y1: x.bbox.y1}));
+}
+function plPrepCanvas(src, w0, h0) {
+  const k = Math.max(1, Math.min(3, 2600 / Math.max(w0, 1))), cv = mkCanvas(Math.round(w0 * k), Math.round(h0 * k)), g = cv.getContext("2d");
+  g.fillStyle = "#fff"; g.fillRect(0, 0, cv.width, cv.height); g.imageSmoothingQuality = "high"; g.drawImage(src, 0, 0, cv.width, cv.height);
+  try { const id = g.getImageData(0, 0, cv.width, cv.height), a = id.data; for (let i = 0; i < a.length; i += 4) { const y = .299 * a[i] + .587 * a[i + 1] + .114 * a[i + 2]; a[i] = a[i + 1] = a[i + 2] = y; } g.putImageData(id, 0, 0); } catch {}
+  return cv;
+}
+async function plReadFile(file, prog) {
+  const name = file.name || "", low = name.toLowerCase();
+  if (/\.(xlsx|xlsm)$/.test(low) || /spreadsheetml|ms-excel\.sheet\.macro/.test(file.type)) { prog("Lendo a planilha…"); return {...await plReadXlsx(await file.arrayBuffer()), src: "Excel"}; }
+  if (/\.xls$/.test(low)) throw Object.assign(new Error("xls"), {code: "xls"});
+  if (/\.(csv|txt)$/.test(low) || /csv|text\/plain/.test(file.type)) return {...plReadCsv(await file.text()), src: "CSV"};
+  if (/\.pdf$/.test(low) || /pdf/.test(file.type)) {
+    prog("Abrindo o PDF…"); const L = await loadPdfJs(), pdf = await L.getDocument({data: new Uint8Array(await file.arrayBuffer()), isEvalSupported: false}).promise;
+    const all = {rows: [], warns: [], obra: "", src: "PDF"}, ob = {};
+    for (let i = 1; i <= Math.min(pdf.numPages, 30); i++) {
+      prog(`Lendo a página ${i} de ${pdf.numPages}…`);
+      const pg = await pdf.getPage(i), tc = await pg.getTextContent(), vp = pg.getViewport({scale: 1});
+      let toks = tc.items.filter(x => x.str && x.str.trim()).map(x => { const tx = x.transform, h = Math.abs(tx[3]) || x.height || 8, y = vp.height - tx[5]; return {s: x.str, x0: tx[4], x1: tx[4] + (x.width || 0), y0: y - h, y1: y}; });
+      let res = plTokensRows(toks);
+      if (toks.length < 15 || !res.rows.length) { // página escaneada: lê a imagem
+        const sc = Math.min(3, 2600 / vp.width), v2 = pg.getViewport({scale: sc}), cv = mkCanvas(Math.round(v2.width), Math.round(v2.height));
+        await pg.render({canvasContext: cv.getContext("2d"), viewport: v2}).promise;
+        const r2 = plTokensRows(await plOcr(plPrepCanvas(cv, cv.width, cv.height), prog)); if (r2.rows.length >= res.rows.length) { res = r2; all.src = "PDF (leitura da imagem)"; }
+      }
+      all.rows.push(...res.rows); all.warns.push(...res.warns.map(w => `Página ${i}: ${w}`)); if (res.obra) ob[res.obra] = (ob[res.obra] || 0) + res.rows.length;
+    }
+    all.obra = (Object.entries(ob).sort((a, b) => b[1] - a[1])[0] || [""])[0]; return all;
+  }
+  if (/^image\//.test(file.type) || /\.(png|jpe?g|webp|bmp|gif|heic)$/.test(low)) {
+    prog("Preparando a imagem…"); const bmp = await createImageBitmap(file);
+    return {...plTokensRows(await plOcr(plPrepCanvas(bmp, bmp.width, bmp.height), prog)), src: "imagem"};
+  }
+  throw Object.assign(new Error("tipo"), {code: "tipo"});
+}
+async function plImportFlow(pidTarget) {
+  if (!canWrite) return;
+  const inp = document.createElement("input"); inp.type = "file"; inp.accept = ".xlsx,.xlsm,.csv,.pdf,image/*,application/pdf";
+  inp.onchange = async () => {
+    const file = inp.files[0]; if (!file) return;
+    let msg = "Lendo o arquivo…"; toast(msg); const iv = setInterval(() => toast(msg), 2500), end = () => { clearInterval(iv); const el = $(".toast"); if (el) el.classList.add("hidden"); }; let res;
+    try { res = await plReadFile(file, t => { msg = t; toast(t); }); }
+    catch (e) { end(); const c = e && e.code; toast(c === "xls" ? "Arquivo .xls antigo: abra no Excel e salve como .xlsx." : c === "tipo" ? "Formato não aceito. Use Excel (.xlsx/.xlsm), CSV, PDF ou imagem." : c === "ocr" ? "Não foi possível carregar o leitor de imagens. Verifique a internet e tente de novo." : "Não foi possível ler este arquivo."); return; }
+    end();
+    plReview(res, file.name, pidTarget);
+  };
+  inp.click();
+}
+async function plReview(res, fname, pidTarget) {
+  const rows = res.rows.map(r => ({...r, id: uid("r")})), src = res.src || "arquivo", ocr = /imagem/.test(src);
+  if (!rows.length) { return modal({title: "Nada para importar", body: `<p style="margin:0">Não encontrei linhas do F.009 em <b>${esc(fname)}</b>.</p>${res.warns.length ? `<ul class="sub">${res.warns.slice(0, 8).map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}<p class="sub">Confira se o arquivo tem as colunas TORRE, PAVIMENTO, CANTO/PAREDE e Desvio Pré. Em fotos, enquadre só a tabela, com boa luz e sem inclinação.</p>`, actions: [{label: "Fechar", cls: "primary", value: null}]}); }
+  const others = [...planics.values()].filter(p => p.id !== pidTarget);
+  const html = () => `<div class="pl-rv-h"><b>${rows.length}</b> linha(s) lidas de <b>${esc(fname)}</b> (${esc(src)})${res.obra ? ` · obra no arquivo: <b>${esc(res.obra)}</b>` : ""}.${ocr ? ` <span class="bad">Leitura de imagem: confira os números antes de importar.</span>` : ""}</div>
+    ${res.warns.length ? `<details class="pl-iss warn"><summary>${res.warns.length} aviso(s) da leitura</summary><ul>${res.warns.slice(0, 40).map(w => `<li>${esc(w)}</li>`).join("")}</ul></details>` : ""}
+    <div class="pl-tw" style="max-height:44vh"><table class="pl-tbl pl-rv"><thead><tr><th>Torre</th><th>Pav.</th><th>Ciclo</th><th>Esc.</th><th>Subdiv.</th><th>Ponto</th><th>Pré</th><th>Concretagem</th><th>Pós</th><th></th></tr></thead><tbody>
+    ${rows.slice(0, 600).map(r => `<tr data-rid="${r.id}" class="${!r.t || !r.p || !r.k || r.d == null ? "warn" : ""}"><td><input data-k="t" value="${esc(r.t)}" style="width:52px"></td><td><input data-k="p" value="${esc(r.p)}" style="width:56px"></td><td><input data-k="c" value="${esc(r.c)}" style="width:34px"></td><td><select data-k="e"><option value="A" ${r.e !== "H" ? "selected" : ""}>Apto</option><option value="H" ${r.e === "H" ? "selected" : ""}>Hall</option></select></td><td><input data-k="s" value="${esc(r.s)}" style="width:50px"></td><td><input data-k="k" value="${esc(r.k)}" style="width:44px"></td><td><input data-k="d" value="${r.d ?? ""}" class="num"></td><td><input type="date" data-k="dt" value="${esc(r.dt)}"></td><td><input data-k="m" value="${r.m ?? ""}" class="num"></td><td><button type="button" class="btn sm ghost danger" data-x aria-label="Tirar linha">✕</button></td></tr>`).join("")}
+    </tbody></table></div>${rows.length > 600 ? `<p class="sub">Mostrando 600 de ${rows.length}; todas serão importadas.</p>` : ""}
+    <div class="pl-rv-dest">${pidTarget ? `<label><input type="radio" name="pd" value="upd" checked> <b>Atualizar esta planilha</b>: pontos que já existem recebem os valores do arquivo e os novos são acrescentados.</label>` : ""}
+      ${!pidTarget && others.length ? `<label><input type="radio" name="pd" value="upd2"> <b>Atualizar a planilha</b> <select id="rv-pl">${others.map(p => `<option value="${esc(p.id)}">${esc(p.nome)}</option>`).join("")}</select></label>` : ""}
+      <label><input type="radio" name="pd" value="new" ${pidTarget ? "" : "checked"}> <b>Criar uma planilha nova</b> com estes dados.</label></div>`;
+  const out = await modal({title: "Conferir importação", wide: true, body: html(), onOpen: bg => {
+      bg.querySelector(".modal").classList.add("xwide");
+      $(".pl-rv", bg).addEventListener("change", e => { const el = e.target.closest("[data-k]"), tr = e.target.closest("tr"); if (!el || !tr) return; const r = rows.find(x => x.id === tr.dataset.rid); if (!r) return; const k = el.dataset.k;
+        r[k] = k === "d" || k === "m" ? plNum(el.value) : k === "t" ? plNormTorre(el.value) : k === "p" ? plNormPav(el.value) : k === "k" ? plNormPt(el.value) : el.value.trim(); if (["t", "p", "k"].includes(k)) el.value = r[k]; tr.classList.toggle("warn", !r.t || !r.p || !r.k || r.d == null); });
+      $(".pl-rv", bg).addEventListener("click", e => { const b = e.target.closest("[data-x]"); if (!b) return; const tr = b.closest("tr"), i = rows.findIndex(x => x.id === tr.dataset.rid); if (i >= 0) rows.splice(i, 1); tr.remove(); $(".pl-rv-h b", bg).textContent = rows.length; });
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Importar", cls: "primary", value: bg => ({dest: ($("input[name=pd]:checked", bg) || {}).value || "new", pl: ($("#rv-pl", bg) || {}).value})}]});
+  if (!out || !rows.length) return;
+  let pid = out.dest === "upd" ? pidTarget : out.dest === "upd2" ? out.pl : null;
+  if (!pid) { pid = await plNewDialog({obra: res.obra, nome: `Planicidade e esquadro – ${res.obra || "importada"}`, title: "Nova planilha com os dados do arquivo", ok: "Criar e importar", stay: true}); if (!pid) return; }
+  await plMergeInto(pid, rows, fname);
+  location.hash = "planic-" + pid;
+}
+async function plMergeInto(pid, rows, fname) {
+  let existing;
+  if (pcur && pcur.id === pid && pcur.got.lin) existing = [...pcur.rows.values()];
+  else { const s = await db.collection(`planic/${pid}/lin`).get(); existing = []; s.docs.forEach(d => { const r = (d.data() || {}).r || {}; for (const id in r) { const x = plDec(id, r[id]); if (x) existing.push(x); } }); }
+  const by = new Map(existing.filter(r => r.k).map(r => [plKey(r), r])), save = [], prev = new Map(existing.map(r => [r.id, r]));
+  let nNew = 0, nUpd = 0, nSame = 0;
+  rows.forEach(r => {
+    const ex = r.k ? by.get(plKey(r)) : null;
+    if (ex) { const nr = {...ex}; let ch = false; ["c", "dt", "o"].forEach(k => { if (r[k] && r[k] !== ex[k]) { nr[k] = r[k]; ch = true; } }); ["d", "m"].forEach(k => { if (r[k] != null && r[k] !== ex[k]) { nr[k] = r[k]; ch = true; } }); if (ch) { save.push(nr); nUpd++; } else nSame++; }
+    else { const nr = {id: uid("r"), t: r.t, p: r.p, c: r.c, e: r.e || "A", s: r.s, k: r.k, d: r.d, dt: r.dt, m: r.m, o: r.o || ""}; save.push(nr); if (nr.k) by.set(plKey(nr), nr); nNew++; }
+  });
+  if (save.length) plSaveRows(pid, save, prev);
+  if (!(pcur && pcur.id === pid)) patch(`planic/${pid}`, stamp({}));
+  plLog(pid, `Importou ${fname}: ${nNew} nova(s), ${nUpd} atualizada(s), ${nSame} igual(is)`);
+  toast(`Importação: ${nNew} linha(s) nova(s), ${nUpd} atualizada(s), ${nSame} sem mudança.`);
+}
+
+/* ---------- exportar para Excel no layout do F.009 (aba "Dados desvios") ---------- */
+const crcT = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const crc32 = u8 => { let c = 0xFFFFFFFF; for (let i = 0; i < u8.length; i++) c = crcT[(c ^ u8[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+function zipStore(files) {
+  const te = new TextEncoder(), parts = [], cen = []; let off = 0;
+  files.forEach(([name, text]) => {
+    const nb = te.encode(name), data = te.encode(text), crc = crc32(data), lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0x0800, true); lh.setUint16(8, 0, true); lh.setUint32(14, crc, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, nb.length, true);
+    parts.push(new Uint8Array(lh.buffer), nb, data);
+    const ch = new DataView(new ArrayBuffer(46)); ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint16(8, 0x0800, true); ch.setUint32(16, crc, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, nb.length, true); ch.setUint32(42, off, true);
+    cen.push(new Uint8Array(ch.buffer), nb); off += 30 + nb.length + data.length;
+  });
+  const csz = cen.reduce((a, b) => a + b.length, 0), end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true); end.setUint32(12, csz, true); end.setUint32(16, off, true);
+  return new Blob([...parts, ...cen, new Uint8Array(end.buffer)], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+}
+const xEsc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c])).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, "");
+const xCol = n => { let s = ""; n++; while (n) { const m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; };
+function xSheet(rows, widths, merges = [], freeze = 0) {
+  const cell = (v, r, c) => { if (v == null || v === "") return ""; const ref = xCol(c) + (r + 1); if (typeof v === "object") { if (v.d != null) return `<c r="${ref}" s="${v.s ?? 3}"><v>${v.d}</v></c>`; if (typeof v.v === "number") return `<c r="${ref}" s="${v.s ?? 0}"><v>${v.v}</v></c>`; if (v.v == null || v.v === "") return `<c r="${ref}" s="${v.s ?? 0}"/>`; return `<c r="${ref}" s="${v.s ?? 0}" t="inlineStr"><is><t xml:space="preserve">${xEsc(v.v)}</t></is></c>`; } if (typeof v === "number") return `<c r="${ref}"><v>${v}</v></c>`; return `<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${xEsc(v)}</t></is></c>`; };
+  return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">${freeze ? `<sheetViews><sheetView workbookViewId="0"><pane ySplit="${freeze}" topLeftCell="A${freeze + 1}" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>` : ""}<cols>${widths.map((w, i) => `<col min="${i + 1}" max="${i + 1}" width="${w}" customWidth="1"/>`).join("")}</cols><sheetData>${rows.map((r, i) => r ? `<row r="${i + 1}">${r.map((v, j) => cell(v, i, j)).join("")}</row>` : "").join("")}</sheetData>${merges.length ? `<mergeCells count="${merges.length}">${merges.map(m => `<mergeCell ref="${m}"/>`).join("")}</mergeCells>` : ""}</worksheet>`;
+}
+function xlsxBlob(sheets) {
+  const ct = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("")}</Types>`;
+  const rels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`;
+  const wb = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s, i) => `<sheet name="${xEsc(s.name)}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join("")}</sheets></workbook>`;
+  const wrels = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join("")}<Relationship Id="rId${sheets.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`;
+  const fills = ["#E1251B", "#2E7D32", "#1565C0", "#F9A825", "#DDEBF7"];
+  const styles = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="dd/mm/yyyy"/></numFmts>
+<fonts count="4"><font><sz val="10"/><name val="Arial"/></font><font><b/><sz val="10"/><color rgb="FFFFFFFF"/><name val="Arial"/></font><font><b/><sz val="14"/><name val="Arial"/></font><font><b/><sz val="10"/><name val="Arial"/></font></fonts>
+<fills count="${2 + fills.length + 1}"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF003E62"/></patternFill></fill>${fills.map(c => `<fill><patternFill patternType="solid"><fgColor rgb="FF${c.slice(1)}"/></patternFill></fill>`).join("")}</fills>
+<borders count="2"><border/><border><left style="thin"><color rgb="FFBFBFBF"/></left><right style="thin"><color rgb="FFBFBFBF"/></right><top style="thin"><color rgb="FFBFBFBF"/></top><bottom style="thin"><color rgb="FFBFBFBF"/></bottom></border></borders>
+<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>
+<cellXfs count="10"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf><xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="164" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1"/>
+<xf numFmtId="0" fontId="1" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="0" fontId="1" fillId="4" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="0" fontId="1" fillId="5" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="0" fontId="3" fillId="6" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="0" fontId="3" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+  return zipStore([["[Content_Types].xml", ct], ["_rels/.rels", rels], ["xl/workbook.xml", wb], ["xl/_rels/workbook.xml.rels", wrels], ["xl/styles.xml", styles], ...sheets.map((s, i) => [`xl/worksheets/sheet${i + 1}.xml`, s.xml])]);
+}
+const xDate = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ""); return m ? Math.round(Date.UTC(+m[1], +m[2] - 1, +m[3]) / 864e5 + 25569) : null; };
+async function plExportXlsx(pid) {
+  const p = planics.get(pid); if (!p || !pcur || pcur.id !== pid) return;
+  const dl = await claude.use("downloads"); if (!dl) { toast("Este navegador não permite baixar arquivos daqui."); return; }
+  const lisa = plLisa(p), rows = plRowsArr(), stS = {A: 6, AR: 7, AC: 8, NC: 5};
+  const head = ["REGIONAL", "FÁBRICA", "OBRA", "TORRE", "PAVIMENTO", "CICLO", "ESCOPO", "Subdivisão", "CANTO/PAREDE", "STATUS", "Desvio Pré", "Data Concretagem", "Desvio Pós- tratamento", "Parede Lisa"];
+  const R = []; R[0] = [{v: "F.009 - QUALI - Controle de Planicidade e Esquadro das Paredes", s: 2}, null, null, null, null, null, null, null, null, null, null, null, {v: "R05", s: 9}];
+  R[1] = [{v: `${p.obra || ""} · exportado do Sistema de FVs em ${fmtFull(nowIso())}`, s: 0}, null, null, null, null, null, null, null, null, null, null, null, {v: `Data: ${fmtDate(today())}`, s: 0}];
+  R[3] = [{v: "Regras: pré ≤ 5 mm = A; > 5 mm = NC até a correção. Pós-tratamento ≤ 5 mm = AR; > 5 mm = AC." + (lisa ? " Parede lisa: pré 5 a 10 mm = AC; > 10 mm = NC." : ""), s: 0}];
+  R[6] = head.map(h => ({v: h, s: 1}));
+  rows.forEach((r, i) => { const st = plStatus(r, lisa), sub = /^\d+$/.test(r.s || "") ? +r.s : (r.s || "");
+    R[7 + i] = [{v: p.regional || "", s: 4}, {v: p.fabrica || "", s: 4}, {v: p.obra || "", s: 4}, {v: r.t, s: 4}, {v: r.p, s: 4}, {v: r.c, s: 4}, {v: PL_ESC[r.e || "A"], s: 4}, {v: sub, s: 4}, {v: r.k ? plCanto(r.k) : "", s: 4},
+      {v: st ? PL_ST[st].l : "", s: st ? stS[st] : 4}, {v: r.d ?? "", s: 4}, xDate(r.dt) != null ? {d: xDate(r.dt), s: 3} : {v: "", s: 4}, {v: r.m ?? "", s: 4}, {v: lisa ? "Sim" : "Não", s: 4}]; });
+  const iss = plIssues(), I = [[{v: "Pendências e avisos da avaliação automática", s: 2}], null, [{v: "Tipo", s: 1}, {v: "Torre", s: 1}, {v: "Pavimento", s: 1}, {v: "Escopo", s: 1}, {v: "Subdivisão", s: 1}, {v: "Ponto", s: 1}, {v: "Descrição", s: 1}]];
+  iss.forEach(i => I.push([{v: PL_ISS[i.type][0], s: 4}, {v: i.row.t, s: 4}, {v: i.row.p, s: 4}, {v: PL_ESC[i.row.e || "A"], s: 4}, {v: i.row.s, s: 4}, {v: i.apto ? "" : i.row.k, s: 4}, {v: i.msg, s: 4}]));
+  const blob = xlsxBlob([{name: "Dados desvios", xml: xSheet(R, [11, 10, 28, 8, 11, 7, 24, 11, 30, 30, 11, 15, 14, 11], [], 7)}, {name: "Avaliação", xml: xSheet(I, [34, 8, 11, 24, 11, 8, 90])}]);
+  const fn = `F.009-QUALI_Planicidade_${(p.obra || "obra").replace(/[^\w]+/g, "_")}_${today()}.xlsx`;
+  try { await dl.save({filename: fn, data: blob}); toast("Excel baixado (layout da aba “Dados desvios” do F.009)."); } catch { toast("Não foi possível baixar o arquivo."); }
+}
+
 /* ---------- rotas e filtros ---------- */
 function route() {
-  const h = location.hash.replace(/^#/, ""), isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-");
+  let h = location.hash.replace(/^#/, "");
+  if (h === "infra" || h === "quali") { setFrente(h); h = ""; }
+  const isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-"), isPlanic = h === "planic" || h.startsWith("planic-");
+  if (isSolos) setFrente("infra"); else if (isPlanic) setFrente("quali");
+  else if (isFolder && foldersLoaded) setFrente(frenteOfFolder(h.slice(6)));
+  else if (isFv && fvs.get(h.slice(3))) setFrente(fvFrente(fvs.get(h.slice(3))));
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
+  const isList = !(isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix || isPlanic), inFrente = isList || isTpl || isSolos || isPlanic;
   $("#view-team").classList.toggle("hidden", !isTeam);
   $("#nav-team").classList.toggle("on", isTeam);
   if (isTeam) renderTeam();
-  $("#view-list").classList.toggle("hidden", isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix);
+  $("#view-list").classList.toggle("hidden", !isList);
   $("#view-lix").classList.toggle("hidden", !isLix);
   $("#nav-lix").classList.toggle("on", isLix);
   if (isLix && db) { renderLixeira(); sweepTrash(); }
   $("#view-solos").classList.toggle("hidden", !isSolos);
-  $("#nav-solos").classList.toggle("on", isSolos);
   if (isSolos && db) { if (h.startsWith("solo-")) openSolo(h.slice(5)); else { closeSolo(); solTab = h === "solos-acomp" ? "acomp" : "trechos"; renderSolos(); } } else closeSolo();
+  $("#view-planic").classList.toggle("hidden", !isPlanic);
+  if (isPlanic && db) { if (h.startsWith("planic-")) openPlanic(h.slice(7)); else { closePlanic(); renderPlanicList(); } } else closePlanic();
   $("#view-painel").classList.toggle("hidden", !isPainel);
   $("#nav-painel").classList.toggle("on", isPainel);
   if (isPainel) renderPainel();
@@ -5316,11 +6306,17 @@ function route() {
   $("#nav-gape").classList.toggle("on", isGape);
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   $("#view-tpl").classList.toggle("hidden", !isTpl);
+  if (isTpl) renderTemplates();
   $("#view-fv").classList.toggle("hidden", !isFv);
-  $("#nav-fvs").classList.toggle("on", !isTpl && !isTeam && !isGape && !isPainel && !isSolos && !isLix);
-  $("#nav-tpl").classList.toggle("on", isTpl);
+  ["infra", "quali"].forEach(k => $("#nav-" + k).classList.toggle("on", (inFrente || isFv) && curFrente === k));
+  renderFbar(inFrente ? (isTpl ? "modelos" : isSolos ? "solos" : isPlanic ? "planic" : curFrente) : "");
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
+}
+function renderFbar(on) {
+  const bar = $("#fbar"); bar.classList.toggle("hidden", !on); if (!on) return;
+  const F = FRENTES[curFrente]; $("#fbar-n").textContent = F.nome;
+  $("#fbar-tabs").innerHTML = F.tabs.map(([k, l]) => `<a href="#${k}" role="tab" class="${k === on ? "on" : ""}">${esc(l)}</a>`).join("");
 }
 window.addEventListener("hashchange", route);
 $("#q").addEventListener("input", e => { filt.q = e.target.value; renderList(); });
@@ -5361,7 +6357,7 @@ async function init() {
   idleTouch(); renderNet();
   loadTeam().then(bellRender);
   try { if (sessionStorage.getItem("fvs-acesso") !== me) { sessionStorage.setItem("fvs-acesso", me); setTimeout(() => logAccess("entrada"), 2500); } } catch {}
-  if (isOwner && window.__fb && !window.__fb.accessExists()) banner("team", `Primeiro acesso: abra <a href="#equipe"><b>Equipe</b></a> para importar os modelos e o arquivo de dados iniciais e liberar os e-mails da equipe.`);
+  if (isOwner && window.__fb && !window.__fb.accessExists()) banner("team", `Primeiro acesso: abra <a href="#equipe"><b>Gestão</b></a> para importar os modelos e o arquivo de dados iniciais e liberar os e-mails da equipe.`);
   const loadTimer = setTimeout(() => { if (!fvsLoaded) banner("slow", "Os dados estão demorando para carregar. Verifique a conexão; a página continua tentando.", "warn"); }, 10000);
   db.collection("fvs").onSnapshot(s => {
     const next = new Map(); trashed.fv = new Map(); s.docs.forEach(d => { const v = d.data(); (v.trashAt ? trashed.fv : next).set(d.id, v); });
@@ -5373,8 +6369,8 @@ async function init() {
     lixNav(); pdaNav(); bellRender();
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
-    folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
-    renderList(); if (cur) { const f = fvs.get(cur.id); if (f) renderBar(f); }
+    const first = !foldersLoaded; folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
+    if (first && location.hash.startsWith("#pasta-")) route(); else renderList(); if (cur) { const f = fvs.get(cur.id); if (f) renderBar(f); }
     if (location.hash === "#painel") renderPainel();
     if (location.hash === "#solos" || location.hash === "#solos-acomp") renderSolos(); else if (scur) renderSoloAll();
   }, () => { foldersLoaded = true; });
@@ -5389,6 +6385,13 @@ async function init() {
     const allG = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.gape = new Map(allG.filter(([, v]) => v.trashAt)); gapes = new Map(allG.filter(([, v]) => !v.trashAt));
     const h = location.hash.replace(/^#/, "");
     if (h === "gape") renderGapeList(); else if (h.startsWith("gape-") && gcur) renderGape(); lixNav();
+  }, () => {});
+  db.collection("planic").onSnapshot(s => {
+    const all = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.planic = new Map(all.filter(([, v]) => v.trashAt)); planics = new Map(all.filter(([, v]) => !v.trashAt));
+    const h = location.hash.replace(/^#/, "");
+    if (h.startsWith("planic-")) { if (pcur && pcur.id === h.slice(7) && !$("#pl-head")) renderPlanic(); else if (pcur && pcur.id === h.slice(7)) { if (plmState && plmState.refresh) plmState.refresh(); const a = document.activeElement; if (!(a && a.closest && a.closest("#pl-body .pl-tbl, #pl-fbar, .modal-bg"))) { renderPlanicHead(); if (pcur.tab !== "tab") plBody(); } } else openPlanic(h.slice(7)); }
+    else if (h === "planic") renderPlanicList();
+    lixNav();
   }, () => {});
   db.collection("plantas").onSnapshot(s => { const allP = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.planta = new Map(allP.filter(([, v]) => v.trashAt)); plantas = new Map(allP.filter(([, v]) => !v.trashAt)); lixNav(); }, () => {});
   db.collection("lixeira").onSnapshot(s => {
