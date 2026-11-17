@@ -785,6 +785,55 @@ button.pl-kpi{cursor:pointer}button.pl-kpi:hover{border-color:#999}
 .modal.xwide{width:min(1180px,100%)}
 #pl-n-aval.bad{background:var(--red);color:#fff}
 @media (max-width:640px){.pl-kpi{min-width:80px;padding:6px 9px}.pl-kpi b{font-size:17px}.pl-kpi.big{margin-left:0}.pl-ctx label{font-size:11px}}
+
+/* grade estilo Excel (F.009) */
+.xg-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 8px}
+.xg-bar .xg-sep{flex:1}
+.xg-title{display:grid;grid-template-columns:120px 1fr 140px;align-items:center;background:#e4002b;color:#fff;border-radius:6px 6px 0 0;min-height:38px;padding:4px 8px}
+.xg-title b{text-align:center;font-size:15px}.xg-title .r{text-align:center;font-size:11px;font-weight:700;line-height:1.2}
+.xg-leg{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:6px 0}
+.xg-leg span.np,.xg-leg span.pr{font-size:10px;font-weight:800;color:#fff;padding:2px 8px;border-radius:2px}
+.xg-leg span.np{background:#e4002b}.xg-leg span.pr{background:#003e62}.xg-leg .sub{font-size:11px;flex:1;min-width:240px}
+.xg-wrap{display:grid;grid-template-columns:1fr;gap:10px}
+.xg-wrap.side{grid-template-columns:minmax(0,1fr) 360px}
+.xg{position:relative;overflow:auto;height:min(68vh,760px);border:1px solid #c8c8c8;background:#fff;outline:none;font:12.5px/1 Arial,Helvetica,sans-serif;user-select:none;-webkit-user-select:none;touch-action:pan-x pan-y}
+.xg:focus{border-color:#21a366}
+.xg-t{border-collapse:separate;border-spacing:0;table-layout:fixed}
+.xg-t th{position:sticky;top:0;z-index:3;background:#003e62;color:#fff;font-size:11px;font-weight:700;padding:4px 3px;height:30px;text-align:center;border-right:1px solid #ffffff55;white-space:normal;line-height:1.15}
+.xg-t th.ro{background:#e4002b}.xg-t th.on{box-shadow:inset 0 -3px 0 #21a366}
+.xg-t th.rn,.xg-t td.rn{position:sticky;left:0;z-index:2;background:#f0f0f0;color:#555;text-align:center;font-size:11px;border-right:1px solid #c8c8c8;cursor:grab}
+.xg-t th.rn{z-index:4;background:#e6e6e6}
+.xg-t td{height:28px;box-sizing:border-box;padding:0 5px;border-right:1px solid #e1e1e1;border-bottom:1px solid #e1e1e1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111}
+.xg-t td.l{text-align:left}.xg-t td.ro{color:#333;background:#fafafa}
+.xg-t tr.on td.rn{background:#d3f0e0;color:#106b3e;font-weight:700}
+.xg-t tr.warn td:not(.rn){background:#fffbe6}.xg-t tr.bad td:not(.rn){background:#fdecea}
+.xg-t tr.new td{background:#fff}.xg-t tr.new td.rn{color:#999}
+.xg-t td.st-A{color:#1b5e20;font-weight:700}.xg-t td.st-AR{color:#0d47a1;font-weight:700}.xg-t td.st-AC{color:#8a5a00;font-weight:700}.xg-t td.st-NC{color:#c00;font-weight:700}
+.xg-t td.err{color:#c00;font-weight:700;box-shadow:inset 0 0 0 2px #e4002b55}
+.xg-t td.need{box-shadow:inset 0 0 0 2px #e4002b55}
+.xg-t tr.sp td{padding:0;border:0;height:auto}
+.xg-sel{position:absolute;z-index:1;background:rgba(33,163,102,.10);border:1px solid #21a366;pointer-events:none}
+.xg-act{position:absolute;z-index:1;border:2px solid #21a366;pointer-events:none;box-sizing:border-box}
+.xg-fh{position:absolute;z-index:2;width:9px;height:9px;background:#21a366;border:1px solid #fff;cursor:crosshair;touch-action:none}
+.xg-drop{position:absolute;z-index:2;pointer-events:none}.xg-drop.line{background:#21a366}.xg-drop.fill{border:2px dashed #21a366;box-sizing:border-box}
+.xg-ed{position:absolute;z-index:5;height:28px}
+.xg-ed input{width:100%;height:28px;min-height:28px;border:2px solid #21a366;border-radius:0;padding:0 5px;font:13px Arial,sans-serif;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.xg-ed.bad input{border-color:#e4002b;animation:xgsh .25s 2}
+@keyframes xgsh{50%{transform:translateX(3px)}}
+.xg-list{position:absolute;left:0;top:30px;min-width:100%;max-height:240px;overflow:auto;background:#fff;border:1px solid #999;box-shadow:0 6px 18px rgba(0,0,0,.2);font:12.5px Arial,sans-serif;z-index:6}
+.xg-list div{padding:6px 8px;cursor:pointer;white-space:nowrap}.xg-list div.on,.xg-list div:hover{background:#d3f0e0}
+.xg-menu{position:fixed;z-index:200;background:#fff;border:1px solid #bbb;border-radius:6px;box-shadow:0 8px 24px rgba(0,0,0,.22);padding:4px;min-width:200px;display:grid}
+.xg-menu button{border:0;background:none;text-align:left;padding:8px 10px;font:inherit;font-size:13px;border-radius:4px;cursor:pointer;color:var(--ink)}
+.xg-menu button:hover:not(:disabled){background:#eef7f1}.xg-menu button:disabled{opacity:.4;cursor:default}.xg-menu button.danger{color:var(--red)}
+.xg-menu hr{border:0;border-top:1px solid #e5e5e5;margin:3px 0}
+.xg-side{border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:10px;align-self:start;position:sticky;top:10px}
+.xg-side-h{display:flex;gap:6px;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:13px}.xg-side-h select{width:auto;min-height:30px;height:30px;font-size:12px}
+.xg-side-img{width:100%;border:1px solid #ddd;border-radius:6px;cursor:pointer;display:block}
+.pl-mctx{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin:0 0 12px;padding:8px 12px;background:var(--panel);border:1px solid var(--line);border-left:4px solid #003e62;border-radius:8px;font-size:13px}
+.pl-mctx label{display:inline-flex;gap:5px;align-items:center;font-size:12px}.pl-mctx select{width:auto;min-height:32px;height:32px;font-size:13px}.pl-mctx .sub{font-size:11.5px}
+.pl-side li.sem{background:#fff4e5}
+@media (max-width:1180px){.xg-wrap.side{grid-template-columns:1fr}.xg-side{position:static}}
+@media (max-width:640px){.xg{height:62vh}.xg-title{grid-template-columns:1fr 70px}.xg-title .l{display:none}.xg-title b{font-size:12px;text-align:left}.xg-leg .sub{display:none}}
 </style>
 </head>
 <body class="ui">
@@ -5301,7 +5350,8 @@ async function purgePath(kind, path) {
   } else if (kind === "solo") {
     await delColl(`${path}/ensaios`); await delColl(`${path}/maps`, img); await delColl(`${path}/docs`, pages);
   } else if (kind === "planic") {
-    await delColl(`${path}/lin`); await delColl(`${path}/log`); Object.values(d.maps || {}).forEach(m => delBlob(m && m.img && m.img.id));
+    await delColl(`${path}/lin`); await delColl(`${path}/log`);
+    Object.values(d.maps || {}).forEach(m => { const id = m && m.img && m.img.id; if (id && !m.shared && ![...plModels.values()].some(x => x.img && x.img.id === id)) delBlob(id); });
   } else if (kind === "map" || kind === "smap") img(d);
   else if (kind === "foto" || kind === "doc") file(d);
   else if (kind === "sdoc") pages(d);
@@ -5416,7 +5466,7 @@ function drawLix() {
 /* ---------- QUALIDADE · PLANICIDADE E ESQUADRO (F.009-QUALI R05 · IT 162 / IT.027-ESTR rev. 16) ---------- */
 // Planilha no padrão do F.009 (aba "Dados desvios") + mapeamento na planta (pontos P = paredes, C = esquadros).
 // As medições ficam em planic/{id}/lin/{torre}: um campo por linha, guardado como texto curto.
-let planics = new Map(), pcur = null, plmState = null;
+let planics = new Map(), pcur = null, plmState = null, plModels = new Map();
 const PL_OBRAS = [["ACQUA DANÚBIO - F1","RS","A","UK80",0],["ACQUA DANÚBIO F2","RS","A","VM50",0],["ALAMEDA DOS PÁSSAROS - F2","PE","A","UA30",0],["ALTO DA COLINA RS","RS","B","VE90",1],["ALVORADA ARICANDUVA","SP","F","VN00",0],["ARAÇÁ PRIME","PE","B","XE80",1],["ATÍLIO 1407 F1","RS","A","QE10",1],["AURORA IGUAÇU F1","RJ","A","UU50",1],["BANDEIRANTE","PE","T","VU20",0],["BOSQUE JACAREPAGUÁ","RJ","A","VO00",0],["BOSQUE RECIFE","PE","A","VR90",1],["CDW 15 | JD DOS PRADOS","SP","G","UR50",1],["CDW 15 | VILA BUTANTÃ","SP","A","VN60",0],["CITTA VILA PRUDENTE COND I","SP","B","TO80",0],["CITTA VILA PRUDENTE COND II","SP","B","TP00",0],["CITTA VILA PRUDENTE COND III","SP","A","TP10",0],["DÁLIA","SP","F","SA50",1],["DANDARA","SP","B","XF60",1],["ELEVATO ANDALUZ","PR","A","VV80",0],["ELEVATO BONSUCESSO","RJ","C","VH10",0],["ELEVATO RAMOS","RJ","A","VX20",0],["ENCANTO PIATA - F1","BA","A","UX10",0],["ENCANTO PIATA - F2","BA","A","UX20",0],["ENCANTO PIATA - F3","BA","A","UX30",0],["ESTAÇÃO BORDIGNON","PR","A","UX80",1],["ESTAÇÃO RIO","RJ","C","U400",1],["ESTÂNCIA DOURADOS I","GO","A","UD70",0],["ESTÂNCIA DOURADOS II","GO","A","UD90",0],["ESTILO FAIÇALVILLE","GO","A","VV00",1],["FAROL CANTAREIRA","SP","G","UU00",0],["FAROL DO MUCURIPE","CE","A","UR60",0],["GUARAPIRANGA JURITI - CAXIAS","SP","L","VJ90",0],["GUARAPIRANGA TANGARÁ - CAXIAS","SP","L","VJ60",0],["JARDIM ARMAÇÃO PRIME","BA","A","UT60",0],["JARDIM BONSUCESSO","SP","G","UC80",0],["JARDIM DOS PRADOS","SP","G","UR50",1],["JERIVAS","SP","D","TD10",1],["LIFE JAGUARE F1","SP","D","UC40",0],["LIFE JAGUARE F2","SP","D","UC50",0],["MELODIA JAÇANÃ","SP","G","UU20",0],["MESSEJANA PARQUE DA LAGOA II","CE","A","TS60",0],["MESSEJANA PQ. DA LAGOA I","SP","G","UU20",0],["MIRANTE BELVEDERE","PE","A","UZ80",0],["MIRANTE BOA VISTA","RJ","C","VM80",0],["MIRANTE MESSEJANA","CE","B","VX30",0],["MORADA BEBERIBE","PE","B","VB80",0],["MORADA CAPIBARIBE COND II","PE","A","US00",0],["MORADA DAS ESTAÇÕES","BA","B","VA20",1],["MORADA DO CAMPO II","RS","B","UK30",0],["MORADA REAL","BA","C","U630",1],["MORADA SERENA (M3+M4)","RS","A","VL50-1",0],["NOVOS ARES AURORA","GO","B","VB50",1],["OASIS PENHA","SP","B","TZ70",0],["PALERMO","SP","A","VD80",0],["PANORAMA","SP","A","VP30",1],["PARQUE DOS SONHOS IV","GO","A","U540",0],["PARQUE DOS SONHOS V","GO","A","U550",0],["PARQUE HORTÊNCIA","RJ","A","TB30",0],["PARQUE LIMÃO F1 + F2","SP","F","U000",0],["PARQUE ORQUÍDEA","RJ","A","TB10",0],["PARQUE VENTURA III F1","RS","B","VD10",0],["PARQUE VENTURA III F2","RS","B","VD20",0],["PORTAL DA BARRA","CE","B","UT30",0],["PORTAL QUARESMEIRA","CPS","A","UR40",0],["PORTO LIMA","RJ","B","VA50",0],["PORTO VALÊNCIA F2","RJ","B","UF90",0],["QUINTA DO LAGO BOLSENA","RS","B","TB90",0],["RESERVA CARIOCA - F1","RJ","C","UW70",0],["RESERVA CARIOCA - F2","RJ","C","UW80",0],["RESERVA DAS ANDORINHAS","SP","A","U920",0],["RESERVA DAS GARÇAS COND. I","CE","A","U430",0],["RESERVA DAS GARÇAS II","CE","B","U440",0],["RESERVA DOS COLIBRIS","PB","A","VY50",1],["RESIDENCIAL VIDA BOTÂNICA - F2","CE","B","UR80",0],["RESIDENCIAL VISTA DA MANGUEIRA","BA","B","VH70",0],["RESIDENCIAL VISTA DEL SOL","CE","B","VA70",0],["SOL DE CAMARÁS - COND. 2 - F2","PE","A","TL60",0],["SOL DO MEDITERRANEO - F2","BA","C","VD50",0],["SOLAR DO BOSQUE","RS","B","VC80",0],["SOLAR DOS VENTOS PRIME","CE","B","VF20",1],["SOLAR TRINDADE - F2","RJ","B","SC10",0],["SOLARIS CAMAÇARI","BA","C","VD60",0],["SOUL TAQUÁ CLUBE","RJ","C","UR00",0],["TUCUMA","SP","D","UW10",0],["V SALVADOR - FAROL DA BARRA","BA","C","QA70",0],["V SALVADOR - FORTE SÃO MARCELO","BA","C","QA00",0],["V SALVADOR - LAGOA DO ABAETÉ","BA","C","PZ90",0],["VALE DAS TULIPAS","BA","D","UZ40",1],["VALE DOS LÍRIOS - F2","RJ","A","P010",0],["VALE DOS LIRIOS F1","BA","B","UT40",0],["VENEZA PRIME - F1","BA","B","VQ10",0],["VILA BUTANTA","SP","A","VN60",0],["VILA LAURA PRIME","BA","A","UA80",1],["VILA SANTIAGO","BA","C","VK00",0],["VISTA DEL SOL","CE","B","VA70",0],["VISTA DI MARI PRIME","CE","A","VL90",1],["VISTA DO GOLF","PE","A","VA90",0],["VISTA VILA DAS BELEZAS","SP","B","U290",0],["VITALE SANTO ANDRÉ","SP","I","TW60",0],["VIVA CASA AMARELA","PE","B","VK70",0],["VIVA CITY JARAGUÁ","SP","A","UE90",0],["VIVA PARQUE DO CARMO","SP","D","U260",0],["VIVA PRAIA DO FUTURO - F2","CE","A","UE20",0],["VIVENDA REAL","BA","B","U620",0],["VIVER MAIS","SP","F","UF70",0]];
 const PL_TORRES = Array.from({length: 40}, (_, i) => "T" + (i + 1));
 const PL_PAVS = ["PVT", ...Array.from({length: 25}, (_, i) => "PV" + (i + 1))];
@@ -5447,10 +5497,10 @@ const plTorOrder = t => +String(t || "").replace(/\D/g, "") || 999;
 const plKey = r => [r.t || "", r.p || "", r.e || "A", r.s || "", r.k || ""].join("|");
 const plApto = r => [r.t || "", r.p || "", r.e || "A", r.s || ""].join("|");
 const plAptoTxt = r => `${r.t || "?"} · ${r.p || "?"}${(r.e || "A") === "H" ? " · Hall" : ""}${r.s ? " · Apto " + r.s : ""}`;
-const plEnc = r => JSON.stringify([r.t || "", r.p || "", r.c || "", r.e || "A", r.s || "", r.k || "", r.d ?? null, r.dt || "", r.m ?? null, r.o || "", r.by || "", r.at || ""]);
+const plEnc = r => JSON.stringify([r.t || "", r.p || "", r.c || "", r.e || "A", r.s || "", r.k || "", r.d ?? null, r.dt || "", r.m ?? null, r.o || "", r.by || "", r.at || "", r.n ?? null]);
 function plDec(id, s) {
   if (!s) return null;
-  try { const a = JSON.parse(s); if (!Array.isArray(a)) return null; return {id, t: a[0] || "", p: a[1] || "", c: a[2] || "", e: a[3] || "A", s: a[4] || "", k: a[5] || "", d: a[6] ?? null, dt: a[7] || "", m: a[8] ?? null, o: a[9] || "", by: a[10] || "", at: a[11] || ""}; }
+  try { const a = JSON.parse(s); if (!Array.isArray(a)) return null; return {id, t: a[0] || "", p: a[1] || "", c: a[2] || "", e: a[3] || "A", s: a[4] || "", k: a[5] || "", d: a[6] ?? null, dt: a[7] || "", m: a[8] ?? null, o: a[9] || "", by: a[10] || "", at: a[11] || "", n: typeof a[12] === "number" ? a[12] : null}; }
   catch { return null; }
 }
 const plTk = t => (String(t || "").replace(/[^A-Za-z0-9]/g, "") || "_").slice(0, 20);
@@ -5467,6 +5517,7 @@ function plLog(pid, txt) { if (!db || !canWrite) return; db.doc(`planic/${pid}/l
 /* ----- gravação das linhas (agrupa por torre, um campo por linha) ----- */
 function plSaveRows(pid, rows, prev = new Map()) {
   if (!rows.length || !canWrite) return;
+  if (rows.some(r => r.n == null)) { let nx = 0; if (pcur && pcur.id === pid) { const L = plRowsArr(); nx = L.length ? L[L.length - 1].n : 0; } else nx = Date.now(); rows.forEach(r => { if (r.n == null) { nx += 1000; r.n = nx; } }); }
   const at = nowIso(), groups = new Map(), put = (tk, id, v) => { if (!groups.has(tk)) groups.set(tk, {}); groups.get(tk)[id] = v; };
   rows.forEach(r => {
     const row = {...r, by: me, at}, old = prev.get(r.id) || (pcur && pcur.id === pid ? pcur.rows.get(r.id) : null);
@@ -5490,7 +5541,13 @@ function plTouch(pid) {
   clearTimeout(pcur.sumT);
   pcur.sumT = setTimeout(() => { if (pcur && pcur.id === pid && pcur.got.lin) patch(`planic/${pid}`, stamp({sum: plSummary(pcur)})); }, 2500);
 }
-function plRowsArr(pc = pcur) { return pc ? [...pc.rows.values()].sort(plSort) : []; }
+function plRowsArr(pc = pcur) {
+  if (!pc) return [];
+  if (pc._ord && pc._ordV === pc.ver) return pc._ord;
+  const all = [...pc.rows.values()], old = all.filter(r => r.n == null).sort(plSort);
+  old.forEach((r, i) => r.n = -1e9 + (i + 1) * 1000); // linhas de antes da ordem manual: ficam no começo, na ordem natural
+  pc._ord = all.sort((a, b) => a.n - b.n || String(a.id).localeCompare(String(b.id))); pc._ordV = pc.ver; return pc._ord;
+}
 function plSummary(pc) {
   const p = planics.get(pc.id), lisa = plLisa(p), out = {n: 0, A: 0, AR: 0, AC: 0, NC: 0, vaz: 0, pend: 0};
   pc.rows.forEach(r => { const st = plStatus(r, lisa); if (st) { out.n++; out[st]++; } else out.vaz++; });
@@ -5569,7 +5626,7 @@ async function plNewDialog(pre = {}) {
       value: bg => ({obra: $("#pn-obra", bg).value.trim(), nome: $("#pn-nome", bg).value.trim(), lisa: $("#pn-lisa", bg).value})}]});
   if (!res) return null;
   const o = plObra(res.obra), pid = uid("q"), at = nowIso();
-  const doc = {nome: res.nome || `Planicidade e esquadro – ${res.obra}`, obra: o ? o[0] : res.obra.toUpperCase(), regional: o ? o[1] : "", fabrica: o ? o[2] : "", lisa: res.lisa, form: "F.009-QUALI R05", maps: {}, sum: {n: 0}, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
+  const doc = {nome: res.nome || `Planicidade e esquadro – ${res.obra}`, obra: o ? o[0] : res.obra.toUpperCase(), regional: o ? o[1] : "", fabrica: o ? o[2] : "", lisa: res.lisa, form: "F.009-QUALI R05", maps: plAutoMaps(pid), sum: {n: 0}, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at};
   try { await create(`planic/${pid}`, doc); planics.set(pid, {id: pid, ...doc}); plLog(pid, "Criou a planilha"); if (!pre.stay) location.hash = "planic-" + pid; return pid; } catch { return null; }
 }
 
@@ -5583,7 +5640,7 @@ function openPlanic(pid) {
   pcur.unsubs.push(db.collection(`planic/${pid}/lin`).onSnapshot(s => {
     if (!pcur || pcur.id !== pid) return;
     const rows = new Map(); s.docs.forEach(d => { const r = (d.data() || {}).r || {}; for (const id in r) { const x = plDec(id, r[id]); if (x) rows.set(id, x); } });
-    pcur.rows = rows; pcur.got.lin = true; plRefresh();
+    pcur.rows = rows; pcur.ver = (pcur.ver || 0) + 1; pcur.got.lin = true; plRefresh();
   }, () => {}));
   pcur.unsubs.push(db.collection(`planic/${pid}/log`).orderBy("at").onSnapshot(s => { if (!pcur || pcur.id !== pid) return; pcur.log = s.docs.map(d => ({id: d.id, ...d.data()})); if (pcur.tab === "hist") plBody(); }, () => {}));
   renderPlanic();
@@ -5593,8 +5650,9 @@ function plRefresh() {
   if (!pcur) return;
   if (plmState && plmState.refresh) plmState.refresh();
   const a = document.activeElement;
-  if (a && a.closest && a.closest("#pl-body .pl-tbl, #pl-fbar")) { pcur.dirty = true; return; }
-  pcur.dirty = false; renderPlanicHead(); plBody();
+  if ((pcur.g && pcur.g.ed) || (a && a.closest && a.closest("#pl-fbar, .modal-bg"))) { pcur.dirty = true; return; }
+  pcur.dirty = false; renderPlanicHead();
+  if (pcur.tab === "tab" && pcur.g && pcur.g.el && pcur.g.el.isConnected) { plGridData(); plGridRender(); plGridSel(); plSideMap(); } else plBody();
 }
 function renderPlanic() {
   const v = $("#view-planic"), p = planics.get(pcur.id);
@@ -5603,7 +5661,7 @@ function renderPlanic() {
     <div class="tabs" role="tablist" id="pl-tabs"><button type="button" data-pt="tab">Planilha <span class="n" id="pl-n-tab">0</span></button><button type="button" data-pt="map">Mapeamento <span class="n" id="pl-n-map">0</span></button><button type="button" data-pt="aval">Avaliação <span class="n" id="pl-n-aval">0</span></button><button type="button" data-pt="hist">Histórico</button></div>
     <div id="pl-fbar"></div><div id="pl-body"></div>`;
   $("#pl-tabs", v).onclick = e => { const b = e.target.closest("[data-pt]"); if (b) { pcur.tab = b.dataset.pt; plBody(); } };
-  v.addEventListener("focusout", () => setTimeout(() => { if (pcur && pcur.dirty) { const a = document.activeElement; if (!(a && a.closest && a.closest("#pl-body .pl-tbl, #pl-fbar"))) plRefresh(); } }, 60));
+  v.addEventListener("focusout", () => setTimeout(() => { if (pcur && pcur.dirty && !(pcur.g && pcur.g.ed)) { const a = document.activeElement; if (!(a && a.closest && a.closest("#pl-fbar, .modal-bg"))) plRefresh(); } }, 60));
   renderPlanicHead(); plBody();
 }
 function renderPlanicHead() {
@@ -5669,52 +5727,377 @@ function plBody(keepFilterFocus) {
   const box = $("#pl-body"); if (!box) return;
   if (!pcur.got.lin) { box.innerHTML = `<div class="sub" style="padding:20px">Carregando a planilha…</div>`; return; }
   if (!keepFilterFocus) { if (pcur.tab === "tab" || pcur.tab === "map") plFilterBar(pcur.tab === "tab"); else $("#pl-fbar").innerHTML = ""; }
-  if (pcur.tab === "tab") plTable(box); else if (pcur.tab === "map") plMapTab(box); else if (pcur.tab === "aval") plAval(box); else plHist(box);
+  if (pcur.tab === "tab") plGridTab(box); else if (pcur.tab === "map") plMapTab(box); else if (pcur.tab === "aval") plAval(box); else plHist(box);
 }
 
-/* ----- aba Planilha ----- */
-function plTable(box) {
-  const p = planics.get(pcur.id), lisa = plLisa(p), L = plFiltered(), pages = Math.max(1, Math.ceil(L.length / PL_PAGE));
-  if (pcur.page >= pages) pcur.page = pages - 1;
-  const part = L.slice(pcur.page * PL_PAGE, (pcur.page + 1) * PL_PAGE), ro = !canWrite;
-  const iss = new Map(); plIssues().forEach(i => { if (i.row && !i.apto && i.sev !== "info") { const a = iss.get(i.row.id) || []; a.push(i); iss.set(i.row.id, a); } });
-  const sel = (k, L2, v, lbl, w) => `<select data-k="${k}" ${ro ? "disabled" : ""} aria-label="${lbl}" style="min-width:${w}px"><option value=""></option>${L2.map(x => Array.isArray(x) ? `<option value="${esc(x[0])}" ${x[0] === v ? "selected" : ""}>${esc(x[1])}</option>` : `<option ${x === v ? "selected" : ""}>${esc(x)}</option>`).join("")}${v && !L2.some(x => (Array.isArray(x) ? x[0] : x) === v) ? `<option selected>${esc(v)}</option>` : ""}</select>`;
-  const ptOpts = PL_PTS.map(k => [k, `${k} · ${plPtName(k).toLowerCase()}`]);
-  box.innerHTML = `<div class="pl-acts">${ro ? "" : `<button class="btn sm primary" type="button" id="pl-addrow">+ Linha</button><button class="btn sm" type="button" id="pl-addapto">+ Apartamento completo</button>`}
-      <span class="sub">${L.length} de ${pcur.rows.size} linha(s)${pages > 1 ? ` · página ${pcur.page + 1} de ${pages}` : ""}. As colunas Regional, Fábrica, Obra e Parede lisa são as da planilha e saem no Excel.</span></div>
-    ${L.length ? `<div class="pl-tw"><table class="pl-tbl"><thead><tr><th>Torre</th><th>Pav.</th><th>Ciclo</th><th>Escopo</th><th title="Apartamento (apenas números)">Subdiv.</th><th>Canto / parede</th><th>Status</th><th>Desvio pré<small>mm</small></th><th>Data concretagem</th><th>Desvio pós<small>mm</small></th><th>Observação</th><th></th></tr></thead><tbody>
-      ${part.map(r => { const st = plStatus(r, lisa), ii = iss.get(r.id) || [], bad = ii.some(i => i.sev === "bad");
-        return `<tr data-rid="${esc(r.id)}" class="${bad ? "bad" : ii.length ? "warn" : ""}" title="${esc(ii.map(i => i.msg).join("\n"))}">
-          <td>${sel("t", PL_TORRES, r.t, "Torre", 62)}</td><td>${sel("p", PL_PAVS, r.p, "Pavimento", 66)}</td><td>${sel("c", PL_CICLOS, r.c, "Ciclo", 46)}</td>
-          <td>${sel("e", [["A", "Apto"], ["H", "Hall"]], r.e || "A", "Escopo", 62)}</td><td><input type="text" inputmode="numeric" data-k="s" value="${esc(r.s)}" ${ro ? "disabled" : ""} aria-label="Subdivisão" style="width:58px"></td>
-          <td>${sel("k", ptOpts, r.k, "Canto/parede", 118)}</td><td>${plStChip(st, st || "—")}</td>
-          <td><input type="text" inputmode="decimal" data-k="d" value="${r.d ?? ""}" ${ro ? "disabled" : ""} aria-label="Desvio pré" class="num ${r.d != null && (r.d > PL_MAX_PRE || r.d < 0) ? "err" : ""}"></td>
-          <td><input type="date" data-k="dt" value="${esc(r.dt)}" ${ro ? "disabled" : ""} aria-label="Data de concretagem" class="${!r.dt ? "miss" : ""}"></td>
-          <td><input type="text" inputmode="decimal" data-k="m" value="${r.m ?? ""}" ${ro ? "disabled" : ""} aria-label="Desvio pós" class="num ${st === "NC" ? "need" : ""} ${r.m != null && (r.m > PL_MAX_POS || r.m < 0) ? "err" : ""}" placeholder="${st === "NC" ? "falta" : ""}" title="${st === "NC" ? "Medir de novo depois da correção e do arremate" : ""}"></td>
-          <td><input type="text" data-k="o" value="${esc(r.o)}" ${ro ? "disabled" : ""} aria-label="Observação" maxlength="200" style="min-width:120px"></td>
-          <td>${ro ? "" : `<button type="button" class="btn sm ghost danger" data-del aria-label="Excluir linha" title="Excluir linha">✕</button>`}</td></tr>`; }).join("")}
-      </tbody></table></div>${pages > 1 ? `<div class="pl-pg"><button class="btn sm" type="button" data-pg="-1" ${pcur.page ? "" : "disabled"}>← Anterior</button><span>Página ${pcur.page + 1} de ${pages}</span><button class="btn sm" type="button" data-pg="1" ${pcur.page < pages - 1 ? "" : "disabled"}>Próxima →</button></div>` : ""}`
-    : `<div class="empty"><b>${pcur.rows.size ? "Nenhuma linha com esses filtros" : "Planilha vazia"}</b>${pcur.rows.size ? "Mude ou limpe os filtros." : "Use <b>+ Apartamento completo</b> para criar os pontos de um apartamento de uma vez, <b>+ Linha</b> para lançar um ponto, ou <b>Carregar arquivo</b> para trazer um F.009 em Excel, PDF ou foto."}</div>`}`;
-  const tb = $(".pl-tbl", box);
-  if (tb && !ro) tb.addEventListener("change", e => {
-    const el = e.target.closest("[data-k]"), tr = e.target.closest("tr[data-rid]"); if (!el || !tr) return;
-    const r = pcur.rows.get(tr.dataset.rid); if (!r) return;
-    const k = el.dataset.k; let v = el.value;
-    if (k === "d" || k === "m") { v = plNum(v); if (el.value.trim() && v == null) { toast("Digite só o número do desvio, em milímetros."); el.value = r[k] ?? ""; return; } }
-    if (k === "s") v = String(v).trim();
-    if ((r[k] ?? "") === (v ?? "")) return;
-    const nr = {...r, [k]: v};
-    plSaveRows(pcur.id, [nr]);
-    if (k === "d" || k === "m") { const st = plStatus(nr, lisa), cell = tr.children[6]; cell.innerHTML = plStChip(st, st || "—"); if (st === "NC" && k === "d") toast(`${nr.k || "Ponto"}: ${nr.d} mm, acima da tolerância. Fica NC até lançar o desvio pós-tratamento (depois do arremate).`); }
-  });
-  if (tb && !ro) tb.addEventListener("click", e => {
-    const b = e.target.closest("[data-del]"); if (!b) return; const tr = b.closest("tr"), r = pcur.rows.get(tr.dataset.rid); if (!r) return;
-    plDelRows(pcur.id, [r]); plLog(pcur.id, `Excluiu a linha ${plAptoTxt(r)} · ${r.k || "sem ponto"}${r.d != null ? ` (pré ${r.d} mm${r.m != null ? `, pós ${r.m} mm` : ""})` : ""}`); tr.remove(); toast("Linha excluída (fica registrada no histórico).");
-  });
-  $$("[data-pg]", box).forEach(b => b.onclick = () => { pcur.page += +b.dataset.pg; plBody(true); window.scrollTo(0, $("#pl-fbar").offsetTop - 10); });
-  const ar = $("#pl-addrow", box); if (ar) ar.onclick = () => plAddRow();
+/* ----- aba Planilha: grade no estilo do Excel (mesmas colunas e cores da aba "Dados desvios" do F.009) ----- */
+const PL_RH = 28, PL_RN = 46;
+const PL_COLS = [
+  {k: "regional", h: "REGIONAL", w: 82, ro: 1}, {k: "fabrica", h: "FÁBRICA", w: 70, ro: 1}, {k: "obra", h: "OBRA", w: 176, ro: 1, l: 1},
+  {k: "t", h: "TORRE", w: 66, list: () => PL_TORRES}, {k: "p", h: "PAVIMENTO", w: 92, list: () => PL_PAVS}, {k: "c", h: "CICLO", w: 60, list: () => PL_CICLOS},
+  {k: "e", h: "ESCOPO", w: 182, l: 1, list: () => [["A", PL_ESC.A], ["H", PL_ESC.H]]}, {k: "s", h: "Subdivisão", w: 86, num: 1},
+  {k: "k", h: "CANTO/PAREDE", w: 236, l: 1, list: () => PL_PTS.map(x => [x, plCanto(x).trim()])}, {k: "st", h: "STATUS", w: 214, ro: 1, l: 1},
+  {k: "d", h: "Desvio Pré", w: 84, num: 1}, {k: "dt", h: "Data Concretagem", w: 122, date: 1}, {k: "m", h: "Desvio Pós- tratamento", w: 108, num: 1},
+  {k: "lisa", h: "Parede Lisa", w: 80, ro: 1}, {k: "o", h: "Observação", w: 220, free: 1}
+];
+const PL_EDIT = PL_COLS.map((c, i) => c.ro ? -1 : i).filter(i => i >= 0);
+const plColX = i => PL_RN + PL_COLS.slice(0, i).reduce((a, c) => a + c.w, 0);
+const plFmtD = iso => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ""); return m ? `${m[3]}/${m[2]}/${m[1]}` : ""; };
+function plCellTxt(r, c, p, lisa) {
+  if (!r) return "";
+  switch (c.k) {
+    case "regional": return p.regional || ""; case "fabrica": return p.fabrica || ""; case "obra": return p.obra || "";
+    case "e": return PL_ESC[r.e || "A"]; case "k": return r.k ? plCanto(r.k).trim() : "";
+    case "st": { const s = plStatus(r, lisa); return s ? PL_ST[s].l : ""; }
+    case "d": case "m": return r[c.k] == null ? "" : String(r[c.k]).replace(".", ",");
+    case "dt": return plFmtD(r.dt); case "lisa": return lisa ? "Sim" : "Não";
+    default: return r[c.k] || "";
+  }
+}
+function plCellParse(c, txt) {
+  const s = String(txt ?? "").trim();
+  if (s === "") return {ok: 1, v: c.num && c.k !== "s" ? null : ""};
+  switch (c.k) {
+    case "t": { const v = plNormTorre(s); return /^T\d{1,2}$/.test(v) ? {ok: 1, v} : {ok: 0, msg: "Torre: use T1, T2…"}; }
+    case "p": { const v = plNormPav(s); return /^PV(T|\d{1,2})$/.test(v) ? {ok: 1, v} : {ok: 0, msg: "Pavimento: use PVT, PV1, PV2…"}; }
+    case "c": { const v = s.toUpperCase(); return PL_CICLOS.includes(v) ? {ok: 1, v} : {ok: 0, msg: "Ciclo: uma letra de A a J."}; }
+    case "e": return {ok: 1, v: /^H/i.test(s) ? "H" : "A"};
+    case "s": { const v = s.replace(/\.0+$/, ""); return /^\d{1,6}$/.test(v) ? {ok: 1, v} : {ok: 0, msg: "Subdivisão: apenas números (ex.: 21)."}; }
+    case "k": { const v = plNormPt(s); return v && PL_PTS.includes(v) ? {ok: 1, v} : {ok: 0, msg: "Canto/parede: P1 a P20 (paredes) ou C1 a C20 (esquadros)."}; }
+    case "d": case "m": { const v = plNum(s); return v == null ? {ok: 0, msg: "Desvio: só o número, em milímetros."} : {ok: 1, v}; }
+    case "dt": { const v = plDateIso(s); return v ? {ok: 1, v} : {ok: 0, msg: "Data: use dd/mm/aaaa."}; }
+    default: return {ok: 1, v: s.slice(0, 200)};
+  }
+}
+const plFields = ["t", "p", "c", "e", "s", "k", "d", "dt", "m", "o"];
+const plCopyRow = r => { const o = {id: r.id, n: r.n}; plFields.forEach(f => o[f] = r[f] ?? (f === "d" || f === "m" ? null : "")); return o; };
+/* ordem das linhas (como no Excel): cada linha tem um número de posição "n" */
+function plMaxN() { const L = plRowsArr(); return L.length ? L[L.length - 1].n : 0; }
+function plNBetween(a, b, k) { // k posições entre a e b
+  const lo = a ?? (b != null ? b - 1000 * (k + 1) : 0), hi = b ?? lo + 1000 * (k + 1), st = (hi - lo) / (k + 1);
+  if (st < 1e-6) return null;
+  return Array.from({length: k}, (_, i) => lo + st * (i + 1));
+}
+function plRenumber() { const L = plRowsArr().map((r, i) => ({...r, n: (i + 1) * 1000})); plSaveRows(pcur.id, L); return L; }
+function plNAfterApto(r, k = 1) { // logo depois da última linha do mesmo apartamento
+  const L = plRowsArr(), a = plApto(r); let idx = -1; L.forEach((x, i) => { if (plApto(x) === a) idx = i; });
+  if (idx < 0) { const mx = plMaxN(); return Array.from({length: k}, (_, i) => mx + 1000 * (i + 1)); }
+  return plNBetween(L[idx].n, L[idx + 1] ? L[idx + 1].n : null, k) || Array.from({length: k}, (_, i) => plMaxN() + 1000 * (i + 1));
+}
+function plGridState() {
+  if (!pcur.g) pcur.g = {r: 0, c: 3, ar: 0, ac: 3, ed: null, undo: [], top: 0, side: innerWidth >= 1180};
+  return pcur.g;
+}
+function plGridTab(box) {
+  const g = plGridState(), ro = !canWrite, p = planics.get(pcur.id);
+  box.innerHTML = `<div class="xg-bar">${ro ? "" : `<button class="btn sm" type="button" data-xa="above" title="Inserir linha acima (Ctrl + +)">⤒ Inserir acima</button><button class="btn sm" type="button" data-xa="below" title="Inserir linha abaixo">⤓ Inserir abaixo</button><button class="btn sm" type="button" data-xa="dup" title="Duplicar linha(s)">⧉ Duplicar</button><button class="btn sm" type="button" data-xa="up" title="Mover para cima (Alt + ↑)">↑</button><button class="btn sm" type="button" data-xa="down" title="Mover para baixo (Alt + ↓)">↓</button><button class="btn sm" type="button" data-xa="fill" title="Preencher para baixo (Ctrl + D)">⇩ Preencher</button><button class="btn sm" type="button" data-xa="undo" title="Desfazer (Ctrl + Z)">↶ Desfazer</button><button class="btn sm ghost danger" type="button" data-xa="del" title="Excluir linha(s)">✕ Excluir linha</button><span class="xg-sep"></span><button class="btn sm" type="button" id="pl-addapto">+ Apartamento completo</button><button class="btn sm" type="button" data-xa="sort" title="Ordenar por torre, pavimento, escopo, subdivisão e ponto">Ordenar</button>`}<button class="btn sm" type="button" data-xa="side" title="Mostrar o mapeamento ao lado">🗺 ${g.side ? "Esconder mapa" : "Ver no mapa"}</button></div>
+    <div class="xg-title"><span class="l">${esc(p.regional ? "" : "")}</span><b>F.009 - QUALI - Controle de Planicidade e Esquadro das Paredes</b><span class="r">R05<br>Data: ${fmtDate(today())}</span></div>
+    <div class="xg-leg"><span class="np">não preencher</span><span class="pr">preencher</span><span class="sub">Clique para selecionar · duplo clique, Enter ou F2 para editar · setas, Tab e Enter navegam · Ctrl+C / Ctrl+V copiam e colam (inclusive do Excel) · Ctrl+D preenche para baixo · arraste o nº da linha para mover · arraste o quadradinho da seleção para preencher · botão direito para mais opções</span></div>
+    <div class="xg-wrap ${g.side ? "side" : ""}"><div class="xg" tabindex="0" aria-label="Planilha de desvios">
+      <table class="xg-t" style="width:${plColX(PL_COLS.length)}px"><colgroup><col style="width:${PL_RN}px">${PL_COLS.map(c => `<col style="width:${c.w}px">`).join("")}</colgroup>
+      <thead><tr><th class="rn"></th>${PL_COLS.map((c, i) => `<th class="${c.ro ? "ro" : ""}" data-hc="${i}">${esc(c.h)}</th>`).join("")}</tr></thead><tbody></tbody></table>
+      <div class="xg-sel hidden"></div><div class="xg-act hidden"></div><div class="xg-fh hidden" title="Arraste para preencher"></div><div class="xg-drop hidden"></div></div>
+    <aside class="xg-side ${g.side ? "" : "hidden"}"><div class="xg-side-h"></div><div class="xg-side-b"></div></aside></div>`;
+  const xg = $(".xg", box); g.el = xg; g.box = box;
+  xg.scrollTop = g.top || 0;
+  plGridData(); plGridRender(); plGridSel(); plSideMap();
+  xg.addEventListener("scroll", () => { g.top = xg.scrollTop; if (!g.raf) g.raf = requestAnimationFrame(() => { g.raf = 0; plGridRender(); plGridSel(); }); }, {passive: true});
+  plGridEvents(xg, box);
   const aa = $("#pl-addapto", box); if (aa) aa.onclick = () => plAddApto();
 }
+function plGridData() { const g = pcur.g; g.L = plFiltered(); g.lisa = plLisa(planics.get(pcur.id)); g.iss = new Map(); plIssues().forEach(i => { if (i.row && !i.apto && i.sev !== "info") { const a = g.iss.get(i.row.id) || []; a.push(i); g.iss.set(i.row.id, a); } }); }
+function plGridRender() {
+  const g = pcur.g, xg = g.el; if (!xg || !xg.isConnected) return;
+  const p = planics.get(pcur.id), N = g.L.length + (canWrite ? 1 : 0), hh = $("thead", xg).offsetHeight || 30;
+  const s0 = Math.max(0, Math.floor((xg.scrollTop - hh) / PL_RH) - 15), s1 = Math.min(N, s0 + Math.ceil(xg.clientHeight / PL_RH) + 30);
+  g.hh = hh; g.s0 = s0; g.s1 = s1;
+  let h = `<tr class="sp" style="height:${s0 * PL_RH}px"><td colspan="${PL_COLS.length + 1}"></td></tr>`;
+  for (let i = s0; i < s1; i++) {
+    const r = g.L[i], ii = r ? g.iss.get(r.id) : null, bad = ii && ii.some(x => x.sev === "bad");
+    if (!r) { h += `<tr class="new" data-ri="${i}"><td class="rn">*</td>${PL_COLS.map((c, j) => `<td data-c="${j}" class="${c.ro ? "ro" : ""}"></td>`).join("")}</tr>`; continue; }
+    const st = plStatus(r, g.lisa);
+    h += `<tr data-ri="${i}" class="${bad ? "bad" : ii ? "warn" : ""}" ${ii ? `title="${esc(ii.map(x => x.msg).join("\n"))}"` : ""}><td class="rn" draggable="false">${i + 1}</td>${PL_COLS.map((c, j) => {
+      const t = plCellTxt(r, c, p, g.lisa), cls = [c.ro ? "ro" : "", c.k === "st" && st ? "st-" + st : "", (c.k === "d" && r.d != null && (r.d < 0 || r.d > PL_MAX_PRE)) || (c.k === "m" && r.m != null && (r.m < 0 || r.m > PL_MAX_POS)) ? "err" : "", c.k === "m" && st === "NC" ? "need" : "", c.k === "o" || c.l ? "l" : ""].filter(Boolean).join(" ");
+      return `<td data-c="${j}" class="${cls}">${esc(t)}</td>`; }).join("")}</tr>`;
+  }
+  h += `<tr class="sp" style="height:${Math.max(0, N - s1) * PL_RH}px"><td colspan="${PL_COLS.length + 1}"></td></tr>`;
+  $("tbody", xg).innerHTML = h;
+}
+function plGridSel() {
+  const g = pcur.g, xg = g.el; if (!xg || !xg.isConnected) return;
+  const N = g.L.length + (canWrite ? 1 : 0); g.r = Math.max(0, Math.min(N - 1, g.r)); g.ar = Math.max(0, Math.min(N - 1, g.ar)); if (N <= 0) { $(".xg-sel", xg).classList.add("hidden"); return; }
+  const r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar), c0 = Math.min(g.c, g.ac), c1 = Math.max(g.c, g.ac), hh = g.hh || 30;
+  const sel = $(".xg-sel", xg), act = $(".xg-act", xg), fh = $(".xg-fh", xg);
+  Object.assign(sel.style, {left: plColX(c0) + "px", top: hh + r0 * PL_RH + "px", width: plColX(c1 + 1) - plColX(c0) + "px", height: (r1 - r0 + 1) * PL_RH + "px"}); sel.classList.remove("hidden");
+  Object.assign(act.style, {left: plColX(g.c) + "px", top: hh + g.r * PL_RH + "px", width: PL_COLS[g.c].w + "px", height: PL_RH + "px"}); act.classList.remove("hidden");
+  Object.assign(fh.style, {left: plColX(c1 + 1) - 5 + "px", top: hh + (r1 + 1) * PL_RH - 5 + "px"}); fh.classList.toggle("hidden", !canWrite);
+  $$("thead th[data-hc]", xg).forEach(th => th.classList.toggle("on", +th.dataset.hc >= c0 && +th.dataset.hc <= c1));
+  $$("tbody tr[data-ri]", xg).forEach(tr => tr.classList.toggle("on", +tr.dataset.ri >= r0 && +tr.dataset.ri <= r1));
+  const row = g.L[g.r]; if (row) { const a = plApto(row); if (a !== g.lastApto || row.k !== g.lastK) { g.lastApto = a; g.lastK = row.k; pcur.mctx = {t: row.t, p: row.p, s: row.s, e: row.e || "A", k: row.k}; plSideMap(); } }
+}
+function plGridScroll() {
+  const g = pcur.g, xg = g.el, hh = g.hh || 30, y = hh + g.r * PL_RH, x = plColX(g.c);
+  if (y - hh < xg.scrollTop) xg.scrollTop = y - hh; else if (y + PL_RH > xg.scrollTop + xg.clientHeight) xg.scrollTop = y + PL_RH - xg.clientHeight + 2;
+  if (x - PL_RN < xg.scrollLeft) xg.scrollLeft = x - PL_RN; else if (x + PL_COLS[g.c].w > xg.scrollLeft + xg.clientWidth) xg.scrollLeft = x + PL_COLS[g.c].w - xg.clientWidth + 2;
+}
+function plGridGo(dr, dc, ext) {
+  const g = pcur.g, N = g.L.length + (canWrite ? 1 : 0);
+  g.r = Math.max(0, Math.min(N - 1, g.r + dr)); g.c = Math.max(0, Math.min(PL_COLS.length - 1, g.c + dc));
+  if (!ext) { g.ar = g.r; g.ac = g.c; }
+  plGridScroll(); plGridRender(); plGridSel();
+}
+const plSelRows = () => { const g = pcur.g; const r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar); return g.L.slice(r0, r1 + 1); };
+/* aplica mudanças (com desfazer) */
+function plApply(list, label) { // list: [{row (atual) | null, set: {campo: valor}, n?}]
+  const g = pcur.g, before = new Map(), save = [];
+  list.forEach(({row, set}) => {
+    if (row) { before.set(row.id, plCopyRow(row)); save.push({...row, ...set}); }
+    else { const nr = {id: uid("r"), t: "", p: "", c: "", e: "A", s: "", k: "", d: null, dt: "", m: null, o: "", ...set}; before.set(nr.id, null); save.push(nr); }
+  });
+  if (!save.length) return [];
+  let nx = plMaxN(); save.forEach(r => { if (r.n == null) { nx += 1000; r.n = nx; } });
+  plSaveRows(pcur.id, save); g.undo.push({before, label}); if (g.undo.length > 50) g.undo.shift();
+  save.forEach(r => pcur.rows.set(r.id, {...(pcur.rows.get(r.id) || {}), ...r})); pcur.ver = (pcur.ver || 0) + 1;
+  plGridData(); plGridRender(); plGridSel();
+  return save;
+}
+function plUndo() {
+  const g = pcur.g, u = g.undo.pop(); if (!u) { toast("Nada para desfazer."); return; }
+  const restore = [], del = [];
+  u.before.forEach((old, id) => { if (old) restore.push(old); else { const cur_ = pcur.rows.get(id); if (cur_) del.push(cur_); } });
+  if (restore.length) plSaveRows(pcur.id, restore); if (del.length) plDelRows(pcur.id, del);
+  restore.forEach(r => pcur.rows.set(r.id, {...r})); del.forEach(r => pcur.rows.delete(r.id)); pcur.ver = (pcur.ver || 0) + 1;
+  plGridData(); plGridRender(); plGridSel(); toast(`Desfeito: ${u.label || "última ação"}.`);
+}
+function plCtxFrom(r) { return r ? {t: r.t, p: r.p, c: r.c, e: r.e || "A", s: r.s, dt: r.dt} : {}; }
+function plInsert(where) {
+  const g = pcur.g, L = g.L, r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar), k = Math.min(50, r1 - r0 + 1);
+  const ref = L[where === "above" ? r0 : r1] || L[L.length - 1];
+  let ns = where === "above" ? plNBetween(L[r0 - 1] ? L[r0 - 1].n : null, L[r0] ? L[r0].n : null, k) : plNBetween(L[r1] ? L[r1].n : null, L[r1 + 1] ? L[r1 + 1].n : null, k);
+  if (!ns) { plRenumber(); return toast("Reorganizei a numeração das linhas. Tente de novo."); }
+  plApply(ns.map(n => ({row: null, set: {...plCtxFrom(ref), k: "", n}})), "inserir linha");
+  g.r = g.ar = where === "above" ? r0 : r1 + 1; g.c = g.ac = PL_COLS.findIndex(c => c.k === "k"); plGridScroll(); plGridRender(); plGridSel();
+}
+function plDup() {
+  const rows = plSelRows(); if (!rows.length) return; const g = pcur.g, L = g.L, r1 = Math.max(g.r, g.ar);
+  const ns = plNBetween(rows[rows.length - 1].n, L[r1 + 1] ? L[r1 + 1].n : null, rows.length); if (!ns) { plRenumber(); return toast("Reorganizei a numeração das linhas. Tente de novo."); }
+  plApply(rows.map((r, i) => ({row: null, set: {...plCopyRow(r), id: undefined, d: null, m: null, o: "", n: ns[i]}})).map(x => { delete x.set.id; return x; }), "duplicar");
+  toast(`${rows.length} linha(s) duplicada(s), sem os desvios.`);
+}
+async function plDelSel() {
+  const rows = plSelRows(); if (!rows.length) return;
+  const withVal = rows.filter(r => r.d != null || r.m != null).length;
+  if (rows.length > 1 || withVal) { if (!(await confirmBox(`Excluir ${rows.length} linha(s)?`, `${withVal ? `<b>${withVal}</b> delas têm desvio lançado. ` : ""}Dá para desfazer logo em seguida (↶ Desfazer) e a exclusão fica no histórico.`, "Excluir", true))) return; }
+  const g = pcur.g, before = new Map(rows.map(r => [r.id, plCopyRow(r)]));
+  plDelRows(pcur.id, rows); rows.forEach(r => pcur.rows.delete(r.id)); pcur.ver = (pcur.ver || 0) + 1;
+  g.undo.push({before, label: "excluir linha"});
+  plLog(pcur.id, `Excluiu ${rows.length} linha(s): ${rows.slice(0, 6).map(r => `${plAptoTxt(r)} · ${r.k || "sem ponto"}${r.d != null ? ` (${r.d}${r.m != null ? "→" + r.m : ""} mm)` : ""}`).join("; ")}${rows.length > 6 ? "…" : ""}`);
+  g.ar = g.r = Math.min(g.r, g.ar); plGridData(); plGridRender(); plGridSel(); g.el && g.el.focus({preventScroll: true});
+  toast(`${rows.length} linha(s) excluída(s). ↶ Desfazer (Ctrl+Z) traz de volta.`);
+}
+function plMove(rows, target) { // coloca as linhas antes da posição target da lista visível
+  const g = pcur.g, ids = new Set(rows.map(r => r.id)), L = g.L.filter(r => !ids.has(r.id));
+  target = Math.max(0, Math.min(L.length, target));
+  const ns = plNBetween(L[target - 1] ? L[target - 1].n : null, L[target] ? L[target].n : null, rows.length);
+  if (!ns) { plRenumber(); return toast("Reorganizei a numeração das linhas. Tente de novo."); }
+  plApply(rows.map((r, i) => ({row: r, set: {n: ns[i]}})), "mover linha");
+  const nr0 = g.L.findIndex(r => r.id === rows[0].id); g.ar = nr0; g.r = nr0 + rows.length - 1; plGridScroll(); plGridRender(); plGridSel();
+}
+function plMoveBy(d) { const g = pcur.g, rows = plSelRows(), r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar); if (!rows.length) return; if (d < 0 && r0 === 0) return; if (d > 0 && r1 >= g.L.length - 1) return; plMove(rows, d < 0 ? r0 - 1 : r0 + 1); }
+function plFill(series) {
+  const g = pcur.g, r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar), c0 = Math.min(g.c, g.ac), c1 = Math.max(g.c, g.ac); if (r1 <= r0) return toast("Selecione a célula de cima e as de baixo para preencher.");
+  const src = g.L[r0]; if (!src) return; const ch = [];
+  for (let i = r0 + 1; i <= r1; i++) { const r = g.L[i], set = {}; for (let c = c0; c <= c1; c++) { const col = PL_COLS[c]; if (col.ro) continue; let v = src[col.k];
+      if (series && col.k === "k" && src.k) { const n = +src.k.slice(1) + (i - r0); v = n <= 20 ? src.k[0] + n : ""; }
+      set[col.k] = v; }
+    ch.push({row: r || null, set}); }
+  plApply(ch, "preencher");
+}
+function plClearSel() {
+  const g = pcur.g, r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar), c0 = Math.min(g.c, g.ac), c1 = Math.max(g.c, g.ac), ch = [];
+  for (let i = r0; i <= r1; i++) { const r = g.L[i]; if (!r) continue; const set = {}; for (let c = c0; c <= c1; c++) { const col = PL_COLS[c]; if (!col.ro) set[col.k] = col.k === "d" || col.k === "m" ? null : col.k === "e" ? "A" : ""; } if (Object.keys(set).length) ch.push({row: r, set}); }
+  if (ch.length) plApply(ch, "limpar");
+}
+function plCopyTxt() {
+  const g = pcur.g, p = planics.get(pcur.id), r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar), c0 = Math.min(g.c, g.ac), c1 = Math.max(g.c, g.ac), out = [];
+  for (let i = r0; i <= r1; i++) { const r = g.L[i]; const a = []; for (let c = c0; c <= c1; c++) a.push(r ? plCellTxt(r, PL_COLS[c], p, g.lisa) : ""); out.push(a.join("\t")); }
+  return out.join("\r\n");
+}
+function plPaste(txt) {
+  const g = pcur.g; if (!canWrite) return;
+  const lines = String(txt).replace(/\r/g, "").replace(/\n+$/, "").split("\n").map(l => l.split("\t")); if (!lines.length) return;
+  let bad = 0; const ch = [], news = [];
+  lines.forEach((cells, i) => { const ri = g.r + i, row = g.L[ri] || null, set = {};
+    cells.forEach((v, j) => { const col = PL_COLS[g.c + j]; if (!col || col.ro) return; const pr = plCellParse(col, v); if (pr.ok) set[col.k] = pr.v; else bad++; });
+    if (!Object.keys(set).length) return; if (row) ch.push({row, set}); else news.push({row: null, set: {...plCtxFrom(g.L[g.L.length - 1]), k: "", ...set}}); });
+  if (news.length) { let nx = plMaxN(); news.forEach(x => { nx += 1000; x.set.n = nx; }); }
+  plApply([...ch, ...news], "colar");
+  g.ar = g.r; g.r = Math.min(g.L.length - 1 + (canWrite ? 1 : 0), g.r + lines.length - 1); g.ac = g.c; g.c = Math.min(PL_COLS.length - 1, g.c + Math.max(...lines.map(l => l.length)) - 1); plGridSel();
+  toast(`Colado: ${ch.length + news.length} linha(s)${news.length ? ` (${news.length} nova(s))` : ""}${bad ? `. ${bad} valor(es) fora do padrão foram ignorados` : ""}.`);
+}
+/* edição de uma célula (caixinha por cima da célula, com lista quando a coluna tem lista) */
+function plEdit(seed) {
+  const g = pcur.g, col = PL_COLS[g.c], xg = g.el; if (!canWrite || col.ro || g.ed) return;
+  const row = g.L[g.r] || null, p = planics.get(pcur.id), touch = matchMedia("(pointer:coarse)").matches;
+  const wrap = document.createElement("div"); wrap.className = "xg-ed";
+  Object.assign(wrap.style, {left: plColX(g.c) + "px", top: (g.hh || 30) + g.r * PL_RH + "px", width: Math.max(col.w, col.list ? 200 : col.w) + "px"});
+  const inp = document.createElement("input"); inp.type = col.date && touch ? "date" : "text"; inp.autocomplete = "off"; inp.spellcheck = false;
+  if (col.num) inp.inputMode = col.k === "s" ? "numeric" : "decimal";
+  if (col.date && !touch) inp.placeholder = "dd/mm/aaaa";
+  inp.value = seed != null ? seed : col.date && touch ? (row ? row.dt : "") : (row ? (col.k === "k" ? row.k : col.k === "e" ? PL_ESC[row.e || "A"] : plCellTxt(row, col, p, g.lisa)) : "");
+  wrap.appendChild(inp);
+  let lst = null, li = -1, opts = [];
+  const showList = () => {
+    if (!col.list) return; opts = col.list().map(x => Array.isArray(x) ? x : [x, x]); const q = norm(inp.value).trim();
+    const f = q ? opts.filter(([v, l]) => norm(v).startsWith(q) || norm(l).includes(q)) : opts;
+    if (!lst) { lst = document.createElement("div"); lst.className = "xg-list"; wrap.appendChild(lst); lst.addEventListener("pointerdown", e => { const o = e.target.closest("[data-v]"); if (o) { e.preventDefault(); inp.value = o.dataset.v; commit(0, 1); } }); }
+    lst.innerHTML = f.slice(0, 80).map(([v, l], i) => `<div data-v="${esc(v)}" class="${i === li ? "on" : ""}">${esc(l)}</div>`).join("") || `<div class="sub">Nenhuma opção</div>`; lst.dataset.n = f.length; lst._f = f;
+  };
+  plGridScroll(); xg.appendChild(wrap); inp.focus({preventScroll: true}); if (seed == null) inp.select(); else inp.setSelectionRange(inp.value.length, inp.value.length);
+  g.ed = {wrap, inp}; showList();
+  let done = false;
+  const close = () => { if (done) return; done = true; wrap.remove(); g.ed = null; xg.focus({preventScroll: true}); if (pcur.dirty) { pcur.dirty = false; renderPlanicHead(); plGridData(); plGridRender(); plGridSel(); } };
+  function commit(dr, dc) {
+    let v = inp.value;
+    if (col.list && lst && li >= 0 && lst._f[li]) v = lst._f[li][0];
+    const pr = plCellParse(col, v);
+    if (!pr.ok) { wrap.classList.add("bad"); toast(pr.msg + " (Esc cancela)"); inp.focus(); return; }
+    const cur_ = row ? row[col.k] : (col.k === "d" || col.k === "m" ? null : "");
+    close();
+    if ((cur_ ?? "") !== (pr.v ?? "") || !row) {
+      if (row) plApply([{row, set: {[col.k]: pr.v}}], "editar");
+      else if (pr.v !== "" && pr.v != null) { const prev = g.L[g.L.length - 1], k = prev && prev.k ? (() => { const n = +prev.k.slice(1) + 1; return n <= 20 ? prev.k[0] + n : ""; })() : ""; plApply([{row: null, set: {...plCtxFrom(prev), k, [col.k]: pr.v}}], "nova linha"); }
+      if ((col.k === "d") && pr.v != null && plStatus({d: pr.v, m: row ? row.m : null}, g.lisa) === "NC") toast(`${(row && row.k) || "Ponto"}: ${pr.v} mm, acima da tolerância. Fica NC até lançar o desvio pós-tratamento (depois do arremate).`);
+    }
+    if (dr || dc) plGridGo(dr, dc);
+  }
+  inp.addEventListener("input", () => { wrap.classList.remove("bad"); li = -1; showList(); if (lst && lst._f.length && inp.value.trim()) { li = 0; showList(); } });
+  inp.addEventListener("keydown", e => {
+    e.stopPropagation(); // a grade não recebe as teclas enquanto a célula está em edição
+    if (e.key === "Escape") { e.preventDefault(); close(); return; }
+    if (lst && (e.key === "ArrowDown" || e.key === "ArrowUp")) { e.preventDefault(); const n = lst._f.length; if (!n) return; li = (li + (e.key === "ArrowDown" ? 1 : -1) + n) % n; showList(); const o = lst.children[li]; o && o.scrollIntoView({block: "nearest"}); return; }
+    if (e.key === "Enter") { e.preventDefault(); commit(e.shiftKey ? -1 : 1, 0); return; }
+    if (e.key === "Tab") { e.preventDefault(); commit(0, e.shiftKey ? -1 : 1); return; }
+    if (!lst && (e.key === "ArrowDown" || e.key === "ArrowUp") && seed != null) { e.preventDefault(); commit(e.key === "ArrowDown" ? 1 : -1, 0); }
+  });
+  inp.addEventListener("blur", () => setTimeout(() => { if (!done && document.activeElement !== inp) commit(0, 0); }, 120));
+  if (inp.type === "date") inp.addEventListener("change", () => commit(0, 0));
+}
+function plGridEvents(xg, box) {
+  const g = pcur.g;
+  const cellAt = (x, y) => { const el = document.elementFromPoint(x, y), td = el && el.closest && el.closest(".xg td"), tr = td && td.closest("tr[data-ri]"); if (!tr) return null; return {r: +tr.dataset.ri, c: td.classList.contains("rn") ? -1 : +td.dataset.c}; };
+  let drag = null;
+  xg.addEventListener("pointerdown", e => {
+    if (e.target.closest(".xg-ed")) return;
+    if (e.target.closest(".xg-fh")) { e.preventDefault(); drag = {fill: true, r1: Math.max(g.r, g.ar)}; xg.setPointerCapture(e.pointerId); return; }
+    const at = cellAt(e.clientX, e.clientY); if (!at) return;
+    if (e.button === 2) { const r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar); if (at.r >= r0 && at.r <= r1) return; }
+    xg.focus({preventScroll: true});
+    if (at.c < 0) { // número da linha: seleciona a linha toda e permite arrastar para mover
+      if (e.shiftKey) { g.r = at.r; } else { const r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar), whole = g.c === PL_COLS.length - 1 && g.ac === 0 || g.ac === PL_COLS.length - 1 && g.c === 0;
+        if (!(whole && at.r >= r0 && at.r <= r1)) { g.r = g.ar = at.r; } }
+      g.c = 0; g.ac = PL_COLS.length - 1; plGridSel();
+      if (canWrite && g.L[at.r]) drag = {move: true, y0: e.clientY, rows: plSelRows()};
+      xg.setPointerCapture(e.pointerId); return;
+    }
+    const wasOne = g.r === g.ar && g.c === g.ac && g.r === at.r && g.c === at.c;
+    if (e.shiftKey) { g.r = at.r; g.c = at.c; } else { g.r = g.ar = at.r; g.c = g.ac = at.c; }
+    plGridScroll(); plGridSel(); drag = {sel: true}; xg.setPointerCapture(e.pointerId);
+    if (wasOne && e.pointerType !== "mouse") { drag = null; plEdit(); }
+  });
+  xg.addEventListener("pointermove", e => {
+    if (!drag) return;
+    if (drag.sel) { const at = cellAt(e.clientX, e.clientY); if (at && at.c >= 0 && (at.r !== g.r || at.c !== g.c)) { g.r = at.r; g.c = at.c; plGridSel(); } }
+    else if (drag.fill) { const at = cellAt(e.clientX, e.clientY); if (at && at.r > drag.r1) { drag.to = at.r; const d = $(".xg-drop", xg); Object.assign(d.style, {left: $(".xg-sel", xg).style.left, width: $(".xg-sel", xg).style.width, top: (g.hh || 30) + (drag.r1 + 1) * PL_RH + "px", height: (at.r - drag.r1) * PL_RH + "px"}); d.className = "xg-drop fill"; } }
+    else if (drag.move) { if (Math.abs(e.clientY - drag.y0) > 6) drag.on = true; if (!drag.on) return; const at = cellAt(e.clientX, e.clientY); if (!at) return; const rect = e.target.closest && e.target.closest("tr[data-ri]"); drag.to = at.r; const d = $(".xg-drop", xg); Object.assign(d.style, {left: "0px", width: plColX(PL_COLS.length) + "px", top: (g.hh || 30) + at.r * PL_RH - 2 + "px", height: "4px"}); d.className = "xg-drop line"; }
+    const rr = xg.getBoundingClientRect(); if (e.clientY > rr.bottom - 20) xg.scrollTop += 14; else if (e.clientY < rr.top + (g.hh || 30) + 10) xg.scrollTop -= 14;
+  });
+  const end = () => {
+    if (!drag) return; const d = drag; drag = null; $(".xg-drop", xg).className = "xg-drop hidden";
+    if (d.fill && d.to != null) { const r0 = Math.min(g.r, g.ar); g.ar = r0; g.r = d.to; const c0 = Math.min(g.c, g.ac), c1 = Math.max(g.c, g.ac); g.ac = c0; g.c = c1; if (g.r > g.L.length - 1) g.r = g.L.length - 1; plFill(true); }
+    if (d.move && d.on && d.to != null) { const r0 = Math.min(g.r, g.ar), r1 = Math.max(g.r, g.ar); if (d.to < r0 || d.to > r1 + 1) plMove(d.rows, d.to > r1 ? d.to - d.rows.length : d.to); }
+  };
+  xg.addEventListener("pointerup", end); xg.addEventListener("pointercancel", () => { drag = null; $(".xg-drop", xg).className = "xg-drop hidden"; });
+  xg.addEventListener("dblclick", e => { if (cellAt(e.clientX, e.clientY)?.c >= 0) plEdit(); });
+  xg.addEventListener("keydown", e => {
+    if (g.ed) return;
+    const k = e.key, mod = e.ctrlKey || e.metaKey;
+    if (k === "ArrowDown" && e.altKey && canWrite) { e.preventDefault(); if (PL_COLS[g.c].list) plEdit(); else plMoveBy(1); return; }
+    if (k === "ArrowUp" && e.altKey && canWrite) { e.preventDefault(); plMoveBy(-1); return; }
+    const mv = {ArrowDown: [1, 0], ArrowUp: [-1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1]}[k];
+    if (mv) { e.preventDefault(); if (mod) { if (mv[0]) { g.r = mv[0] > 0 ? g.L.length - 1 : 0; if (!e.shiftKey) g.ar = g.r; } else { g.c = mv[1] > 0 ? PL_COLS.length - 1 : 0; if (!e.shiftKey) g.ac = g.c; } plGridScroll(); plGridRender(); plGridSel(); } else plGridGo(mv[0], mv[1], e.shiftKey); return; }
+    if (k === "Tab") { e.preventDefault(); plGridGo(0, e.shiftKey ? -1 : 1); return; }
+    if (k === "Enter") { e.preventDefault(); if (e.shiftKey) plGridGo(-1, 0); else if (g.r === g.ar && g.c === g.ac) plEdit(); else plGridGo(1, 0); return; }
+    if (k === "F2") { e.preventDefault(); plEdit(); return; }
+    if (k === "PageDown" || k === "PageUp") { e.preventDefault(); plGridGo((k === "PageDown" ? 1 : -1) * Math.floor(xg.clientHeight / PL_RH - 2), 0, e.shiftKey); return; }
+    if (!canWrite) return;
+    if (k === "Delete" || k === "Backspace") { e.preventDefault(); plClearSel(); return; }
+    if (mod && (k === "z" || k === "Z")) { e.preventDefault(); plUndo(); return; }
+    if (mod && (k === "d" || k === "D")) { e.preventDefault(); plFill(false); return; }
+    if (mod && (k === "+" || k === "=")) { e.preventDefault(); plInsert("above"); return; }
+    if (mod && k === "-") { e.preventDefault(); plDelSel(); return; }
+    if (!mod && !e.altKey && k.length === 1) { e.preventDefault(); plEdit(k); }
+  });
+  xg.addEventListener("copy", e => { if (g.ed) return; e.preventDefault(); e.clipboardData.setData("text/plain", plCopyTxt()); toast("Copiado."); });
+  xg.addEventListener("cut", e => { if (g.ed || !canWrite) return; e.preventDefault(); e.clipboardData.setData("text/plain", plCopyTxt()); plClearSel(); });
+  xg.addEventListener("paste", e => { if (g.ed || !canWrite) return; e.preventDefault(); plPaste(e.clipboardData.getData("text/plain")); });
+  xg.addEventListener("contextmenu", e => { const at = cellAt(e.clientX, e.clientY); if (!at) return; e.preventDefault(); plCtxMenu(e.clientX, e.clientY); });
+  let lp = null; xg.addEventListener("touchstart", e => { const t = e.touches[0]; lp = setTimeout(() => { lp = null; const at = cellAt(t.clientX, t.clientY); if (at) { plCtxMenu(t.clientX, t.clientY); } }, 650); }, {passive: true});
+  ["touchend", "touchmove", "touchcancel"].forEach(ev => xg.addEventListener(ev, () => { if (lp) { clearTimeout(lp); lp = null; } }, {passive: true}));
+  $$("[data-xa]", box).forEach(b => b.onclick = () => {
+    const a = b.dataset.xa; xg.focus({preventScroll: true});
+    if (a === "side") { g.side = !g.side; plGridTab(box); return; }
+    if (a === "above" || a === "below") plInsert(a); else if (a === "dup") plDup(); else if (a === "del") plDelSel(); else if (a === "up") plMoveBy(-1); else if (a === "down") plMoveBy(1);
+    else if (a === "fill") plFill(false); else if (a === "undo") plUndo();
+    else if (a === "sort") { const before = new Map(plRowsArr().map(r => [r.id, plCopyRow(r)])); const L = plRowsArr().slice().sort(plSort).map((r, i) => ({...r, n: (i + 1) * 1000})); plSaveRows(pcur.id, L); L.forEach(r => pcur.rows.set(r.id, r)); pcur.ver = (pcur.ver || 0) + 1; g.undo.push({before, label: "ordenar"}); plGridData(); plGridRender(); plGridSel(); toast("Linhas ordenadas por torre, pavimento, escopo, subdivisão e ponto."); }
+  });
+}
+function plCtxMenu(x, y) {
+  $$(".xg-menu").forEach(m => m.remove());
+  const g = pcur.g, n = plSelRows().length, w = canWrite, m = document.createElement("div"); m.className = "xg-menu";
+  const it = [["copy", "Copiar", 1], ["paste", "Colar", w], ["-"], ["above", `Inserir ${n > 1 ? n + " linhas" : "linha"} acima`, w], ["below", `Inserir ${n > 1 ? n + " linhas" : "linha"} abaixo`, w], ["dup", "Duplicar linha(s)", w], ["-"], ["up", "Mover para cima", w], ["down", "Mover para baixo", w], ["fill", "Preencher para baixo", w], ["clear", "Limpar conteúdo", w], ["-"], ["map", "Ver no mapa", 1], ["del", `Excluir ${n > 1 ? n + " linhas" : "linha"}`, w], ["undo", "Desfazer", w && g.undo.length]];
+  m.innerHTML = it.map(([k, l, on]) => k === "-" ? `<hr>` : `<button type="button" data-m="${k}" ${on ? "" : "disabled"} class="${k === "del" ? "danger" : ""}">${esc(l)}</button>`).join("");
+  document.body.appendChild(m); const r = m.getBoundingClientRect(); m.style.left = Math.min(x, innerWidth - r.width - 6) + "px"; m.style.top = Math.min(y, innerHeight - r.height - 6) + "px";
+  const off = ev => { if (!m.contains(ev.target)) { m.remove(); document.removeEventListener("pointerdown", off, true); } }; setTimeout(() => document.addEventListener("pointerdown", off, true), 0);
+  m.addEventListener("click", async ev => { const b = ev.target.closest("[data-m]"); if (!b) return; m.remove(); document.removeEventListener("pointerdown", off, true); const a = b.dataset.m; g.el.focus({preventScroll: true});
+    if (a === "copy") { try { await navigator.clipboard.writeText(plCopyTxt()); toast("Copiado."); } catch { toast("Use Ctrl+C para copiar."); } }
+    else if (a === "paste") { try { plPaste(await navigator.clipboard.readText()); } catch { toast("Use Ctrl+V para colar."); } }
+    else if (a === "above" || a === "below") plInsert(a); else if (a === "dup") plDup(); else if (a === "up") plMoveBy(-1); else if (a === "down") plMoveBy(1); else if (a === "fill") plFill(false); else if (a === "clear") plClearSel(); else if (a === "del") plDelSel(); else if (a === "undo") plUndo();
+    else if (a === "map") plOpenMapFor(g.L[g.r]); });
+}
+/* mapa ao lado da planilha: mostra o apartamento da linha selecionada */
+function plMapsFor(e) { return plMaps(planics.get(pcur.id)).filter(m => (m.e || "A") === (e || "A")); }
+function plOpenMapFor(row) {
+  const ms = plMapsFor(row ? row.e : "A"); if (!ms.length) { toast("Ainda não há mapeamento para este escopo. Crie na aba Mapeamento."); return; }
+  if (row) pcur.mctx = {t: row.t, p: row.p, s: row.s, e: row.e || "A", k: row.k};
+  plOpenMap(ms[0].id, "lan");
+}
+async function plSideMap() {
+  const g = pcur && pcur.g; if (!g || !g.side || !g.box) return; const side = $(".xg-side", g.box); if (!side || side.classList.contains("hidden")) return;
+  const c = pcur.mctx || (g.L[g.r] ? {t: g.L[g.r].t, p: g.L[g.r].p, s: g.L[g.r].s, e: g.L[g.r].e || "A", k: g.L[g.r].k} : null);
+  const head = $(".xg-side-h", side), body = $(".xg-side-b", side);
+  if (!c || !c.t || !c.p) { head.innerHTML = "<b>Mapeamento</b>"; body.innerHTML = `<p class="sub">Selecione uma linha com torre e pavimento para ver o apartamento na planta.</p>`; return; }
+  const ms = plMapsFor(c.e);
+  head.innerHTML = `<b>${esc(plAptoTxt(c))}</b>${ms.length > 1 ? `<select class="xg-side-m">${ms.map(m => `<option value="${esc(m.id)}" ${m.id === g.sideMap ? "selected" : ""}>${esc(m.nome || "Mapeamento")}</option>`).join("")}</select>` : ""}`;
+  if (!ms.length) { body.innerHTML = `<p class="sub">Sem mapeamento para ${esc(PL_ESC[c.e || "A"].toLowerCase())}. Crie na aba <b>Mapeamento</b>.</p>`; return; }
+  const m = ms.find(x => x.id === g.sideMap) || ms[0]; g.sideMap = m.id;
+  const sm = $(".xg-side-m", head); if (sm) sm.onchange = () => { g.sideMap = sm.value; plSideMap(); };
+  const tok = (g.sideTok = (g.sideTok || 0) + 1), url = await plMapPreview(m, c, 640, c.k).catch(() => ""); if (tok !== g.sideTok) return;
+  const by = plRowsFor(m, c), placed = new Set(plPts(m).map(x => x.k)), sem = [...by.values()].filter(r => !placed.has(r.k));
+  body.innerHTML = `<img src="${url}" alt="Planta com os pontos do apartamento" class="xg-side-img" title="Toque num ponto para ir à linha dele"><div class="sub" style="font-size:11.5px;margin-top:4px">Toque num ponto para ir à linha (ou criar a linha, se ainda não existir).</div>
+    ${sem.length ? `<div class="sub" style="font-size:11.5px;margin-top:4px">Sem posição na planta: ${sem.map(r => `<b>${esc(r.k)}</b>`).join(", ")}. Coloque em Mapeamento → 📍 Pontos.</div>` : ""}
+    <button class="btn sm" type="button" data-sopen style="margin-top:6px">Abrir mapeamento</button>`;
+  $("[data-sopen]", body).onclick = () => plOpenMap(m.id, canWrite ? "lan" : "view");
+  const img = $(".xg-side-img", body); img.onclick = e => {
+    const rc = img.getBoundingClientRect(), x = (e.clientX - rc.left) / rc.width * m.img.w, y = (e.clientY - rc.top) / rc.height * m.img.h, R = Math.max(m.img.w, m.img.h) / 70 * 2.2;
+    let best = null, bd = 1e9; plPts(m).forEach(pt => { const d = Math.hypot(pt.x - x, pt.y - y); if (d < R && d < bd) { bd = d; best = pt; } }); if (!best) return;
+    const i = g.L.findIndex(r => plApto(r) === plApto(c) && r.k === best.k);
+    if (i >= 0) { g.r = g.ar = i; g.c = g.ac = PL_COLS.findIndex(cc => cc.k === "d"); plGridScroll(); plGridRender(); plGridSel(); g.el.focus({preventScroll: true}); }
+    else if (canWrite) { const ns = plNAfterApto(c, 1); plApply([{row: null, set: {t: c.t, p: c.p, c: plLastCiclo(c.t, c.p), e: c.e || "A", s: c.s, k: best.k, dt: plLastDate(c.t, c.p), n: ns[0]}}], "nova linha pelo mapa");
+      const j = g.L.findIndex(r => plApto(r) === plApto(c) && r.k === best.k); if (j >= 0) { g.r = g.ar = j; g.c = g.ac = PL_COLS.findIndex(cc => cc.k === "d"); plGridScroll(); plGridRender(); plGridSel(); g.el.focus({preventScroll: true}); } toast(`Linha de ${best.k} criada. Digite o desvio.`); }
+  };
+}
+
 function plLastDate(t, p) { const L = plRowsArr().filter(r => r.dt && r.t === t && r.p === p).sort((a, b) => String(b.at).localeCompare(String(a.at))); return L[0] ? L[0].dt : ""; }
 function plLastCiclo(t, p) { const L = plRowsArr().filter(r => r.c && r.t === t && r.p === p); return L[0] ? L[0].c : ""; }
 function plAddRow() {
@@ -5785,23 +6168,76 @@ function plHist(box) {
 }
 
 /* ----- aba Mapeamento ----- */
+function plMctx() { // apartamento mostrado no mapa: o último selecionado na planilha ou no mapa
+  const f = pcur.f, L = plRowsArr();
+  let c = pcur.mctx && pcur.mctx.t && pcur.mctx.p ? pcur.mctx : f.t && f.p ? {t: f.t, p: f.p, s: f.s, e: f.e || "A"} : null;
+  if (!c) { const r = [...L].sort((x, y) => String(y.at).localeCompare(String(x.at)))[0]; c = r ? {t: r.t, p: r.p, s: r.s, e: r.e || "A"} : {t: "T1", p: "PVT", s: "", e: "A"}; }
+  return (pcur.mctx = {...c});
+}
 function plMapTab(box) {
-  const p = planics.get(pcur.id), maps = plMaps(p), f = pcur.f, delMaps = Object.entries(p.maps || {}).filter(([, m]) => m && m.del && m.img);
-  const ctxOk = f.t && f.p && (f.e === "H" || f.s);
-  box.innerHTML = `${maps.length ? `<div class="pl-acts">${canWrite ? `<button class="btn sm primary" type="button" id="pl-newmap">+ Novo mapeamento</button>` : ""}<span class="sub">${ctxOk ? `Mostrando os desvios de <b>${esc(plAptoTxt({t: f.t, p: f.p, e: f.e || "A", s: f.s}))}</b>.` : "Escolha torre, pavimento e subdivisão nos filtros para ver os desvios na planta, ou abra o mapeamento e escolha lá."}</span></div>
-      <div class="pl-maps">${maps.map(m => `<div class="pl-map"><button type="button" class="pl-map-img" data-open="${esc(m.id)}" aria-label="Abrir ${esc(m.nome || "mapeamento")}"><img alt="" data-prev="${esc(m.id)}"></button>
-        <div class="pl-map-b"><b>${esc(m.nome || "Mapeamento")}</b><span class="sub">${esc(PL_ESC[m.e || "A"])} · ${plPts(m).filter(x => x.k[0] === "P").length} parede(s) · ${plPts(m).filter(x => x.k[0] === "C").length} esquadro(s)</span>
-        <div class="pl-map-a"><button class="btn sm primary" type="button" data-open="${esc(m.id)}">Abrir</button>${canWrite ? `<button class="btn sm" type="button" data-ren="${esc(m.id)}">Renomear</button><button class="btn sm ghost danger" type="button" data-delm="${esc(m.id)}">Excluir</button>` : ""}</div></div></div>`).join("")}</div>`
-    : `<div class="empty"><b>Nenhum mapeamento ainda</b>Carregue a planta das paredes e esquadros enviada pela Qualidade (PDF ou imagem), recorte o apartamento e coloque os pontos P (paredes) e C (esquadros). Depois é só escolher torre, pavimento e apartamento e tocar nos pontos para lançar os desvios: tudo vai para a planilha, e o que for lançado na planilha aparece na planta.${canWrite ? `<div style="margin-top:14px"><button class="btn primary" type="button" id="pl-newmap">+ Criar mapeamento</button></div>` : ""}</div>`}
+  const p = planics.get(pcur.id), maps = plMaps(p), delMaps = Object.entries(p.maps || {}).filter(([, m]) => m && m.del && m.img), c = plMctx(), L = plRowsArr();
+  const tor = plUniq(L, "t").sort((a, b) => plTorOrder(a) - plTorOrder(b)), pav = plUniq(L.filter(r => r.t === c.t), "p").sort((a, b) => plPavOrder(a) - plPavOrder(b)), sub = plUniq(L.filter(r => r.t === c.t && r.p === c.p), "s").sort((a, b) => (+a || 0) - (+b || 0));
+  const opt = (A, v, base) => [...new Set([...(A.length ? A : base), v].filter(Boolean))].map(x => `<option ${x === v ? "selected" : ""}>${esc(x)}</option>`).join("");
+  box.innerHTML = `<div class="pl-mctx"><b>Apartamento no mapa:</b><label>Torre<select data-mc="t">${opt(tor, c.t, PL_TORRES.slice(0, 10))}</select></label><label>Pavimento<select data-mc="p">${opt(pav, c.p, PL_PAVS.slice(0, 6))}</select></label><label>Subdivisão<select data-mc="s"><option value="">—</option>${opt(sub, c.s, [])}</select></label><span class="sub">Muda sozinho quando você seleciona uma linha na planilha.</span></div>
+    ${maps.length ? `<div class="pl-acts">${canWrite ? `<button class="btn sm primary" type="button" id="pl-newmap">+ Novo mapeamento</button>` : ""}</div>
+      <div class="pl-maps">${maps.map(m => { const placed = new Set(plPts(m).map(x => x.k)), sem = [...plRowsFor(m, c).values()].filter(r => !placed.has(r.k)).map(r => r.k);
+        return `<div class="pl-map"><button type="button" class="pl-map-img" data-open="${esc(m.id)}" aria-label="Abrir ${esc(m.nome || "mapeamento")}"><img alt="" data-prev="${esc(m.id)}"></button>
+        <div class="pl-map-b"><b>${esc(m.nome || "Mapeamento")}${m.schem ? ` <span class="pl-st none">provisório</span>` : ""}</b><span class="sub">${esc(PL_ESC[m.e || "A"])} · ${plPts(m).filter(x => x.k[0] === "P").length} parede(s) · ${plPts(m).filter(x => x.k[0] === "C").length} esquadro(s)${m.modelo ? " · do modelo" : ""}</span>
+        ${m.schem ? `<span class="sub" style="color:var(--red)">Esquema sem planta: use <b>Trocar planta</b> para colocar a planta das paredes e esquadros.</span>` : ""}
+        ${sem.length ? `<span class="sub">Lançados sem posição na planta: ${sem.map(k => `<b>${esc(k)}</b>`).join(", ")}</span>` : ""}
+        <div class="pl-map-a"><button class="btn sm primary" type="button" data-open="${esc(m.id)}">Abrir</button>${canWrite ? `<button class="btn sm" type="button" data-troca="${esc(m.id)}">Trocar planta</button><button class="btn sm" type="button" data-ren="${esc(m.id)}">Renomear</button>${isGestor && !m.schem ? `<button class="btn sm" type="button" data-modelo="${esc(m.id)}" title="Toda planilha nova já começa com este mapeamento">Salvar como modelo</button>` : ""}<button class="btn sm ghost danger" type="button" data-delm="${esc(m.id)}">Excluir</button>` : ""}</div></div></div>`; }).join("")}</div>`
+    : `<div class="empty"><b>Nenhum mapeamento ainda</b>Carregue a planta das paredes e esquadros enviada pela Qualidade (PDF ou imagem), recorte o apartamento e coloque os pontos P (paredes) e C (esquadros).${canWrite ? `<div style="margin-top:14px"><button class="btn primary" type="button" id="pl-newmap">+ Criar mapeamento</button></div>` : ""}</div>`}
     ${delMaps.length && canWrite ? `<details class="pl-iss info" style="margin-top:14px"><summary>Mapeamentos excluídos <span class="n">${delMaps.length}</span></summary><ul>${delMaps.map(([id, m]) => `<li>${esc(m.nome || "Mapeamento")} <button class="btn sm" type="button" data-restm="${esc(id)}">Restaurar</button></li>`).join("")}</ul></details>` : ""}
+    ${plModels.size ? `<details class="pl-iss info" style="margin-top:14px"><summary>Modelos de mapeamento da obra <span class="n">${plModels.size}</span></summary><p class="sub" style="margin:6px 0 0">Toda planilha nova começa com estes mapeamentos, já com os pontos.</p><ul>${[...plModels.values()].map(x => `<li>${esc(x.nome || "Modelo")} · ${esc(PL_ESC[x.e || "A"].toLowerCase())} · ${Object.values(x.pts || {}).filter(v => v && !v.del).length} ponto(s) ${isGestor ? `<button class="btn sm ghost danger" type="button" data-delmod="${esc(x.id)}">Excluir modelo</button>` : ""}</li>`).join("")}</ul></details>` : ""}
     <div class="pl-legend">${PL_ST_ORDER.map(k => `<span><i style="background:${PL_ST[k].c}"></i>${esc(PL_ST[k].t)}</span>`).join("")}<span><i style="background:#9e9e9e"></i>Sem medição</span><span><i style="background:#fff;border:1px solid #333"></i>Não lançado</span><span><i style="border-radius:50%;background:#fff;border:1px solid #333"></i>Parede (P)</span><span><i style="border-radius:2px;background:#fff;border:1px solid #333"></i>Esquadro (C)</span></div>`;
+  $$("[data-mc]", box).forEach(el => el.onchange = () => { pcur.mctx = {...plMctx(), [el.dataset.mc]: el.value}; if (el.dataset.mc !== "s") { const s2 = plUniq(plRowsArr().filter(r => r.t === pcur.mctx.t && r.p === pcur.mctx.p), "s").sort((a, b) => (+a || 0) - (+b || 0)); pcur.mctx.s = s2.includes(pcur.mctx.s) ? pcur.mctx.s : (s2[0] || ""); } plBody(); });
   const nm = $("#pl-newmap", box); if (nm) nm.onclick = () => plNewMap();
   $$("[data-open]", box).forEach(b => b.onclick = () => plOpenMap(b.dataset.open));
+  $$("[data-troca]", box).forEach(b => b.onclick = () => plTrocaPlanta(b.dataset.troca));
+  $$("[data-modelo]", box).forEach(b => b.onclick = () => plSaveModel(b.dataset.modelo));
+  $$("[data-delmod]", box).forEach(b => b.onclick = async () => { const x = plModels.get(b.dataset.delmod); if (!x || !(await confirmBox("Excluir modelo?", `O modelo <b>${esc(x.nome || "")}</b> deixa de ser aplicado nas planilhas novas. As planilhas que já usam continuam iguais.`, "Excluir", true))) return; try { await db.doc(`plmodelos/${x.id}`).delete(); toast("Modelo excluído."); } catch {} });
   $$("[data-ren]", box).forEach(b => b.onclick = async () => { const m = (p.maps || {})[b.dataset.ren]; const v = await modal({title: "Renomear mapeamento", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.nome || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]}); if (v) { patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.ren]: {nome: v}}})); } });
   $$("[data-delm]", box).forEach(b => b.onclick = async () => { const m = (p.maps || {})[b.dataset.delm]; if (!(await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.nome || "")}</b> sai da lista. As medições da planilha continuam. Dá para restaurar aqui mesmo, em “Mapeamentos excluídos”.`, "Excluir", true))) return; patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.delm]: {del: true}}})); plLog(pcur.id, `Excluiu o mapeamento “${m.nome || ""}”`); });
   $$("[data-restm]", box).forEach(b => b.onclick = () => { patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.restm]: {del: false}}})); plLog(pcur.id, "Restaurou um mapeamento excluído"); });
-  const ctx = ctxOk ? {t: f.t, p: f.p, s: f.s} : null;
-  $$("img[data-prev]", box).forEach(im => { const m = maps.find(x => x.id === im.dataset.prev); if (m) plMapPreview(m, ctx).then(u => { im.src = u; }).catch(() => {}); });
+  $$("img[data-prev]", box).forEach(im => { const m = maps.find(x => x.id === im.dataset.prev); if (m) plMapPreview(m, c).then(u => { im.src = u; }).catch(() => {}); });
+}
+/* esquema provisório (sem planta): já deixa a planilha ligada a um mapa desde a criação */
+function plSchemImg(nP = 10, nC = 10) {
+  const W = 1400, H = 820, cv = mkCanvas(W, H), g = cv.getContext("2d"), pts = {};
+  g.fillStyle = "#fff"; g.fillRect(0, 0, W, H); g.strokeStyle = "#1d1d1b"; g.lineWidth = 6; g.strokeRect(40, 110, W - 80, H - 170);
+  g.fillStyle = "#1d1d1b"; g.font = "800 38px Arial"; g.textAlign = "center"; g.fillText("ESQUEMA PROVISÓRIO DO APARTAMENTO", W / 2, 58);
+  g.font = "500 24px Arial"; g.fillStyle = "#555"; g.fillText("Troque pela planta das paredes e esquadros: Mapeamento → Trocar planta (os pontos continuam).", W / 2, 94);
+  g.font = "700 26px Arial"; g.fillStyle = "#003e62"; g.textAlign = "left"; g.fillText("PAREDES (planicidade)", 80, 180); g.fillText("ESQUADROS (cantos)", 80, 480);
+  for (let i = 1; i <= nP; i++) pts["P" + i] = {x: Math.round(130 + (i - 1) * ((W - 260) / Math.max(1, nP - 1))), y: 300, del: false};
+  for (let i = 1; i <= nC; i++) pts["C" + i] = {x: Math.round(130 + (i - 1) * ((W - 260) / Math.max(1, nC - 1))), y: 600, del: false};
+  return {url: cv.toDataURL("image/jpeg", .85), w: W, h: H, pts};
+}
+function plAutoMaps(pid) { // mapeamentos que toda planilha nova já ganha
+  const maps = {}, mods = [...plModels.values()].filter(x => x.padrao !== false && x.img);
+  if (mods.length) mods.forEach((x, i) => maps[uid("m")] = {nome: x.nome || "Mapeamento", e: x.e || "A", o: i + 1, img: x.img, pts: JSON.parse(JSON.stringify(x.pts || {})), modelo: x.id, shared: true, del: false, by: me, at: nowIso()});
+  else { const sc = plSchemImg(); maps[uid("m")] = {nome: "Apartamento (esquema provisório)", e: "A", o: 1, img: {id: saveBlob(sc.url), w: sc.w, h: sc.h}, pts: sc.pts, schem: true, del: false, by: me, at: nowIso()}; }
+  return maps;
+}
+async function plSaveModel(mid) {
+  const p = planics.get(pcur.id), m = p && p.maps && p.maps[mid]; if (!m || !isGestor) return;
+  const nome = await modal({title: "Salvar como modelo", body: `<label class="fld">Nome do modelo<input type="text" id="mdn" value="${esc(m.nome || "")}" maxlength="120"></label><p class="sub" style="margin:8px 0 0">Toda planilha de planicidade criada daqui para frente já começa com este mapeamento (planta e pontos). As planilhas que já existem não mudam.</p>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar modelo", cls: "primary", value: bg => $("#mdn", bg).value.trim() || "Mapeamento"}]});
+  if (!nome) return;
+  const id = uid("md"); try { await db.doc(`plmodelos/${id}`).set({nome, e: m.e || "A", img: m.img, pts: m.pts || {}, padrao: true, by: me, at: nowIso()}); patch(`planic/${pcur.id}`, stamp({maps: {[mid]: {shared: true, modelo: id}}})); toast("Modelo salvo: as próximas planilhas já começam com ele."); } catch {}
+}
+async function plTrocaPlanta(mid) {
+  const pid = pcur.id, p = planics.get(pid), m = p && p.maps && p.maps[mid]; if (!m || !canWrite) return;
+  const pick = await pickPlanta(m.nome || "Planta"); if (!pick) return; const pl = plantas.get(pick.pid); if (!pl) return;
+  const rect = await pickCrop(pl, null); if (!rect) return;
+  const end = toastHold("Recortando a planta…");
+  try {
+    const {url, w, h} = await extractRegion(pl, rect), imgId = saveBlob(url), kx = w / m.img.w, ky = h / m.img.h, pts = {};
+    Object.entries(m.pts || {}).forEach(([k, v]) => { if (v && !v.del) pts[k] = {x: Math.round(v.x * kx), y: Math.round(v.y * ky), del: false}; });
+    const old = m.img && m.img.id; end();
+    await patch(`planic/${pid}`, stamp({maps: {[mid]: {img: {id: imgId, w, h}, pid: pl.id, crop: rect, schem: false, shared: false, pts}}}));
+    if (old && (m.schem || !m.shared) && ![...plModels.values()].some(x => x.img && x.img.id === old)) delBlob(old);
+    plLog(pid, `Trocou a planta do mapeamento “${m.nome || ""}”`);
+    toast("Planta trocada. Confira a posição dos pontos em 📍 Pontos."); setTimeout(() => plOpenMap(mid, "pts"), 200);
+  } catch { end(); toast("Não foi possível recortar a planta."); }
 }
 function plRowsFor(m, ctx) {
   const out = new Map(); if (!ctx) return out;
@@ -5826,21 +6262,23 @@ function plPaint(c, m, k, byPt, lisa, sel) {
   });
 }
 const plPrevCache = new Map();
-async function plMapPreview(m, ctx, maxW = 900) {
-  const p = planics.get(pcur.id), byPt = plRowsFor(m, ctx), sig = JSON.stringify([m.img.id, m.pts, ctx, [...byPt.values()].map(r => [r.k, r.d, r.m]), p.lisa, maxW]);
+async function plMapPreview(m, ctx, maxW = 900, sel = null) {
+  const p = planics.get(pcur.id), byPt = plRowsFor(m, ctx), sig = JSON.stringify([m.img.id, m.pts, ctx && [ctx.t, ctx.p, ctx.s], [...byPt.values()].map(r => [r.k, r.d, r.m]), p.lisa, maxW, sel]);
   if (plPrevCache.has(sig)) return plPrevCache.get(sig);
   const im = await loadImg(m.img.id), k = Math.min(1, maxW / im.width), cv = mkCanvas(Math.round(im.width * k), Math.round(im.height * k)), g = cv.getContext("2d");
   g.drawImage(im, 0, 0, cv.width, cv.height); const s = cv.width / m.img.w; g.setTransform(s, 0, 0, s, 0, 0);
-  plPaint(g, m, s * 1.6, byPt, plLisa(p), null);
+  plPaint(g, m, Math.min(s, 340 / m.img.w), byPt, plLisa(p), sel); // pontos legíveis mesmo com a imagem reduzida
   const url = cv.toDataURL("image/jpeg", .88); plPrevCache.set(sig, url); return url;
 }
 async function plNewMap() {
   const p = planics.get(pcur.id), pid = pcur.id; if (!p || !canWrite) return;
-  const has = plMaps(p).map(m => m.e || "A");
-  const e = await modal({title: "Novo mapeamento", body: `<label class="fld">Escopo<select id="nm-e"><option value="A" ${has.includes("A") ? "" : "selected"}>Apartamento completo</option><option value="H" ${has.includes("A") && !has.includes("H") ? "selected" : ""}>Hall</option></select></label>
-      <p class="sub" style="margin:8px 0 0">Na próxima tela, escolha ou envie a planta das paredes e esquadros (PDF ou imagem). Depois recorte a área e coloque os pontos.</p>`,
-    actions: [{label: "Cancelar", value: null}, {label: "Próximo: planta", cls: "primary", value: bg => $("#nm-e", bg).value}]});
-  if (!e) return;
+  const has = plMaps(p).map(m => m.e || "A"), mods = [...plModels.values()].filter(x => x.img);
+  const r0 = await modal({title: "Novo mapeamento", body: `${mods.length ? `<label class="fld">Origem<select id="nm-o"><option value="">Carregar uma planta (PDF ou imagem)</option>${mods.map(x => `<option value="${esc(x.id)}">Modelo: ${esc(x.nome || "")}</option>`).join("")}</select></label>` : ""}
+      <label class="fld">Escopo<select id="nm-e"><option value="A" ${has.includes("A") ? "" : "selected"}>Apartamento completo</option><option value="H" ${has.includes("A") && !has.includes("H") ? "selected" : ""}>Hall</option></select></label>
+      <p class="sub" style="margin:8px 0 0">Com planta nova: na próxima tela escolha ou envie a planta das paredes e esquadros, recorte a área e coloque os pontos.</p>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Próximo", cls: "primary", value: bg => ({e: $("#nm-e", bg).value, mod: ($("#nm-o", bg) || {}).value || ""})}]});
+  if (!r0) return; const e = r0.e;
+  if (r0.mod) { const x = plModels.get(r0.mod), mid = uid("m"); patch(`planic/${pid}`, stamp({maps: {[mid]: {nome: x.nome || "Mapeamento", e: x.e || e, o: Date.now(), img: x.img, pts: JSON.parse(JSON.stringify(x.pts || {})), modelo: x.id, shared: true, del: false, by: me, at: nowIso()}}})); plLog(pid, `Criou o mapeamento “${x.nome || ""}” a partir do modelo`); toast("Mapeamento criado a partir do modelo."); return; }
   const pick = await pickPlanta(`Planta – ${e === "H" ? "Hall" : "Apartamento"}`); if (!pick) return;
   const pl = plantas.get(pick.pid); if (!pl) return;
   const rect = await pickCrop(pl, null); if (!rect) return;
@@ -5859,8 +6297,8 @@ async function plOpenMap(mid, mode0) {
   if (plmState || !pcur) return;
   const pid = pcur.id, P = () => planics.get(pid), M = () => { const p = P(); const m = p && p.maps && p.maps[mid]; return m ? {id: mid, ...m} : null; };
   let m = M(); if (!m) return;
-  const ro = !canWrite, f = pcur.f;
-  const st = plmState = {mode: ro ? "view" : (mode0 || (plPts(m).length ? "lan" : "pts")), next: "P", sel: null, drag: null, ctx: {t: f.t || "T1", p: f.p || "PVT", c: "", s: f.s || "", dt: ""}};
+  const ro = !canWrite, c0 = plMctx();
+  const st = plmState = {mode: ro ? "view" : (mode0 || (plPts(m).length ? "lan" : "pts")), next: "P", place: "", sel: c0.k || null, drag: null, ctx: {t: c0.t || "T1", p: c0.p || "PVT", c: "", s: c0.s || "", dt: ""}};
   st.ctx.c = plLastCiclo(st.ctx.t, st.ctx.p); st.ctx.dt = plLastDate(st.ctx.t, st.ctx.p);
   if (!st.ctx.s && (m.e || "A") === "A") { const s0 = plRowsArr().find(r => r.t === st.ctx.t && r.p === st.ctx.p && (r.e || "A") === "A" && r.s); if (s0) st.ctx.s = s0.s; }
   const ov = document.createElement("div"); ov.className = "med ui pl-med";
@@ -5876,7 +6314,10 @@ async function plOpenMap(mid, mode0) {
     <aside class="med-side"><div class="mnotes-t" data-sidet>PONTOS</div><ol class="pl-side"></ol><p class="sub med-help" data-help></p></aside></div>`;
   document.body.appendChild(ov); document.body.classList.add("noscroll");
   let v = null;
-  const close = () => { if (v) v.destroy(); ov.remove(); document.body.classList.remove("noscroll"); document.removeEventListener("keydown", onKey); plmState = null; if (pcur && pcur.id === pid) { pcur.f = {...pcur.f, t: st.ctx.t, p: st.ctx.p, s: st.ctx.s, e: m.e || "A"}; plSaveF(); plBody(); } };
+  const close = () => { if (v) v.destroy(); ov.remove(); document.body.classList.remove("noscroll"); document.removeEventListener("keydown", onKey); plmState = null;
+    if (pcur && pcur.id === pid) { pcur.mctx = {t: st.ctx.t, p: st.ctx.p, s: st.ctx.s, e: m.e || "A", k: st.sel || ""};
+      const g = pcur.g; if (g) { const i = plFiltered().findIndex(r => plApto(r) === plApto(pcur.mctx) && r.k === st.sel); if (i >= 0) { g.r = g.ar = i; g.c = g.ac = PL_COLS.findIndex(cc => cc.k === "d"); } g.lastApto = null; }
+      plBody(); if (pcur.tab === "tab" && pcur.g && pcur.g.el) { plGridScroll(); plGridRender(); plGridSel(); } } };
   const onKey = e => { if (e.key === "Escape" && !$(".modal-bg")) close(); };
   document.addEventListener("keydown", onKey);
   $("[data-x]", ov).onclick = close;
@@ -5892,15 +6333,20 @@ async function plOpenMap(mid, mode0) {
     $$("[data-mode]", ov).forEach(b => b.classList.toggle("on", b.dataset.mode === st.mode));
     $(".pl-ptsbar", ov).classList.toggle("hidden", st.mode !== "pts");
     $$("[data-next]", ov).forEach(b => b.classList.toggle("on", b.dataset.next === st.next));
-    tip.textContent = st.mode === "pts" ? `Toque na planta para colocar ${plNextCode(m, st.next)}. Arraste um ponto para mover; toque nele para renomear ou apagar.` : st.mode === "lan" ? "Toque num ponto para lançar o desvio. O valor vai direto para a planilha." : "Arraste para mover; dois dedos ou a roda do mouse dão zoom.";
+    tip.textContent = st.mode === "pts" ? `Toque na planta para colocar ${st.place || plNextCode(m, st.next)}. Arraste um ponto para mover; toque nele para renomear ou apagar.` : st.mode === "lan" ? "Toque num ponto para lançar o desvio. O valor vai direto para a planilha." : "Arraste para mover; dois dedos ou a roda do mouse dão zoom.";
     hp.innerHTML = st.mode === "lan" ? `Pré-tratamento até ${PL_LIM} mm aprova. Acima disso o ponto fica <b>NC</b> até a medição pós-tratamento, depois do arremate.` : st.mode === "pts" ? "P = paredes (planicidade), C = esquadros. Use a mesma numeração da planta enviada pela Qualidade." : "";
   };
   const side = () => {
     const L = plPts(m), bp = byPt(), ol = $(".pl-side", ov), lz = lisa();
     $("[data-sidet]", ov).textContent = `PONTOS · ${plAptoTxt({t: st.ctx.t, p: st.ctx.p, e: m.e || "A", s: st.ctx.s})}`;
-    ol.innerHTML = L.length ? L.map(x => { const r = bp.get(x.k), s_ = r ? plStatus(r, lz) : ""; return `<li data-pk="${esc(x.k)}" class="${x.k === st.sel ? "on" : ""}"><b>${esc(x.k)}</b><span>${r && r.d != null ? `${r.d}${r.m != null ? " → " + r.m : ""} mm` : r ? "sem medição" : "—"}</span>${plStChip(s_, s_ || "")}</li>`; }).join("") : `<li class="sub" style="display:block">Nenhum ponto. Use 📍 Pontos e toque na planta.</li>`;
+    const placed = new Set(L.map(x => x.k)), sem = [...bp.values()].filter(r => !placed.has(r.k)).sort((a, b) => plPtOrder(a.k) - plPtOrder(b.k));
+    const li_ = (k, r, cls = "") => { const s_ = r ? plStatus(r, lz) : ""; return `<li data-pk="${esc(k)}" class="${k === st.sel ? "on" : ""} ${cls}"><b>${esc(k)}</b><span>${r && r.d != null ? `${r.d}${r.m != null ? " → " + r.m : ""} mm` : r ? "sem medição" : "—"}</span>${plStChip(s_, s_ || "")}</li>`; };
+    ol.innerHTML = (L.length ? L.map(x => li_(x.k, bp.get(x.k))).join("") : `<li class="sub" style="display:block">Nenhum ponto. Use 📍 Pontos e toque na planta.</li>`)
+      + (sem.length ? `<li class="sub" style="display:block;background:none;padding:6px 0 0">Lançados na planilha, sem posição na planta${ro ? "" : " (em 📍 Pontos, toque aqui e depois na planta para posicionar)"}:</li>` + sem.map(r => li_(r.k, r, "sem")).join("") : "");
   };
-  $(".pl-side", ov).addEventListener("click", e => { const li = e.target.closest("[data-pk]"); if (!li) return; st.sel = li.dataset.pk; v && v.draw(); side(); if (st.mode === "lan") plEnter(li.dataset.pk); else if (st.mode === "pts") ptMenu(li.dataset.pk); });
+  $(".pl-side", ov).addEventListener("click", e => { const li = e.target.closest("[data-pk]"); if (!li) return; st.sel = li.dataset.pk; v && v.draw(); side();
+    if (li.classList.contains("sem") && st.mode === "pts") { st.place = li.dataset.pk; help(); return; }
+    if (st.mode === "lan") plEnter(li.dataset.pk); else if (st.mode === "pts") ptMenu(li.dataset.pk); });
   $$("[data-mode]", ov).forEach(b => b.onclick = () => { st.mode = b.dataset.mode; help(); });
   $$("[data-next]", ov).forEach(b => b.onclick = () => { st.next = b.dataset.next; help(); });
   let im; try { im = await loadImg(m.img.id); } catch { toast("Não foi possível carregar a planta."); return close(); }
@@ -5940,7 +6386,7 @@ async function plOpenMap(mid, mode0) {
     if (res === "del") { plDelRows(pid, [r0]); plLog(pid, `Apagou a medição ${plAptoTxt(r0)} · ${code}`); setTimeout(() => { side(); v.draw(); }, 50); return; }
     const d = plNum(res.d), mm = plNum(res.m);
     if ((res.d.trim() && d == null) || (res.m.trim() && mm == null)) { toast("Digite só números (em milímetros)."); return plEnter(code); }
-    const row = {...(r0 || {id: uid("r"), e: m.e || "A", k: code}), t: c.t, p: c.p, c: c.c || (r0 && r0.c) || "", s: c.s, dt: c.dt || (r0 && r0.dt) || "", d, m: mm, o: res.o};
+    const row = {...(r0 || {id: uid("r"), e: m.e || "A", k: code, n: plNAfterApto({t: c.t, p: c.p, e: m.e || "A", s: c.s}, 1)[0]}), t: c.t, p: c.p, c: c.c || (r0 && r0.c) || "", s: c.s, dt: c.dt || (r0 && r0.dt) || "", d, m: mm, o: res.o};
     plSaveRows(pid, [row]);
     if (res.next) { const L = plPts(m).map(x => x.k), i = L.indexOf(code), nx = L[i + 1]; if (nx) { st.sel = nx; setTimeout(() => plEnter(nx), 120); } else toast("Último ponto deste apartamento."); }
   }
@@ -5956,7 +6402,7 @@ async function plOpenMap(mid, mode0) {
       if (st.drag && st.moved) { savePt(st.drag.k, st.drag.x, st.drag.y); st.sel = st.drag.k; }
       else if (!st.moved) {
         if (h) { st.sel = h.k; if (st.mode === "lan") plEnter(h.k); else if (st.mode === "pts") ptMenu(h.k); }
-        else if (st.mode === "pts" && !ro) { const code = plNextCode(m, st.next); if (!code) toast(`Já existem 20 pontos ${st.next}.`); else { const p0 = toM(q); if (p0[0] >= 0 && p0[1] >= 0 && p0[0] <= m.img.w && p0[1] <= m.img.h) { savePt(code, p0[0], p0[1]); st.sel = code; } } }
+        else if (st.mode === "pts" && !ro) { const code = st.place && !plPts(m).some(x => x.k === st.place) ? st.place : plNextCode(m, st.next); st.place = ""; if (!code) toast(`Já existem 20 pontos ${st.next}.`); else { const p0 = toM(q); if (p0[0] >= 0 && p0[1] >= 0 && p0[0] <= m.img.w && p0[1] <= m.img.h) { savePt(code, p0[0], p0[1]); st.sel = code; } } }
       }
       st.drag = null; st.down = null; v.draw(); side(); help();
     },
@@ -6386,6 +6832,7 @@ async function init() {
     const h = location.hash.replace(/^#/, "");
     if (h === "gape") renderGapeList(); else if (h.startsWith("gape-") && gcur) renderGape(); lixNav();
   }, () => {});
+  db.collection("plmodelos").onSnapshot(s => { plModels = new Map(s.docs.map(d => [d.id, {id: d.id, ...d.data()}])); if (pcur && pcur.tab === "map" && !plmState) plBody(); }, () => {});
   db.collection("planic").onSnapshot(s => {
     const all = s.docs.map(d => [d.id, {id: d.id, ...d.data()}]); trashed.planic = new Map(all.filter(([, v]) => v.trashAt)); planics = new Map(all.filter(([, v]) => !v.trashAt));
     const h = location.hash.replace(/^#/, "");

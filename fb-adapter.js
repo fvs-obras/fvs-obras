@@ -169,6 +169,7 @@ async function exportAll({ files = true, onProgress = () => {} } = {}) {
     put(`solos/${t.id}`, t.data());
     for (const sub of ["ensaios", "maps", "docs"]) (await getDocs(collection(fs, "solos", t.id, sub))).forEach(d => put(`solos/${t.id}/${sub}/${d.id}`, d.data()));
   }
+  (await getDocs(collection(fs, "plmodelos"))).forEach(d => put(`plmodelos/${d.id}`, d.data()));
   const qSnap = await getDocs(collection(fs, "planic")); i = 0;
   for (const q of qSnap.docs) {
     onProgress(`Lendo planilhas de planicidade… ${++i}/${qSnap.size}`);
