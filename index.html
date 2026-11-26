@@ -1450,18 +1450,19 @@ async function newFvDialog(preTpl) {
     <label class="fld">Pasta<select id="n-folder">${folderOptions(curFolder)}</select></label>
     <label class="fld">Equipe (onde a FV aparece)<select id="n-frente">${FV_EQ.filter(k => canEq(k) || k === eqFv()).map(k => `<option value="${k}" ${k === eqFv() ? "selected" : ""}>${esc(FRENTES[k].nome)}</option>`).join("")}</select></label>
     <label class="fld">Obra<input type="text" id="n-obra" list="dl-obras" value="${esc(lastObra)}" placeholder="Nome da obra"></label>
-    <label class="fld">Local<input type="text" id="n-local" placeholder="Toque para escolher ou digite (ex.: bloco, piscina, CPG)"></label>
+    <label class="fld">Local (conjunto)<input type="text" id="n-local" placeholder="Escolha ou digite: Trechos, Bloco, Piscina…"></label>
     <label class="fld">Data de abertura<input type="date" id="n-ab" value="${today()}"></label>
     <label class="fld">Conferente<input type="text" id="n-conf"></label>
     <label class="fld">Gestor(a)<input type="text" id="n-gest"></label>
-    <label class="fld" style="grid-column:1/-1"><span id="n-loclbl">Locais inspecionados</span><input type="text" id="n-cols" placeholder="Separe por vírgula. Ex.: AP 101, AP 102, Hall"></label>
+    <label class="fld" style="grid-column:1/-1"><span id="n-loclbl">Locais inspecionados</span><input type="text" id="n-cols" placeholder="Escolha da lista ou digite, separando por vírgula. Ex.: Trecho 1, Trecho 2"></label>
   </div><datalist id="dl-obras">${obras.map(o => `<option value="${esc(o)}">`).join("")}</datalist>`;
   const res = await modal({title:"Nova FV", body, actions:[{label:"Cancelar", value:null},{label:"Criar FV", cls:"primary", value: bg => ({
     tpl: $("#n-tpl", bg).value, folder: $("#n-folder", bg).value, frente: $("#n-frente", bg).value, obra: $("#n-obra", bg).value.trim(), local: $("#n-local", bg).value.trim(), abertura: $("#n-ab", bg).value,
     conferente: $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value.trim(), cols: $("#n-cols", bg).value.split(",").map(s => s.trim()).filter(Boolean)
   })}], onOpen: bg => {
     const upd = () => { const t = templates.get($("#n-tpl", bg).value); $("#n-loclbl", bg).textContent = `Locais inspecionados · ${t?.localLabel || "Local"} · ${tplMaxCols(t)} por folha (o que passar vai para uma nova folha)`; };
-    $("#n-tpl", bg).onchange = upd; upd(); localPicker($("#n-local", bg));
+    $("#n-tpl", bg).onchange = upd; upd(); localPicker($("#n-local", bg), () => setTimeout(() => $("#n-cols", bg).focus(), 30));
+    colsPicker($("#n-cols", bg), () => $("#n-local", bg).value, () => $("#n-cols", bg).value.split(",").map(x => x.trim()).filter(Boolean), {keep: true});
     $("#n-filter", bg).addEventListener("input", e => { const sel = $("#n-tpl", bg), v = sel.value; sel.innerHTML = tplOptions(list, v, e.target.value); if (!sel.value && sel.options.length) sel.selectedIndex = 0; upd(); });
     if (preTpl) $("#n-cols", bg).focus(); else $("#n-filter", bg).focus();
   }});
@@ -1691,6 +1692,7 @@ function renderChk(fv) {
     box.innerHTML = `${bar}<table class="blk chk-tbl" style="min-width:${880 + nCols * colW}px"><colgroup><col style="width:90px"><col style="width:42px"><col style="width:430px"><col style="width:96px">${cols.map(() => `<col style="width:${colW}px">`).join("")}${full ? "" : `<col style="width:${colW}px">`}</colgroup><thead>${head1}${head2}</thead><tbody>${rows}</tbody></table>`;
   }
   $$("th.colh input[data-col]", box).forEach(inp => { const c = (fv.cols || {})[inp.dataset.col]; if (c) setVal(inp, c.name); });
+  const nc = $("th.colh input[data-newcol]", box); if (nc && !nc._lp) { const fid = fv.id || cur.id; colsPicker(nc, () => { const f = fvs.get(cur.id); return f ? f.local : ""; }, () => { const f = fvs.get(cur.id); return f ? activeCols(f).map(([, c]) => c.name) : []; }, {onPick: () => setTimeout(() => { const n = $("#sheet-fv th.colh input[data-newcol]"); if (n) n.focus(); }, 400)}); }
   $$("td.cell button", box).forEach(b => {
     const v = cells[b.dataset.it + "_" + b.dataset.col] || "", st = ST[v] || ST[""];
     if (b.dataset.v === v) return;
@@ -1819,71 +1821,58 @@ async function ncBlock(P, target) {
 }
 window.addEventListener("beforeunload", e => { if (ncPend().length) { e.preventDefault(); e.returnValue = ""; } });
 
-/* ---------- escolha do local (busca enquanto digita) ----------
-   Grupos: Anexos, Trechos, Bloco, Piscina, CPG's, GLP's e Outros. Os numerados (Bloco, Trecho, CPG, GLP) vão crescendo
-   conforme são usados; o que a pessoa escrever fora das opções vira "Outros" e passa a ser sugerido também. */
+/* ---------- local (conjunto) e locais inspecionados, com busca enquanto digita ----------
+   LOCAL é o conjunto (Anexos, Trechos, Bloco, Piscina, CPG's, GLP's ou outro escrito).
+   LOCAIS INSPECIONADOS são os itens do conjunto: Trecho 1, 2…; Bloco 1 a 4 e segue; CPG 1…; GLP 1…;
+   Piscina Adulto/Infantil; os anexos. Os numerados oferecem sempre o próximo número depois do maior já usado. */
 const LOC_GRUPOS = [
   {k: "anexos", t: "Anexos", fixos: ["Salão de festas", "ADM", "Portaria", "Churrasqueira Gourmet", "Casa de bombas", "Casa de Máquinas"]},
   {k: "trechos", t: "Trechos", seq: "Trecho", min: 1},
   {k: "bloco", t: "Bloco", seq: "Bloco", min: 4},
   {k: "piscina", t: "Piscina", fixos: ["Piscina Adulto", "Piscina Infantil"]},
   {k: "cpg", t: "CPG's", seq: "CPG", min: 1},
-  {k: "glp", t: "GLP's", seq: "GLP", min: 1},
-  {k: "outros", t: "Outros", fixos: []}
+  {k: "glp", t: "GLP's", seq: "GLP", min: 1}
 ];
-function locUsados() { const S = new Set(); fvs.forEach(f => { const v = String(f.local || "").trim(); if (v) S.add(v); }); return [...S]; }
-function locOpcoes() { // [{g, v}]
-  const used = locUsados(), out = [], known = new Set();
-  LOC_GRUPOS.forEach(G => {
-    let L = [];
-    if (G.seq) { const re = new RegExp("^" + G.seq + "\\s*0*(\\d+)$", "i"); let mx = 0; used.forEach(u => { const m = re.exec(u); if (m) mx = Math.max(mx, +m[1]); }); const n = Math.max(G.min, mx + 1); for (let i = 1; i <= n; i++) L.push(`${G.seq} ${i}`); }
-    else if (G.k === "outros") L = used.filter(u => !known.has(norm(u)));
-    else L = G.fixos.slice();
-    L.forEach(v => { known.add(norm(v)); out.push({g: G.k, v}); });
-  });
-  return out;
+const locGrupo = v => { const n = norm(v).replace(/[^a-z0-9]/g, ""); return LOC_GRUPOS.find(g => { const t = norm(g.t).replace(/[^a-z0-9]/g, ""); return n && (n === t || n === t.replace(/s$/, "") || n === t + "s"); }) || null; };
+function locSubs(G, used) { // sugestões de locais inspecionados do conjunto, sem os já usados
+  const U = new Set(used.map(norm));
+  if (G.seq) { const re = new RegExp("^" + G.seq + "\\s*0*(\\d+)$", "i"); let mx = 0; used.forEach(u => { const m = re.exec(String(u).trim()); if (m) mx = Math.max(mx, +m[1]); });
+    const L = []; for (let i = 1; i <= Math.max(G.min, mx + 1); i++) L.push(`${G.seq} ${i}`); return L.filter(v => !U.has(norm(v))); }
+  return G.fixos.filter(v => !U.has(norm(v)));
 }
-function localPicker(inp, onPick) {
+/* lista suspensa genérica: source(q) -> [{head}|{v, t?, sub?}] ; aceita texto livre */
+function comboPick(inp, {source, onPick, keep = false, novoLbl = "novo"}) {
   if (!inp || inp._lp) return; inp._lp = true; inp.setAttribute("autocomplete", "off"); inp.setAttribute("role", "combobox"); inp.setAttribute("aria-expanded", "false");
-  let box = null, grp = "", act = -1, items = [], typed = false;
-  const close = () => { if (box) { box.remove(); box = null; } grp = ""; act = -1; inp.setAttribute("aria-expanded", "false"); };
-  const pick = v => { inp.value = v; inp.dispatchEvent(new Event("input", {bubbles: true})); inp.dispatchEvent(new Event("change", {bubbles: true})); close(); onPick && onPick(v); };
+  let box = null, act = -1, items = [], typed = false;
+  const close = () => { if (box) { box.remove(); box = null; } act = -1; inp.setAttribute("aria-expanded", "false"); };
+  const qv = () => keep ? (inp.value.split(",").pop() || "") : inp.value;
   const draw = () => {
-    if (inp.disabled) return close();
+    if (inp.disabled || !inp.isConnected) return close();
     if (!box) { box = document.createElement("div"); box.className = "lp-box ui"; box.setAttribute("role", "listbox"); document.body.appendChild(box);
       box.addEventListener("mousedown", e => e.preventDefault());
-      box.addEventListener("click", e => { const b = e.target.closest("[data-i]"); if (!b) return; choose(items[+b.dataset.i]); }); }
+      box.addEventListener("click", e => { const b = e.target.closest("[data-i]"); if (b) choose(items[+b.dataset.i]); }); }
+    const q = typed ? norm(qv()).trim() : "", raw = qv().trim();
+    items = source(q);
+    if (q && !items.some(x => x.v && norm(x.v) === q)) items.push({v: raw, novo: 1});
+    if (!items.some(x => x.v)) return close();
     const r = inp.getBoundingClientRect(); box.style.left = Math.max(4, Math.min(r.left, innerWidth - 284)) + "px"; box.style.minWidth = Math.max(r.width, 260) + "px";
     const below = innerHeight - r.bottom > 260 || r.top < 260; box.style.top = below ? r.bottom + 2 + "px" : ""; box.style.bottom = below ? "" : innerHeight - r.top + 2 + "px";
-    const q = typed ? norm(inp.value).trim() : "", O = locOpcoes(); items = [];
-    if (grp) { const G = LOC_GRUPOS.find(g => g.k === grp); items.push({back: 1, t: "← Grupos"}, {head: G.t});
-      O.filter(o => o.g === grp).forEach(o => items.push({v: o.v}));
-      items.push({outro: grp, t: G.k === "outros" ? "Escrever outro local…" : `Outro (${G.seq || G.t})…`}); }
-    else if (!q) { LOC_GRUPOS.forEach(G => items.push({grp: G.k, t: G.t, n: O.filter(o => o.g === G.k).length})); }
-    else {
-      const G = LOC_GRUPOS.filter(g => norm(g.t).includes(q)); G.forEach(g => items.push({grp: g.k, t: g.t, n: O.filter(o => o.g === g.k).length}));
-      const M = O.filter(o => norm(o.v).includes(q)); let last = "";
-      M.slice(0, 40).forEach(o => { if (o.g !== last) { items.push({head: LOC_GRUPOS.find(g => g.k === o.g).t}); last = o.g; } items.push({v: o.v}); });
-      if (!G.length && !O.some(o => norm(o.v) === q)) items.push({v: inp.value.trim(), novo: 1});
-    }
-    act = Math.min(Math.max(act, -1), items.length - 1);
+    const S = sel(); if (!S.includes(act)) act = q && S.length ? S[0] : -1;
     box.innerHTML = items.map((it, i) => it.head ? `<div class="lp-h">${esc(it.head)}</div>` :
-      `<button type="button" role="option" data-i="${i}" class="${i === act ? "on" : ""}${it.grp ? " lp-g" : ""}${it.back ? " lp-b" : ""}">${it.grp ? `<span>${esc(it.t)}</span><small>${it.n ? it.n + " opç." : "criar"} ›</small>` : it.novo ? `<span>Usar “<b>${esc(it.v)}</b>”</span><small>novo local</small>` : esc(it.v || it.t)}</button>`).join("");
+      `<button type="button" role="option" data-i="${i}" class="${i === act ? "on" : ""}">${it.novo ? `<span>Usar “<b>${esc(it.v)}</b>”</span><small>${esc(novoLbl)}</small>` : `<span>${esc(it.t || it.v)}</span>${it.sub ? `<small>${esc(it.sub)}</small>` : ""}`}</button>`).join("");
     inp.setAttribute("aria-expanded", "true");
     const a = box.querySelector("button.on"); if (a) a.scrollIntoView({block: "nearest"});
   };
-  const choose = it => {
-    if (!it) return;
-    if (it.back) { grp = ""; act = -1; inp.value = ""; draw(); inp.focus(); return; }
-    if (it.grp) { grp = it.grp; act = -1; inp.value = ""; draw(); inp.focus(); return; }
-    if (it.outro) { const G = LOC_GRUPOS.find(g => g.k === it.outro); close(); inp.value = G.seq ? G.seq + " " : G.k === "piscina" ? "Piscina " : ""; inp.focus(); inp._free = true; return; }
-    if (it.v) pick(it.v);
-  };
   const sel = () => items.map((x, i) => x.head ? -1 : i).filter(i => i >= 0);
-  inp.addEventListener("focus", () => { typed = false; if (!inp._free) draw(); });
-  inp.addEventListener("click", () => { inp._free = false; if (!box) typed = false; draw(); });
-  inp.addEventListener("input", e => { if (!e.isTrusted) return; inp._free = false; typed = true; grp = ""; act = -1; draw(); const S = sel(); if (norm(inp.value).trim() && S.length) { act = S[0]; draw(); } });
-  inp.addEventListener("blur", () => setTimeout(() => { if (document.activeElement !== inp) { close(); inp._free = false; } }, 120));
+  const choose = it => {
+    if (!it || !it.v) return;
+    if (keep) { const parts = inp.value.split(",").map(x => x.trim()); parts.pop(); parts.push(it.v); inp.value = parts.filter(Boolean).join(", ") + ", "; typed = false; act = -1; inp.dispatchEvent(new Event("input", {bubbles: true})); onPick && onPick(it.v); draw(); inp.focus(); return; }
+    inp.value = it.v; inp.dispatchEvent(new Event("input", {bubbles: true})); inp.dispatchEvent(new Event("change", {bubbles: true})); close(); onPick && onPick(it.v);
+  };
+  inp.addEventListener("focus", () => { typed = false; draw(); });
+  inp.addEventListener("click", () => { if (!box) { typed = false; draw(); } });
+  inp.addEventListener("input", e => { if (!e.isTrusted) return; typed = true; act = -1; draw(); });
+  inp.addEventListener("blur", () => setTimeout(() => { if (document.activeElement !== inp) close(); }, 120));
   inp.addEventListener("keydown", e => {
     if (!box) { if (e.key === "ArrowDown") { draw(); e.preventDefault(); } return; }
     const S = sel(), p = S.indexOf(act);
@@ -1894,6 +1883,24 @@ function localPicker(inp, onPick) {
     else if (e.key === "Tab") close();
   });
   addEventListener("scroll", () => { if (box) draw(); }, true);
+}
+function localPicker(inp, onPick) { // LOCAL = conjunto
+  comboPick(inp, {onPick, novoLbl: "outro local", source: q => {
+    const out = [{head: "Conjuntos"}], used = new Set();
+    LOC_GRUPOS.forEach(G => { if (!q || norm(G.t).includes(q)) out.push({v: G.t}); used.add(norm(G.t)); });
+    const outros = [...new Set([...fvs.values()].map(f => String(f.local || "").trim()).filter(Boolean))].filter(v => !locGrupo(v) && !used.has(norm(v)) && (!q || norm(v).includes(q))).sort().slice(0, 30);
+    if (outros.length) out.push({head: "Outros já usados"}, ...outros.map(v => ({v})));
+    if (out.length === 1 || (out[1] && out[1].head)) out.shift();
+    return out;
+  }});
+}
+function colsPicker(inp, getLocal, getUsed, opts = {}) { // LOCAIS INSPECIONADOS = itens do conjunto
+  comboPick(inp, {...opts, novoLbl: "novo local inspecionado", source: q => {
+    const G = locGrupo(getLocal()), used = getUsed(), out = [];
+    const L = G ? [G] : LOC_GRUPOS;
+    L.forEach(g => { const S = locSubs(g, used).filter(v => !q || norm(v).includes(q)); if (S.length && (G || q)) out.push({head: g.t}, ...S.map(v => ({v}))); });
+    return out;
+  }});
 }
 /* linhas de problema / solução (FV e F.007) */
 function itemOpts(fv) { return `<option value=""></option>` + (fv.items || []).map(i => `<option value="${esc(i.id)}">${esc(i.n)}</option>`).join(""); }
