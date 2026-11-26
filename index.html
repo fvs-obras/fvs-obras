@@ -848,6 +848,27 @@ tr.nc-pend td{box-shadow:inset 0 0 0 2px var(--red);background:var(--red-soft)}
 .chipv-x{border:0;background:transparent;width:28px;height:30px;font-size:17px;line-height:1;color:var(--muted);cursor:pointer;display:grid;place-items:center}
 .chipv-x:hover{color:#fff;background:var(--red)}
 .chipv-ed{border:1px solid var(--red)!important;border-radius:999px;padding:5px 10px!important;min-height:30px!important;font-size:13px;width:auto!important}
+body.ng [data-pjdel],body.ng [data-pjrm],body.ng [data-delpl],body.ng #g-del,body.ng [data-delmap],body.ng [data-ddel],body.ng [data-pdel],body.ng [data-sdel],body.ng [data-delm],body.ng .photo [data-del],body.ng .doc-row [data-rm]{display:none!important}
+.eq-tag{display:inline-flex;align-items:center;min-height:30px;padding:2px 12px;border-radius:999px;background:var(--fill);font-weight:700;font-size:13px;color:var(--graphite)}
+.cpick{position:relative;width:34px;height:34px;border-radius:50%;padding:3px;border:2px solid rgba(255,255,255,.7);background:conic-gradient(red,#ff0,lime,cyan,blue,#f0f,red);cursor:pointer;display:grid;place-items:center}
+.cpick i{display:block;width:100%;height:100%;border-radius:50%;border:2px solid #2d3238}
+.cpick-tip{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:11.5px;white-space:nowrap;padding:4px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:5}
+.cpick:hover .cpick-tip,.cpick:focus-visible .cpick-tip{opacity:1}
+.mop{min-width:190px}.mop b{font-size:11.5px;font-weight:700;min-width:34px}
+.cd{display:grid;gap:10px}.cd-top{display:grid;grid-template-columns:minmax(0,1fr) 46px 22px 150px;gap:12px;align-items:stretch}
+.cd-sv{position:relative;height:200px;border-radius:6px;touch-action:none;cursor:crosshair;overflow:hidden}
+.cd-w,.cd-b{position:absolute;inset:0}.cd-w{background:linear-gradient(to right,#fff,rgba(255,255,255,0))}.cd-b{background:linear-gradient(to top,#000,rgba(0,0,0,0))}
+.cd-k{position:absolute;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #000;pointer-events:none}
+.cd-prev{border-radius:6px;border:1px solid var(--line)}
+.cd-hue{position:relative;border-radius:11px;touch-action:none;cursor:ns-resize;background:linear-gradient(to bottom,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)}
+.cd-hk{position:absolute;left:-3px;right:-3px;height:8px;margin-top:-4px;border-radius:4px;border:2px solid #fff;box-shadow:0 0 0 1px #000;pointer-events:none}
+.cd-f{display:grid;gap:6px;align-content:start}.cd-f input{min-height:34px;padding:4px 8px}
+.cd-sec{font-size:12px;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:8px}
+.cd-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+.cd-sw{aspect-ratio:1;border-radius:50%;border:1px solid rgba(0,0,0,.25);padding:0;cursor:pointer;min-height:0}
+.cd-sw.on{outline:3px solid var(--ink);outline-offset:1px}.cd-empty{border:1.5px dashed #aaa;background:transparent;cursor:default}
+.cd-add{width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:#fff;font-size:17px;line-height:1;cursor:pointer;padding:0;min-height:0}
+@media (max-width:560px){.cd-top{grid-template-columns:minmax(0,1fr) 22px;}.cd-prev{grid-column:1/-1;height:28px;order:3}.cd-f{grid-column:1/-1;grid-template-columns:repeat(4,1fr);order:4}.cd-grid{gap:4px}}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1055,6 +1076,7 @@ function modal({title, body = "", wide = false, sens = false, actions = [{label:
 }
 const confirmBox = (title, text, ok = "Confirmar", danger = false) =>
   modal({title, sens: danger, body:`<p style="margin:0">${text}</p>`, actions:[{label:"Cancelar", value:false},{label:ok, value:true, cls: danger ? "danger solid" : "primary"}]});
+const gestOk = () => { if (isGestor) return true; gestorOnly("Excluir", "excluir documentos, mapeamentos, fotos, projetos, plantas, pastas, modelos, relatórios e planilhas. Se precisar tirar algo, avise o gestor"); return false; };
 const gestorOnly = (title, what) => modal({title, body: `<p style="margin:0">Somente o <b>gestor</b> (ou o administrador) pode ${what}.</p>`, actions: [{label: "Entendi", cls: "primary", value: null}]});
 
 /* ---------- estado ---------- */
@@ -1262,7 +1284,7 @@ async function folderDialog(id, parentDefault) {
   const body = `<div class="grid2"><label class="fld" style="grid-column:1/-1">Nome da pasta<input type="text" id="f-name" value="${esc(f.name)}" placeholder="Ex.: Torre 1, Bloco B, Infraestrutura"></label>
     <label class="fld" style="grid-column:1/-1">Dentro de<select id="f-parent">${folderOptions(parentOf(f), id ? descendants(id) : new Set())}</select></label></div>`;
   const acts = [{label:"Cancelar", value:null}, {label: id ? "Salvar" : "Criar pasta", cls:"primary", validate: bg => { if (!$("#f-name", bg).value.trim()) { toast("Dê um nome para a pasta."); return false; } return true; }, value: bg => ({name: $("#f-name", bg).value.trim(), parent: $("#f-parent", bg).value})}];
-  if (id) acts.unshift({label:"Excluir pasta", cls:"danger", value:"del"});
+  if (id && isGestor) acts.unshift({label:"Excluir pasta", cls:"danger", value:"del"});
   const r = await modal({title: id ? "Editar pasta" : "Nova pasta", body, actions: acts, onOpen: bg => $("#f-name", bg).addEventListener("keydown", e => { if (e.key === "Enter") $(".acts .primary", bg).click(); })});
   if (!r) return;
   if (r === "del") return deleteFolder(id);
@@ -1278,7 +1300,7 @@ async function deleteFolder(id) {
   const msg = subs.length || inside.length
     ? `A pasta <b>${esc(f.name)}</b> tem ${inside.length} FV(s) e ${subs.length} subpasta(s). Elas não serão apagadas: vão para <b>${esc(parName)}</b>.`
     : `A pasta <b>${esc(f.name)}</b> está vazia e será apagada.`;
-  if (!(await confirmBox("Excluir pasta?", msg, "Excluir pasta", true))) return;
+  if (!(gestOk() && await confirmBox("Excluir pasta?", msg, "Excluir pasta", true))) return;
   try {
     for (const sf of subs) patch(`folders/${sf.id}`, stamp({parent: par}));
     for (const [fid] of inside) { patch(`fvs/${fid}`, stamp({folder: par})); logAct(fid, `Movida para ${parName} (pasta ${f.name} excluída)`); }
@@ -1424,7 +1446,7 @@ async function tplEditor(id) {
   }});
   if (!res) return;
   if (res === "del") {
-    if (await confirmBox("Excluir modelo?", `O modelo <b>${esc(t.code)}</b> será removido. FVs já criadas com ele continuam iguais.`, "Excluir", true)) {
+    if (gestOk() && await confirmBox("Excluir modelo?", `O modelo <b>${esc(t.code)}</b> será removido. FVs já criadas com ele continuam iguais.`, "Excluir", true)) {
       try { if (library.has(id)) await create(`templates/${id}`, stamp({deleted: true})); else await remove(`templates/${id}`); toast("Modelo excluído."); } catch {}
     }
     return;
@@ -1562,21 +1584,20 @@ function renderBar(fv) {
   if (!h.dataset.built) {
     h.dataset.built = "1";
     h.innerHTML = `<div class="r1"><div><div class="c" id="b-code"></div><div class="t" id="b-title"></div></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="b-pill"></span><button class="btn dark" id="b-pdf" type="button">Baixar PDF</button><button class="btn" id="b-dup" type="button">Duplicar para outros locais</button><button class="btn" id="b-close" type="button"></button><button class="btn ghost danger" id="b-del" type="button">Excluir</button></div></div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select><label for="b-frente" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-left:6px">Equipe</label><select id="b-frente" style="width:auto;min-height:34px;padding:4px 8px">${FV_EQ.map(k => [k, FRENTES[k]]).map(([k, f]) => `<option value="${k}">${esc(f.curto)}</option>`).join("")}</select></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="b-pill"></span><button class="btn dark" id="b-pdf" type="button">Baixar PDF</button><button class="btn" id="b-maps" type="button" title="PDF só com os mapeamentos desta FV">Baixar mapeamentos</button><button class="btn" id="b-close" type="button"></button><button class="btn ghost danger" id="b-del" type="button">Excluir</button></div></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select><span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-left:6px">Equipe</span><span class="eq-tag" id="b-eq" title="A FV fica sempre na equipe em que foi criada"></span></div>
       <div id="b-stats"></div><div id="b-rev"></div><button class="btn sm sp-chip hidden" id="b-spell" type="button"></button><div class="lastedit" id="b-last"></div>`;
     $("#b-spell").onclick = spellReview;
-    $("#b-close").onclick = toggleClose; $("#b-del").onclick = deleteFv; $("#b-dup").onclick = duplicateFv; $("#b-pdf").onclick = exportPdf;
-    $("#b-frente").onchange = e => { const id = cur.id, v = e.target.value; if (!FV_EQ.includes(v)) return; patch(`fvs/${id}`, stamp({equipe: v})); logAct(id, `Passou a FV para a equipe ${FRENTES[v].nome}`); setFrente(v); renderSide("fvs"); renderCtxNav(); toast(`FV agora aparece em ${FRENTES[v].nome}.`); };
+    $("#b-close").onclick = toggleClose; $("#b-del").onclick = deleteFv; $("#b-maps").onclick = () => exportPdf(true); $("#b-pdf").onclick = () => exportPdf(false);
     $("#b-folder").onchange = e => { const id = cur.id, v = e.target.value; patch(`fvs/${id}`, stamp({folder: v})); logAct(id, `Moveu para a pasta ${v ? pathText(v) : "Início"}`); toast(`FV movida para ${v ? pathText(v) : "Início"}.`); };
   }
   $("#b-code").textContent = `${fv.code} · ${CATS[fv.cat] || ""}${fv.obra ? " · " + fv.obra : ""}`;
   $("#b-title").textContent = `${fv.title}${fv.local ? " — " + fv.local : ""}`;
   const pill = $("#b-pill"); pill.className = "pill " + (fv.status === "fechada" ? "closed" : "open"); pill.textContent = fv.status === "fechada" ? "Fechada" : "Aberta";
   const cb = $("#b-close"); cb.textContent = fv.status === "fechada" ? "Reabrir FV" : "Fechar FV"; cb.className = "btn " + (fv.status === "fechada" ? "" : "primary") + (isGestor ? "" : " locked"); cb.disabled = false; cb.title = isGestor ? "" : "Somente o gestor pode fechar ou reabrir a FV"; if (!isGestor) cb.textContent = "🔒 " + cb.textContent;
-  const bd = $("#b-del"); bd.disabled = !canWrite; bd.textContent = (isGestor ? "" : "🔒 ") + "Excluir"; bd.classList.toggle("locked", !isGestor); bd.title = isGestor ? "" : "Somente o gestor pode excluir a FV"; $("#b-dup").disabled = !canWrite;
+  const bd = $("#b-del"); bd.disabled = !canWrite; bd.textContent = (isGestor ? "" : "🔒 ") + "Excluir"; bd.classList.toggle("locked", !isGestor); bd.title = isGestor ? "" : "Somente o gestor pode excluir a FV";
   const bf = $("#b-folder"); if (document.activeElement !== bf) { bf.innerHTML = folderOptions(folderOf(fv)); bf.value = folderOf(fv); } bf.disabled = !canWrite;
-  const bfr = $("#b-frente"); if (bfr && document.activeElement !== bfr) { bfr.value = fvFrente(fv); bfr.disabled = !canWrite; }
+  const beq = $("#b-eq"); if (beq) beq.textContent = (FRENTES[fvFrente(fv)] || {}).nome || "";
   const back = $("#view-fv .back"); if (back) { const fp = folderOf(fv); back.href = fp ? "#pasta-" + fp : "#" + fvFrente(fv); back.textContent = "← " + (fp ? folders.get(fp).name : "Todas as FVs"); }
   $("#b-stats").innerHTML = barHtml(s) + `<div style="margin-top:8px">${countsHtml(s)}</div>`;
   $("#b-rev").innerHTML = tplRevBar(fv); const tb = $("#b-tplrev"); if (tb) tb.onclick = tplRevUpdate;
@@ -1829,6 +1850,54 @@ async function ncBlock(P, target) {
 }
 window.addEventListener("beforeunload", e => { if (ncPend().length) { e.preventDefault(); e.returnValue = ""; } });
 
+/* ---------- escolha de cor (estilo Paint): quadro de cores, faixa de matiz, HEX/RGB, cores básicas e personalizadas ---------- */
+const CORES_BASICAS = ["#f08080","#e8382c","#7a4040","#8b3a3a","#3d0000","#a0ffff","#7fffff","#3a86ef","#0026ff","#001a99","#1a3f80","#001473",
+  "#ffff99","#ffff3b","#f0a060","#f08850","#7a4510","#808020","#8080ff","#7a2ff0","#3a80c0","#000040","#5a1a6a","#3d0a40",
+  "#a0ff90","#a0f03a","#70f03a","#70f060","#70ff90","#7a7a40","#f090c0","#f090f0","#e83ae8","#e83a80","#8080c0","#7a1a40",
+  "#3a8020","#3a8040","#3a8080","#508080","#1a4010","#103a3a","#7a1a80","#3d1080","#000000","#808080","#c0c0c0","#ffffff"];
+const hex2rgb = h => { h = String(h || "").replace("#", ""); if (h.length === 3) h = h.split("").map(c => c + c).join(""); const n = parseInt(h, 16); return isNaN(n) || h.length !== 6 ? null : [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+const rgb2hex = (r, g, b) => "#" + [r, g, b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, "0")).join("");
+function rgb2hsv(r, g, b) { r /= 255; g /= 255; b /= 255; const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn; let h = 0;
+  if (d) h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h = (h * 60 + 360) % 360; return [h, mx ? d / mx : 0, mx]; }
+function hsv2rgb(h, s, v) { const c = v * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = v - c; const [r, g, b] = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x]; return [(r + m) * 255, (g + m) * 255, (b + m) * 255]; }
+async function colorDialog(initial) {
+  let pers = []; try { pers = JSON.parse(localStorage.getItem("fvs-cores-pers") || "[]"); } catch {}
+  const st = {}; const set = hex => { const c = hex2rgb(hex) || [225, 37, 27]; [st.h, st.s, st.v] = rgb2hsv(...c); };
+  set(initial);
+  const cur = () => rgb2hex(...hsv2rgb(st.h, st.s, st.v));
+  const body = `<div class="cd"><div class="cd-top">
+      <div class="cd-sv" data-sv><div class="cd-w"></div><div class="cd-b"></div><i class="cd-k" data-svk></i></div>
+      <div class="cd-prev" data-prev></div>
+      <div class="cd-hue" data-hue><i class="cd-hk" data-huek></i></div>
+      <div class="cd-f"><label class="fld">HEX<input type="text" data-hex maxlength="7" spellcheck="false"></label>
+        <label class="fld">Vermelho<input type="number" min="0" max="255" data-r></label><label class="fld">Verde<input type="number" min="0" max="255" data-g></label><label class="fld">Azul<input type="number" min="0" max="255" data-b></label></div></div>
+    <div class="cd-sec">Cores básicas</div><div class="cd-grid">${CORES_BASICAS.map(c => `<button type="button" class="cd-sw" data-sw="${c}" style="background:${c}" title="${c}" aria-label="${c}"></button>`).join("")}</div>
+    <div class="cd-sec">Cores personalizadas <button type="button" class="cd-add" data-add title="Guardar a cor atual" aria-label="Guardar a cor atual">+</button></div>
+    <div class="cd-grid cd-pers" data-pers></div></div>`;
+  return modal({title: "Editar cores", body, actions: [{label: "Cancelar", value: null}, {label: "OK", cls: "primary", value: () => cur()}],
+    onOpen: bg => {
+      const sv = $("[data-sv]", bg), hue = $("[data-hue]", bg);
+      const draw = (skip) => {
+        const hx = cur(), [r, g, b] = hex2rgb(hx);
+        sv.style.background = rgb2hex(...hsv2rgb(st.h, 1, 1));
+        $("[data-svk]", bg).style.left = st.s * 100 + "%"; $("[data-svk]", bg).style.top = (1 - st.v) * 100 + "%";
+        $("[data-huek]", bg).style.top = st.h / 360 * 100 + "%";
+        $("[data-prev]", bg).style.background = hx;
+        if (skip !== "hex") $("[data-hex]", bg).value = hx.toUpperCase();
+        if (skip !== "rgb") { $("[data-r]", bg).value = r; $("[data-g]", bg).value = g; $("[data-b]", bg).value = b; }
+        $$("[data-sw]", bg).forEach(x => x.classList.toggle("on", x.dataset.sw.toLowerCase() === hx));
+      };
+      const persDraw = () => { $("[data-pers]", bg).innerHTML = Array.from({length: 12}, (_, i) => pers[i] ? `<button type="button" class="cd-sw" data-sw="${pers[i]}" style="background:${pers[i]}" title="${pers[i]}" aria-label="${pers[i]}"></button>` : `<span class="cd-sw cd-empty"></span>`).join(""); draw(); };
+      const drag = (el, fn) => el.addEventListener("pointerdown", e => { e.preventDefault(); el.setPointerCapture(e.pointerId); const mv = ev => { const r = el.getBoundingClientRect(); fn(Math.max(0, Math.min(1, (ev.clientX - r.left) / r.width)), Math.max(0, Math.min(1, (ev.clientY - r.top) / r.height))); draw(); }; mv(e); el.onpointermove = mv; el.onpointerup = () => { el.onpointermove = null; }; });
+      drag(sv, (x, y) => { st.s = x; st.v = 1 - y; });
+      drag(hue, (x, y) => { st.h = Math.min(359.9, y * 360); });
+      $("[data-hex]", bg).addEventListener("input", e => { const c = hex2rgb(e.target.value.trim()); if (c && /^#?[0-9a-f]{6}$/i.test(e.target.value.trim())) { set(rgb2hex(...c)); draw("hex"); } });
+      ["r", "g", "b"].forEach(k => $(`[data-${k}]`, bg).addEventListener("input", () => { const v = ["r", "g", "b"].map(q => +$(`[data-${q}]`, bg).value || 0); set(rgb2hex(...v)); draw("rgb"); }));
+      bg.addEventListener("click", e => { const w = e.target.closest("[data-sw]"); if (w) { set(w.dataset.sw); draw(); } });
+      $("[data-add]", bg).onclick = () => { const hx = cur(); pers = [hx, ...pers.filter(x => x !== hx)].slice(0, 12); try { localStorage.setItem("fvs-cores-pers", JSON.stringify(pers)); } catch {} persDraw(); };
+      persDraw();
+    }});
+}
 /* ---------- local (conjunto) e locais inspecionados, com busca enquanto digita ----------
    LOCAL é o conjunto (Anexos, Trechos, Bloco, Piscina, CPG's, GLP's ou outro escrito).
    LOCAIS INSPECIONADOS são os itens do conjunto: Trecho 1, 2…; Bloco 1 a 4 e segue; CPG 1…; GLP 1…;
@@ -2143,7 +2212,7 @@ function renderDocs(fv) {
     const ob = $("[data-openblob]", el); if (ob) ob.onclick = () => openBlob(d.assetId, d.title);
     const oc = $("[data-openchunks]", el); if (oc) oc.onclick = () => openProj(d);
     const rm = $("[data-rm]", el); if (rm) rm.onclick = async () => {
-      if (!(await confirmBox("Remover documento?", `<b>${esc((d.code ? d.code + " · " : "") + d.title)}</b> deixa de ficar anexado a esta FV e vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Remover", true))) return;
+      if (!(gestOk() && await confirmBox("Remover documento?", `<b>${esc((d.code ? d.code + " · " : "") + d.title)}</b> deixa de ficar anexado a esta FV e vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Remover", true))) return;
       try { await toTrash("doc", `fvs/${cur.id}/docs/${d.id}`, (d.code ? d.code + " · " : "") + d.title, fvCtx(cur.id), `fvs/${cur.id}`); touchFv(cur.id, `Removeu o documento ${d.code || d.title}`); toast("Documento enviado para a lixeira."); } catch {}
     };
   });
@@ -2257,7 +2326,7 @@ function renderPhotos(fv) {
     $$("[data-f]", el).forEach(i => bind(i, path, i.dataset.f, id, `Editou foto (${lbl[i.dataset.f]})`));
     $(".img", el).onclick = () => lightbox(d.id);
     $("[data-del]", el).onclick = async () => {
-      if (!(await confirmBox("Excluir foto?", `A foto e as anotações dela saem da FV e vão para a <b>Lixeira</b>, onde podem ser restauradas em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+      if (!(gestOk() && await confirmBox("Excluir foto?", `A foto e as anotações dela saem da FV e vão para a <b>Lixeira</b>, onde podem ser restauradas em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
       const p = cur.photos.find(x => x.id === d.id) || {};
       try { await toTrash("foto", path, ["Foto", p.item && "item " + p.item, p.local, p.nota].filter(Boolean).join(" · "), fvCtx(id), `fvs/${id}`); touchFv(id, "Excluiu uma foto"); toast("Foto enviada para a lixeira."); } catch {}
     };
@@ -2504,7 +2573,7 @@ async function projPicker() {
         const rv = e.target.closest("[data-pjrev]"); if (rv) { const it = projLib.get(rv.dataset.pjrev); if (it) { await newProjRev(it); upd(); } return; }
         const b = e.target.closest("[data-pjdel]"); if (!b) return;
         const p = projLib.get(b.dataset.pjdel); if (!p) return;
-        if (!(await confirmBox("Excluir da biblioteca?", `<b>${esc((p.code ? p.code + " · " : "") + p.title)}</b> sai da biblioteca e vai para a <b>Lixeira</b> (${TRASH_DAYS} dias para restaurar). As FVs que já anexaram continuam abrindo enquanto ele estiver na lixeira; depois de apagado de vez, deixam de abrir.`, "Excluir", true))) return;
+        if (!(gestOk() && await confirmBox("Excluir da biblioteca?", `<b>${esc((p.code ? p.code + " · " : "") + p.title)}</b> sai da biblioteca e vai para a <b>Lixeira</b> (${TRASH_DAYS} dias para restaurar). As FVs que já anexaram continuam abrindo enquanto ele estiver na lixeira; depois de apagado de vez, deixam de abrir.`, "Excluir", true))) return;
         try { await toTrash("projeto", `projetos/${p.id}`, (p.code ? p.code + " · " : "") + p.title, "Biblioteca de projetos · " + discName(p.disc)); projLib.delete(p.id); picked.delete(p.id); upd(); toast("Projeto enviado para a lixeira."); } catch {}
       });
       const al = $("#pj-addlib", bg); if (al) al.onclick = async () => { await addProj({lib: true}); upd(); };
@@ -2529,7 +2598,7 @@ function renderProjs(fv) {
       const row = e.target.closest("[data-id]"), p = row && cur.projs.find(x => x.id === row.dataset.id); if (!p) return;
       if (e.target.closest("[data-pjopen]")) return openProj(p);
       if (e.target.closest("[data-pjrm]")) {
-        if (!(await confirmBox("Remover projeto?", `<b>${esc((p.code ? p.code + " · " : "") + p.title)}</b> deixa de ficar anexado a esta FV e vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.${p.ref ? " A biblioteca de projetos não muda." : ""}`, "Remover", true))) return;
+        if (!(gestOk() && await confirmBox("Remover projeto?", `<b>${esc((p.code ? p.code + " · " : "") + p.title)}</b> deixa de ficar anexado a esta FV e vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.${p.ref ? " A biblioteca de projetos não muda." : ""}`, "Remover", true))) return;
         try { await toTrash("proj", `fvs/${cur.id}/projs/${p.id}`, (p.code ? p.code + " · " : "") + p.title, fvCtx(cur.id), `fvs/${cur.id}`); touchFv(cur.id, `Removeu o projeto ${p.code || p.title}`); toast("Projeto enviado para a lixeira."); } catch {}
       }
     });
@@ -2925,7 +2994,7 @@ function renderMap(fv) {
 
 /* ---------- mapeamentos: plantas com recorte, desenhos e anotações ---------- */
 const MCOLORS = [["#e1251b","Vermelho"],["#1565c0","Azul"],["#2e7d32","Verde"],["#f9a825","Amarelo"],["#111111","Preto"],["#ffffff","Branco"]];
-const MTOOLS = [["sel","↖","Selecionar, mover e ajustar desenhos"],["pan","✋","Mover a planta e dar zoom"],["pen","✏️","Caneta"],["line","╱","Linha"],["arrow","➜","Seta"],["rect","▭","Retângulo"],["ell","◯","Círculo"],["text","T","Texto"],["mk","①","Marcador com nota"],["erase","⌫","Apagar"]];
+const MTOOLS = [["sel","↖","Selecionar, mover e ajustar desenhos"],["pan","✋","Mover a planta e dar zoom"],["pen","✏️","Caneta"],["line","╱","Linha"],["arrow","➜","Seta"],["rect","▭","Retângulo"],["ell","◯","Círculo"],["text","T","Texto"],["mk","①","Marcador com nota"],["rub",'<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l9-9 6 6-6 6H7z"/><path d="M12 8l3-3 6 6-3 3"/><path d="M9 20h12"/></svg>',"Borracha: apaga partes dos desenhos"],["erase","⌫","Apagar o desenho inteiro (toque nele)"]];
 const MW = {f: .8, m: 1.6, g: 3.5}, MTXT = {P: 12, M: 18, G: 28};
 /* controle "Tamanho" (1 a 10): espessura do traço, tamanho do texto e do marcador */
 // Escala progressiva: 1 = bem pequeno, 4 = padrão, 10 = grande (em unidades da planta recortada).
@@ -2982,10 +3051,27 @@ const baseU = m => (m.crop && m.crop.w ? Math.max(m.crop.w, m.crop.h) : 600) / 6
 const liveShapes = (shapes) => Object.entries(shapes || {}).filter(([, s]) => s && s.t && !s.del).map(([id, s]) => ({id, ...s})).sort((a, b) => (a.z || 0) - (b.z || 0));
 const markersOf = shapes => liveShapes(shapes).filter(s => s.t === "mk").sort((a, b) => a.n - b.n);
 
+/* cor clara? (para o número do marcador e o contorno do texto) */
+function isLight(c) { const h = String(c || "").replace("#", ""); if (!/^[0-9a-f]{6}$/i.test(h)) return false; const r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16); return (r * 299 + g * 587 + b * 114) / 1000 > 165; }
+/* desenha todos os desenhos; se houver borracha, numa camada separada (a borracha apaga só os desenhos, nunca a planta) */
+function paintShapes(ctx, list, m) {
+  if (!list.some(x => x.t === "rub")) { list.forEach(x => drawShape(ctx, x, m)); return; }
+  const W = ctx.canvas.width, H = ctx.canvas.height;
+  let L = ctx.__layer; if (!L || L.width !== W || L.height !== H) { L = ctx.__layer = mkCanvas(W, H); }
+  const g = L.getContext("2d"); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W, H); g.setTransform(ctx.getTransform());
+  list.forEach(x => drawShape(g, x, m));
+  ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.drawImage(L, 0, 0); ctx.restore();
+}
 function drawShape(ctx, s, m) {
   const b = baseU(m);
   ctx.save(); ctx.strokeStyle = ctx.fillStyle = s.c || "#e1251b"; ctx.lineWidth = s.w || b * MW.m; ctx.lineCap = ctx.lineJoin = "round";
+  ctx.globalAlpha = s.o != null ? Math.max(.05, Math.min(1, +s.o)) : 1;
   const a = s.a ? decNums(s.a) : null;
+  if (s.t === "rub") { // borracha: só funciona dentro da camada de desenhos
+    ctx.globalCompositeOperation = "destination-out"; ctx.globalAlpha = 1; ctx.strokeStyle = "#000";
+    const p = decNums(s.p); ctx.beginPath(); ctx.moveTo(p[0], p[1]); for (let i = 2; i < p.length; i += 2) ctx.lineTo(p[i], p[i + 1]);
+    if (p.length <= 2) ctx.lineTo(p[0] + .01, p[1]); ctx.stroke(); ctx.restore(); return;
+  }
   if (s.t === "pen") {
     const p = decNums(s.p); ctx.beginPath(); ctx.moveTo(p[0], p[1]);
     for (let i = 2; i < p.length; i += 2) ctx.lineTo(p[i], p[i + 1]);
@@ -3006,10 +3092,10 @@ function drawShape(ctx, s, m) {
   } else if (s.t === "text") {
     const fs = s.s || b * MTXT.M, lines = String(s.txt || "").split("\n");
     ctx.font = `700 ${fs}px Inter, Arial, sans-serif`; ctx.textBaseline = "top";
-    ctx.lineWidth = fs * .2; ctx.strokeStyle = s.c === "#ffffff" ? "rgba(0,0,0,.8)" : "rgba(255,255,255,.92)";
+    ctx.lineWidth = fs * .2; ctx.strokeStyle = isLight(s.c) ? "rgba(0,0,0,.8)" : "rgba(255,255,255,.92)";
     lines.forEach((ln, i) => { ctx.strokeText(ln, s.x, s.y + i * fs * 1.2); ctx.fillText(ln, s.x, s.y + i * fs * 1.2); });
   } else if (s.t === "mk") {
-    const r = s.r || b * 9, light = s.c === "#ffffff" || s.c === "#f9a825";
+    const r = s.r || b * 9, light = isLight(s.c);
     ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, Math.PI * 2); ctx.fill();
     ctx.lineWidth = r * .18; ctx.strokeStyle = light ? "#111" : "#fff"; ctx.stroke();
     ctx.fillStyle = light ? "#111" : "#fff"; ctx.font = `800 ${r * 1.1}px Inter, Arial, sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
@@ -3106,7 +3192,7 @@ async function mapImageUrl(m, maxW = 1800) {
   const im = await loadImg(m.img.id), k = Math.min(1, maxW / im.width), cv = mkCanvas(Math.round(im.width * k), Math.round(im.height * k)), g = cv.getContext("2d");
   g.drawImage(im, 0, 0, cv.width, cv.height);
   const s0 = (im.width / m.crop.w) * k; g.setTransform(s0, 0, 0, s0, -m.crop.x * s0, -m.crop.y * s0);
-  liveShapes(m.shapes).forEach(s => drawShape(g, s, m));
+  paintShapes(g, liveShapes(m.shapes), m);
   const url = cv.toDataURL("image/jpeg", .9); prevCache.set(key, url); return url;
 }
 
@@ -3194,7 +3280,7 @@ function renderMaps(fv) {
     if (list.children[i] !== card) list.insertBefore(card, list.children[i] || null);
     $(".mtitle", card).innerHTML = `<colgroup><col class="c-mark" style="width:118px"><col style="width:20%"><col class="c-act"><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPEAMENTO</td><td class="act c-act">${esc(m.title || "")}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr>`;
     const mks = markersOf(m.shapes);
-    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => { const k = `mk:${m.id}:${s.id}`, ph = linkedPhotos(k); return `<li><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${lk && !ph.length ? "" : `<button type="button" class="mph noprint" data-mkph="${esc(m.id)}|${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("")}</ol>` : "";
+    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => { const k = `mk:${m.id}:${s.id}`, ph = linkedPhotos(k); return `<li><span class="mdot" style="background:${esc(s.c)};color:${isLight(s.c) ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${lk && !ph.length ? "" : `<button type="button" class="mph noprint" data-mkph="${esc(m.id)}|${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("")}</ol>` : "";
     $$(".mnotes img[data-ph]", card).forEach(im => { const p = cur.photos.find(x => x.id === im.dataset.ph); if (p) mediaSrc(p).then(src => { if (src) im.src = src; }); });
     $(".mbtns", card).innerHTML = `<button class="btn sm primary" type="button" data-open="${m.id}">${lk ? "Abrir" : "Abrir e editar"}</button>${lk ? "" : `<button class="btn sm" type="button" data-ren="${m.id}">Renomear</button><button class="btn sm ghost danger" type="button" data-delmap="${m.id}">Excluir</button>`}<span class="sub" style="margin-left:auto">${m.ptitle ? "Planta: " + esc(m.ptitle) + " · " : ""}Atualizado por ${who(m.updatedBy || m.createdBy)} em ${fmtFull(m.updatedAt || m.createdAt)}</span>`;
     const pv = $(".mprev", card), key = `${m.img && m.img.id}:${m.updatedAt || ""}`;
@@ -3218,7 +3304,7 @@ async function mapsClick(e) {
   if (t.dataset.ren) {
     const v = await modal({title: "Renomear mapeamento", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.title || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]});
     if (v) { patch(`fvs/${fid}/maps/${m.id}`, stamp({title: v})); logAct(fid, `Renomeou o mapeamento para “${v}”`); }
-  } else if (await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.title || "")}</b>, com todos os desenhos e notas, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true)) {
+  } else if (gestOk() && await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.title || "")}</b>, com todos os desenhos e notas, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true)) {
     try { await toTrash("map", `fvs/${fid}/maps/${m.id}`, m.title || "Mapeamento", fvCtx(fid), `fvs/${fid}`); logAct(fid, `Excluiu o mapeamento “${m.title || ""}”`); toast("Mapeamento enviado para a lixeira."); } catch {}
   }
 }
@@ -3261,7 +3347,7 @@ async function pickPlanta(defTitle) {
       $("#pl-list", bg).addEventListener("click", async e => {
         const d = e.target.closest("[data-delpl]"); if (!d) return; e.preventDefault();
         const p = plantas.get(d.dataset.delpl); if (!p) return;
-        if (!(await confirmBox("Excluir planta?", `A planta <b>${esc(p.title || "")}</b> sai da lista e vai para a <b>Lixeira</b> (${TRASH_DAYS} dias para restaurar). Os mapeamentos já criados continuam, mas não poderão ser recortados de novo enquanto ela estiver lá.`, "Excluir", true))) return;
+        if (!(gestOk() && await confirmBox("Excluir planta?", `A planta <b>${esc(p.title || "")}</b> sai da lista e vai para a <b>Lixeira</b> (${TRASH_DAYS} dias para restaurar). Os mapeamentos já criados continuam, mas não poderão ser recortados de novo enquanto ela estiver lá.`, "Excluir", true))) return;
         try { await toTrash("planta", `plantas/${p.id}`, p.title || "Planta", "Plantas dos mapeamentos"); plantas.delete(p.id); if (chosen === p.id) chosen = null; draw(bg); } catch {}
       });
       $("#pl-up", bg).onclick = () => $("#pl-file", bg).click();
@@ -3329,16 +3415,17 @@ async function openMapEditor(mid, ctx) {
   const ro = ctx.ro(), lp = k => ctx.photos ? linkedPhotos(k) : [];
   const ov = document.createElement("div"); ov.className = "med ui";
   const toolBtns = MTOOLS.map(([k, ic, tt]) => `<button class="tl" type="button" data-tool="${k}" title="${tt}" aria-label="${tt}">${ic}</button>`).join("");
-  const colorBtns = MCOLORS.map(([c, n]) => `<button class="sw" type="button" data-color="${c}" title="${n}" aria-label="Cor ${n}" style="background:${c}"></button>`).join("");
+  const colorBtns = `<button class="cpick" type="button" data-cpick aria-label="Editar cores"><i></i><span class="cpick-tip">Editar cores</span></button>`;
   ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-x>✕ Fechar</button><b class="med-title"></b>${ro ? `<span class="med-tip">Somente visualização</span>` : `<button class="btn sm" type="button" data-crop>✂ Recortar</button>`}</div>
     ${ro ? "" : `<div class="med-tools"><div class="mt-row">${toolBtns}</div><span class="sep mt-sep"></span><div class="mt-row">${colorBtns}<span class="sep"></span>
-      <label class="msz" title="Tamanho do traço, do texto e do marcador"><span>Tamanho</span><input type="range" data-size min="1" max="10" step="0.25" value="4" aria-label="Tamanho"><i class="msz-dot"></i></label>
+      <label class="msz" title="Tamanho do traço, do texto, do marcador e da borracha"><span>Tamanho</span><input type="range" data-size min="1" max="10" step="0.25" value="4" aria-label="Tamanho"><i class="msz-dot"></i></label>
+      <label class="msz mop" title="Opacidade do desenho (ou do desenho selecionado)"><span>Opacidade</span><input type="range" data-alpha min="10" max="100" step="5" value="100" aria-label="Opacidade"><b data-alphav>100%</b></label>
       <button class="tl hidden" type="button" data-delsel title="Apagar o desenho selecionado" aria-label="Apagar seleção">🗑</button>
       <span class="sep"></span><button class="tl" type="button" data-undo title="Desfazer" aria-label="Desfazer">↶</button><button class="tl" type="button" data-redo title="Refazer" aria-label="Refazer">↷</button></div><span class="med-tip" data-tip></span></div>`}
     <div class="med-main"><div class="med-cv"><div class="mload" style="color:#fff">Carregando planta…</div><div class="med-zoom"><button type="button" data-z="1.4" aria-label="Aproximar">+</button><button type="button" data-z="0.7" aria-label="Afastar">−</button><button type="button" data-z="fit" aria-label="Ajustar">⤢</button></div></div>
     <aside class="med-side"><div class="mnotes-t">NOTAS DOS MARCADORES</div><ol class="med-notes"></ol><p class="sub med-help">${ro ? "" : "Use ① para marcar um ponto com nota. Com ↖ Selecionar, toque num desenho para mover, mudar o tamanho ou a cor. Toque numa nota da lista para editar o texto."}</p></aside></div>`;
   document.body.appendChild(ov); document.body.classList.add("noscroll");
-  const st = medState = {mid, fid, tool: ro ? "pan" : "pen", color: MCOLORS[0][0], size: 4, sel: null, loc: {}, undo: [], redo: [], draft: null, logged: false};
+  const st = medState = {mid, fid, tool: ro ? "pan" : "pen", color: (() => { try { return localStorage.getItem("fvs-cor") || MCOLORS[0][0]; } catch { return MCOLORS[0][0]; } })(), alpha: 1, size: 4, sel: null, loc: {}, undo: [], redo: [], draft: null, logged: false};
   const title = () => $(".med-title", ov).textContent = m.title || "Mapeamento";
   title();
   const shapesNow = () => ({...(m.shapes || {}), ...st.loc});
@@ -3358,7 +3445,7 @@ async function openMapEditor(mid, ctx) {
     v.draw(); notes();
   };
   const commit = (sid, before, after) => { write(sid, after); st.undo.push({sid, before, after}); st.redo.length = 0; };
-  const addShape = sh => { const sid = uid("s"); commit(sid, null, {...sh, c: sh.c || st.color, z: Date.now(), del: false, by: me}); return sid; };
+  const addShape = sh => { const sid = uid("s"); commit(sid, null, {...sh, c: sh.c || st.color, ...(sh.t !== "rub" && st.alpha < 1 ? {o: st.alpha} : {}), z: Date.now(), del: false, by: me}); return sid; };
   const delShape = s => { const {id, ...rest} = s; commit(id, {...rest, del: false}, {...rest, del: true}); };
   const topHit = (p, tolPx = 10) => { const L = liveShapes(shapesNow()); const tol = tolPx / scr(); for (let i = L.length - 1; i >= 0; i--) if (hitShape(L[i], p[0], p[1], tol, m)) return L[i]; return null; };
   async function editText(s, at) {
@@ -3393,6 +3480,7 @@ async function openMapEditor(mid, ctx) {
         return;
       }
       if (st.tool === "pen") st.draft = {t: "pen", pts: [...q], c: st.color, w: SZ.w(st.size) * b};
+      else if (st.tool === "rub") st.draft = {t: "rub", pts: [...q], w: SZ.w(st.size) * b * 4};
       else if (["line", "arrow", "rect", "ell"].includes(st.tool)) st.draft = {t: st.tool, a4: [...q, ...q], c: st.color, w: SZ.w(st.size) * b};
       else if (st.tool === "erase") { st.erased = new Set(); const h = topHit(q); if (h) { st.erased.add(h.id); delShape(h); } }
       else st.draft = null;
@@ -3406,7 +3494,7 @@ async function openMapEditor(mid, ctx) {
       }
       if (st.tool === "erase") { const h = topHit(q); if (h && !st.erased.has(h.id)) { st.erased.add(h.id); delShape(h); } return; }
       if (!d) return;
-      if (d.t === "pen") { const n = d.pts.length; if (Math.hypot(q[0] - d.pts[n - 2], q[1] - d.pts[n - 1]) * scr() >= 1.2) d.pts.push(q[0], q[1]); }
+      if (d.t === "pen" || d.t === "rub") { const n = d.pts.length; if (Math.hypot(q[0] - d.pts[n - 2], q[1] - d.pts[n - 1]) * scr() >= 1.2) d.pts.push(q[0], q[1]); }
       else { d.a4[2] = q[0]; d.a4[3] = q[1]; }
       v.draw();
     },
@@ -3420,6 +3508,7 @@ async function openMapEditor(mid, ctx) {
       if (st.tool === "text" || st.tool === "mk") { const h = topHit(q, 14); if (h && h.t === (st.tool === "mk" ? "mk" : "text")) editText(h); else editText(null, q); return; }
       if (!d) { v.draw(); return; }
       if (d.t === "pen") addShape({t: "pen", p: encNums(simplify(d.pts, .6 / scr())), w: d.w, c: d.c});
+      else if (d.t === "rub") addShape({t: "rub", p: encNums(simplify(d.pts, .6 / scr())), w: d.w});
       else if (Math.hypot(d.a4[2] - d.a4[0], d.a4[3] - d.a4[1]) * scr() >= 4) addShape({t: d.t, a: encNums(d.a4), w: d.w, c: d.c});
       v.draw();
     },
@@ -3427,23 +3516,24 @@ async function openMapEditor(mid, ctx) {
     paint: (c) => {
       const k0 = v.img.width / m.crop.w; c.transform(k0, 0, 0, k0, -m.crop.x * k0, -m.crop.y * k0);
       const g = st.drag;
-      liveShapes(shapesNow()).forEach(s => drawShape(c, g && g.id === s.id ? moveShape(s, g.dx, g.dy) : s, m));
+      const d0 = st.draft, dr = d0 && (d0.t === "pen" || d0.t === "rub" ? {t: d0.t, p: d0.pts.join(","), c: d0.c, w: d0.w, o: st.alpha} : {t: d0.t, a: d0.a4.join(","), c: d0.c, w: d0.w, o: st.alpha});
+      paintShapes(c, [...liveShapes(shapesNow()).map(s => g && g.id === s.id ? moveShape(s, g.dx, g.dy) : s), ...(dr ? [dr] : [])], m);
       const sel = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
       if (sel) {
         const [x0, y0, x1, y1] = shapeBox(g && g.id === sel.id ? moveShape(sel, g.dx, g.dy) : sel, m), k = scr(), pd = 6 / k;
         c.save(); c.lineWidth = 2 / k; c.setLineDash([6 / k, 4 / k]); c.strokeStyle = "#fff"; c.strokeRect(x0 - pd, y0 - pd, x1 - x0 + 2 * pd, y1 - y0 + 2 * pd);
         c.lineDashOffset = 5 / k; c.strokeStyle = "#1565c0"; c.strokeRect(x0 - pd, y0 - pd, x1 - x0 + 2 * pd, y1 - y0 + 2 * pd); c.restore();
       }
-      const d = st.draft;
-      if (d) drawShape(c, d.t === "pen" ? {t: "pen", p: d.pts.join(","), c: d.c, w: d.w} : {t: d.t, a: d.a4.join(","), c: d.c, w: d.w}, m);
     }
   });
   host.insertBefore(v.cv, host.firstChild); v.resize();
   $$(".med-zoom [data-z]", ov).forEach(b => b.onclick = () => b.dataset.z === "fit" ? v.fit() : v.zoomBy(+b.dataset.z));
-  const TIPS = {sel: "Toque num desenho para selecionar e arraste para mover. Com ele selecionado, mude o tamanho ou a cor.", pan: "Arraste para mover a planta. Dois dedos ou a roda do mouse dão zoom.", pen: "Desenhe à mão livre.", line: "Arraste para traçar a linha.", arrow: "Arraste do início até a ponta da seta.", rect: "Arraste para desenhar o retângulo.", ell: "Arraste para desenhar o círculo.", text: "Toque onde vai o texto. Toque num texto existente para editar.", mk: "Toque para pôr um marcador numerado com nota.", erase: "Toque ou passe sobre um desenho para apagar."};
+  const TIPS = {sel: "Toque num desenho para selecionar e arraste para mover. Com ele selecionado, mude o tamanho ou a cor.", pan: "Arraste para mover a planta. Dois dedos ou a roda do mouse dão zoom.", rub: "Passe a borracha por cima do que quer apagar. Ela apaga só os desenhos, nunca a planta. O tamanho vem do controle Tamanho.", pen: "Desenhe à mão livre.", line: "Arraste para traçar a linha.", arrow: "Arraste do início até a ponta da seta.", rect: "Arraste para desenhar o retângulo.", ell: "Arraste para desenhar o círculo.", text: "Toque onde vai o texto. Toque num texto existente para editar.", mk: "Toque para pôr um marcador numerado com nota.", erase: "Toque ou passe sobre um desenho para apagar."};
   const syncTools = () => {
     $$("[data-tool]", ov).forEach(b => b.classList.toggle("on", b.dataset.tool === st.tool));
-    $$("[data-color]", ov).forEach(b => b.classList.toggle("on", b.dataset.color === st.color));
+    const selC = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
+    const cp = $("[data-cpick] i", ov); if (cp) { cp.style.background = selC && selC.c ? selC.c : st.color; }
+    const al = $("[data-alpha]", ov); if (al && document.activeElement !== al) { const o = selC ? (selC.o != null ? selC.o : 1) : st.alpha; al.value = Math.round(o * 100); $("[data-alphav]", ov).textContent = Math.round(o * 100) + "%"; }
     const tp = $("[data-tip]", ov); if (tp) tp.textContent = TIPS[st.tool] || "";
     host.dataset.tool = st.tool;
     const sz = $("[data-size]", ov); if (sz) { const selS = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel); sz.value = selS ? sizeOf(selS, m) : st.size; dotPreview(); }
@@ -3451,12 +3541,12 @@ async function openMapEditor(mid, ctx) {
   };
   function dotPreview() {
     const sz = $("[data-size]", ov), dot = $(".msz-dot", ov); if (!sz || !dot) return;
-    const d = 3 + szMap([1, 7, 22], +sz.value); dot.style.width = dot.style.height = d + "px"; dot.style.background = st.color;
+    const d = 3 + szMap([1, 7, 22], +sz.value) * (st.tool === "rub" ? 2 : 1); dot.style.width = dot.style.height = d + "px"; dot.style.background = st.tool === "rub" ? "transparent" : st.color; dot.style.opacity = st.tool === "rub" ? 1 : st.alpha;
   }
   function select(id) { st.sel = id; if (id) { st.tool = "sel"; } syncTools(); v && v.draw(); }
   function notes() {
     const L = markersOf(shapesNow());
-    $(".med-notes", ov).innerHTML = L.length ? L.map(s => { const k = `mk:${mid}:${s.id}`, ph = lp(k); return `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${!ctx.photos || (ro && !ph.length) ? "" : `<button type="button" class="mph" data-mkph="${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
+    $(".med-notes", ov).innerHTML = L.length ? L.map(s => { const k = `mk:${mid}:${s.id}`, ph = lp(k); return `<li data-sid="${esc(s.id)}"><span class="mdot" style="background:${esc(s.c)};color:${isLight(s.c) ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${!ctx.photos || (ro && !ph.length) ? "" : `<button type="button" class="mph" data-mkph="${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("") : `<li class="sub" style="list-style:none">Nenhum marcador ainda.</li>`;
     $$(".med-notes img[data-ph]", ov).forEach(im => { const p = cur && cur.photos.find(x => x.id === im.dataset.ph); if (p) mediaSrc(p).then(src => { if (src) im.src = src; }); });
   }
   const mkPhotos = s => openPhotoLinks(`mk:${mid}:${s.id}`, `Fotos do marcador ${s.n}${s.txt ? " – " + s.txt : ""}`, {local: m.title || ""}, !ro);
@@ -3477,11 +3567,24 @@ async function openMapEditor(mid, ctx) {
   document.addEventListener("keydown", onKey);
   if (!ro) {
     $$("[data-tool]", ov).forEach(b => b.onclick = () => { st.tool = b.dataset.tool; if (st.tool !== "sel") st.sel = null; syncTools(); v.draw(); });
-    $$("[data-color]", ov).forEach(b => b.onclick = () => {
-      st.color = b.dataset.color;
+    $("[data-cpick]", ov).onclick = async () => {
+      const sh0 = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
+      const hex = await colorDialog(sh0 && sh0.c ? sh0.c : st.color); if (!hex) return;
+      st.color = hex; try { localStorage.setItem("fvs-cor", hex); } catch {}
       const sh = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
-      if (sh && sh.c !== st.color) { const {id, ...rest} = sh; commit(id, {...rest}, {...rest, c: st.color, del: false}); }
-      syncTools();
+      if (sh && sh.c !== hex && sh.t !== "rub") { const {id, ...rest} = sh; commit(id, {...rest}, {...rest, c: hex, del: false}); }
+      syncTools(); dotPreview();
+    };
+    // Opacidade: igual ao Tamanho (mostra arrastando, grava ao soltar)
+    let alBefore = null;
+    $("[data-alpha]", ov).addEventListener("input", e => {
+      const val = Math.max(.1, Math.min(1, +e.target.value / 100)); $("[data-alphav]", ov).textContent = Math.round(val * 100) + "%";
+      const sh = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
+      if (sh) { const {id, ...rest} = sh; if (!alBefore || alBefore.id !== id) alBefore = {id, rest: {...rest}}; st.loc[id] = {...rest, o: val}; v.draw(); }
+      else { st.alpha = val; dotPreview(); }
+    });
+    $("[data-alpha]", ov).addEventListener("change", () => {
+      if (alBefore) { const cur2 = st.loc[alBefore.id]; commit(alBefore.id, alBefore.rest, {...cur2, del: false}); alBefore = null; }
     });
     // Tamanho: arrastar mostra na hora; ao soltar, grava (e entra no desfazer)
     let szBefore = null;
@@ -3757,7 +3860,7 @@ function renderGapeTable(r, spec) {
     $("#g-pdf", v).onclick = exportGapePdf;
     if (!ro) {
       $("#g-del", v).onclick = async () => {
-        if (!(await confirmBox("Excluir ficha?", `A ficha <b>${esc(spec.nome)}${r.head && r.head.torre ? " – Torre " + esc(r.head.torre) : ""}</b> e todas as linhas vão para a <b>Lixeira</b>, onde podem ser restauradas em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+        if (!(gestOk() && await confirmBox("Excluir ficha?", `A ficha <b>${esc(spec.nome)}${r.head && r.head.torre ? " – Torre " + esc(r.head.torre) : ""}</b> e todas as linhas vão para a <b>Lixeira</b>, onde podem ser restauradas em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
         try { await toTrash("gape", `gape/${rid}`, `${spec.nome}${r.head && r.head.torre ? " – Torre " + r.head.torre : ""}`, "GAPE" + (r.head && r.head.obra ? " · " + r.head.obra : "")); gapes.delete(rid); location.hash = "gape"; toast("Ficha enviada para a lixeira."); } catch {}
       };
       $("#gt-add", v).onclick = () => { const o = Math.max(0, ...gItems().map(i => i.o || 0)) + 1, at = nowIso(); create(`gape/${rid}/itens/${uid("i")}`, {o, apto: "", tipo: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); touchGape(); };
@@ -3836,7 +3939,7 @@ function renderScansPanel(r) {
   pn.onclick = async e => {
     const vv = e.target.closest("[data-sview]"); if (vv) { const s = sc[+vv.dataset.sview]; const im = await loadImg(s.id).catch(() => null); if (im) gLightbox(await rotatedUrl(im, s.rot || 0)); return; }
     const rt = e.target.closest("[data-srot]"); if (rt) { const n = sc.map((s, i) => i === +rt.dataset.srot ? {...s, rot: ((s.rot || 0) + 90) % 360} : s); patch(`gape/${rid}`, stamp({scans: n})); return; }
-    const dl = e.target.closest("[data-sdel]"); if (dl && await confirmBox("Remover folha?", "A folha digitalizada sai deste relatório.", "Remover", true)) { const s = sc[+dl.dataset.sdel]; patch(`gape/${rid}`, stamp({scans: sc.filter((_, i) => i !== +dl.dataset.sdel)})); remove(`blobs/${s.id}`).catch(() => {}); }
+    const dl = e.target.closest("[data-sdel]"); if (dl && gestOk() && await confirmBox("Remover folha?", "A folha digitalizada sai deste relatório.", "Remover", true)) { const s = sc[+dl.dataset.sdel]; patch(`gape/${rid}`, stamp({scans: sc.filter((_, i) => i !== +dl.dataset.sdel)})); remove(`blobs/${s.id}`).catch(() => {}); }
   };
 }
 const thumbCache = new Map();
@@ -3964,7 +4067,7 @@ function renderGape() {
     if (!ro) {
       $("#g-add", v).onclick = () => { const o = Math.max(0, ...gItems().map(i => i.o || 0)) + 1, at = nowIso(); create(`gape/${rid}/itens/${uid("i")}`, {o, criada: gNow(), desc: "", com: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); touchGape(); setTimeout(() => { const last = $("#g-items .gi:last-child [data-f=desc]"); if (last) last.focus(); }, 400); };
       $("#g-del", v).onclick = async () => {
-        if (!(await confirmBox("Excluir relatório?", `O relatório <b>${esc(r.titulo || "sem título")}</b>, com todos os itens, fotos e comentários, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+        if (!(gestOk() && await confirmBox("Excluir relatório?", `O relatório <b>${esc(r.titulo || "sem título")}</b>, com todos os itens, fotos e comentários, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
         try { await toTrash("gape", `gape/${rid}`, r.titulo || "Relatório GAPE", "GAPE"); gapes.delete(rid); location.hash = "gape"; toast("Relatório enviado para a lixeira."); } catch {}
       };
       ["#g-pic", "#g-cam"].forEach(sel => $(sel, v).onchange = async e => {
@@ -4233,11 +4336,13 @@ function staticize(orig, clone) {
   clone.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
   return clone;
 }
-async function exportPdf() {
+async function exportPdf(soMapas) {
+  soMapas = soMapas === true;
   const fv = fvs.get(cur.id); if (!fv) return;
+  if (soMapas && !(cur.maps || []).some(m => m.img) && !(mapa && mapa.img)) { toast("Esta FV ainda não tem mapeamento."); return; }
   const dl = await claude.use("downloads");
   if (!dl) { toast("Este navegador não permite baixar arquivos daqui."); return; }
-  const btn = $("#b-pdf"); btn.disabled = true; const old = btn.textContent; btn.textContent = "Gerando PDF…";
+  const btn = $(soMapas ? "#b-maps" : "#b-pdf"); btn.disabled = true; const old = btn.textContent; btn.textContent = "Gerando PDF…";
   const root = document.createElement("div"); root.id = "print-root"; root.className = "ui"; document.body.appendChild(root);
   try {
     await Promise.all([loadScript(LIBS.h2c), loadScript(LIBS.jspdf)]);
@@ -4245,7 +4350,7 @@ async function exportPdf() {
     const page = (inner, foot) => { const d = document.createElement("div"); d.className = "sheet-page"; d.appendChild(inner);
       const ct = inner.querySelector(".chk-tbl"), need = ct ? parseInt(ct.style.minWidth || "0", 10) + 36 : 0; if (need > 1160) d.style.width = need + "px"; const f = document.createElement("div"); f.className = "pfoot"; f.textContent = foot || stamp; d.appendChild(f); root.appendChild(d); return d; };
     const sections = [];
-    const fvSheet = $("#sheet-fv");
+    const fvSheet = soMapas ? null : $("#sheet-fv");
     if (fvSheet) {
       const nF = fvFolhas(fv), back = cur.folha || 0;
       for (let k = 0; k < nF; k++) {
@@ -4263,14 +4368,14 @@ async function exportPdf() {
       if (!url) continue;
       const mks = markersOf(m.shapes), s = document.createElement("div"); s.className = "sheet msheet";
       s.innerHTML = `<table><colgroup><col style="width:118px"><col style="width:20%"><col><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPEAMENTO</td><td class="act">${esc(m.title || "")}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr></table>
-        <div class="mprev"><img src="${url}" alt=""></div>${mks.length ? `<div class="mnotes"><div class="mnotes-t">NOTAS</div><ol>${(await Promise.all(mks.map(async k => { const ph = await Promise.all(linkedPhotos(`mk:${m.id}:${k.id}`).slice(0, 4).map(p => mediaSrc(p))); return `<li><span class="mdot" style="background:${esc(k.c)};color:${k.c === "#ffffff" || k.c === "#f9a825" ? "#111" : "#fff"}">${k.n}</span><span>${esc(k.txt || "—")}${ph.filter(Boolean).length ? `<span class="mthumbs">${ph.filter(Boolean).map(src => `<img src="${src}" alt="">`).join("")}</span>` : ""}</span></li>`; }))).join("")}</ol></div>` : ""}`;
+        <div class="mprev"><img src="${url}" alt=""></div>${mks.length ? `<div class="mnotes"><div class="mnotes-t">NOTAS</div><ol>${(await Promise.all(mks.map(async k => { const ph = await Promise.all(linkedPhotos(`mk:${m.id}:${k.id}`).slice(0, 4).map(p => mediaSrc(p))); return `<li><span class="mdot" style="background:${esc(k.c)};color:${isLight(k.c) ? "#111" : "#fff"}">${k.n}</span><span>${esc(k.txt || "—")}${ph.filter(Boolean).length ? `<span class="mthumbs">${ph.filter(Boolean).map(src => `<img src="${src}" alt="">`).join("")}</span>` : ""}</span></li>`; }))).join("")}</ol></div>` : ""}`;
       sections.push(page(s));
     }
-    const f007 = $("#sheet-f007");
+    const f007 = soMapas ? null : $("#sheet-f007");
     if (f007 && cur.obs.some(o => o.sheet === "f007")) { const c = staticize(f007, f007.cloneNode(true)); c.querySelectorAll(".prob-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c)); }
-    const pda = $("#sheet-pda");
+    const pda = soMapas ? null : $("#sheet-pda");
     if (pda && cur.pda.length) { const c = staticize(pda, pda.cloneNode(true)); c.querySelectorAll(".pda-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c)); }
-    if (cur.photos.length) {
+    if (!soMapas && cur.photos.length) {
       const w = document.createElement("div"); w.className = "sheet";
       const itemOf = id => (fv.items || []).find(i => i.id === id);
       const chunks = []; for (let i = 0; i < cur.photos.length; i += 6) chunks.push(cur.photos.slice(i, i + 6));
@@ -4300,10 +4405,10 @@ async function exportPdf() {
       }
     }
     const safe = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9-]+/g, "_").replace(/^_|_$/g, "");
-    const filename = `${safe(fv.code)}_${safe(fv.local) || "sem-local"}_${today()}.pdf`;
+    const filename = `${safe(fv.code)}_${safe(fv.local) || "sem-local"}${soMapas ? "_mapeamentos" : ""}_${today()}.pdf`;
     await dl.save({filename, data: pdf.output("blob")});
-    toast("PDF pronto.");
-    logAct(cur.id, "Exportou a FV em PDF");
+    toast(soMapas ? "PDF dos mapeamentos pronto." : "PDF pronto.");
+    logAct(cur.id, soMapas ? "Baixou os mapeamentos em PDF" : "Exportou a FV em PDF");
   } catch (e) {
     const c = e && e.code;
     if (c === "declined") toast("Download cancelado.");
@@ -4765,7 +4870,7 @@ function renderSoloSub(key, noPend) {
 }
 async function deleteSolo() {
   const sid = scur.id, t = solos.get(sid);
-  if (!(await confirmBox("Excluir trecho?", `O trecho <b>${esc(t.nome || "")}</b>, com a demarcação, os ensaios e os documentos anexados, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+  if (!(gestOk() && await confirmBox("Excluir trecho?", `O trecho <b>${esc(t.nome || "")}</b>, com a demarcação, os ensaios e os documentos anexados, vai para a <b>Lixeira</b>, onde pode ser restaurado em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
   try {
     closeSolo();
     await toTrash("solo", `solos/${sid}`, t.nome || "Trecho", ["Solos", t.folder && folders.has(t.folder) ? "Pasta " + pathText(t.folder) : ""].filter(Boolean).join(" · "));
@@ -4792,7 +4897,7 @@ function renderSoloMaps(t) {
       if (b.dataset.open) return openMapEditor(b.dataset.open, soloCtx(sid2));
       const m = scur.maps.find(x => x.id === (b.dataset.ren || b.dataset.delmap)); if (!m || !canWrite) return;
       if (b.dataset.ren) { const nv = await modal({title: "Renomear demarcação", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.title || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]}); if (nv) patch(`solos/${sid2}/maps/${m.id}`, stamp({title: nv})); }
-      else if (await confirmBox("Excluir demarcação?", `A demarcação <b>${esc(m.title || "")}</b>, com todos os desenhos, vai para a <b>Lixeira</b>, onde pode ser restaurada em até ${TRASH_DAYS} dias.`, "Excluir", true)) { try { await toTrash("smap", `solos/${sid2}/maps/${m.id}`, m.title || "Demarcação", soloCtxTxt(sid2), `solos/${sid2}`); touchSolo(); toast("Demarcação enviada para a lixeira."); } catch {} }
+      else if (gestOk() && await confirmBox("Excluir demarcação?", `A demarcação <b>${esc(m.title || "")}</b>, com todos os desenhos, vai para a <b>Lixeira</b>, onde pode ser restaurada em até ${TRASH_DAYS} dias.`, "Excluir", true)) { try { await toTrash("smap", `solos/${sid2}/maps/${m.id}`, m.title || "Demarcação", soloCtxTxt(sid2), `solos/${sid2}`); touchSolo(); toast("Demarcação enviada para a lixeira."); } catch {} }
     });
   }
   if (!L.length) { box.innerHTML = `<div class="empty"><b>Trecho sem demarcação</b>Escolha o projeto, recorte a área e desenhe por cima a faixa terraplenada (hachura, contorno, textos e marcadores).${ro ? "" : `<div style="margin-top:14px"><button class="btn primary" type="button" data-newmap>+ Demarcar no projeto</button></div>`}</div>`; return; }
@@ -4806,7 +4911,7 @@ function renderSoloMaps(t) {
     if (list.children[i] !== card) list.insertBefore(card, list.children[i] || null);
     $(".mtitle", card).innerHTML = `<colgroup><col class="c-mark" style="width:118px"><col style="width:24%"><col class="c-act"><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">DEMARCAÇÃO DA FAIXA</td><td class="act c-act">${esc(m.title || "")}</td><td class="codebox"><b>F.045-QUALI</b>${esc(t.nome || "")}</td></tr>`;
     const mks = markersOf(m.shapes);
-    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => `<li><span class="mdot" style="background:${esc(s.c)};color:${s.c === "#ffffff" || s.c === "#f9a825" ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}</span></li>`).join("")}</ol>` : "";
+    $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => `<li><span class="mdot" style="background:${esc(s.c)};color:${isLight(s.c) ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}</span></li>`).join("")}</ol>` : "";
     $(".mbtns", card).innerHTML = `<button class="btn sm primary" type="button" data-open="${m.id}">${ro ? "Abrir" : "Abrir e desenhar"}</button>${ro ? "" : `<button class="btn sm" type="button" data-ren="${m.id}">Renomear</button><button class="btn sm ghost danger" type="button" data-delmap="${m.id}">Excluir</button>`}<span class="sub" style="margin-left:auto">${m.ptitle ? "Projeto: " + esc(m.ptitle) + " · " : ""}Atualizado por ${who(m.updatedBy || m.createdBy)} em ${fmtFull(m.updatedAt || m.createdAt)}</span>`;
     const pv = $(".mprev", card), key = `${m.img && m.img.id}:${m.updatedAt || ""}`;
     if (pv.dataset.key !== key && m.img && !(medState && medState.mid === m.id)) {
@@ -4918,8 +5023,8 @@ function renderSoloDocs(t, tipo) {
       const pv = e.target.closest("[data-pview]"); if (pv) { const p = pages[+pv.dataset.pview], im = await loadImg(p.id).catch(() => null); if (im) gLightbox(await rotatedUrl(im, p.rot || 0)); return; }
       if (!canWrite) return;
       const pr = e.target.closest("[data-prot]"); if (pr) { patch(`solos/${sid2}/docs/${d.id}`, stamp({pages: pages.map((p, i) => i === +pr.dataset.prot ? {...p, rot: ((p.rot || 0) + 90) % 360} : p)})); return; }
-      const pd = e.target.closest("[data-pdel]"); if (pd && await confirmBox("Remover página?", "A página sai deste documento.", "Remover", true)) { const p = pages[+pd.dataset.pdel]; patch(`solos/${sid2}/docs/${d.id}`, stamp({pages: pages.filter((_, i) => i !== +pd.dataset.pdel)})); remove(`blobs/${p.id}`).catch(() => {}); return; }
-      if (e.target.closest("[data-ddel]") && await confirmBox("Excluir documento?", `<b>${esc(d.titulo || "Documento")}</b> e todas as páginas vão para a <b>Lixeira</b>, onde podem ser restaurados em até ${TRASH_DAYS} dias.`, "Excluir", true)) { try { await toTrash("sdoc", `solos/${sid2}/docs/${d.id}`, d.titulo || "Documento", soloCtxTxt(sid2), `solos/${sid2}`); touchSolo(); toast("Documento enviado para a lixeira."); } catch {} }
+      const pd = e.target.closest("[data-pdel]"); if (pd && gestOk() && await confirmBox("Remover página?", "A página sai deste documento.", "Remover", true)) { const p = pages[+pd.dataset.pdel]; patch(`solos/${sid2}/docs/${d.id}`, stamp({pages: pages.filter((_, i) => i !== +pd.dataset.pdel)})); remove(`blobs/${p.id}`).catch(() => {}); return; }
+      if (e.target.closest("[data-ddel]") && gestOk() && await confirmBox("Excluir documento?", `<b>${esc(d.titulo || "Documento")}</b> e todas as páginas vão para a <b>Lixeira</b>, onde podem ser restaurados em até ${TRASH_DAYS} dias.`, "Excluir", true)) { try { await toTrash("sdoc", `solos/${sid2}/docs/${d.id}`, d.titulo || "Documento", soloCtxTxt(sid2), `solos/${sid2}`); touchSolo(); toast("Documento enviado para a lixeira."); } catch {} }
     });
   }
   $("[data-cnt]", box).textContent = L.length;
@@ -5541,7 +5646,7 @@ const LX = {
 const LX_ACT = {exc: "Excluiu (enviou para a lixeira)", rest: "Restaurou", apag: "Excluiu de vez", exp: `Prazo de ${TRASH_DAYS} dias venceu: apagado automaticamente`};
 const lxMark = (e, data) => String(e.id).startsWith("v_") ? Promise.resolve() : db.doc(`lixeira/${e.id}`).update(data);
 const lxDays = e => Math.ceil((new Date(e.exp) - Date.now()) / 864e5);
-const lxCan = e => canWrite && (!(LX[e.kind] || {}).gestor || isGestor);
+const lxCan = e => canWrite && isGestor;
 const lxNorm = t => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 const fvCtx = id => { const f = fvs.get(id); return f ? `FV ${f.code} – ${f.local || f.title}` : "FV"; };
 const soloCtxTxt = sid => { const t = solos.get(sid); return "Solos" + (t && t.nome ? " · " + t.nome : ""); };
@@ -5554,6 +5659,7 @@ async function ensureNames(ids) {
 /* exclusão reversível: o registro só ganha a marca "trashAt" e some das telas */
 async function toTrash(kind, path, label, ctx = "", pai = "") {
   if (!db || !canWrite) { toast("Você não tem permissão para excluir."); throw new Error("sem permissão"); }
+  if (!isGestor) { gestOk(); throw new Error("só gestor"); }
   const at = nowIso();
   try {
     await db.doc(path).update({trashAt: at, trashBy: me});
@@ -5600,7 +5706,7 @@ async function purgeEntry(e, st) {
 }
 async function restoreEntry(e) {
   const k = LX[e.kind] || {nome: "Item"};
-  if (k.gestor && !isGestor) return gestorOnly("Restaurar FV", "restaurar uma FV da lixeira");
+  if (!isGestor) return gestorOnly("Restaurar", "restaurar itens da lixeira");
   if (lxDays(e) <= 0) return toast(`O prazo de ${TRASH_DAYS} dias deste item já acabou.`);
   const pai = e.pai && lixAll().find(x => x.st === "lix" && x.path === e.pai);
   if (!(await confirmBox("Restaurar item?", `<b>${esc(k.nome)}: ${esc(e.label)}</b> volta para o lugar de onde foi excluído.${pai ? `<br><br><b>Atenção:</b> ${esc((LX[pai.kind] || {}).nome || "o item")} <b>${esc(pai.label)}</b>, onde ele fica, também está na lixeira. O item só volta a aparecer quando ela for restaurada.` : ""}`, "Restaurar"))) return;
@@ -5680,7 +5786,7 @@ function drawLix() {
       return `<div class="lx-item" data-id="${esc(e.id)}"><span class="lx-badge k-${esc(e.kind)}">${esc(k.tag || k.nome)}</span>
         <div class="lx-main"><b>${esc(e.label || k.nome)}</b><div class="meta">${e.ctx ? `<span>${esc(e.ctx)}</span>` : ""}<span>Excluído por ${who(e.by)} em ${fmtFull(e.at)}</span></div></div>
         <div class="lx-exp ${d <= 5 ? "soon" : ""}">${d === 1 ? "Último dia" : d + " dias"}<small>para apagar de vez</small></div>
-        <div class="lx-acts">${canWrite ? `<button class="btn sm dark ${can ? "" : "locked"}" type="button" data-lrest ${can ? "" : `title="Somente o gestor ou o administrador restaura FVs"`}>${can ? "" : "🔒 "}Restaurar</button>` : ""}${isGestor ? `<button class="btn sm ghost danger" type="button" data-lpurge>Excluir de vez</button>` : ""}</div></div>`;
+        <div class="lx-acts">${canWrite ? `<button class="btn sm dark ${can ? "" : "locked"}" type="button" data-lrest ${can ? "" : `title="Somente o gestor ou o administrador restaura itens"`}>${can ? "" : "🔒 "}Restaurar</button>` : ""}${isGestor ? `<button class="btn sm ghost danger" type="button" data-lpurge>Excluir de vez</button>` : ""}</div></div>`;
     }).join("") : `<div class="empty"><b>${itens.length ? "Nada encontrado com esse filtro" : "A lixeira está vazia"}</b>${itens.length ? "Limpe a busca ou escolha outro tipo." : "FVs, mapeamentos, fotos, documentos, fichas GAPE e trechos de solos excluídos aparecem aqui."}</div>`;
   } else {
     const list = evs.filter(x => match(x.e, x.by, x.act)), shown = list.slice(0, 300);
@@ -5922,7 +6028,7 @@ async function plMoreMenu(pid) {
     if (upd.lisa !== p.lisa) plLog(pid, `Mudou parede lisa para “${upd.lisa}” (muda a regra de status)`);
     patch(`planic/${pid}`, stamp(upd)); planics.set(pid, {...p, ...upd}); renderPlanicHead(); plBody(); plTouch(pid);
   } else if (a === "del") {
-    if (!(await confirmBox("Excluir planilha?", `A planilha <b>${esc(p.nome)}</b>, com ${pcur ? pcur.rows.size : "todas as"} linha(s) e os mapeamentos, vai para a <b>Lixeira</b>. Dá para restaurar em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
+    if (!(gestOk() && await confirmBox("Excluir planilha?", `A planilha <b>${esc(p.nome)}</b>, com ${pcur ? pcur.rows.size : "todas as"} linha(s) e os mapeamentos, vai para a <b>Lixeira</b>. Dá para restaurar em até ${TRASH_DAYS} dias.`, "Excluir", true))) return;
     try { await toTrash("planic", `planic/${pid}`, p.nome || "Planilha de planicidade", "Qualidade · Planicidade"); planics.delete(pid); location.hash = "planic"; toast("Planilha enviada para a lixeira."); } catch {}
   }
 }
@@ -6425,9 +6531,9 @@ function plMapTab(box) {
   $$("[data-open]", box).forEach(b => b.onclick = () => plOpenMap(b.dataset.open));
   $$("[data-troca]", box).forEach(b => b.onclick = () => plTrocaPlanta(b.dataset.troca));
   $$("[data-modelo]", box).forEach(b => b.onclick = () => plSaveModel(b.dataset.modelo));
-  $$("[data-delmod]", box).forEach(b => b.onclick = async () => { const x = plModels.get(b.dataset.delmod); if (!x || !(await confirmBox("Excluir modelo?", `O modelo <b>${esc(x.nome || "")}</b> deixa de ser aplicado nas planilhas novas. As planilhas que já usam continuam iguais.`, "Excluir", true))) return; try { await db.doc(`plmodelos/${x.id}`).delete(); toast("Modelo excluído."); } catch {} });
+  $$("[data-delmod]", box).forEach(b => b.onclick = async () => { const x = plModels.get(b.dataset.delmod); if (!x || !(gestOk() && await confirmBox("Excluir modelo?", `O modelo <b>${esc(x.nome || "")}</b> deixa de ser aplicado nas planilhas novas. As planilhas que já usam continuam iguais.`, "Excluir", true))) return; try { await db.doc(`plmodelos/${x.id}`).delete(); toast("Modelo excluído."); } catch {} });
   $$("[data-ren]", box).forEach(b => b.onclick = async () => { const m = (p.maps || {})[b.dataset.ren]; const v = await modal({title: "Renomear mapeamento", body: `<label class="fld">Nome<input type="text" id="mn" value="${esc(m.nome || "")}" maxlength="120"></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mn", bg).value.trim()}]}); if (v) { patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.ren]: {nome: v}}})); } });
-  $$("[data-delm]", box).forEach(b => b.onclick = async () => { const m = (p.maps || {})[b.dataset.delm]; if (!(await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.nome || "")}</b> sai da lista. As medições da planilha continuam. Dá para restaurar aqui mesmo, em “Mapeamentos excluídos”.`, "Excluir", true))) return; patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.delm]: {del: true}}})); plLog(pcur.id, `Excluiu o mapeamento “${m.nome || ""}”`); });
+  $$("[data-delm]", box).forEach(b => b.onclick = async () => { const m = (p.maps || {})[b.dataset.delm]; if (!(gestOk() && await confirmBox("Excluir mapeamento?", `O mapeamento <b>${esc(m.nome || "")}</b> sai da lista. As medições da planilha continuam. Dá para restaurar aqui mesmo, em “Mapeamentos excluídos”.`, "Excluir", true))) return; patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.delm]: {del: true}}})); plLog(pcur.id, `Excluiu o mapeamento “${m.nome || ""}”`); });
   $$("[data-restm]", box).forEach(b => b.onclick = () => { patch(`planic/${pcur.id}`, stamp({maps: {[b.dataset.restm]: {del: false}}})); plLog(pcur.id, "Restaurou um mapeamento excluído"); });
   $$("img[data-prev]", box).forEach(im => { const m = maps.find(x => x.id === im.dataset.prev); if (m) plMapPreview(m, c).then(u => { im.src = u; }).catch(() => {}); });
 }
@@ -7158,6 +7264,7 @@ async function init() {
   }
   window.__onWriteError = writeErr;
   if (isGestor) $("#nav-team").classList.remove("hidden");
+  document.body.classList.toggle("ng", !isGestor);
   db.doc("config/escopo").onSnapshot(d => { const v = (d && d.exists && (typeof d.exists === "function" ? d.exists() : d.exists)) ? d.data() : null; escopo = {estrutura: (v && v.estrutura) || null, users: (v && v.users) || {}}; escopoLoaded = true; const h = location.hash; if (!h || /^#(sel|reg-|fab-|obra-|eq-)/.test(h) || !canEq(curFrente)) route(); else { renderSide(sideOn); renderCtxNav(); } }, () => { escopoLoaded = true; });
   renderSide(sideOn);
   try { const a = window.__fb && await window.__fb.getAccess(); if (a && a.idleMin !== undefined && a.idleMin !== null) idleMin = +a.idleMin || 0; } catch {}
