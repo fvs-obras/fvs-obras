@@ -150,7 +150,7 @@ async function exportAll({ files = true, onProgress = () => {} } = {}) {
     onProgress(`Lendo ${c}…`);
     (await getDocs(collection(fs, c))).forEach(d => put(`${c}/${d.id}`, d.data()));
   }
-  for (const p of ["config/access", "config/dict"]) { const s = await getDoc(doc(fs, p)); if (s.exists()) put(p, s.data()); }
+  for (const p of ["config/access", "config/dict", "config/escopo"]) { const s = await getDoc(doc(fs, p)); if (s.exists()) put(p, s.data()); }
   const fvSnap = await getDocs(collection(fs, "fvs")); let i = 0;
   for (const f of fvSnap.docs) {
     onProgress(`Lendo FVs… ${++i}/${fvSnap.size}`);

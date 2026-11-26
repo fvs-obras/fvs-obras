@@ -834,25 +834,65 @@ button.pl-kpi{cursor:pointer}button.pl-kpi:hover{border-color:#999}
 .pl-side li.sem{background:#fff4e5}
 @media (max-width:1180px){.xg-wrap.side{grid-template-columns:1fr}.xg-side{position:static}}
 @media (max-width:640px){.xg{height:62vh}.xg-title{grid-template-columns:1fr 70px}.xg-title .l{display:none}.xg-title b{font-size:12px;text-align:left}.xg-leg .sub{display:none}}
+
+/* navegação por regional › fábrica › obra › equipe */
+.ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
+.ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
+.ctxnav a:hover{opacity:1;background:rgba(255,255,255,.14)}.ctxnav a.on{opacity:1;background:#fff;color:var(--red)}
+.ctxnav .cn-sep{opacity:.6}
+.side-tg{display:none;background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff;border-radius:8px;width:38px;height:36px;font-size:18px;line-height:1}
+.sel-search{margin:0 0 16px;max-width:520px}
+.sel-search input{width:100%;min-height:44px;padding:10px 14px 10px 40px;border:1px solid var(--line);border-radius:999px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E") no-repeat 14px center}
+.sel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.sel-card{display:grid;gap:6px;align-content:start;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-decoration:none;color:var(--ink);min-height:170px;transition:border-color .15s,box-shadow .15s,transform .15s}
+.sel-card:hover{border-color:var(--red);box-shadow:0 6px 18px rgba(0,0,0,.08);transform:translateY(-2px)}
+.sel-card b{font-size:17px}.sel-card .d{color:var(--muted);font-size:13px}
+.sel-card .go{margin-top:auto;color:var(--red);font-weight:700;font-size:13px}
+.sel-ic,.eh-ic{display:grid;place-items:center;width:44px;height:44px;border-radius:10px;background:var(--red-soft);color:var(--red)}
+.sel-ic svg,.eh-ic svg{width:24px;height:24px}
+body.has-side main.wrap{margin-left:248px;max-width:none;padding:0 24px}
+.side{position:fixed;top:58px;left:0;bottom:0;width:232px;background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;z-index:15;display:flex;flex-direction:column;padding:14px 10px}
+.sd-h{padding:4px 8px 12px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.sd-o{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.sd-e{display:flex;align-items:center;gap:8px;font-weight:800;font-size:16px;margin:4px 0 6px}.sd-e span{color:var(--red);display:flex}
+.sd-t{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);text-decoration:none}.sd-t:hover{color:var(--red)}.sd-t svg{width:16px;height:16px}
+.sd-n{display:grid;gap:2px}.sd-f{margin-top:auto;padding-top:10px;border-top:1px solid var(--line)}
+.sd-n a{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;text-decoration:none;color:var(--graphite);font-weight:600;font-size:13.5px}
+.sd-n a:hover{background:var(--fill)}.sd-n a.on{background:var(--red-soft);color:var(--red)}
+.sd-n a span{flex:1}.sd-b{font-style:normal;font-size:11px;font-weight:800;min-width:18px;text-align:center;border-radius:999px;background:var(--fill);color:var(--ink);line-height:18px;padding:0 5px}.sd-b:empty{display:none}.sd-b.bad{background:#ffd166}
+.eh-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:6px 0 16px}
+.eh-top .code{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.eh-top h1{font-size:30px;margin:2px 0 4px}.eh-top .sub{color:var(--muted);font-size:15px}
+.eh-k{margin-bottom:18px}a.pl-kpi{text-decoration:none}a.pl-kpi:hover{border-color:#999}
+.eh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.eh-card{display:flex;gap:14px;align-items:flex-start;padding:18px;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-decoration:none;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+.eh-card:hover{border-color:var(--red);box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.eh-card .eh-ic{flex:none}.eh-l{display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.eh-card b{display:block;font-size:16px;margin:2px 0 4px}.eh-card p{margin:0;color:var(--muted);font-size:13px}
+.eh-x{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;color:var(--graphite);background:var(--fill);padding:2px 8px;border-radius:999px}
+.sc-list{display:grid;gap:6px;margin-bottom:16px}.sc-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.sc-row b{display:block;font-size:13px}.sc-g{margin:8px 0 0}.sc-g2{margin:4px 0 0 12px}
+@media (max-width:900px){body.has-side main.wrap{margin-left:0;padding:0 16px}.side{transform:translateX(-100%);transition:transform .2s;box-shadow:4px 0 18px rgba(0,0,0,.15);width:260px}body.side-open .side{transform:none}body.has-side .side-tg{display:block}}
+@media (max-width:760px){.ctxnav{order:3;flex:1 1 100%;margin-left:0;padding-bottom:8px;font-size:12px}.ctxnav a{padding:4px 6px}.side{top:0;z-index:40}}
 </style>
 </head>
 <body class="ui">
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#"><i class="tl-sym-w" role="img" aria-label="Tenda"></i><i class="brand-sep" aria-hidden="true"></i><b>FVs da Obra</b><span>Qualidade · Fichas de Verificação</span></a>
-    <nav class="main">
-      <a href="#infra" id="nav-infra" class="on">Infra</a>
-      <a href="#quali" id="nav-quali">Qualidade</a>
-      <a href="#gape" id="nav-gape">GAPE</a>
-      <a href="#painel" id="nav-painel">Painel</a>
-      <a href="#lixeira" id="nav-lix">Lixeira</a>
-      <a href="#equipe" id="nav-team" class="hidden">Gestão</a>
+    <button class="side-tg" id="side-tg" type="button" aria-label="Abrir menu da equipe">☰</button>
+    <nav class="ctxnav" id="ctxnav" aria-label="Onde você está"></nav>
+    <nav class="main hidden" aria-hidden="true">
+      <a href="#painel" id="nav-painel">Painel</a><a href="#lixeira" id="nav-lix">Lixeira</a><a href="#equipe" id="nav-team" class="hidden">Gestão</a>
     </nav>
     <div class="userbox" id="userbox"></div>
   </div>
 </header>
+<aside id="side" class="side hidden" aria-label="Menu da equipe"></aside>
 <main class="wrap">
   <div id="banners"></div>
+  <section id="view-sel" class="hidden"></section>
+  <section id="view-eqhome" class="hidden"></section>
   <div id="fbar" class="fbar hidden"><span class="fbar-n" id="fbar-n">Infraestrutura</span><div class="tabs" role="tablist" id="fbar-tabs"></div></div>
   <section id="view-list">
     <nav class="crumbs" id="crumbs" aria-label="Pastas"></nav>
@@ -934,15 +974,22 @@ const splitLbl = t => { const i = String(t).indexOf(":"); return i > 0 && i < 80
 const autosize = el => { if (el.tagName !== "TEXTAREA" || el.offsetParent === null) return; el.style.height = "auto"; el.style.height = el.scrollHeight + "px"; };
 const CATS = {INFR:"Infraestrutura", ESTR:"Estrutura", ACAB:"Acabamento", LOG:"Logística", OUTRO:"Outras"};
 const CAT_ORDER = ["INFR","ESTR","ACAB","LOG","OUTRO"];
-/* frentes de trabalho: o menu de cima é dividido por frente (Infra, Qualidade…) */
+/* equipes: depois de escolher regional, fábrica e obra, cada equipe tem a sua página inicial e a sua barra lateral */
 const FRENTES = {
-  infra: {nome: "Infraestrutura", curto: "Infra", cats: ["INFR"], tabs: [["infra", "FVs de infra"], ["solos", "Solos"], ["modelos", "Modelos"]]},
-  quali: {nome: "Qualidade", curto: "Qualidade", cats: ["ESTR", "ACAB", "LOG", "OUTRO"], tabs: [["quali", "FVs de qualidade"], ["planic", "Planicidade"], ["modelos", "Modelos"]]}
+  quali: {nome: "Qualidade", curto: "Qualidade", desc: "FVs gerais, planicidade e esquadro, painel e modelos.", cats: ["LOG", "OUTRO"], fv: true, mec: ["fvs", "planic", "painel", "modelos"]},
+  infra: {nome: "Infraestrutura", curto: "Infra", desc: "FVs de infra, solos (F.045), painel e modelos.", cats: ["INFR"], fv: true, mec: ["fvs", "solos", "painel", "modelos"]},
+  estr: {nome: "Estrutura", curto: "Estrutura", desc: "FVs de estrutura, painel e modelos.", cats: ["ESTR"], fv: true, mec: ["fvs", "painel", "modelos"]},
+  acab: {nome: "Acabamento", curto: "Acabamento", desc: "FVs de acabamento, painel e modelos.", cats: ["ACAB"], fv: true, mec: ["fvs", "painel", "modelos"]},
+  gape: {nome: "GAPE", curto: "GAPE", desc: "Relatórios do GAPE com fotos e fichas.", cats: [], fv: false, mec: ["gape"]}
 };
-let curFrente = (() => { try { return localStorage.getItem("fvs-frente") === "quali" ? "quali" : "infra"; } catch { return "infra"; } })();
-const catFrente = c => (c || "OUTRO") === "INFR" ? "infra" : "quali";
-const fvFrente = f => f && FRENTES[f.frente] ? f.frente : catFrente(f && f.cat);
-const catsOrdered = fr => [...FRENTES[fr].cats, ...CAT_ORDER.filter(c => !FRENTES[fr].cats.includes(c))];
+const FV_EQ = Object.keys(FRENTES).filter(k => FRENTES[k].fv);
+let curFrente = (() => { try { const v = localStorage.getItem("fvs-frente"); return FRENTES[v] ? v : "quali"; } catch { return "quali"; } })();
+const catFrente = c => ({INFR: "infra", ESTR: "estr", ACAB: "acab"})[c || "OUTRO"] || "quali";
+/* "equipe" é o campo novo; FVs antigas: frente "infra" fica na Infra, as de "qualidade" vão para a equipe da categoria */
+const fvFrente = f => f && FRENTES[f.equipe] && FRENTES[f.equipe].fv ? f.equipe : f && f.frente === "infra" ? "infra" : catFrente(f && f.cat);
+const folderEq = f => f && FRENTES[f.equipe] ? f.equipe : f && f.frente === "infra" ? "infra" : "";
+const catsOrdered = fr => { const c = (FRENTES[fr] || FRENTES.quali).cats; return [...c, ...CAT_ORDER.filter(x => !c.includes(x))]; };
+const eqFv = () => FRENTES[curFrente] && FRENTES[curFrente].fv ? curFrente : "quali";
 function setFrente(fr) { if (!FRENTES[fr]) return; if (fr !== curFrente) { curFrente = fr; filt.cat = ""; } try { localStorage.setItem("fvs-frente", fr); } catch {} }
 const ST = {
   "": {mk:"", cls:"E", name:"A verificar"},
@@ -1208,8 +1255,8 @@ async function folderDialog(id, parentDefault) {
   if (r === "del") return deleteFolder(id);
   if (id) { patch(`folders/${id}`, stamp({name: r.name, parent: r.parent})); toast("Pasta atualizada."); return; }
   const nid = uid("d"), at = nowIso();
-  const fr = r.parent && folders.get(r.parent) && folders.get(r.parent).frente ? folders.get(r.parent).frente : curFrente;
-  try { await create(`folders/${nid}`, {name: r.name, parent: r.parent, frente: fr, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); location.hash = "pasta-" + nid; } catch {}
+  const fr = r.parent && folders.get(r.parent) && folderEq(folders.get(r.parent)) ? folderEq(folders.get(r.parent)) : eqFv();
+  try { await create(`folders/${nid}`, {name: r.name, parent: r.parent, equipe: fr, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at}); location.hash = "pasta-" + nid; } catch {}
 }
 async function deleteFolder(id) {
   const f = folders.get(id); if (!f) return;
@@ -1234,17 +1281,18 @@ function folderStats(id, fr = curFrente) {
 /* a pasta aparece na frente marcada nela; sem marca, aparece onde tiver FVs daquela frente (pasta vazia aparece nas duas) */
 function folderInFrente(id, fr = curFrente) {
   const f = folders.get(id); if (!f || !fr) return true;
-  if (f.frente) return f.frente === fr;
+  if (folderEq(f)) return folderEq(f) === fr;
   const ids = descendants(id); let any = false, mine = false;
   fvs.forEach(v => { if (ids.has(folderOf(v))) { any = true; if (fvFrente(v) === fr) mine = true; } });
   if (mine) return true; if (any) return false;
-  for (const fid of ids) { const g = folders.get(fid); if (fid !== id && g && g.frente && g.frente !== fr) return false; }
+  for (const fid of ids) { const g = folders.get(fid); if (fid !== id && folderEq(g) && folderEq(g) !== fr) return false; }
   return true;
 }
 function frenteOfFolder(id) {
-  const f = folders.get(id); if (!f) return curFrente;
-  if (f.frente) return f.frente;
-  return folderInFrente(id, curFrente) ? curFrente : (curFrente === "infra" ? "quali" : "infra");
+  const f = folders.get(id); if (!f) return eqFv();
+  if (folderEq(f)) return folderEq(f);
+  if (folderInFrente(id, eqFv())) return eqFv();
+  return FV_EQ.find(k => folderInFrente(id, k)) || eqFv();
 }
 
 /* ---------- lista ---------- */
@@ -1252,13 +1300,13 @@ function renderList() {
   const box = $("#fv-list"); if (!fvsLoaded) return;
   if (curFolder && foldersLoaded && !folders.has(curFolder)) curFolder = "";
   const q = norm(filt.q).trim(), fold = curFolder, path = folderPath(fold);
-  const FR = FRENTES[curFrente];
-  $("#crumbs").innerHTML = fold ? `<a href="#${curFrente}">${esc(FR.nome)}</a>` + path.map((p, i) => `<span class="sep">/</span>${i < path.length - 1 ? `<a href="#pasta-${esc(p.id)}">${esc(p.name)}</a>` : `<span>${esc(p.name)}</span>`}`).join("") : "";
-  $("#list-title").textContent = fold ? folders.get(fold).name : (curFrente === "infra" ? "FVs de infraestrutura" : "FVs de qualidade");
+  const FR = FRENTES[eqFv()];
+  $("#crumbs").innerHTML = fold ? `<a href="#${eqFv()}">${esc(FR.nome)}</a>` + path.map((p, i) => `<span class="sep">/</span>${i < path.length - 1 ? `<a href="#pasta-${esc(p.id)}">${esc(p.name)}</a>` : `<span>${esc(p.name)}</span>`}`).join("") : "";
+  $("#list-title").textContent = fold ? folders.get(fold).name : "FVs · " + FR.nome;
   catSelect();
   $("#btn-edit-folder").classList.toggle("hidden", !fold);
   const scope = fold ? descendants(fold) : null;
-  const inScope = [...fvs.entries()].map(([id, d]) => ({id, ...d})).filter(f => fvFrente(f) === curFrente && (!scope || scope.has(folderOf(f))));
+  const inScope = [...fvs.entries()].map(([id, d]) => ({id, ...d})).filter(f => fvFrente(f) === eqFv() && (!scope || scope.has(folderOf(f))));
   const ab = inScope.filter(f => (f.status || "aberta") === "aberta").length;
   $("#list-sub").textContent = inScope.length ? `${ab} aberta${ab !== 1 ? "s" : ""} · ${inScope.length - ab} fechada${inScope.length - ab !== 1 ? "s" : ""}${fold ? " nesta pasta" : ""}` : (fold ? "Pasta vazia" : "Nenhuma FV criada ainda");
   const fbox = $("#folder-list");
@@ -1287,7 +1335,7 @@ function renderList() {
   fillNames();
 }
 function catSelect() {
-  const sel = $("#f-cat"), cats = catsOrdered(curFrente), key = cats.join();
+  const sel = $("#f-cat"), cats = catsOrdered(eqFv()), key = cats.join();
   if (sel.dataset.k !== key) { sel.dataset.k = key; sel.innerHTML = `<option value="">Todas as categorias</option>` + cats.map(c => `<option value="${c}">${CATS[c]}</option>`).join(""); }
   if (filt.cat && !cats.includes(filt.cat)) filt.cat = "";
   sel.value = filt.cat || "";
@@ -1300,8 +1348,8 @@ $("#btn-edit-folder").onclick = () => curFolder && folderDialog(curFolder);
 const sortedTemplates = () => [...templates.entries()].map(([id, t]) => ({id, ...t}))
   .sort((a, b) => (CAT_ORDER.indexOf(a.cat) - CAT_ORDER.indexOf(b.cat)) || String(a.code).localeCompare(String(b.code)));
 function renderTemplates() {
-  const box = $("#tpl-list"), q = norm(tplQ).trim(), fc = catsOrdered(curFrente), list = sortedTemplates().filter(t => !q || norm(`${t.code} ${t.title}`).includes(q));
-  const th = $("#view-tpl h1"); if (th) th.textContent = `Modelos de FV · ${FRENTES[curFrente].curto}`;
+  const box = $("#tpl-list"), q = norm(tplQ).trim(), fc = catsOrdered(eqFv()), list = sortedTemplates().filter(t => !q || norm(`${t.code} ${t.title}`).includes(q));
+  const th = $("#view-tpl h1"); if (th) th.textContent = `Modelos de FV · ${FRENTES[eqFv()].curto}`;
   if (!list.length && q) { box.innerHTML = `<div class="empty"><b>Nenhum modelo encontrado</b>Tente outra palavra.</div>`; return; }
   if (!list.length) { box.innerHTML = `<div class="empty"><b>Nenhum modelo cadastrado</b>Crie um modelo com os itens de conferência da atividade.</div>`; return; }
   box.innerHTML = fc.map(c => {
@@ -1326,7 +1374,7 @@ function tplItemRow(it) {
   </div>`;
 }
 async function tplEditor(id) {
-  const t = id ? templates.get(id) : {code:"", cat: curFrente === "infra" ? "INFR" : "ACAB", title:"", rev:"0", date:"", localLabel:"Unidade / Apto / Hall", checks:[], items:[{id:uid("i"), n:"1.1", g:"", t:"", tol:""}]};
+  const t = id ? templates.get(id) : {code:"", cat: FRENTES[eqFv()].cats[0] || "OUTRO", title:"", rev:"0", date:"", localLabel:"Unidade / Apto / Hall", checks:[], items:[{id:uid("i"), n:"1.1", g:"", t:"", tol:""}]};
   if (!t) return;
   const body = `<div class="grid2">
       <label class="fld">Código<input type="text" id="t-code" value="${esc(t.code)}" placeholder="FV010-ACAB"></label>
@@ -1383,7 +1431,7 @@ async function tplEditor(id) {
 function tplOptions(list, sel, q) {
   q = norm(q).trim();
   const f = list.filter(t => !q || norm(`${t.code} ${t.title}`).includes(q));
-  return catsOrdered(curFrente).map(c => { const g = f.filter(t => (t.cat || "OUTRO") === c); return g.length ? `<optgroup label="${CATS[c]}">${g.map(t => `<option value="${esc(t.id)}" ${t.id === sel ? "selected" : ""}>${esc(t.code)} · ${esc(t.title)}</option>`).join("")}</optgroup>` : ""; }).join("");
+  return catsOrdered(eqFv()).map(c => { const g = f.filter(t => (t.cat || "OUTRO") === c); return g.length ? `<optgroup label="${CATS[c]}">${g.map(t => `<option value="${esc(t.id)}" ${t.id === sel ? "selected" : ""}>${esc(t.code)} · ${esc(t.title)}</option>`).join("")}</optgroup>` : ""; }).join("");
 }
 async function newFvDialog(preTpl) {
   if (!canWrite) return;
@@ -1395,7 +1443,7 @@ async function newFvDialog(preTpl) {
     <label class="fld" style="grid-column:1/-1">Buscar modelo<input type="search" id="n-filter" placeholder="Digite parte do nome ou código (ex.: estaca, FV030)"></label>
     <label class="fld" style="grid-column:1/-1">Modelo da FV<select id="n-tpl">${tplOptions(list, preTpl, "")}</select></label>
     <label class="fld">Pasta<select id="n-folder">${folderOptions(curFolder)}</select></label>
-    <label class="fld">Frente (onde a FV aparece)<select id="n-frente">${Object.entries(FRENTES).map(([k, f]) => `<option value="${k}" ${k === curFrente ? "selected" : ""}>${esc(f.nome)}</option>`).join("")}</select></label>
+    <label class="fld">Equipe (onde a FV aparece)<select id="n-frente">${FV_EQ.filter(k => canEq(k) || k === eqFv()).map(k => `<option value="${k}" ${k === eqFv() ? "selected" : ""}>${esc(FRENTES[k].nome)}</option>`).join("")}</select></label>
     <label class="fld">Obra<input type="text" id="n-obra" list="dl-obras" value="${esc(lastObra)}" placeholder="Nome da obra"></label>
     <label class="fld">Local (torre/trecho/bloco)<input type="text" id="n-local" placeholder="Ex.: T2 ou TR-03"></label>
     <label class="fld">Data de abertura<input type="date" id="n-ab" value="${today()}"></label>
@@ -1417,7 +1465,7 @@ async function newFvDialog(preTpl) {
   const id = uid("f"), at = nowIso(), cols = {}, maxCols = tplMaxCols(t);
   res.cols.forEach((n, i) => cols[uid("c") + i] = {name: n, o: i + 1, p: Math.floor(i / maxCols)});
   const doc = {
-    templateId: res.tpl, code: t.code, cat: t.cat || "OUTRO", frente: FRENTES[res.frente] ? res.frente : curFrente, title: t.title, rev: t.rev || "", revDate: t.date || "", localLabel: t.localLabel || "Local",
+    templateId: res.tpl, code: t.code, cat: t.cat || "OUTRO", equipe: FV_EQ.includes(res.frente) ? res.frente : eqFv(), title: t.title, rev: t.rev || "", revDate: t.date || "", localLabel: t.localLabel || "Local",
     checkOptions: t.checks || [], checks: {}, items: (t.items || []).map(i => ({id: i.id || uid("i"), n: i.n || "", g: i.g || "", t: i.t || "", tol: i.tol || ""})),
     obra: res.obra, local: res.local, abertura: res.abertura, fechamento: "", conferente: res.conferente, gestor: res.gestor, almoxarife: "",
     cols, maxCols, folhas: Math.max(1, Math.ceil(res.cols.length / maxCols)), cells: {}, status: "aberta", assinatura: null, folder: res.folder || "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at
@@ -1449,7 +1497,7 @@ function closeFv() { if (!cur) return; cur.unsubs.forEach(u => { try { u(); } ca
 const locked = fv => !canWrite || fv.status === "fechada";
 
 function buildFvSkeleton() {
-  $("#view-fv").innerHTML = `<a class="back" href="#">← Todas as FVs</a>
+  $("#view-fv").innerHTML = `<a class="back" href="#${eqFv()}">← Todas as FVs</a>
     <div class="fvbar" id="fvbar"></div>
     <div class="tabs" role="tablist">
       <button data-tab="fv" type="button" role="tab">Ficha de verificação</button>
@@ -1476,7 +1524,7 @@ function setTab(t, silent) {
 function renderFvAll(force) {
   if (!cur) return;
   const fv = fvs.get(cur.id);
-  if (!fv) { if (fvsLoaded) $("#view-fv").innerHTML = `<a class="back" href="#">← Todas as FVs</a><div class="empty"><b>FV não encontrada</b>Ela pode ter sido excluída.</div>`; return; }
+  if (!fv) { if (fvsLoaded) $("#view-fv").innerHTML = `<a class="back" href="#${eqFv()}">← Todas as FVs</a><div class="empty"><b>FV não encontrada</b>Ela pode ter sido excluída.</div>`; return; }
   if (!$("#fvbar")) buildFvSkeleton();
   if (force) cur.chkKey = null;
   renderBar(fv); renderSheet(fv); renderMap(fv); ["pda","obs","docs","projs","photos","log","maps"].forEach(renderSub);
@@ -1501,11 +1549,11 @@ function renderBar(fv) {
     h.dataset.built = "1";
     h.innerHTML = `<div class="r1"><div><div class="c" id="b-code"></div><div class="t" id="b-title"></div></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="pill" id="b-pill"></span><button class="btn dark" id="b-pdf" type="button">Baixar PDF</button><button class="btn" id="b-dup" type="button">Duplicar para outros locais</button><button class="btn" id="b-close" type="button"></button><button class="btn ghost danger" id="b-del" type="button">Excluir</button></div></div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select><label for="b-frente" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-left:6px">Frente</label><select id="b-frente" style="width:auto;min-height:34px;padding:4px 8px">${Object.entries(FRENTES).map(([k, f]) => `<option value="${k}">${esc(f.curto)}</option>`).join("")}</select></div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select><label for="b-frente" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-left:6px">Equipe</label><select id="b-frente" style="width:auto;min-height:34px;padding:4px 8px">${FV_EQ.map(k => [k, FRENTES[k]]).map(([k, f]) => `<option value="${k}">${esc(f.curto)}</option>`).join("")}</select></div>
       <div id="b-stats"></div><div id="b-rev"></div><button class="btn sm sp-chip hidden" id="b-spell" type="button"></button><div class="lastedit" id="b-last"></div>`;
     $("#b-spell").onclick = spellReview;
     $("#b-close").onclick = toggleClose; $("#b-del").onclick = deleteFv; $("#b-dup").onclick = duplicateFv; $("#b-pdf").onclick = exportPdf;
-    $("#b-frente").onchange = e => { const id = cur.id, v = e.target.value; if (!FRENTES[v]) return; patch(`fvs/${id}`, stamp({frente: v})); logAct(id, `Passou a FV para a frente ${FRENTES[v].nome}`); setFrente(v); ["infra", "quali"].forEach(k => $("#nav-" + k).classList.toggle("on", curFrente === k)); toast(`FV agora aparece em ${FRENTES[v].nome}.`); };
+    $("#b-frente").onchange = e => { const id = cur.id, v = e.target.value; if (!FV_EQ.includes(v)) return; patch(`fvs/${id}`, stamp({equipe: v})); logAct(id, `Passou a FV para a equipe ${FRENTES[v].nome}`); setFrente(v); renderSide("fvs"); renderCtxNav(); toast(`FV agora aparece em ${FRENTES[v].nome}.`); };
     $("#b-folder").onchange = e => { const id = cur.id, v = e.target.value; patch(`fvs/${id}`, stamp({folder: v})); logAct(id, `Moveu para a pasta ${v ? pathText(v) : "Início"}`); toast(`FV movida para ${v ? pathText(v) : "Início"}.`); };
   }
   $("#b-code").textContent = `${fv.code} · ${CATS[fv.cat] || ""}${fv.obra ? " · " + fv.obra : ""}`;
@@ -1515,7 +1563,7 @@ function renderBar(fv) {
   const bd = $("#b-del"); bd.disabled = !canWrite; bd.textContent = (isGestor ? "" : "🔒 ") + "Excluir"; bd.classList.toggle("locked", !isGestor); bd.title = isGestor ? "" : "Somente o gestor pode excluir a FV"; $("#b-dup").disabled = !canWrite;
   const bf = $("#b-folder"); if (document.activeElement !== bf) { bf.innerHTML = folderOptions(folderOf(fv)); bf.value = folderOf(fv); } bf.disabled = !canWrite;
   const bfr = $("#b-frente"); if (bfr && document.activeElement !== bfr) { bfr.value = fvFrente(fv); bfr.disabled = !canWrite; }
-  const back = $("#view-fv .back"); if (back) { const fp = folderOf(fv); back.href = fp ? "#pasta-" + fp : "#"; back.textContent = "← " + (fp ? folders.get(fp).name : "Todas as FVs"); }
+  const back = $("#view-fv .back"); if (back) { const fp = folderOf(fv); back.href = fp ? "#pasta-" + fp : "#" + fvFrente(fv); back.textContent = "← " + (fp ? folders.get(fp).name : "Todas as FVs"); }
   $("#b-stats").innerHTML = barHtml(s) + `<div style="margin-top:8px">${countsHtml(s)}</div>`;
   $("#b-rev").innerHTML = tplRevBar(fv); const tb = $("#b-tplrev"); if (tb) tb.onclick = tplRevUpdate;
   renderSpellChip();
@@ -3902,7 +3950,7 @@ const barCell = s => `<div class="pn-bar" title="${barTip(s)}">${barHtml(s)}</di
 function inFolder(fv, fid) { if (!fid) return true; let id = fv.folder || ""; let g = 0; while (id && g++ < 30) { if (id === fid) return true; const f = folders.get(id); id = f ? parentOf(f) : ""; } return false; }
 function renderPainel() {
   const v = $("#view-painel"); if (!v) return;
-  const all = [...fvs].map(([id, f]) => ({...f, id})).filter(f => !f.deleted);
+  const all = [...fvs].map(([id, f]) => ({...f, id})).filter(f => !f.deleted && fvFrente(f) === eqFv());
   const L = all.filter(f => inFolder(f, pnl.folder) && (!pnl.cat || f.cat === pnl.cat));
   const tot = sumStats(L), abertas = L.filter(f => f.status !== "fechada"), fechadas = L.length - abertas.length;
   const velhas = abertas.map(f => ({f, d: fvAge(f)})).filter(x => x.d > pnl.dias).sort((a, b) => b.d - a.d);
@@ -4135,9 +4183,10 @@ async function renderTeam() {
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Somente leitura</h2><div class="sub">Veem tudo e baixam PDFs, mas não editam.</div><div class="team-list">${list(acc.viewers, "viewers")}</div></div>
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Gestores</h2><div class="sub">Só o administrador adiciona ou remove gestores.</div><div class="team-list">${list(acc.gestores, "gestores")}</div></div>
         <div class="panel" id="dict-panel"></div>
+        <div class="panel acc-wide" id="sc-panel"></div>
         <div class="panel acc-wide" id="acc-panel"></div>
       </div>`;
-    renderDictPanel(); renderAccessPanel();
+    renderDictPanel(); renderAccessPanel(); renderScopePanel($("#sc-panel"));
     v.querySelectorAll("[data-rmv]").forEach(b => b.onclick = async () => {
       const k = b.dataset.rmv, e = b.dataset.e;
       if (!(await confirmBox("Remover acesso?", `<b>${esc(e)}</b> deixa de ${k === "editors" ? "editar" : "ver"} o sistema na hora, inclusive se estiver com ele aberto agora. A remoção fica com o seu nome.`, "Remover", true))) return;
@@ -4166,10 +4215,11 @@ async function renderTeam() {
       <div class="panel" id="dict-panel"></div>
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Saída automática</h2><div class="sub">Depois de quanto tempo sem uso o sistema sai da conta sozinho, em todos os aparelhos (útil no computador do contêiner e em tablet compartilhado). Dois minutos antes aparece um aviso para continuar conectado.</div>
         <label class="fld" style="margin-top:10px;max-width:280px">Sair depois de<select id="idle-sel">${[[15, "15 minutos"], [30, "30 minutos"], [60, "1 hora"], [120, "2 horas"], [0, "Nunca sair sozinho"]].map(([m, t]) => `<option value="${m}" ${m === idleMin ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+      <div class="panel acc-wide" id="sc-panel"></div>
       <div class="panel acc-wide" id="acc-panel"></div>
     </div>`;
   $("#idle-sel", v).onchange = async e => { const m = +e.target.value; try { await db.doc("config/access").update({idleMin: m}); idleMin = m; toast(m ? `O sistema vai sair sozinho depois de ${e.target.selectedOptions[0].textContent} sem uso.` : "Saída automática desligada."); } catch { toast("Não foi possível salvar."); } };
-  renderMapPanel(); renderApprovals(); renderDictPanel(); renderAccessPanel();
+  renderMapPanel(); renderApprovals(); renderDictPanel(); renderAccessPanel(); renderScopePanel($("#sc-panel"));
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
   v.querySelectorAll("[data-add]").forEach(b => b.onclick = async () => {
     const k = b.dataset.add, inp = $({editors: "#add-ed", viewers: "#add-vi", gestores: "#add-ge"}[k], v), e = inp.value.trim().toLowerCase();
@@ -5296,10 +5346,12 @@ function lixAll() {
 function pdaNav() {
   const n = [...fvs.values()].reduce((a, f) => a + pdaOpen(f).filter(x => x.p && pdaDays(x.p) < 0).length, 0), nb = $("#nav-painel");
   if (nb) nb.innerHTML = "Painel" + (n ? ` <span class="nv-n bad" title="Ações do PDA vencidas">${n}</span>` : "");
+  const sb = $("#sd-painel"); if (sb) { sb.textContent = n || ""; sb.className = "sd-b" + (n ? " bad" : ""); sb.title = n ? "Ações do PDA vencidas" : ""; }
 }
 function lixNav() {
   const n = lixAll().filter(e => e.st === "lix" && lxDays(e) > 0).length, nb = $("#nav-lix");
   if (nb) nb.innerHTML = "Lixeira" + (n ? ` <span class="nv-n">${n}</span>` : "");
+  const sb = $("#sd-lix"); if (sb) sb.textContent = n || "";
   if (location.hash === "#lixeira") renderLixeira();
 }
 const lixFilt = {q: "", kind: "", by: "", act: ""};
@@ -6724,47 +6776,175 @@ async function plExportXlsx(pid) {
   try { await dl.save({filename: fn, data: blob}); toast("Excel baixado (layout da aba “Dados desvios” do F.009)."); } catch { toast("Não foi possível baixar o arquivo."); }
 }
 
+/* ---------- NAVEGAÇÃO: regional → fábrica → obra → equipe (com permissões), barra lateral e página inicial da equipe ---------- */
+const ESTRUTURA_PADRAO = [{id: "GO", nome: "Regional GO", fabricas: [{id: "GO-A", nome: "Fábrica GO-A", obras: [{id: "pds5", nome: "Parque dos Sonhos V", status: "Em andamento"}]}]}];
+let escopo = {estrutura: null, users: {}}, escopoLoaded = false;
+const estrutura = () => (escopo.estrutura && escopo.estrutura.length ? escopo.estrutura : ESTRUTURA_PADRAO);
+const EQ_ORDER = ["quali", "infra", "estr", "acab", "gape"];
+const SVG = p => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const IC = {
+  home: SVG('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>'), fvs: SVG('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>'),
+  planic: SVG('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>'), solos: SVG('<path d="M3 17l5-6 4 4 3-3 6 5"/><path d="M3 21h18"/>'),
+  painel: SVG('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'), modelos: SVG('<path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/>'), gape: SVG('<path d="M5 3h10l4 4v14H5z"/><path d="M9 13l2 2 4-4"/>'),
+  lixeira: SVG('<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'), gestao: SVG('<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M16 4a3 3 0 010 6M18 15c2 .5 3 2 3 5"/>'),
+  troca: SVG('<path d="M7 7h11l-3-3M17 17H6l3 3"/>'), reg: SVG('<circle cx="12" cy="10" r="3"/><path d="M12 21s7-6 7-11a7 7 0 00-14 0c0 5 7 11 7 11z"/>'),
+  fab: SVG('<path d="M3 21V10l6 4V10l6 4V6l6 4v11z"/>'), obra: SVG('<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/>'),
+  quali: SVG('<circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/>'), infra: SVG('<path d="M2 20h20M5 20V9l7-5 7 5v11"/><path d="M9 20v-5h6v5"/>'),
+  estr: SVG('<path d="M4 21V5h16v16"/><path d="M4 11h16M4 16h16M10 5v16"/>'), acab: SVG('<path d="M4 14l6-6 4 4-6 6H4z"/><path d="M14 6l4 4M12 4l2-2 8 8-2 2"/>')
+};
+const MEC = {
+  inicio: {t: "Início", ic: "home", d: "Visão geral da equipe e acesso às ferramentas."},
+  fvs: {t: "Fichas de verificação", ic: "fvs", d: "Criar, preencher e acompanhar as FVs, com PDA, F.007, fotos, mapeamentos, projetos e IT/ET."},
+  planic: {t: "Planicidade e esquadro", ic: "planic", d: "F.009-QUALI: planilha no jeito do Excel ligada ao mapeamento, com avaliação automática."},
+  solos: {t: "Solos", ic: "solos", d: "Mapeamento de compactação da faixa de terraplenagem (F.045-QUALI), ensaios e validação do projetista."},
+  painel: {t: "Painel", ic: "painel", d: "Aprovações, reprovações pendentes, prazos do PDA e FVs paradas da equipe."},
+  modelos: {t: "Modelos de FV", ic: "modelos", d: "Os modelos oficiais da Tenda, com controle de revisão."},
+  gape: {t: "Relatórios do GAPE", ic: "gape", d: "Relatórios com fotos e fichas em tabela no modelo do GAPE, e resposta aos relatórios recebidos."},
+  lixeira: {t: "Lixeira", ic: "lixeira", d: "O que foi excluído fica 30 dias e pode ser restaurado."},
+  gestao: {t: "Gestão", ic: "gestao", d: "Equipe, acessos por obra e equipe, registro de acessos, dicionário e backup."}
+};
+const mecHref = (k, eq = curFrente) => ({inicio: "#eq-" + eq, fvs: "#" + eq, planic: "#planic", solos: "#solos", painel: "#painel", modelos: "#modelos", gape: "#gape", lixeira: "#lixeira", gestao: "#equipe"}[k]);
+/* permissões: administrador e gestores veem tudo; quem não tem regra definida também (tudo liberado por padrão) */
+function myScope() {
+  const mail = String((window.__fb && window.__fb.email && window.__fb.email()) || "").toLowerCase();
+  if (isOwner || isGestor) return {all: true};
+  const u = escopo.users && (escopo.users[mail] || escopo.users[mail.replace(/\./g, ",")]);
+  if (!u) return {all: true};
+  return {obras: u.obras || ["*"], equipes: u.equipes || ["*"]};
+}
+const canObra = id => { const s = myScope(); return s.all || s.obras.includes("*") || s.obras.includes(id); };
+const canEq = id => { const s = myScope(); return s.all || s.equipes.includes("*") || s.equipes.includes(id); };
+const regsVis = () => estrutura().filter(r => r.fabricas.some(f => f.obras.some(o => canObra(o.id))));
+const fabsVis = rid => ((estrutura().find(r => r.id === rid) || {}).fabricas || []).filter(f => f.obras.some(o => canObra(o.id)));
+const obrasVis = fid => { for (const r of estrutura()) for (const f of r.fabricas) if (f.id === fid) return f.obras.filter(o => canObra(o.id)); return []; };
+const eqsVis = () => EQ_ORDER.filter(canEq);
+function findObra(oid) { for (const r of estrutura()) for (const f of r.fabricas) for (const o of f.obras) if (o.id === oid) return {r, f, o}; return null; }
+let ctx = (() => { try { return JSON.parse(localStorage.getItem("fvs-ctx") || "{}"); } catch { return {}; } })();
+function saveCtx() { try { localStorage.setItem("fvs-ctx", JSON.stringify(ctx)); } catch {} }
+function ensureObra() { // obra atual válida (se só existir uma permitida, entra direto)
+  if (ctx.obra && findObra(ctx.obra) && canObra(ctx.obra)) return true;
+  const all = []; estrutura().forEach(r => r.fabricas.forEach(f => f.obras.forEach(o => { if (canObra(o.id)) all.push({r, f, o}); })));
+  if (all.length === 1) { ctx = {reg: all[0].r.id, fab: all[0].f.id, obra: all[0].o.id}; saveCtx(); return true; }
+  return false;
+}
+/* telas de escolha (estilo cartões, com busca) */
+const selQ = {};
+function renderSel(level, key) {
+  const v = $("#view-sel"); const fo = ctx.obra ? findObra(ctx.obra) : null;
+  let title, sub, items, crumbs = [];
+  if (level === "reg") { title = "Regionais"; sub = "Escolha a regional."; items = regsVis().map(r => ({id: r.id, href: "#reg-" + r.id, t: r.nome, ic: "reg", d: `${r.fabricas.filter(f => fabsVis(r.id).includes(f)).length} fábrica(s) · ${r.fabricas.reduce((a, f) => a + f.obras.filter(o => canObra(o.id)).length, 0)} obra(s)`})); }
+  else if (level === "fab") { const r = estrutura().find(x => x.id === key); title = "Fábricas"; sub = r ? r.nome : ""; crumbs = [["#sel", "Regionais"]]; items = fabsVis(key).map(f => ({id: f.id, href: "#fab-" + f.id, t: f.nome, ic: "fab", d: `${f.obras.filter(o => canObra(o.id)).length} obra(s)`})); }
+  else if (level === "obra") { let r0 = null, f0 = null; estrutura().forEach(r => r.fabricas.forEach(f => { if (f.id === key) { r0 = r; f0 = f; } })); title = "Obras"; sub = f0 ? `${r0.nome} · ${f0.nome}` : ""; crumbs = [["#sel", "Regionais"], r0 ? ["#reg-" + r0.id, r0.nome] : null].filter(Boolean);
+    items = obrasVis(key).map(o => ({id: o.id, href: "#obra-" + o.id, t: o.nome, ic: "obra", d: `${o.status || "Em andamento"} · ${fvs.size} FV(s)`})); }
+  else { const x = findObra(key); title = x ? x.o.nome : "Obra"; sub = "Escolha a equipe."; crumbs = x ? [["#sel", "Regionais"], ["#reg-" + x.r.id, x.r.nome], ["#fab-" + x.f.id, x.f.nome]] : [];
+    items = eqsVis().map(k => { const F = FRENTES[k], L = F.cats.length ? [...fvs.values()].filter(f => fvFrente(f) === k) : [], ab = L.filter(f => (f.status || "aberta") === "aberta").length;
+      return {id: k, href: "#eq-" + k, t: F.nome, ic: k, d: F.desc + (F.cats.length ? ` · ${ab} FV(s) aberta(s)` : "")}; }); }
+  const q = norm(selQ[level] || "").trim(), L = items.filter(i => !q || norm(i.t + " " + i.d).includes(q));
+  v.innerHTML = `<nav class="crumbs">${crumbs.map(([h, l]) => `<a href="${h}">${esc(l)}</a><span class="sep">/</span>`).join("")}<span>${esc(title)}</span></nav>
+    <div class="page-title"><div><h1>${esc(title)}</h1>${sub ? `<div class="sub">${esc(sub)}</div>` : ""}</div></div>
+    <div class="sel-search"><input type="search" id="sel-q" value="${esc(selQ[level] || "")}" placeholder="Pesquisar ${level === "reg" ? "regional" : level === "fab" ? "fábrica" : level === "obra" ? "obra" : "equipe"}…" aria-label="Pesquisar"></div>
+    ${L.length ? `<div class="sel-grid">${L.map(i => `<a class="sel-card" href="${i.href}"><span class="sel-ic">${IC[i.ic] || ""}</span><b>${esc(i.t)}</b><span class="d">${esc(i.d)}</span><span class="go">Acessar →</span></a>`).join("")}</div>`
+      : `<div class="empty"><b>${items.length ? "Nada encontrado" : "Sem acesso"}</b>${items.length ? "Mude a pesquisa." : "Você ainda não tem acesso a nenhum item aqui. Peça ao gestor da obra."}</div>`}`;
+  const inp = $("#sel-q", v); inp.oninput = () => { selQ[level] = inp.value; const pos = inp.selectionStart; renderSel(level, key); const n = $("#sel-q"); n.focus(); n.setSelectionRange(pos, pos); };
+}
+/* barra lateral da equipe */
+let sideOn = "";
+function renderSide(on) {
+  sideOn = on;
+  const side = $("#side"); const show = !!on && !!FRENTES[curFrente];
+  document.body.classList.toggle("has-side", show); side.classList.toggle("hidden", !show); if (!show) { document.body.classList.remove("side-open"); return; }
+  const F = FRENTES[curFrente], x = ctx.obra ? findObra(ctx.obra) : null;
+  const items = ["inicio", ...F.mec];
+  side.innerHTML = `<div class="sd-h"><div class="sd-o">${esc(x ? x.o.nome : "")}</div><div class="sd-e"><span>${IC[curFrente] || ""}</span>${esc(F.nome)}</div><a href="#obra-${esc(ctx.obra || "")}" class="sd-t">${IC.troca}Trocar equipe</a></div>
+    <nav class="sd-n">${items.map(k => `<a href="${mecHref(k)}" class="${k === on ? "on" : ""}">${IC[MEC[k].ic]}<span>${esc(MEC[k].t)}</span>${k === "painel" ? `<i class="sd-b" id="sd-painel"></i>` : ""}</a>`).join("")}</nav>
+    <nav class="sd-n sd-f"><a href="#lixeira" class="${on === "lixeira" ? "on" : ""}">${IC.lixeira}<span>Lixeira</span><i class="sd-b" id="sd-lix"></i></a>${isGestor ? `<a href="#equipe" class="${on === "gestao" ? "on" : ""}">${IC.gestao}<span>Gestão</span></a>` : ""}</nav>`;
+  side.onclick = e => { if (e.target.closest("a")) document.body.classList.remove("side-open"); };
+  pdaNav(); lixNav();
+}
+function renderCtxNav() { // trilha no topo: regional › fábrica › obra › equipe
+  const nav = $("#ctxnav"); if (!nav) return; const x = ctx.obra ? findObra(ctx.obra) : null, h = location.hash.replace(/^#/, "");
+  const sel = !h || h === "sel" || /^(reg|fab|obra)-/.test(h);
+  const parts = [["#sel", x ? x.r.nome : "Regionais"]];
+  if (x) { parts.push(["#reg-" + x.r.id, x.f.nome], ["#fab-" + x.f.id, x.o.nome]); if (!sel && FRENTES[curFrente] && !/^(equipe)$/.test(h)) parts.push(["#obra-" + x.o.id, FRENTES[curFrente].curto]); }
+  nav.innerHTML = parts.map(([hr, l], i) => `<a href="${hr}" class="${i === parts.length - 1 ? "on" : ""}">${esc(l)}</a>`).join(`<span class="cn-sep">›</span>`);
+}
+/* página inicial da equipe (estilo INMETA) */
+function renderEqHome() {
+  const v = $("#view-eqhome"), F = FRENTES[curFrente], x = ctx.obra ? findObra(ctx.obra) : null;
+  const nome = (names.get(me) && names.get(me) !== "Você") ? names.get(me).split(" ")[0] : "";
+  const L = F.cats.length ? [...fvs.entries()].map(([id, f]) => ({id, ...f})).filter(f => fvFrente(f) === curFrente) : [];
+  const ab = L.filter(f => (f.status || "aberta") === "aberta"), s = sumStats(L), pct = pctAprov(s), late = L.reduce((a, f) => a + pdaOpen(f).filter(p => p.p && pdaDays(p.p) < 0).length, 0);
+  const extra = k => k === "fvs" ? `${ab.length} aberta(s) · ${L.length - ab.length} fechada(s)` : k === "planic" ? `${planics.size} planilha(s)` : k === "solos" ? `${(typeof solos !== "undefined" && solos.size) || 0} trecho(s)` : k === "gape" ? `${(typeof gapes !== "undefined" && gapes.size) || 0} relatório(s)` : k === "modelos" ? `${[...templates.values()].filter(t => F.cats.includes(t.cat || "OUTRO")).length} modelo(s) da equipe` : k === "painel" && late ? `${late} ação(ões) do PDA vencida(s)` : "";
+  v.innerHTML = `<div class="eh-top"><div><div class="code">${esc(x ? `${x.r.nome} · ${x.f.nome} · ${x.o.nome}` : "")}</div><h1>${esc(F.nome)}</h1><div class="sub">Que bom ter você por aqui${nome ? ", " + esc(nome) : ""}! Escolha uma ferramenta para avançar.</div></div></div>
+    ${F.cats.length ? `<div class="pl-kpis eh-k"><a class="pl-kpi" href="#${curFrente}" style="--c:#003e62"><b>${ab.length}</b><span>FVs abertas</span></a><a class="pl-kpi" href="#painel" style="--c:#2e7d32"><b>${pct == null ? "—" : pct + "%"}</b><span>itens aprovados</span></a><a class="pl-kpi" href="#painel" style="--c:#e0a800"><b>${s.V || 0}</b><span>a verificar</span></a><a class="pl-kpi ${s.R ? "bad" : ""}" href="#painel" style="--c:#e1251b"><b>${s.R || 0}</b><span>reprovações</span></a><a class="pl-kpi ${late ? "bad" : ""}" href="#painel" style="--c:#e1251b"><b>${late}</b><span>PDA vencido</span></a></div>` : ""}
+    <div class="eh-grid">${F.mec.map(k => `<a class="eh-card" href="${mecHref(k)}"><span class="eh-ic">${IC[MEC[k].ic]}</span><div><span class="eh-l">${esc(F.curto)}</span><b>${esc(MEC[k].t)}</b><p>${esc(MEC[k].d)}</p>${extra(k) ? `<span class="eh-x">${esc(extra(k))}</span>` : ""}</div></a>`).join("")}
+      <a class="eh-card" href="#lixeira"><span class="eh-ic">${IC.lixeira}</span><div><span class="eh-l">Global</span><b>Lixeira</b><p>${esc(MEC.lixeira.d)}</p></div></a>${isGestor ? `<a class="eh-card" href="#equipe"><span class="eh-ic">${IC.gestao}</span><div><span class="eh-l">Global</span><b>Gestão</b><p>${esc(MEC.gestao.d)}</p></div></a>` : ""}</div>`;
+}
+/* acesso por obra e equipe (tela Gestão) */
+async function renderScopePanel(box) {
+  if (!box) return;
+  const ac = (window.__fb && await window.__fb.getAccess().catch(() => null)) || {}, people = [...new Set([...(ac.editors || []), ...(ac.viewers || [])].map(e => String(e).toLowerCase()))].sort();
+  const gest = new Set((ac.gestores || []).map(e => String(e).toLowerCase()));
+  const allObras = []; estrutura().forEach(r => r.fabricas.forEach(f => f.obras.forEach(o => allObras.push({r, f, o}))));
+  const desc = u => { if (!u) return "Tudo liberado"; const o = (u.obras || ["*"]).includes("*") ? "todas as obras" : `${u.obras.length} obra(s)`, e = (u.equipes || ["*"]).includes("*") ? "todas as equipes" : (u.equipes || []).map(k => FRENTES[k] ? FRENTES[k].curto : k).join(", ") || "nenhuma equipe"; return `${o} · ${e}`; };
+  box.innerHTML = `<h2 class="sec-h">Acesso por obra e equipe</h2><p class="sub" style="margin:0 0 8px">Cada pessoa só vê as regionais, fábricas, obras e equipes liberadas aqui. Quem não tem regra vê tudo. Administrador e gestores sempre veem tudo.</p>
+    ${people.length ? `<div class="sc-list">${people.map(e => `<div class="sc-row"><div><b>${esc(e)}</b><span class="sub">${gest.has(e) ? "Gestor: vê tudo" : esc(desc(escopo.users[e]))}</span></div>${gest.has(e) ? "" : `<button class="btn sm" type="button" data-sc="${esc(e)}">Editar acesso</button>`}</div>`).join("")}</div>` : `<p class="sub">Nenhuma pessoa liberada ainda.</p>`}`;
+  $$("[data-sc]", box).forEach(b => b.onclick = async () => {
+    const e = b.dataset.sc, u = escopo.users[e] || {obras: ["*"], equipes: ["*"]}, allO = (u.obras || []).includes("*"), allE = (u.equipes || []).includes("*");
+    const r = await modal({title: "Acesso de " + e, wide: true, body: `<div class="grid2"><div><b>Obras</b><label class="ck"><input type="checkbox" id="sc-ao" ${allO ? "checked" : ""}> Todas as obras (inclusive as que forem criadas)</label>
+        ${estrutura().map(rg => `<div class="sc-g"><span class="sub">${esc(rg.nome)}</span>${rg.fabricas.map(f => `<div class="sc-g2"><span class="sub">${esc(f.nome)}</span>${f.obras.map(o => `<label class="ck"><input type="checkbox" data-o="${esc(o.id)}" ${allO || (u.obras || []).includes(o.id) ? "checked" : ""}> ${esc(o.nome)}</label>`).join("")}</div>`).join("")}</div>`).join("")}</div>
+      <div><b>Equipes</b><label class="ck"><input type="checkbox" id="sc-ae" ${allE ? "checked" : ""}> Todas as equipes</label>${EQ_ORDER.map(k => `<label class="ck"><input type="checkbox" data-e="${k}" ${allE || (u.equipes || []).includes(k) ? "checked" : ""}> ${esc(FRENTES[k].nome)}</label>`).join("")}</div></div>`,
+      onOpen: bg => { const sync = (all, sel) => { const a = $(all, bg); $$(sel, bg).forEach(c => { c.disabled = a.checked; if (a.checked) c.checked = true; }); }; $("#sc-ao", bg).onchange = () => sync("#sc-ao", "[data-o]"); $("#sc-ae", bg).onchange = () => sync("#sc-ae", "[data-e]"); sync("#sc-ao", "[data-o]"); sync("#sc-ae", "[data-e]"); },
+      actions: [{label: "Liberar tudo", value: "all"}, {label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => ({obras: $("#sc-ao", bg).checked ? ["*"] : $$("[data-o]:checked", bg).map(c => c.dataset.o), equipes: $("#sc-ae", bg).checked ? ["*"] : $$("[data-e]:checked", bg).map(c => c.dataset.e)})}]});
+    if (!r) return;
+    const val = r === "all" ? {obras: ["*"], equipes: ["*"]} : r;
+    if (val !== "all" && (!val.obras.length || !val.equipes.length) && !(await confirmBox("Sem acesso?", `Com nenhuma ${!val.obras.length ? "obra" : "equipe"} marcada, <b>${esc(e)}</b> entra no sistema mas não vê nada. Confirma?`, "Confirmar", true))) return;
+    try { await db.doc("config/escopo").merge({users: {[e]: {...val, by: me, at: nowIso()}}}); escopo.users[e] = val; toast("Acesso salvo."); renderScopePanel(box); } catch {}
+  });
+}
+
 /* ---------- rotas e filtros ---------- */
 function route() {
   let h = location.hash.replace(/^#/, "");
-  if (h === "infra" || h === "quali") { setFrente(h); h = ""; }
+  if (!h) { h = "sel"; history.replaceState(null, "", "#sel"); }
+  /* telas de escolha */
+  const selM = h === "sel" ? ["reg", ""] : /^(reg|fab|obra)-(.+)$/.exec(h);
+  if (selM) {
+    const [lv, key] = h === "sel" ? ["reg", ""] : [selM[1], selM[2]];
+    if (lv === "reg") ctx.reg = key || ctx.reg; if (lv === "fab") ctx.fab = key; if (lv === "obra" && findObra(key) && canObra(key)) { const x = findObra(key); ctx = {reg: x.r.id, fab: x.f.id, obra: key}; }
+    saveCtx();
+    showOnly("sel"); renderSel(lv === "reg" && !key ? "reg" : lv === "reg" ? "fab" : lv === "fab" ? "obra" : "eq", lv === "reg" ? key : key);
+    renderSide(""); renderCtxNav(); window.scrollTo(0, 0); closeFv(); closeSolo(); closePlanic(); closeGape(); return;
+  }
+  if (!ensureObra()) { location.replace("#sel"); return; }
+  if (h.startsWith("eq-")) { const k = h.slice(3); if (!FRENTES[k] || !canEq(k)) { location.replace("#obra-" + ctx.obra); return; } setFrente(k); showOnly("eqhome"); renderEqHome(); renderSide("inicio"); renderCtxNav(); window.scrollTo(0, 0); closeFv(); closeSolo(); closePlanic(); closeGape(); return; }
+  if (FV_EQ.includes(h)) { setFrente(h); h = ""; }
   const isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-"), isPlanic = h === "planic" || h.startsWith("planic-");
-  if (isSolos) setFrente("infra"); else if (isPlanic) setFrente("quali");
+  if (isSolos) setFrente("infra"); else if (isPlanic) setFrente("quali"); else if (isGape) setFrente("gape");
   else if (isFolder && foldersLoaded) setFrente(frenteOfFolder(h.slice(6)));
   else if (isFv && fvs.get(h.slice(3))) setFrente(fvFrente(fvs.get(h.slice(3))));
+  else if ((h === "" || isTpl || isPainel) && !FRENTES[curFrente].fv) setFrente("quali");
+  if (!canEq(curFrente) && !isTeam && !isLix) { location.replace("#obra-" + ctx.obra); return; }
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
-  const isList = !(isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix || isPlanic), inFrente = isList || isTpl || isSolos || isPlanic;
-  $("#view-team").classList.toggle("hidden", !isTeam);
-  $("#nav-team").classList.toggle("on", isTeam);
+  const isList = !(isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix || isPlanic);
+  showOnly(isTeam ? "team" : isList ? "list" : isLix ? "lix" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "tpl" : "fv");
   if (isTeam) renderTeam();
-  $("#view-list").classList.toggle("hidden", !isList);
-  $("#view-lix").classList.toggle("hidden", !isLix);
-  $("#nav-lix").classList.toggle("on", isLix);
   if (isLix && db) { renderLixeira(); sweepTrash(); }
-  $("#view-solos").classList.toggle("hidden", !isSolos);
   if (isSolos && db) { if (h.startsWith("solo-")) openSolo(h.slice(5)); else { closeSolo(); solTab = h === "solos-acomp" ? "acomp" : "trechos"; renderSolos(); } } else closeSolo();
-  $("#view-planic").classList.toggle("hidden", !isPlanic);
   if (isPlanic && db) { if (h.startsWith("planic-")) openPlanic(h.slice(7)); else { closePlanic(); renderPlanicList(); } } else closePlanic();
-  $("#view-painel").classList.toggle("hidden", !isPainel);
-  $("#nav-painel").classList.toggle("on", isPainel);
   if (isPainel) renderPainel();
-  $("#view-gape").classList.toggle("hidden", !isGape);
-  $("#nav-gape").classList.toggle("on", isGape);
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
-  $("#view-tpl").classList.toggle("hidden", !isTpl);
   if (isTpl) renderTemplates();
-  $("#view-fv").classList.toggle("hidden", !isFv);
-  ["infra", "quali"].forEach(k => $("#nav-" + k).classList.toggle("on", (inFrente || isFv) && curFrente === k));
-  renderFbar(inFrente ? (isTpl ? "modelos" : isSolos ? "solos" : isPlanic ? "planic" : curFrente) : "");
+  renderSide(isTeam ? "gestao" : isLix ? "lixeira" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "modelos" : "fvs");
+  renderCtxNav();
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
 }
-function renderFbar(on) {
-  const bar = $("#fbar"); bar.classList.toggle("hidden", !on); if (!on) return;
-  const F = FRENTES[curFrente]; $("#fbar-n").textContent = F.nome;
-  $("#fbar-tabs").innerHTML = F.tabs.map(([k, l]) => `<a href="#${k}" role="tab" class="${k === on ? "on" : ""}">${esc(l)}</a>`).join("");
-}
+function showOnly(k) { ["sel", "eqhome", "team", "list", "lix", "solos", "planic", "painel", "gape", "tpl", "fv"].forEach(v => { const el = $("#view-" + v); if (el) el.classList.toggle("hidden", v !== k); }); }
+function renderFbar() {}
 window.addEventListener("hashchange", route);
+$("#side-tg").onclick = () => document.body.classList.toggle("side-open");
+document.addEventListener("click", e => { if (document.body.classList.contains("side-open") && !e.target.closest("#side,#side-tg")) document.body.classList.remove("side-open"); });
 $("#q").addEventListener("input", e => { filt.q = e.target.value; renderList(); });
 $("#f-cat").addEventListener("change", e => { filt.cat = e.target.value; renderList(); });
 $("#f-status").addEventListener("click", e => { const b = e.target.closest(".chip"); if (!b) return; filt.status = b.dataset.v; $$("#f-status .chip").forEach(c => c.classList.toggle("on", c === b)); renderList(); });
@@ -6799,6 +6979,8 @@ async function init() {
   }
   window.__onWriteError = writeErr;
   if (isGestor) $("#nav-team").classList.remove("hidden");
+  db.doc("config/escopo").onSnapshot(d => { const v = (d && d.exists && (typeof d.exists === "function" ? d.exists() : d.exists)) ? d.data() : null; escopo = {estrutura: (v && v.estrutura) || null, users: (v && v.users) || {}}; escopoLoaded = true; const h = location.hash; if (!h || /^#(sel|reg-|fab-|obra-|eq-)/.test(h) || !canEq(curFrente)) route(); else { renderSide(sideOn); renderCtxNav(); } }, () => { escopoLoaded = true; });
+  renderSide(sideOn);
   try { const a = window.__fb && await window.__fb.getAccess(); if (a && a.idleMin !== undefined && a.idleMin !== null) idleMin = +a.idleMin || 0; } catch {}
   idleTouch(); renderNet();
   loadTeam().then(bellRender);
