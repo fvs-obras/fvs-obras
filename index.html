@@ -54,7 +54,7 @@ main{padding:20px 0 60px}
 .toolbar .grow{flex:1 1 220px}
 .ui input[type=text],.ui input[type=search],.ui input[type=date],.ui select,.ui textarea{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:8px 10px;min-height:40px}
 .ui textarea{min-height:64px;resize:vertical}
-label.fld{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+label.fld,div.fld{display:flex;flex-direction:column;gap:4px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 label.fld > input,label.fld > select,label.fld > textarea{font-size:14px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--ink)}
 .chips{display:flex;gap:6px;flex-wrap:wrap}
 .chip{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 14px;font-size:12px;font-weight:600}
@@ -672,7 +672,7 @@ body.hc .panel,body.hc .card,body.hc .doc-row,body.hc .lx-item,body.hc .fvbar,bo
 body.hc .btn{border-width:2px;border-color:#000;font-weight:800}
 body.hc .btn.primary{background:#c00000;border-color:#000;color:#fff}
 body.hc .btn.ghost{color:#000;text-decoration:underline}
-body.hc .sub,body.hc .meta,body.hc .when,body.hc label.fld{color:#000;font-weight:600}
+body.hc .sub,body.hc .meta,body.hc .when,body.hc label.fld,body.hc div.fld{color:#000;font-weight:600}
 body.hc .ui input,body.hc .ui select,body.hc .ui textarea{border:2px solid #000;color:#000;background:#fff}
 body.hc .tabs{border-bottom:3px solid #000}
 body.hc .tabs [data-tab]{color:#000;font-weight:800}
@@ -840,6 +840,14 @@ tr.nc-pend td{box-shadow:inset 0 0 0 2px var(--red);background:var(--red-soft)}
 .lp-box button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;border:0;background:transparent;padding:9px 10px;border-radius:7px;color:var(--ink);min-height:38px}
 .lp-box button:hover,.lp-box button.on{background:var(--red-soft)}.lp-box button.lp-g span{font-weight:700}.lp-box small{color:var(--muted);font-size:11.5px}.lp-box .lp-b{color:var(--muted);font-size:12.5px}
 .lp-h{font-size:10.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px 2px}
+.chipf{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-height:44px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;cursor:text}
+.chipf:focus-within{border-color:var(--red);box-shadow:0 0 0 3px var(--red-soft)}
+.chipf-in{flex:1 1 140px;min-width:120px;border:0!important;outline:0;box-shadow:none!important;padding:6px 4px!important;min-height:30px!important;background:transparent;font-size:14px;text-transform:none;letter-spacing:0}
+.chipv{display:inline-flex;align-items:center;border:1px solid #d8c9c7;background:var(--red-soft);border-radius:999px;overflow:hidden;max-width:100%}
+.chipv-t{border:0;background:transparent;padding:6px 4px 6px 12px;font-size:13px;font-weight:600;color:var(--ink);cursor:text;text-transform:none;letter-spacing:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chipv-x{border:0;background:transparent;width:28px;height:30px;font-size:17px;line-height:1;color:var(--muted);cursor:pointer;display:grid;place-items:center}
+.chipv-x:hover{color:#fff;background:var(--red)}
+.chipv-ed{border:1px solid var(--red)!important;border-radius:999px;padding:5px 10px!important;min-height:30px!important;font-size:13px;width:auto!important}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1454,17 +1462,17 @@ async function newFvDialog(preTpl) {
     <label class="fld">Data de abertura<input type="date" id="n-ab" value="${today()}"></label>
     <label class="fld">Conferente<input type="text" id="n-conf"></label>
     <label class="fld">Gestor(a)<input type="text" id="n-gest"></label>
-    <label class="fld" style="grid-column:1/-1"><span id="n-loclbl">Locais inspecionados</span><input type="text" id="n-cols" placeholder="Escolha da lista ou digite, separando por vírgula. Ex.: Trecho 1, Trecho 2"></label>
+    <div class="fld" style="grid-column:1/-1"><span id="n-loclbl">Locais inspecionados</span>${chipHtml("n-cols", "Digite ou escolha da lista (ex.: Trecho 1) e aperte Enter")}</div>
   </div><datalist id="dl-obras">${obras.map(o => `<option value="${esc(o)}">`).join("")}</datalist>`;
   const res = await modal({title:"Nova FV", body, actions:[{label:"Cancelar", value:null},{label:"Criar FV", cls:"primary", value: bg => ({
     tpl: $("#n-tpl", bg).value, folder: $("#n-folder", bg).value, frente: $("#n-frente", bg).value, obra: $("#n-obra", bg).value.trim(), local: $("#n-local", bg).value.trim(), abertura: $("#n-ab", bg).value,
-    conferente: $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value.trim(), cols: $("#n-cols", bg).value.split(",").map(s => s.trim()).filter(Boolean)
+    conferente: $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value.trim(), cols: bg._cf ? bg._cf.get() : []
   })}], onOpen: bg => {
     const upd = () => { const t = templates.get($("#n-tpl", bg).value); $("#n-loclbl", bg).textContent = `Locais inspecionados · ${t?.localLabel || "Local"} · ${tplMaxCols(t)} por folha (o que passar vai para uma nova folha)`; };
-    $("#n-tpl", bg).onchange = upd; upd(); localPicker($("#n-local", bg), () => setTimeout(() => $("#n-cols", bg).focus(), 30));
-    colsPicker($("#n-cols", bg), () => $("#n-local", bg).value, () => $("#n-cols", bg).value.split(",").map(x => x.trim()).filter(Boolean), {keep: true});
+    $("#n-tpl", bg).onchange = upd; upd(); localPicker($("#n-local", bg), () => setTimeout(() => bg._cf.focus(), 30));
+    bg._cf = chipField($("#n-cols", bg), (inp, onPick, used) => colsPicker(inp, () => $("#n-local", bg).value, used, {onPick}));
     $("#n-filter", bg).addEventListener("input", e => { const sel = $("#n-tpl", bg), v = sel.value; sel.innerHTML = tplOptions(list, v, e.target.value); if (!sel.value && sel.options.length) sel.selectedIndex = 0; upd(); });
-    if (preTpl) $("#n-cols", bg).focus(); else $("#n-filter", bg).focus();
+    if (preTpl) bg._cf.focus(); else $("#n-filter", bg).focus();
   }});
   if (!res) return;
   const t = templates.get(res.tpl); if (!t) return;
@@ -1902,6 +1910,41 @@ function colsPicker(inp, getLocal, getUsed, opts = {}) { // LOCAIS INSPECIONADOS
     return out;
   }});
 }
+/* caixas (chips): cada local vira uma caixa; X remove, clique no nome edita */
+function chipField(wrap, attach) {
+  const inp = $("input.chipf-in", wrap), list = []; wrap._chips = list;
+  const draw = () => {
+    $$(".chipv", wrap).forEach(c => c.remove());
+    list.forEach((v, i) => { const c = document.createElement("span"); c.className = "chipv"; c.dataset.i = i;
+      c.innerHTML = `<button type="button" class="chipv-t" title="Clique para editar">${esc(v)}</button><button type="button" class="chipv-x" aria-label="Tirar ${esc(v)}" title="Tirar">×</button>`;
+      wrap.insertBefore(c, inp); });
+    inp.placeholder = list.length ? "+ adicionar" : inp.dataset.ph || "";
+  };
+  const add = v => { v = String(v || "").trim(); if (!v) return false; if (list.some(x => norm(x) === norm(v))) { toast(`"${v}" já está na lista.`); return false; } list.push(v); draw(); return true; };
+  const flush = () => { const parts = inp.value.split(","); if (parts.length > 1 || inp.value.trim()) { parts.forEach(add); inp.value = ""; } };
+  attach(inp, v => { inp.value = ""; add(v); setTimeout(() => { inp.focus(); inp.click(); }, 20); }, () => list); // antes dos atalhos abaixo: Enter numa sugestão escolhe a sugestão
+  wrap.addEventListener("click", e => {
+    const x = e.target.closest(".chipv-x"); if (x) { list.splice(+x.parentNode.dataset.i, 1); draw(); inp.focus(); return; }
+    const t = e.target.closest(".chipv-t");
+    if (t) { const c = t.parentNode, i = +c.dataset.i, ed = document.createElement("input"); ed.type = "text"; ed.className = "chipv-ed"; ed.value = list[i]; ed.size = Math.max(6, list[i].length + 1);
+      c.replaceWith(ed); ed.focus(); ed.select(); let done = false;
+      const fim = ok => { if (done) return; done = true; const v = ed.value.trim(); ed.remove();
+        if (ok) { if (!v) list.splice(i, 1); else if (!list.some((x, j) => j !== i && norm(x) === norm(v))) list[i] = v; else toast(`"${v}" já está na lista.`); }
+        draw(); };
+      ed.addEventListener("keydown", ev => { if (ev.key === "Enter") { ev.preventDefault(); ev.stopPropagation(); fim(true); inp.focus(); } else if (ev.key === "Escape") { ev.stopPropagation(); fim(false); } });
+      ed.addEventListener("blur", () => fim(true)); return; }
+    if (e.target === wrap) inp.focus();
+  });
+  inp.addEventListener("input", () => { if (inp.value.includes(",")) { const parts = inp.value.split(","); inp.value = parts.pop(); parts.forEach(add); } });
+  inp.addEventListener("keydown", e => {
+    if (e.key === "Enter" && inp.value.trim()) { e.preventDefault(); e.stopPropagation(); add(inp.value); inp.value = ""; }
+    else if (e.key === "Backspace" && !inp.value && list.length) { list.pop(); draw(); }
+  });
+  inp.addEventListener("blur", () => setTimeout(() => { if (document.activeElement !== inp && !document.querySelector(".lp-box")) flush(); }, 150));
+  draw();
+  return {get: () => { flush(); return list.slice(); }, add, focus: () => inp.focus()};
+}
+const chipHtml = (id, ph) => `<div class="chipf" id="${id}"><input type="text" class="chipf-in" data-ph="${esc(ph)}" placeholder="${esc(ph)}" autocomplete="off"></div>`;
 /* linhas de problema / solução (FV e F.007) */
 function itemOpts(fv) { return `<option value=""></option>` + (fv.items || []).map(i => `<option value="${esc(i.id)}">${esc(i.n)}</option>`).join(""); }
 function probRowFactory(fv, sheet) {
@@ -4275,14 +4318,14 @@ async function duplicateFv() {
   const src = fvs.get(cur.id); if (!src || !canWrite) return;
   const cols = colPages(src);
   const body = `<p class="sub" style="margin:0 0 10px">Cria FVs novas com o mesmo modelo (${esc(src.code)}) e a mesma obra, em branco, prontas para outro local.</p><div class="grid2">
-    <label class="fld" style="grid-column:1/-1">Local(is) das novas FVs<input type="text" id="d-locais" placeholder="Separe por vírgula para criar várias. Ex.: T2, T3, T4"></label>
+    <div class="fld" style="grid-column:1/-1"><span>Local(is) das novas FVs · uma FV por caixa</span>${chipHtml("d-locais", "Digite ou escolha o local e aperte Enter")}</div>
     <label class="fld" style="grid-column:1/-1">Pasta<select id="d-folder">${folderOptions(folderOf(src))}</select></label>
     <label class="fld" style="grid-column:1/-1;flex-direction:row;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink)"><input type="checkbox" id="d-cols" ${cols.length ? "checked" : ""} style="width:18px;height:18px"> Copiar as colunas da grade (${cols.length ? esc(cols.map(([, c]) => c.name).join(", ")) : "nenhuma"})</label>
     <label class="fld" style="grid-column:1/-1;flex-direction:row;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink)"><input type="checkbox" id="d-people" checked style="width:18px;height:18px"> Copiar conferente e gestor(a)</label>
   </div>`;
-  const r = await modal({title: "Duplicar FV", body, actions: [{label:"Cancelar", value:null}, {label:"Criar FVs", cls:"primary",
-    validate: bg => { if (!$("#d-locais", bg).value.trim()) { toast("Informe pelo menos um local."); return false; } return true; },
-    value: bg => ({locais: $("#d-locais", bg).value.split(",").map(x => x.trim()).filter(Boolean), folder: $("#d-folder", bg).value, cols: $("#d-cols", bg).checked, people: $("#d-people", bg).checked})}]});
+  const r = await modal({title: "Duplicar FV", body, onOpen: bg => { bg._df = chipField($("#d-locais", bg), (inp, onPick) => localPicker(inp, onPick)); bg._df.focus(); }, actions: [{label:"Cancelar", value:null}, {label:"Criar FVs", cls:"primary",
+    validate: bg => { if (!bg._df.get().length) { toast("Informe pelo menos um local."); return false; } return true; },
+    value: bg => ({locais: bg._df.get(), folder: $("#d-folder", bg).value, cols: $("#d-cols", bg).checked, people: $("#d-people", bg).checked})}]});
   if (!r) return;
   const ids = [];
   for (const local of r.locais) {
@@ -5302,7 +5345,7 @@ function spellIssues(text, caret = -1) {
 function spellFix(text, is, by) { if (by !== undefined) return text.slice(0, is.i) + by + text.slice(is.j);
   return is.kind === "desc" ? text : is.kind === "rep" ? text.slice(0, is.i0) + text.slice(is.j) : text.slice(0, is.i) + is.sug + text.slice(is.j); }
 /* ---- ortografia: sublinhado vermelho e menu de sugestões, como no Word ---- */
-const SPELL_SEL = '[data-f=problema],[data-f=solucao],[data-f=acao],[data-f=desc],[data-f=com],[data-f=nota],[data-f=local],#tx,#mn,input[data-col],input[data-newcol],#n-local,#n-cols,#d-locais';
+const SPELL_SEL = '[data-f=problema],[data-f=solucao],[data-f=acao],[data-f=desc],[data-f=com],[data-f=nota],[data-f=local],#tx,#mn,input[data-col],input[data-newcol],#n-local,.chipf-in';
 const SP_CSS = ["fontFamily", "fontSize", "fontWeight", "fontStyle", "letterSpacing", "lineHeight", "textAlign", "textTransform", "textIndent", "wordSpacing", "paddingTop", "paddingRight", "paddingBottom", "paddingLeft", "borderTopWidth", "borderRightWidth", "borderBottomWidth", "borderLeftWidth", "boxSizing", "tabSize"];
 const spFields = new Set();
 const spRO = new ResizeObserver(es => es.forEach(e => { if (e.target._spm && e.target.isConnected) spPaint(e.target); }));
