@@ -835,6 +835,11 @@ button.pl-kpi{cursor:pointer}button.pl-kpi:hover{border-color:#999}
 @media (max-width:1180px){.xg-wrap.side{grid-template-columns:1fr}.xg-side{position:static}}
 @media (max-width:640px){.xg{height:62vh}.xg-title{grid-template-columns:1fr 70px}.xg-title .l{display:none}.xg-title b{font-size:12px;text-align:left}.xg-leg .sub{display:none}}
 
+tr.nc-pend td{box-shadow:inset 0 0 0 2px var(--red);background:var(--red-soft)}
+.lp-box{position:fixed;z-index:9999;max-height:300px;overflow-y:auto;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 28px rgba(0,0,0,.16);padding:6px;display:grid;gap:1px;font-size:14px}
+.lp-box button{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;border:0;background:transparent;padding:9px 10px;border-radius:7px;color:var(--ink);min-height:38px}
+.lp-box button:hover,.lp-box button.on{background:var(--red-soft)}.lp-box button.lp-g span{font-weight:700}.lp-box small{color:var(--muted);font-size:11.5px}.lp-box .lp-b{color:var(--muted);font-size:12.5px}
+.lp-h{font-size:10.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 10px 2px}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1438,14 +1443,14 @@ async function newFvDialog(preTpl) {
   const list = sortedTemplates();
   if (!list.length) { toast("Cadastre um modelo antes de criar FVs."); return; }
   const obras = [...new Set([...fvs.values()].map(f => f.obra).filter(Boolean))];
-  const lastObra = [...fvs.values()].sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)))[0]?.obra || "";
+  const xo = ctx.obra && findObra(ctx.obra), lastObra = xo ? xo.o.nome.toUpperCase() : ([...fvs.values()].sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)))[0]?.obra || "");
   const body = `<div class="grid2">
     <label class="fld" style="grid-column:1/-1">Buscar modelo<input type="search" id="n-filter" placeholder="Digite parte do nome ou código (ex.: estaca, FV030)"></label>
     <label class="fld" style="grid-column:1/-1">Modelo da FV<select id="n-tpl">${tplOptions(list, preTpl, "")}</select></label>
     <label class="fld">Pasta<select id="n-folder">${folderOptions(curFolder)}</select></label>
     <label class="fld">Equipe (onde a FV aparece)<select id="n-frente">${FV_EQ.filter(k => canEq(k) || k === eqFv()).map(k => `<option value="${k}" ${k === eqFv() ? "selected" : ""}>${esc(FRENTES[k].nome)}</option>`).join("")}</select></label>
     <label class="fld">Obra<input type="text" id="n-obra" list="dl-obras" value="${esc(lastObra)}" placeholder="Nome da obra"></label>
-    <label class="fld">Local (torre/trecho/bloco)<input type="text" id="n-local" placeholder="Ex.: T2 ou TR-03"></label>
+    <label class="fld">Local<input type="text" id="n-local" placeholder="Toque para escolher ou digite (ex.: bloco, piscina, CPG)"></label>
     <label class="fld">Data de abertura<input type="date" id="n-ab" value="${today()}"></label>
     <label class="fld">Conferente<input type="text" id="n-conf"></label>
     <label class="fld">Gestor(a)<input type="text" id="n-gest"></label>
@@ -1456,7 +1461,7 @@ async function newFvDialog(preTpl) {
     conferente: $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value.trim(), cols: $("#n-cols", bg).value.split(",").map(s => s.trim()).filter(Boolean)
   })}], onOpen: bg => {
     const upd = () => { const t = templates.get($("#n-tpl", bg).value); $("#n-loclbl", bg).textContent = `Locais inspecionados · ${t?.localLabel || "Local"} · ${tplMaxCols(t)} por folha (o que passar vai para uma nova folha)`; };
-    $("#n-tpl", bg).onchange = upd; upd();
+    $("#n-tpl", bg).onchange = upd; upd(); localPicker($("#n-local", bg));
     $("#n-filter", bg).addEventListener("input", e => { const sel = $("#n-tpl", bg), v = sel.value; sel.innerHTML = tplOptions(list, v, e.target.value); if (!sel.value && sel.options.length) sel.selectedIndex = 0; upd(); });
     if (preTpl) $("#n-cols", bg).focus(); else $("#n-filter", bg).focus();
   }});
@@ -1590,6 +1595,7 @@ const HF_LBL = {obra:"obra", abertura:"data de abertura", fechamento:"data de fe
 function wireHeaderFields(root) {
   const id = cur.id;
   $$("[data-hf]", root).forEach(el => bind(el, `fvs/${id}`, el.dataset.hf, id, `Alterou ${HF_LBL[el.dataset.hf]}`));
+  $$('[data-hf="local"]', root).forEach(el => localPicker(el));
   root.addEventListener("click", e => {
     const fv = fvs.get(id); if (!fv) return;
     const sg = e.target.closest("[data-signact]");
@@ -1742,31 +1748,153 @@ function showPop(btn, itId, cid) {
   popEl.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     hidePop();
-    if (b.hasAttribute("data-obs")) return addProblem(itId, col.name);
+    if (b.hasAttribute("data-obs")) return addProblem(itId, col.name, itId + "_" + cid);
     if (b.hasAttribute("data-pic")) { setTab("photos"); return pickPhotos({item: itId, local: col.name}); }
     const v = b.dataset.v; if (v === curV) return;
-    patch(`fvs/${id}`, stamp({cells: {[itId + "_" + cid]: v}}));
+    const ck = itId + "_" + cid;
+    patch(`fvs/${id}`, stamp({cells: {[ck]: v}}));
+    if (v === "R") ncTrack(id, ck, {itId, n: it.n, local: col.name}); else if (ncSess.get(id)) ncSess.get(id).delete(ck);
     logAct(id, `${it.n} em ${col.name}: ${ST[v].name}`);
-    if (v === "R") setTimeout(async () => {
-      const has = cur && cur.obs.some(o => o.item === itId && String(o.problema || "").includes(col.name));
-      if (!has && await confirmBox("Registrar o problema?", `O item <b>${esc(it.n)}</b> foi reprovado em <b>${esc(col.name)}</b>. Quer descrever o problema e a solução agora?`, "Registrar")) addProblem(itId, col.name);
+    if (v === "R") setTimeout(() => {
+      if (!cur || cur.id !== id) return;
+      if (!ncObsFor({k: ck, itId, local: col.name})) { addProblem(itId, col.name, ck); toast("Não conformidade: escreva o problema e a solução."); }
     }, 50);
   });
 }
-async function addProblem(itemId, localName) {
+async function addProblem(itemId, localName, cell) {
   if (!cur || !canWrite) return;
   const id = cur.id, fvRows = cur.obs.filter(o => (o.sheet || "fv") === "fv").length;
   const sheet = fvRows >= 10 ? "f007" : "fv";
   const rid = uid("r"), at = nowIso();
   setTab(sheet === "fv" ? "fv" : "f007");
   try {
-    await create(`fvs/${id}/obs/${rid}`, {sheet, item: itemId, problema: localName ? `${localName}: ` : "", solucao: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+    await create(`fvs/${id}/obs/${rid}`, {sheet, item: itemId, ...(cell ? {cell} : {}), problema: localName ? `${localName}: ` : "", solucao: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
     touchFv(id, sheet === "fv" ? "Adicionou um problema na FV" : "Adicionou uma observação F.007");
     if (sheet === "f007") toast("A FV já tem 10 problemas; registrado na F.007.");
     setTimeout(() => { const ta = $(`tr[data-id="${rid}"] [data-f=problema]`); if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); ta.scrollIntoView({block:"center"}); } }, 200);
   } catch {}
 }
 
+
+/* ---------- não conformidade: problema e solução obrigatórios ----------
+   Toda reprovação (X) marcada nesta sessão precisa de uma linha com o problema e a solução escritos.
+   Sem isso, não dá para sair da FV: ou escreve, ou tira o X. */
+const ncSess = new Map(); // fvId -> Map(célula -> {itId, n, local})
+function ncTrack(fvId, k, info) { if (!ncSess.has(fvId)) ncSess.set(fvId, new Map()); ncSess.get(fvId).set(k, info); }
+function ncRowVals(o) { // usa o que está na tela (ainda não salvo) quando a linha estiver aberta
+  const tr = o && $(`tr[data-id="${o.id}"]`);
+  return {p: tr ? $("[data-f=problema]", tr).value : o.problema || "", s: tr ? $("[data-f=solucao]", tr).value : o.solucao || ""};
+}
+function ncObsFor(x) { return cur && cur.obs.find(o => o.cell === x.k || (!o.cell && o.item === x.itId && String(o.problema || "").includes(x.local))); }
+function ncFilled(x) {
+  const o = ncObsFor(x); if (!o) return false; const v = ncRowVals(o);
+  const prob = String(v.p).replace(new RegExp("^\\s*" + x.local.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*:\\s*"), "").trim();
+  return prob.length >= 3 && String(v.s).trim().length >= 3;
+}
+function ncPend() {
+  if (!cur) return []; const fv = fvs.get(cur.id), S = ncSess.get(cur.id); if (!fv || !S || locked(fv)) return [];
+  const cells = fv.cells || {}, out = [];
+  S.forEach((x, k) => { if (cells[k] !== "R") { S.delete(k); return; } x.k = k; if (!ncFilled(x)) out.push(x); });
+  return out;
+}
+let ncBusy = false;
+async function ncBlock(P, target) {
+  if (ncBusy) return; ncBusy = true;
+  const r = await modal({title: "Não conformidade sem descrição", body: `<p style="margin-top:0">Toda reprovação (X) precisa do <b>problema</b> e da <b>solução</b> escritos. Falta em:</p>
+    <ul>${P.map(x => `<li><b>${esc(x.n)}</b> em <b>${esc(x.local)}</b></li>`).join("")}</ul><p class="sub">Escreva agora ou tire o X desses itens para sair da FV.</p>`,
+    actions: [{label: "Tirar o X", value: "tirar"}, {label: "Escrever agora", cls: "primary", value: "escrever"}]});
+  ncBusy = false;
+  if (r === "tirar") {
+    const id = cur.id, upd = {};
+    P.forEach(x => { upd[x.k] = ""; const o = ncObsFor(x), v = o && ncRowVals(o); if (o && o.cell === x.k && !String(v.s).trim() && String(v.p).replace(x.local, "").replace(":", "").trim().length < 3) remove(`fvs/${id}/obs/${o.id}`).catch(() => {}); ncSess.get(id).delete(x.k); });
+    patch(`fvs/${id}`, stamp({cells: upd})); logAct(id, `Tirou ${P.length} reprovação(ões) sem descrição`); toast("Reprovação retirada.");
+    if (target) setTimeout(() => { location.hash = target; }, 50);
+    return;
+  }
+  const x = P[0]; let o = ncObsFor(x);
+  if (!o) { await addProblem(x.itId, x.local, x.k); return; }
+  setTab((o.sheet || "fv") === "fv" ? "fv" : "f007");
+  setTimeout(() => { const tr = $(`tr[data-id="${o.id}"]`); if (!tr) return; const v = ncRowVals(o), el = v.p.replace(x.local, "").replace(":", "").trim().length < 3 ? $("[data-f=problema]", tr) : $("[data-f=solucao]", tr);
+    tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); el.focus(); el.scrollIntoView({block: "center"}); }, 150);
+}
+window.addEventListener("beforeunload", e => { if (ncPend().length) { e.preventDefault(); e.returnValue = ""; } });
+
+/* ---------- escolha do local (busca enquanto digita) ----------
+   Grupos: Anexos, Trechos, Bloco, Piscina, CPG's, GLP's e Outros. Os numerados (Bloco, Trecho, CPG, GLP) vão crescendo
+   conforme são usados; o que a pessoa escrever fora das opções vira "Outros" e passa a ser sugerido também. */
+const LOC_GRUPOS = [
+  {k: "anexos", t: "Anexos", fixos: ["Salão de festas", "ADM", "Portaria", "Churrasqueira Gourmet", "Casa de bombas", "Casa de Máquinas"]},
+  {k: "trechos", t: "Trechos", seq: "Trecho", min: 1},
+  {k: "bloco", t: "Bloco", seq: "Bloco", min: 4},
+  {k: "piscina", t: "Piscina", fixos: ["Piscina Adulto", "Piscina Infantil"]},
+  {k: "cpg", t: "CPG's", seq: "CPG", min: 1},
+  {k: "glp", t: "GLP's", seq: "GLP", min: 1},
+  {k: "outros", t: "Outros", fixos: []}
+];
+function locUsados() { const S = new Set(); fvs.forEach(f => { const v = String(f.local || "").trim(); if (v) S.add(v); }); return [...S]; }
+function locOpcoes() { // [{g, v}]
+  const used = locUsados(), out = [], known = new Set();
+  LOC_GRUPOS.forEach(G => {
+    let L = [];
+    if (G.seq) { const re = new RegExp("^" + G.seq + "\\s*0*(\\d+)$", "i"); let mx = 0; used.forEach(u => { const m = re.exec(u); if (m) mx = Math.max(mx, +m[1]); }); const n = Math.max(G.min, mx + 1); for (let i = 1; i <= n; i++) L.push(`${G.seq} ${i}`); }
+    else if (G.k === "outros") L = used.filter(u => !known.has(norm(u)));
+    else L = G.fixos.slice();
+    L.forEach(v => { known.add(norm(v)); out.push({g: G.k, v}); });
+  });
+  return out;
+}
+function localPicker(inp, onPick) {
+  if (!inp || inp._lp) return; inp._lp = true; inp.setAttribute("autocomplete", "off"); inp.setAttribute("role", "combobox"); inp.setAttribute("aria-expanded", "false");
+  let box = null, grp = "", act = -1, items = [], typed = false;
+  const close = () => { if (box) { box.remove(); box = null; } grp = ""; act = -1; inp.setAttribute("aria-expanded", "false"); };
+  const pick = v => { inp.value = v; inp.dispatchEvent(new Event("input", {bubbles: true})); inp.dispatchEvent(new Event("change", {bubbles: true})); close(); onPick && onPick(v); };
+  const draw = () => {
+    if (inp.disabled) return close();
+    if (!box) { box = document.createElement("div"); box.className = "lp-box ui"; box.setAttribute("role", "listbox"); document.body.appendChild(box);
+      box.addEventListener("mousedown", e => e.preventDefault());
+      box.addEventListener("click", e => { const b = e.target.closest("[data-i]"); if (!b) return; choose(items[+b.dataset.i]); }); }
+    const r = inp.getBoundingClientRect(); box.style.left = Math.max(4, Math.min(r.left, innerWidth - 284)) + "px"; box.style.minWidth = Math.max(r.width, 260) + "px";
+    const below = innerHeight - r.bottom > 260 || r.top < 260; box.style.top = below ? r.bottom + 2 + "px" : ""; box.style.bottom = below ? "" : innerHeight - r.top + 2 + "px";
+    const q = typed ? norm(inp.value).trim() : "", O = locOpcoes(); items = [];
+    if (grp) { const G = LOC_GRUPOS.find(g => g.k === grp); items.push({back: 1, t: "← Grupos"}, {head: G.t});
+      O.filter(o => o.g === grp).forEach(o => items.push({v: o.v}));
+      items.push({outro: grp, t: G.k === "outros" ? "Escrever outro local…" : `Outro (${G.seq || G.t})…`}); }
+    else if (!q) { LOC_GRUPOS.forEach(G => items.push({grp: G.k, t: G.t, n: O.filter(o => o.g === G.k).length})); }
+    else {
+      const G = LOC_GRUPOS.filter(g => norm(g.t).includes(q)); G.forEach(g => items.push({grp: g.k, t: g.t, n: O.filter(o => o.g === g.k).length}));
+      const M = O.filter(o => norm(o.v).includes(q)); let last = "";
+      M.slice(0, 40).forEach(o => { if (o.g !== last) { items.push({head: LOC_GRUPOS.find(g => g.k === o.g).t}); last = o.g; } items.push({v: o.v}); });
+      if (!G.length && !O.some(o => norm(o.v) === q)) items.push({v: inp.value.trim(), novo: 1});
+    }
+    act = Math.min(Math.max(act, -1), items.length - 1);
+    box.innerHTML = items.map((it, i) => it.head ? `<div class="lp-h">${esc(it.head)}</div>` :
+      `<button type="button" role="option" data-i="${i}" class="${i === act ? "on" : ""}${it.grp ? " lp-g" : ""}${it.back ? " lp-b" : ""}">${it.grp ? `<span>${esc(it.t)}</span><small>${it.n ? it.n + " opç." : "criar"} ›</small>` : it.novo ? `<span>Usar “<b>${esc(it.v)}</b>”</span><small>novo local</small>` : esc(it.v || it.t)}</button>`).join("");
+    inp.setAttribute("aria-expanded", "true");
+    const a = box.querySelector("button.on"); if (a) a.scrollIntoView({block: "nearest"});
+  };
+  const choose = it => {
+    if (!it) return;
+    if (it.back) { grp = ""; act = -1; inp.value = ""; draw(); inp.focus(); return; }
+    if (it.grp) { grp = it.grp; act = -1; inp.value = ""; draw(); inp.focus(); return; }
+    if (it.outro) { const G = LOC_GRUPOS.find(g => g.k === it.outro); close(); inp.value = G.seq ? G.seq + " " : G.k === "piscina" ? "Piscina " : ""; inp.focus(); inp._free = true; return; }
+    if (it.v) pick(it.v);
+  };
+  const sel = () => items.map((x, i) => x.head ? -1 : i).filter(i => i >= 0);
+  inp.addEventListener("focus", () => { typed = false; if (!inp._free) draw(); });
+  inp.addEventListener("click", () => { inp._free = false; if (!box) typed = false; draw(); });
+  inp.addEventListener("input", e => { if (!e.isTrusted) return; inp._free = false; typed = true; grp = ""; act = -1; draw(); const S = sel(); if (norm(inp.value).trim() && S.length) { act = S[0]; draw(); } });
+  inp.addEventListener("blur", () => setTimeout(() => { if (document.activeElement !== inp) { close(); inp._free = false; } }, 120));
+  inp.addEventListener("keydown", e => {
+    if (!box) { if (e.key === "ArrowDown") { draw(); e.preventDefault(); } return; }
+    const S = sel(), p = S.indexOf(act);
+    if (e.key === "ArrowDown") { act = S[Math.min(S.length - 1, p + 1)]; draw(); e.preventDefault(); }
+    else if (e.key === "ArrowUp") { act = S[Math.max(0, p - 1)]; draw(); e.preventDefault(); }
+    else if (e.key === "Enter") { if (act >= 0) { e.preventDefault(); e.stopPropagation(); choose(items[act]); } else close(); }
+    else if (e.key === "Escape") { e.stopPropagation(); close(); }
+    else if (e.key === "Tab") close();
+  });
+  addEventListener("scroll", () => { if (box) draw(); }, true);
+}
 /* linhas de problema / solução (FV e F.007) */
 function itemOpts(fv) { return `<option value=""></option>` + (fv.items || []).map(i => `<option value="${esc(i.id)}">${esc(i.n)}</option>`).join(""); }
 function probRowFactory(fv, sheet) {
@@ -6905,6 +7033,7 @@ async function renderScopePanel(box) {
 
 /* ---------- rotas e filtros ---------- */
 function route() {
+  if (cur && location.hash !== "#fv-" + cur.id) { const P = ncPend(); if (P.length) { const tg = location.hash; history.replaceState(null, "", "#fv-" + cur.id); ncBlock(P, tg); return; } }
   let h = location.hash.replace(/^#/, "");
   if (!h) { h = "sel"; history.replaceState(null, "", "#sel"); }
   /* telas de escolha */
