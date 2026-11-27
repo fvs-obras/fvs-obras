@@ -914,6 +914,10 @@ body.ng [data-pjdel],body.ng [data-pjrm],body.ng [data-delpl],body.ng #g-del,bod
 .tmp-n.on{background:var(--red);border-color:var(--red);color:#fff}.tmp-n.np{border-style:dashed}.tmp-n.mk{outline:3px solid #ffd166}
 .tmp-sel{font-size:13px}
 @media (max-width:700px){.tmp{grid-template-columns:1fr}.tmp-nums{grid-template-columns:repeat(8,1fr)}}
+.mprev img{max-width:calc(var(--esc,1) * 100%)!important;max-height:calc(var(--esc,1) * 72vh)!important}
+#print-root .mprev{border:1px solid #000!important;min-height:0;padding:10px;margin-top:7px}
+#print-root .mprev img{max-height:calc(var(--esc,1) * 600px)!important;max-width:calc(var(--esc,1) * 100%)!important}
+.msc{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);margin-left:8px}.msc select{min-height:30px!important;height:30px;padding:2px 6px!important;width:auto!important;font-size:12px}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1683,6 +1687,7 @@ function wireHeaderFields(root) {
     const sg = e.target.closest("[data-signact]");
     if (sg && canWrite) {
       if (!isGestor) { gestorOnly(sg.dataset.signact === "sign" ? "Assinar como gestor(a)" : "Remover assinatura", sg.dataset.signact === "sign" ? "assinar a FV" : "remover a assinatura"); return; }
+      if (sg.dataset.signact === "sign" && stats(fv).R) { modal({title: "Não dá para assinar", body: `<p style="margin:0">A FV ainda tem <b>${stats(fv).R} item(ns) reprovado(s)</b> (X). A assinatura só é liberada quando todos forem reinspecionados e aprovados (Ⓧ) ou marcados de outra forma.</p>`, actions: [{label: "Entendi", cls: "primary", value: null}]}); return; }
       if (sg.dataset.signact === "sign") { patch(`fvs/${id}`, stamp({assinatura: {by: me, at: nowIso()}})); logAct(id, "Assinou como gestor(a)"); }
       else { patch(`fvs/${id}`, stamp({assinatura: null})); logAct(id, "Removeu a assinatura do gestor(a)"); }
     }
@@ -1728,6 +1733,7 @@ function renderSheet(fv) {
       if (locked(f)) return;
       const nF = fvFolhas(f);
       if (fb.dataset.newfolha !== undefined) { cur.folha = nF; const up = {folhas: nF + 1}, cn = colNorm(f); if (Object.keys(cn).length) up.cols = cn; /* objeto vazio apagaria as colunas */ patch(`fvs/${cur.id}`, stamp(up)); logAct(cur.id, `Adicionou a folha ${nF + 1}`); toast(`Folha ${nF + 1} criada. Digite os locais no cabeçalho.`); }
+      else if (nF > 1 && cur.obs.some(o => (o.sheet || "fv") === "fv" && obsFolha(o) === nF - 1)) { toast(`A folha ${nF} tem problemas registrados. Apague as linhas de problema dela antes de remover a folha.`); }
       else if (nF > 1) { cur.folha = nF - 2; patch(`fvs/${cur.id}`, stamp({folhas: nF - 1})); logAct(cur.id, `Removeu a folha ${nF} (vazia)`); }
     });
     sh.addEventListener("change", e => {
@@ -1782,6 +1788,7 @@ function renderChk(fv) {
     const it = items.find(i => i.id === b.dataset.it), c = (fv.cols || {})[b.dataset.col];
     b.setAttribute("aria-label", `${it ? it.n : ""} em ${c ? c.name : ""}: ${st.name}`); b.title = st.name;
   });
+  renderProbRows(fv, "fv");
 }
 async function colChange(inp) {
   const id = cur.id, fv = fvs.get(id); if (!fv || locked(fv)) return;
@@ -1847,15 +1854,17 @@ function showPop(btn, itId, cid) {
 }
 async function addProblem(itemId, localName, cell) {
   if (!cur || !canWrite) return;
-  const id = cur.id, fvRows = cur.obs.filter(o => (o.sheet || "fv") === "fv").length;
-  const sheet = fvRows >= 10 ? "f007" : "fv";
+  const id = cur.id, fv0 = fvs.get(id) || {}, cid = cell ? String(cell).slice(String(itemId).length + 1) : "", cp = cid ? colPages(fv0).find(x => x[0] === cid) : null;
+  const folha = cp ? cp[2] : (cur.folha || 0), fvRows = cur.obs.filter(o => (o.sheet || "fv") === "fv" && obsFolha(o) === folha).length;
+  const sheet = fvRows >= FV_PROB_LIN ? "f007" : "fv";
+  if (sheet === "fv" && (cur.folha || 0) !== folha) { cur.folha = folha; renderChk(fv0); }
   if (sheet === "f007") cur.f7pg = Math.floor(cur.obs.filter(o => o.sheet === "f007").length / F007_LIN);
   const rid = uid("r"), at = nowIso();
   setTab(sheet === "fv" ? "fv" : "f007");
   try {
-    await create(`fvs/${id}/obs/${rid}`, {sheet, item: itemId, ...(cell ? {cell} : {}), problema: localName ? `${localName}: ` : "", solucao: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+    await create(`fvs/${id}/obs/${rid}`, {sheet, ...(sheet === "fv" ? {folha} : {}), item: itemId, ...(cell ? {cell} : {}), problema: localName ? `${localName}: ` : "", solucao: "", createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
     touchFv(id, sheet === "fv" ? "Adicionou um problema na FV" : "Adicionou uma observação F.007");
-    if (sheet === "f007") toast("A FV já tem 10 problemas; registrado na F.007.");
+    if (sheet === "f007") toast(`A folha ${folha + 1} da FV já tem ${FV_PROB_LIN} problemas; registrado na F.007.`);
     setTimeout(() => { const ta = $(`tr[data-id="${rid}"] [data-f=problema]`); if (ta) { ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); ta.scrollIntoView({block:"center"}); } }, 200);
   } catch {}
 }
@@ -1899,6 +1908,7 @@ async function ncBlock(P, target) {
   const x = P[0]; let o = ncObsFor(x);
   if (!o) { await addProblem(x.itId, x.local, x.k); return; }
   if (o.sheet === "f007") { cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === o.id) / F007_LIN); renderProbRows(fvs.get(cur.id), "f007"); }
+  else if (obsFolha(o) !== (cur.folha || 0)) { cur.folha = obsFolha(o); renderChk(fvs.get(cur.id)); }
   setTab((o.sheet || "fv") === "fv" ? "fv" : "f007");
   setTimeout(() => { const tr = $(`tr[data-id="${o.id}"]`); if (!tr) return; const v = ncRowVals(o), el = v.p.replace(x.local, "").replace(":", "").trim().length < 3 ? $("[data-f=problema]", tr) : $("[data-f=solucao]", tr);
     tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); el.focus(); el.scrollIntoView({block: "center"}); }, 150);
@@ -2116,7 +2126,7 @@ function probRowFactory(fv, sheet) {
   return () => {
     const tr = document.createElement("tr");
     tr.innerHTML = `<td class="fill"><select data-f="item" aria-label="Item">${itemOpts(fv)}</select></td><td class="fill"><textarea data-f="problema" rows="1" aria-label="Problema identificado"></textarea></td><td class="fill"><textarea data-f="solucao" rows="1" aria-label="Solução"></textarea></td><td class="x"><button type="button" class="rdots" data-rdots title="Ações da linha" aria-label="Ações da linha">⋯<b class="rdots-n"></b></button><button type="button" data-photos class="rph hidden" aria-label="Fotos do problema"></button><button type="button" data-del class="hidden" aria-label="Excluir linha">✕</button></td>`;
-    bindLazyRow(tr, `fvs/${id}/obs`, id, () => ({sheet, item: "", problema: "", solucao: ""}), label);
+    bindLazyRow(tr, `fvs/${id}/obs`, id, () => ({sheet, item: "", problema: "", solucao: "", ...(sheet === "fv" ? {folha: cur.folha || 0} : {})}), label);
     const itNow = () => { const f = fvs.get(id) || fv, x = (f.items || []).find(i => i.id === $("[data-f=item]", tr).value); return x ? `do item ${x.n}` : "sem item"; };
     tr._desc = f => f === "item" ? `${sheet === "fv" ? "FV" : "F.007"}: mudou o item de um problema para ${itNow().replace("do item ", "")}` : `${sheet === "fv" ? "FV" : "F.007"}: editou ${f === "solucao" ? "a solução" : "o problema"} ${itNow()}`;
     wireRowPhoto(tr, "obs", () => ({item: $("[data-f=item]", tr).value || "", local: fv.local || ""}));
@@ -2141,9 +2151,15 @@ function probRowUpdate(fv) {
 }
 const F007_LIN = 30;
 const f7Pages = fv => { const n = cur.obs.filter(o => o.sheet === "f007").length; return locked(fv) ? Math.max(1, Math.ceil(n / F007_LIN)) : Math.floor(n / F007_LIN) + 1; };
+const FV_PROB_LIN = 10, PDA_LIN = 10;
+const obsFolha = o => Math.max(0, parseInt(o.folha, 10) || 0);
 function renderProbRows(fv, sheet) {
   const tb = sheet === "fv" ? $("#fv-prob tbody") : $("#f007-prob tbody"); if (!tb) return;
   let docs = cur.obs.filter(o => (o.sheet || "fv") === sheet);
+  if (sheet === "fv") { // cada folha da FV tem a sua tabela de problemas (10 linhas, como no arquivo original)
+    const fo = cur.folha || 0; docs = docs.filter(o => obsFolha(o) === fo);
+    if (tb.dataset.pg !== String(fo)) { tb.innerHTML = ""; tb.dataset.pg = String(fo); }
+  }
   if (sheet === "f007") {
     const nP = f7Pages(fv), pg = cur.f7pg = Math.max(0, Math.min(cur.f7pg || 0, nP - 1)), last = pg === nP - 1, total = docs.length;
     docs = docs.slice(pg * F007_LIN, pg * F007_LIN + F007_LIN);
@@ -2152,7 +2168,7 @@ function renderProbRows(fv, sheet) {
     const bar = $("#f007-pages");
     if (bar) bar.innerHTML = `<span class="folha-tabs">${Array.from({length: nP}, (_, i) => { const c = Math.max(0, Math.min(F007_LIN, total - i * F007_LIN)); return `<button type="button" class="chip ${i === pg ? "on" : ""}" data-f7pg="${i}">Folha ${i + 1} <small>${c}/${F007_LIN}</small></button>`; }).join("")}</span><span class="sub">${locked(fv) ? "Fechada junto com a FV." : `Cada linha é um problema (um item reprovado pode ter várias linhas). Com ${F007_LIN} linhas preenchidas, abre a folha seguinte.`}</span>`;
   } else
-  syncSheetRows(tb, docs, probRowFactory(fv, sheet), probRowUpdate(fv), sheet === "fv" ? 10 : 20, sheet === "fv" ? 2 : 3);
+  syncSheetRows(tb, docs, probRowFactory(fv, sheet), probRowUpdate(fv), FV_PROB_LIN, 0);
   const ids = [...new Set(docs.flatMap(d => [d.createdBy, d.updatedBy]))].filter(i => i && !names.has(i));
   if (ids.length && user && user.profiles) user.profiles(ids).then(ps => { ids.forEach(i => names.set(i, ps?.[i]?.name || "Alguém")); }).catch(() => {});
 }
@@ -2197,6 +2213,8 @@ function renderPda(fv) {
         <thead><tr><th>DATA</th><th>RESPONSÁVEL</th><th>PROBLEMA</th><th>AÇÃO</th><th>SUPORTE</th><th>STATUS</th><th>PRAZO</th><th class="nob" style="background:#fff"></th></tr></thead><tbody></tbody></table>
     </div></div>
     <p class="hint">Toque no círculo de STATUS para avançar: Planejamento → Execução → Verificação → Padronização. Prazos vencidos ficam em vermelho; o que falta (responsável, suporte ou prazo) fica em amarelo. <b>Responsável</b> é quem executa; <b>suporte</b> é quem da engenharia acompanha. Os dois são cobrados no sino 🔔 do topo, e as ações vencidas aparecem no Painel.</p>`;
+    $("#sheet-pda", box).insertAdjacentHTML("beforebegin", `<div class="folha-bar noprint" id="pda-pages" style="margin:0 0 8px"></div>`);
+    box.addEventListener("click", e => { const b = e.target.closest("[data-pdapg]"); if (!b) return; cur.pdapg = +b.dataset.pdapg; renderPda(fvs.get(cur.id)); });
     $("#sheet-pda", box).addEventListener("click", async e => {
       const b = e.target.closest(".pdca"); if (!b || b.disabled) return;
       const tr = b.closest("tr"), curV = normPdca(b.dataset.v || ""), next = PDCA[(PDCA.indexOf(curV) + 1) % PDCA.length];
@@ -2232,7 +2250,14 @@ function renderPda(fv) {
     [["responsavel", 2], ["suporte", 5], ["prazo", 7]].forEach(([k, i]) => tr.children[i - 1].classList.toggle("miss", open_ && !String(d[k] || "").trim()));
     tr.title = d ? `Criado por ${names.get(d.createdBy) || "…"} em ${fmtFull(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editado por ${names.get(d.updatedBy) || "…"} em ${fmtFull(d.updatedAt)}` : ""}` : "";
   };
-  syncSheetRows(tb, cur.pda, make, update, 6, 2);
+  { // 10 linhas por folha; cheia, abre a próxima
+    const all = cur.pda, nP = canWrite ? Math.floor(all.length / PDA_LIN) + 1 : Math.max(1, Math.ceil(all.length / PDA_LIN)), pg = cur.pdapg = Math.max(0, Math.min(cur.pdapg || 0, nP - 1)), last = pg === nP - 1;
+    const docs = all.slice(pg * PDA_LIN, pg * PDA_LIN + PDA_LIN);
+    if (tb.dataset.pg !== String(pg)) { tb.innerHTML = ""; tb.dataset.pg = String(pg); }
+    syncSheetRows(tb, docs, make, update, last ? PDA_LIN : docs.length, last && canWrite && docs.length < PDA_LIN ? 1 : 0);
+    const bar = $("#pda-pages", box);
+    if (bar) bar.innerHTML = `<span class="folha-tabs">${Array.from({length: nP}, (_, i) => { const c = Math.max(0, Math.min(PDA_LIN, all.length - i * PDA_LIN)); return `<button type="button" class="chip ${i === pg ? "on" : ""}" data-pdapg="${i}">Folha ${i + 1} <small>${c}/${PDA_LIN}</small></button>`; }).join("")}</span><span class="sub">${PDA_LIN} ações por folha, como no arquivo original. Com as ${PDA_LIN} preenchidas, abre a folha seguinte.</span>`;
+  }
   $("#pda-alert", box).innerHTML = pdaAlert(fv); syncPdaSum(fv);
   $("#pda-flow", box).innerHTML = fv.status === "fechada"
     ? "<b>FV fechada.</b> Problemas que aparecerem a partir de agora são registrados aqui no PDA."
@@ -2253,7 +2278,7 @@ async function toggleClose() {
     const r = await modal({title: "Não dá para fechar ainda", body: `<p style="margin-top:0">A FV e a F.007 fecham juntas, e só fecham com todas as linhas resolvidas. Ainda ${abertas.length > 1 ? "há linhas abertas" : "há uma linha aberta"} (sem o problema ou sem a solução):</p>
       <ul>${abertas.slice(0, 12).map(o => `<li><b>${o.sheet === "f007" ? "F.007" : "FV"}</b> · item ${esc(itN(o.item))}${String(o.problema || "").trim() ? ` · ${esc(String(o.problema).slice(0, 60))}` : ""}</li>`).join("")}${abertas.length > 12 ? `<li>… e mais ${abertas.length - 12}</li>` : ""}</ul>`,
       actions: [{label: "Fechar aviso", value: null}, {label: "Ir para a primeira", cls: "primary", value: "ir"}]});
-    if (r === "ir") { const o = abertas[0]; if (o.sheet === "f007") cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === o.id) / F007_LIN); setTab(o.sheet === "f007" ? "f007" : "fv"); renderProbRows(fv, o.sheet === "f007" ? "f007" : "fv");
+    if (r === "ir") { const o = abertas[0]; if (o.sheet === "f007") cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === o.id) / F007_LIN); else { cur.folha = obsFolha(o); renderChk(fv); } setTab(o.sheet === "f007" ? "f007" : "fv"); renderProbRows(fv, o.sheet === "f007" ? "f007" : "fv");
       setTimeout(() => { const tr = $(`tr[data-id="${o.id}"]`); if (!tr) return; tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); const el = $("[data-f=problema]", tr); el.focus(); el.scrollIntoView({block: "center"}); }, 200); }
     return;
   }
@@ -3000,7 +3025,11 @@ function notifPanel() {
     if (e.target.closest("[data-ndel]")) { notifs.delete(it.dataset.nid); remove(`notifs/${it.dataset.nid}`).catch(() => {}); draw(); bellRender(); return; }
     if (e.target.closest("[data-nopen]")) {
       if (!n.lida) patch(`notifs/${it.dataset.nid}`, {lida: true});
-      npanelClose(); const go = () => { if (!cur || cur.id !== n.fv) return; setTab(n.kind === "pda" ? "pda" : n.sheet === "f007" ? "f007" : "fv");
+      npanelClose(); const go = () => { if (!cur || cur.id !== n.fv) return; const ro = (n.kind === "pda" ? cur.pda : cur.obs).find(x => x.id === n.row);
+        if (ro && n.kind !== "pda" && ro.sheet !== "f007" && obsFolha(ro) !== (cur.folha || 0)) { cur.folha = obsFolha(ro); renderChk(fvs.get(cur.id)); }
+        if (ro && n.kind !== "pda" && ro.sheet === "f007") { cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === ro.id) / F007_LIN); renderProbRows(fvs.get(cur.id), "f007"); }
+        if (ro && n.kind === "pda") { cur.pdapg = Math.floor(cur.pda.findIndex(z => z.id === ro.id) / PDA_LIN); renderPda(fvs.get(cur.id)); }
+        setTab(n.kind === "pda" ? "pda" : n.sheet === "f007" ? "f007" : "fv");
         setTimeout(() => { const tr = $(`tr[data-id="${n.row}"]`); if (tr) { tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); tr.scrollIntoView({block: "center"}); } }, 300); };
       if (!fvs.has(n.fv)) { toast("Esta FV não existe mais."); return; }
       if (n.sheet === "f007") { const L7 = (cur && cur.id === n.fv ? cur.obs : []).filter(o => o.sheet === "f007"); }
@@ -3482,11 +3511,15 @@ async function processPlanta(file, prog) {
 }
 
 /* aba Mapeamentos da FV */
+const ESCALAS = [100, 90, 80, 70, 60, 50, 40, 30];
+const mEsc = m => { const v = parseInt(m && m.esc, 10); return v >= 20 && v <= 100 ? v : 100; };
 function renderMaps(fv) {
   const box = $("#tab-maps"); if (!box || !cur) return;
   $("#n-maps").textContent = cur.maps.length;
   const lk = locked(fv);
-  if (!box.dataset.wired) { box.dataset.wired = "1"; box.addEventListener("click", mapsClick); }
+  if (!box.dataset.wired) { box.dataset.wired = "1"; box.addEventListener("click", mapsClick);
+    box.addEventListener("change", e => { const sl = e.target.closest("[data-esc]"); if (!sl || !cur) return; const m = cur.maps.find(x => x.id === sl.dataset.esc); if (!m) return; const v = +sl.value;
+      patch(`fvs/${cur.id}/maps/${m.id}`, stamp({esc: v})); logAct(cur.id, `Mudou a escala do mapeamento “${m.title || ""}” na folha para ${v}%`); const pv = sl.closest(".mcard").querySelector(".mprev"); if (pv) pv.style.setProperty("--esc", (v / 100).toString()); }); }
   if (!cur.maps.length) {
     box.innerHTML = `<div class="empty"><b>Esta FV não tem mapeamento</b>Use quando precisar marcar na planta a situação dos itens, com recorte da área, desenhos e notas.${lk ? "" : `<div style="margin-top:14px"><button class="btn primary" type="button" data-newmap>+ Criar mapeamento</button></div>`}</div>`;
     return;
@@ -3504,8 +3537,9 @@ function renderMaps(fv) {
     const mks = markersOf(m.shapes);
     $(".mnotes", card).innerHTML = mks.length ? `<div class="mnotes-t">NOTAS</div><ol>${mks.map(s => { const k = `mk:${m.id}:${s.id}`, ph = linkedPhotos(k); return `<li><span class="mdot" style="background:${esc(s.c)};color:${isLight(s.c) ? "#111" : "#fff"}">${s.n}</span><span>${esc(s.txt || "—")}${ph.length ? `<span class="mthumbs">${ph.map(p => `<img alt="" data-lbx="${esc(p.id)}" data-ph="${esc(p.id)}">`).join("")}</span>` : ""}</span>${lk && !ph.length ? "" : `<button type="button" class="mph noprint" data-mkph="${esc(m.id)}|${esc(s.id)}">${photoBtnHtml(k)}</button>`}</li>`; }).join("")}</ol>` : "";
     $$(".mnotes img[data-ph]", card).forEach(im => { const p = cur.photos.find(x => x.id === im.dataset.ph); if (p) mediaSrc(p).then(src => { if (src) im.src = src; }); });
-    $(".mbtns", card).innerHTML = `<button class="btn sm primary" type="button" data-open="${m.id}">${lk ? "Abrir" : "Abrir e editar"}</button>${lk ? "" : `<button class="btn sm" type="button" data-ren="${m.id}">Renomear</button><button class="btn sm ghost danger" type="button" data-delmap="${m.id}">Excluir</button>`}<span class="sub" style="margin-left:auto">${m.ptitle ? "Planta: " + esc(m.ptitle) + " · " : ""}Atualizado por ${who(m.updatedBy || m.createdBy)} em ${fmtFull(m.updatedAt || m.createdAt)}</span>`;
+    $(".mbtns", card).innerHTML = `<button class="btn sm primary" type="button" data-open="${m.id}">${lk ? "Abrir" : "Abrir e editar"}</button>${lk ? "" : `<button class="btn sm" type="button" data-ren="${m.id}">Renomear</button><button class="btn sm ghost danger" type="button" data-delmap="${m.id}">Excluir</button>`}<label class="msc" title="Tamanho da imagem na folha (na tela e no PDF)">Escala na folha <select data-esc="${m.id}" ${lk ? "disabled" : ""}>${ESCALAS.map(v => `<option value="${v}" ${v === mEsc(m) ? "selected" : ""}>${v}%</option>`).join("")}</select></label><span class="sub" style="margin-left:auto">${m.ptitle ? "Planta: " + esc(m.ptitle) + " · " : ""}Atualizado por ${who(m.updatedBy || m.createdBy)} em ${fmtFull(m.updatedAt || m.createdAt)}</span>`;
     const pv = $(".mprev", card), key = `${m.img && m.img.id}:${m.updatedAt || ""}`;
+    pv.style.setProperty("--esc", (mEsc(m) / 100).toString());
     if (pv.dataset.key !== key && m.img && !(medState && medState.mid === m.id)) {
       pv.dataset.key = key;
       mapImageUrl(m).then(u => { if (pv.dataset.key !== key) return; pv.innerHTML = `<img src="${u}" alt="Mapeamento ${esc(m.title || "")}" data-open="${m.id}">`; })
@@ -4608,7 +4642,6 @@ async function exportPdf(soMapas) {
       for (let k = 0; k < nF; k++) {
         cur.folha = k; renderChk(fv);
         const c = staticize(fvSheet, fvSheet.cloneNode(true));
-        if (k) c.querySelectorAll("table.prob-tbl").forEach(e => e.remove()); // os problemas saem só na primeira folha
         sections.push(page(c, nF > 1 ? `Folha ${k + 1} de ${nF} · ${stamp}` : stamp));
       }
       cur.folha = back; renderChk(fv);
@@ -4620,17 +4653,21 @@ async function exportPdf(soMapas) {
       if (!url) continue;
       const mks = markersOf(m.shapes), s = document.createElement("div"); s.className = "sheet msheet";
       s.innerHTML = `<table><colgroup><col style="width:118px"><col style="width:20%"><col><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">MAPEAMENTO</td><td class="act">${esc(m.title || "")}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr></table>
-        <div class="mprev"><img src="${url}" alt=""></div>${mks.length ? `<div class="mnotes"><div class="mnotes-t">NOTAS</div><ol>${(await Promise.all(mks.map(async k => { const ph = await Promise.all(linkedPhotos(`mk:${m.id}:${k.id}`).slice(0, 4).map(p => mediaSrc(p))); return `<li><span class="mdot" style="background:${esc(k.c)};color:${isLight(k.c) ? "#111" : "#fff"}">${k.n}</span><span>${esc(k.txt || "—")}${ph.filter(Boolean).length ? `<span class="mthumbs">${ph.filter(Boolean).map(src => `<img src="${src}" alt="">`).join("")}</span>` : ""}</span></li>`; }))).join("")}</ol></div>` : ""}`;
+        <div class="mprev" style="--esc:${mEsc(m) / 100}"><img src="${url}" alt=""></div>${mks.length ? `<div class="mnotes"><div class="mnotes-t">NOTAS</div><ol>${(await Promise.all(mks.map(async k => { const ph = await Promise.all(linkedPhotos(`mk:${m.id}:${k.id}`).slice(0, 4).map(p => mediaSrc(p))); return `<li><span class="mdot" style="background:${esc(k.c)};color:${isLight(k.c) ? "#111" : "#fff"}">${k.n}</span><span>${esc(k.txt || "—")}${ph.filter(Boolean).length ? `<span class="mthumbs">${ph.filter(Boolean).map(src => `<img src="${src}" alt="">`).join("")}</span>` : ""}</span></li>`; }))).join("")}</ol></div>` : ""}`;
       sections.push(page(s));
     }
     const f007 = soMapas ? null : $("#sheet-f007");
     if (f007 && cur.obs.some(o => o.sheet === "f007")) {
       const back7 = cur.f7pg || 0, n7 = Math.max(1, Math.ceil(cur.obs.filter(o => o.sheet === "f007").length / F007_LIN));
-      for (let k = 0; k < n7; k++) { cur.f7pg = k; renderProbRows(fv, "f007"); const c = staticize(f007, f007.cloneNode(true)); c.querySelectorAll(".prob-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c, n7 > 1 ? `F.007 · folha ${k + 1} de ${n7} · ${stamp}` : stamp)); }
+      for (let k = 0; k < n7; k++) { cur.f7pg = k; renderProbRows(fv, "f007"); const c = staticize(f007, f007.cloneNode(true)); sections.push(page(c, n7 > 1 ? `F.007 · folha ${k + 1} de ${n7} · ${stamp}` : stamp)); }
       cur.f7pg = back7; renderProbRows(fv, "f007");
     }
     const pda = soMapas ? null : $("#sheet-pda");
-    if (pda && cur.pda.length) { const c = staticize(pda, pda.cloneNode(true)); c.querySelectorAll(".pda-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c)); }
+    if (pda && cur.pda.length) {
+      const backP = cur.pdapg || 0, nP = Math.max(1, Math.ceil(cur.pda.length / PDA_LIN));
+      for (let k = 0; k < nP; k++) { cur.pdapg = k; renderPda(fv); const c = staticize(pda, pda.cloneNode(true)); sections.push(page(c, nP > 1 ? `PDA · folha ${k + 1} de ${nP} · ${stamp}` : stamp)); }
+      cur.pdapg = backP; renderPda(fv);
+    }
     if (!soMapas && cur.photos.length) {
       const w = document.createElement("div"); w.className = "sheet";
       const itemOf = id => (fv.items || []).find(i => i.id === id);
