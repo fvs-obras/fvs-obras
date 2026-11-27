@@ -987,6 +987,60 @@ a.ntf-b{text-decoration:none}
 .ch-ans{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-top:6px}.ch-ans select{width:auto!important}.ch-ans textarea{flex:1;min-width:200px}
 body.has-side .help-fab{right:22px}@media (max-width:760px){.help-fab{right:14px;bottom:14px;width:46px;height:46px;font-size:20px}.help-menu{right:14px;bottom:70px}}
 body.in-social .help-fab{bottom:92px}body.in-social .help-menu{bottom:154px}
+
+#print-root .msheet .mprev{height:560px!important;padding:14px!important}
+#print-root .msheet .mprev img{max-height:calc(var(--esc,1) * 530px)!important}
+/* perfil */
+.ub-me{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;color:#fff;font-weight:700;cursor:pointer;padding:2px 6px 2px 2px;border-radius:999px}.ub-me:hover{background:rgba(255,255,255,.15)}
+.av-img,.av-ini{width:100%;height:100%;border-radius:50%;object-fit:cover;display:grid;place-items:center}
+.av-img.sm,.av-ini.sm{width:28px;height:28px;font-size:13px;background:#fff;color:var(--red);font-weight:800}
+.av-img.lg,.av-ini.lg{width:84px;height:84px;font-size:32px;background:var(--graphite);color:#fff;font-weight:800}
+.soc-av{overflow:hidden}.soc-av .av-ini{background:transparent;color:#fff}
+.cfg-pf .cfg-av{display:flex;gap:16px;align-items:center}
+/* configurações */
+.cfg{display:grid;grid-template-columns:240px minmax(0,1fr);gap:18px;align-items:start}
+.cfg-nav{display:grid;gap:2px;position:sticky;top:76px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px}
+.cfg-nav a{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:8px;text-decoration:none;color:var(--graphite);font-weight:600;font-size:13.5px}.cfg-nav a:hover{background:var(--fill)}.cfg-nav a.on{background:var(--red-soft);color:var(--red)}
+.cfg:has(.cfg-grid){grid-template-columns:1fr}.cfg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}.cfg-ic{font-size:22px}
+.cfg-opts{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}.cfg-opt{display:flex;gap:8px;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:12px 16px;cursor:pointer;text-transform:none;letter-spacing:0;background:var(--panel)}
+.cfg-opt.on{border-color:var(--red);background:var(--red-soft)}.cfg-opt input{position:absolute;opacity:0;pointer-events:none}.cfg-ic2{font-size:20px}
+.cfg-sw{display:flex;gap:10px;align-items:center;margin:8px 0;text-transform:none;letter-spacing:0;font-weight:500;font-size:14px}.cfg-sw input{width:20px;height:20px;min-height:0}
+.cfg-keys{margin:6px 0;padding-left:18px;line-height:1.9}kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;font-size:12px;background:var(--fill)}
+.cfg-back{display:inline-block;margin:0 0 10px;font-weight:700;font-size:13px;color:var(--red);text-decoration:none}
+.us-list{display:grid;gap:6px}.us-row{display:grid;grid-template-columns:40px minmax(0,1fr) 240px auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--panel)}.us-n b{display:block}.us-n small{color:var(--muted);font-size:12px}
+@media (max-width:800px){.cfg{grid-template-columns:1fr}.cfg-nav{position:static;display:flex;overflow:auto}.cfg-nav a{white-space:nowrap}.us-row{grid-template-columns:40px 1fr}.us-row input,.us-row button{grid-column:2}}
+html.fonte-g body{font-size:16px}html.fonte-g .sd-n a,html.fonte-g .btn{font-size:15px}
+.dk-btn{border:1.5px solid rgba(255,255,255,.75);background:transparent;color:#fff;border-radius:999px;width:34px;height:30px;font-size:15px;cursor:pointer;padding:0}
+.dk-btn[aria-pressed=true]{background:#fff;color:#1b1d21}
+/* pendências */
+.pd-kpis{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}.pd-k{display:grid;justify-items:start;border:1.5px solid var(--line);background:var(--panel);border-radius:12px;padding:8px 14px;cursor:pointer;color:var(--ink);min-width:120px}
+.pd-k b{font-size:22px}.pd-k span{font-size:12px;color:var(--muted)}.pd-k.on{border-color:var(--red);background:var(--red-soft)}
+.pd-f{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))!important}.pd-q{grid-column:span 2}
+.pd-n{margin:6px 0}.pd-list{display:grid;gap:8px}
+.pd-it{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:12px;align-items:start;background:var(--panel);border:1px solid var(--line);border-left:5px solid #9e9e9e;border-radius:10px;padding:10px 12px}
+.pd-it.u-critica{border-left-color:#c4170f}.pd-it.u-alta{border-left-color:#ef6c00}.pd-it.u-media{border-left-color:#e0a800}.pd-it.u-baixa{border-left-color:#2e7d32}.pd-it.mine{box-shadow:0 0 0 2px var(--red-soft)}
+.pd-l{display:grid;gap:4px}.pd-u{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em}.u-critica .pd-u{color:#c4170f}.u-alta .pd-u{color:#ef6c00}.u-media .pd-u{color:#b58900}.u-baixa .pd-u{color:#2e7d32}
+.pd-tp{font-size:12px;color:var(--muted)}.pd-c{display:grid;gap:3px;min-width:0}.pd-c b{font-size:14px;word-break:break-word}.pd-c small{font-size:12px;color:var(--muted)}.pd-c a{color:inherit;font-weight:700}.pd-c .late{color:var(--bad)}
+.pd-env{justify-self:start;font-size:11px;font-weight:800;background:var(--red);color:#fff;border-radius:999px;padding:2px 9px}.pd-nt{font-size:12px;color:var(--graphite)}
+.pd-a{display:flex;gap:6px}
+@media (max-width:760px){.pd-it{grid-template-columns:1fr}.pd-q{grid-column:auto}}
+.pn-item{margin-bottom:14px}
+/* ---------- modo escuro (as fichas continuam brancas como papel) ---------- */
+body.dark{--ink:#e8e8e8;--graphite:#cfd2d6;--muted:#9aa0a6;--line:#363a40;--bg:#15171a;--panel:#1f2226;--fill:#2a2e33;--red-soft:#3a1f1d;--ok-soft:#1d3326;--bad-soft:#3a1f1d;--warn-soft:#3a2f17;--na-soft:#2a2e33;--re-soft:#2a2e33;color-scheme:dark}
+body.dark header.top{background:#26292e;box-shadow:0 1px 0 #000}
+body.dark .ctxnav a.on{background:var(--red);color:#fff}
+body.dark .side,body.dark .panel,body.dark .modal,body.dark .sel-card,body.dark .eh-card,body.dark .pn-kpi,body.dark .pl-kpi,body.dark .ntf,body.dark .rpop,body.dark .lp-box,body.dark .help-menu,body.dark .pf-i,body.dark .nt-p,body.dark .ch-it,body.dark .faq details,body.dark .tmp-n,body.dark .soc,body.dark .soc-h,body.dark .soc-comp,body.dark .soc-b,body.dark .soc-day,body.dark .soc-att button,body.dark .sc-row,body.dark .empty,body.dark .banner,body.dark .card,body.dark .fv-card,body.dark .lx-item,body.dark .chip,body.dark .cd-add,body.dark .soc-ib,body.dark .ntf-x,body.dark .nt-ctx,body.dark .soc-card,body.dark .pf-ph,body.dark .chipf{background:var(--panel)!important;color:var(--ink);border-color:var(--line)!important}
+body.dark .soc-r,body.dark .soc-msgs{background:#191b1e}body.dark .soc-m.me .soc-b{background:#3a2422!important}
+body.dark input,body.dark select,body.dark textarea{background:#16181b;color:var(--ink);border-color:var(--line)}
+body.dark .btn{background:#2a2e33;color:var(--ink);border-color:var(--line)}body.dark .btn.primary{background:var(--red);color:#fff;border-color:var(--red)}body.dark .btn.dark{background:#e8e8e8;color:#111}body.dark .btn.ghost{background:transparent}
+body.dark .ntf-i{border-color:#2a2e33}body.dark .ntf-i.nova{background:#2a2220}body.dark .ntf-sec{background:#191b1e}
+body.dark .rpop button{background:#2a2e33}body.dark .tabs button,body.dark .tabs a{color:var(--graphite)}
+body.dark .sheet,body.dark .sheet-wrap .sheet,body.dark .sheet-page{--ink:#1d1d1b;--graphite:#3a3a3a;--muted:#6b6b6b;--line:#dcdcdc;--panel:#fff;--fill:#f2f2f2;--bad-soft:#fde0dd;--ok-soft:#e1f3e7;--red-soft:#fdeceb;color:#1d1d1b;background:#fff;color-scheme:light}
+body.dark .sheet input,body.dark .sheet select,body.dark .sheet textarea{background:transparent;color:#1d1d1b}
+body.dark .sheet-wrap{background:transparent}body.dark .med{background:#111}
+body.dark .lightbox{background:rgba(0,0,0,.92)}body.dark kbd{background:#2a2e33}
+body.dark .sd-n a{color:var(--graphite)}body.dark .sd-n a.on{background:var(--red-soft);color:#ff8a80}body.dark .sd-n a:hover{background:#2a2e33}
+body.dark .pd-env{background:var(--red)}body.dark .help-fab{box-shadow:0 8px 22px rgba(0,0,0,.5)}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1094,6 +1148,8 @@ body.has-side main.wrap{margin-left:248px;max-width:none;padding:0 24px}
   <section id="view-solos" class="hidden"></section>
   <section id="view-lix" class="hidden"></section>
   <section id="view-social" class="hidden"></section>
+  <section id="view-config" class="hidden"></section>
+  <section id="view-pend" class="hidden"></section>
   <section id="view-planic" class="hidden"></section>
 </main>
 <div class="gate ui" id="gate"><div class="gate-card"><div class="tl-full gate-logo" role="img" aria-label="Tenda"></div><h1>FVs da Obra</h1><div id="gate-body"><p>Carregando…</p></div></div></div>
@@ -1129,11 +1185,11 @@ const CATS = {INFR:"Infraestrutura", ESTR:"Estrutura", ACAB:"Acabamento", LOG:"L
 const CAT_ORDER = ["INFR","ESTR","ACAB","LOG","OUTRO"];
 /* equipes: depois de escolher regional, fábrica e obra, cada equipe tem a sua página inicial e a sua barra lateral */
 const FRENTES = {
-  quali: {nome: "Qualidade", curto: "Qualidade", desc: "FVs gerais, planicidade e esquadro, painel e modelos.", cats: ["LOG", "OUTRO"], fv: true, mec: ["fvs", "planic", "painel", "modelos", "social"]},
-  infra: {nome: "Infraestrutura", curto: "Infra", desc: "FVs de infra, solos (F.045), painel e modelos.", cats: ["INFR"], fv: true, mec: ["fvs", "solos", "painel", "modelos", "social"]},
-  estr: {nome: "Estrutura", curto: "Estrutura", desc: "FVs de estrutura, painel e modelos.", cats: ["ESTR"], fv: true, mec: ["fvs", "painel", "modelos", "social"]},
-  acab: {nome: "Acabamento", curto: "Acabamento", desc: "FVs de acabamento, painel e modelos.", cats: ["ACAB"], fv: true, mec: ["fvs", "painel", "modelos", "social"]},
-  gape: {nome: "GAPE", curto: "GAPE", desc: "Relatórios do GAPE com fotos e fichas.", cats: [], fv: false, mec: ["gape", "social"]}
+  quali: {nome: "Qualidade", curto: "Qualidade", desc: "FVs gerais, planicidade e esquadro, painel e modelos.", cats: ["LOG", "OUTRO"], fv: true, mec: ["pend", "fvs", "planic", "painel", "social", "config"]},
+  infra: {nome: "Infraestrutura", curto: "Infra", desc: "FVs de infra, solos (F.045), painel e modelos.", cats: ["INFR"], fv: true, mec: ["pend", "fvs", "solos", "painel", "social", "config"]},
+  estr: {nome: "Estrutura", curto: "Estrutura", desc: "FVs de estrutura, painel e modelos.", cats: ["ESTR"], fv: true, mec: ["pend", "fvs", "painel", "social", "config"]},
+  acab: {nome: "Acabamento", curto: "Acabamento", desc: "FVs de acabamento, painel e modelos.", cats: ["ACAB"], fv: true, mec: ["pend", "fvs", "painel", "social", "config"]},
+  gape: {nome: "GAPE", curto: "GAPE", desc: "Relatórios do GAPE com fotos e fichas.", cats: [], fv: false, mec: ["gape", "social", "config"]}
 };
 const FV_EQ = Object.keys(FRENTES).filter(k => FRENTES[k].fv);
 let curFrente = (() => { try { const v = localStorage.getItem("fvs-frente"); return FRENTES[v] ? v : "quali"; } catch { return "quali"; } })();
@@ -1156,7 +1212,7 @@ const PDCA_NAME = {"":"Sem status", PLAN:"Planejamento", EXEC:"Execução", VERI
 const normPdca = v => v === "OK" ? "PADR" : (PDCA.includes(v) ? v : "");
 /* gestores que podem constar na FV: por enquanto só esta opção; depois a lista virá da aba Gestão */
 const GESTORES_FV = ["Gabriela Lucas Rodrigues"];
-const myName = () => { const n = names.get(me); return n && n !== "Você" ? n : ""; };
+const myName = () => (myProf && myProf.name) || (() => { const n = names.get(me); return n && n !== "Você" ? n : ""; })(); // conferente: sempre o nome completo
 const gestOpts = cur0 => [...GESTORES_FV, ...(cur0 && !GESTORES_FV.includes(cur0) ? [cur0] : [])].map(n => `<option value="${esc(n)}" ${n === cur0 ? "selected" : ""}>${esc(n)}${GESTORES_FV.includes(n) ? "" : " (antigo)"}</option>`).join("");
 const FLBL = {item:"item", problema:"problema", solucao:"solução", data:"data", responsavel:"responsável", acao:"ação", suporte:"suporte", prazo:"prazo", status:"status"};
 
@@ -1505,7 +1561,9 @@ $("#btn-edit-folder").onclick = () => curFolder && folderDialog(curFolder);
 /* ---------- modelos ---------- */
 const sortedTemplates = () => [...templates.entries()].map(([id, t]) => ({id, ...t}))
   .sort((a, b) => (CAT_ORDER.indexOf(a.cat) - CAT_ORDER.indexOf(b.cat)) || String(a.code).localeCompare(String(b.code)));
+function cfgBack(v) { if (v && !v.querySelector(":scope > .cfg-back")) { const a = document.createElement("a"); a.className = "cfg-back"; a.href = "#config"; a.textContent = "← Configurações"; v.insertBefore(a, v.firstChild); } }
 function renderTemplates() {
+  cfgBack($("#view-tpl"));
   const box = $("#tpl-list"), q = norm(tplQ).trim(), fc = catsOrdered(eqFv()), list = sortedTemplates().filter(t => !q || norm(`${t.code} ${t.title}`).includes(q));
   const th = $("#view-tpl h1"); if (th) th.textContent = `Modelos de FV · ${FRENTES[eqFv()].curto}`;
   if (!list.length && q) { box.innerHTML = `<div class="empty"><b>Nenhum modelo encontrado</b>Tente outra palavra.</div>`; return; }
@@ -2999,8 +3057,8 @@ async function loadTeam() {
   try {
     const a = window.__fb && await window.__fb.getAccess(), ok = new Set([...(a && a.editors || []), ...(a && a.viewers || []), ...(a && a.gestores || []), ...(window.ADMIN_EMAILS || [])].map(x => String(x).toLowerCase()));
     const s = await db.collection("users").get();
-    team = s.docs.map(d => ({uid: d.id, ...d.data()})).filter(u => u.email && ok.has(String(u.email).toLowerCase())).map(u => ({uid: u.uid, name: u.name || u.email.split("@")[0], email: String(u.email).toLowerCase(), cargo: u.cargo || ""}));
-    team.forEach(u => { if (!names.has(u.uid)) names.set(u.uid, u.name); });
+    team = s.docs.map(d => ({uid: d.id, ...d.data()})).filter(u => u.email && ok.has(String(u.email).toLowerCase())).map(u => ({uid: u.uid, name: String(u.apelido || "").trim() || u.name || u.email.split("@")[0], full: u.name || u.email.split("@")[0], apelido: u.apelido || "", foto: u.foto || "", email: String(u.email).toLowerCase(), cargo: u.cargo || ""}));
+    team.forEach(u => { names.set(u.uid, u.name); fullNames.set(u.uid, u.full); });
   } catch {}
 }
 const pnorm = t => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/\s+/g, " ").trim();
@@ -3107,8 +3165,8 @@ document.addEventListener("click", e => { if (npanel && !e.target.closest(".ntf"
 function watchNotifs() {
   db.collection("notifs").where("to", "==", me).onSnapshot(sn => {
     const prev = new Set(notifs.keys()); notifs = new Map(sn.docs.map(d => [d.id, d.data()]));
-    if (notifsBoot) { const novas = [...notifs.entries()].filter(([id, n]) => !prev.has(id) && !n.lida); if (novas.length) toast(novas.length > 1 ? `${novas.length} notificações novas no sino.` : `Nova notificação de ${novas[0][1].fromName || "alguém"}: ${(URG[novas[0][1].urg] || URG.media).t}.`); }
-    notifsBoot = true; bellRender(); if (npanel && npanel._draw) npanel._draw();
+    if (notifsBoot) { const novas = [...notifs.entries()].filter(([id, n]) => !prev.has(id) && !n.lida); if (novas.length && nPref("ntf")) beep(); if (novas.length && nPref("ntf")) toast(novas.length > 1 ? `${novas.length} notificações novas no sino.` : `Nova notificação de ${novas[0][1].fromName || "alguém"}: ${(URG[novas[0][1].urg] || URG.media).t}.`); }
+    notifsBoot = true; bellRender(); if (npanel && npanel._draw) npanel._draw(); pendBadge(); if (!$("#view-pend").classList.contains("hidden")) renderPend();
   }, () => {});
 }
 /* sugestões da equipe ao digitar responsável / suporte */
@@ -4564,7 +4622,7 @@ async function exportGapePdf() {
 }
 
 /* ---------- Painel de indicadores (resumo da obra para o gestor) ---------- */
-let pnl = {folder: "", cat: "", dias: 15, sort: "pct", pessoa: ""};
+let pnl = {folder: "", cat: "", dias: 15, sort: "pct", pessoa: "", item: ""};
 const daysBetween = (a, b) => Math.max(0, Math.floor((b - a) / 864e5));
 function fvAge(fv) {
   const start = fv.abertura ? new Date(fv.abertura + "T12:00:00") : new Date(fv.createdAt || Date.now());
@@ -4581,6 +4639,19 @@ const pctTxt = s => { const p = pctAprov(s); return p === null ? "—" : p + "%"
 const barTip = s => `Aprovado ${s.A} · Aprovado após reinspeção ${s.AR} · Reprovado ${s.R} · Não se aplica ${s.NA} · A verificar ${s.E}`;
 const barCell = s => `<div class="pn-bar" title="${barTip(s)}">${barHtml(s)}</div>`;
 function inFolder(fv, fid) { if (!fid) return true; let id = fv.folder || ""; let g = 0; while (id && g++ < 30) { if (id === fid) return true; const f = folders.get(id); id = f ? parentOf(f) : ""; } return false; }
+/* andamento de um item em todas as FVs (ex.: COTAS DO TERRENO) */
+function pnItemSec(L) {
+  if (!pnl.item) return "";
+  const Z = () => ({A: 0, R: 0, AR: 0, NA: 0, E: 0, total: 0}), rows = [];
+  L.forEach(f => { const its = (f.items || []).filter(it => itemLbl(it) === pnl.item); if (!its.length) return; const cols = activeCols(f), cells = f.cells || {}, s0 = Z(), rep0 = [];
+    its.forEach(it => cols.forEach(([cid, c]) => { const v0 = cells[it.id + "_" + cid] || ""; s0[ST[v0] ? (v0 || "E") : "E"]++; s0.total++; if (v0 === "R") rep0.push(c.name); }));
+    rows.push({f, s: s0, rep: rep0, n: its.map(i => i.n).join(", ")}); });
+  const t = rows.reduce((a, r) => { for (const k in a) a[k] += r.s[k]; return a; }, Z()), ap = t.total - t.NA ? Math.round(100 * (t.A + t.AR) / (t.total - t.NA)) : 0;
+  rows.sort((a, b) => (pctAprov(a.s) ?? 101) - (pctAprov(b.s) ?? 101));
+  return `<section class="panel pn-item"><h2 class="sec-h">Andamento do item · ${esc(pnl.item)}</h2>
+    <div class="pn-kpis" style="margin:8px 0 12px"><div class="pn-kpi"><span>FVs com o item</span><b>${rows.length}</b><small>${t.total} verificação(ões)</small></div><div class="pn-kpi ok"><span>Aprovado</span><b>${ap}%</b><small>${t.A + t.AR} de ${t.total - t.NA} aplicáveis</small></div><div class="pn-kpi bad"><span>Reprovado</span><b>${t.R}</b><small>sem reinspeção</small></div><div class="pn-kpi"><span>A verificar</span><b>${t.E}</b><small>em branco</small></div><div class="pn-kpi"><span>Não aplicável</span><b>${t.NA}</b><small>NA</small></div></div>
+    <div class="tbl-wrap"><table class="pn-tbl"><thead><tr><th>FV</th><th>Item</th><th>Andamento</th><th>Aprov.</th><th>Reprov.</th><th>A verificar</th><th>Reprovado em</th></tr></thead><tbody>${rows.map(r => `<tr><td><a href="#fv-${esc(r.f.id)}"><b>${esc(r.f.code || "")}</b> ${esc(r.f.local || "")}</a></td><td>${esc(r.n)}</td><td style="min-width:140px">${barHtml(r.s)}</td><td>${pctTxt(r.s)}</td><td>${r.s.R || "—"}</td><td>${r.s.E || "—"}</td><td>${esc(r.rep.join(", ")) || "—"}</td></tr>`).join("")}</tbody></table></div></section>`;
+}
 function renderPainel() {
   const v = $("#view-painel"); if (!v) return;
   const all = [...fvs].map(([id, f]) => ({...f, id})).filter(f => !f.deleted && fvFrente(f) === eqFv());
@@ -4612,8 +4683,10 @@ function renderPainel() {
     <div class="pn-filters noprint">
       <label class="fld">Pasta<select id="pn-folder"><option value="">Todas as pastas</option>${fOpts.map(o => `<option value="${esc(o.id)}" ${o.id === pnl.folder ? "selected" : ""}>${esc(o.p)}</option>`).join("")}</select></label>
       <label class="fld">Categoria<select id="pn-cat"><option value="">Todas</option>${Object.entries(CATS).map(([k, n]) => `<option value="${k}" ${k === pnl.cat ? "selected" : ""}>${esc(n)}</option>`).join("")}</select></label>
+      <label class="fld">Item da FV<select id="pn-item"><option value="">Todos os itens</option>${[...new Set(L.flatMap(f => (f.items || []).map(itemLbl)).filter(Boolean))].sort().map(t => `<option value="${esc(t)}" ${t === pnl.item ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></label>
       <label class="fld">FV aberta há mais de<select id="pn-dias">${[7, 15, 30, 60].map(d => `<option value="${d}" ${d === pnl.dias ? "selected" : ""}>${d} dias</option>`).join("")}</select></label>
     </div>
+    ${pnItemSec(L)}
     <div class="pn-kpis">
       <div class="pn-kpi"><span>FVs</span><b>${L.length}</b><small>${abertas.length} abertas · ${fechadas} fechadas</small></div>
       <div class="pn-kpi ok"><span>Itens aprovados</span><b>${pctTxt(tot)}</b><small>${tot.A + tot.AR} de ${tot.total - tot.NA} aplicáveis</small></div>
@@ -4638,6 +4711,7 @@ function renderPainel() {
   $("#pn-folder", v).onchange = e => { pnl.folder = e.target.value; renderPainel(); };
   $("#pn-cat", v).onchange = e => { pnl.cat = e.target.value; renderPainel(); };
   $("#pn-dias", v).onchange = e => { pnl.dias = +e.target.value; renderPainel(); };
+  $("#pn-item", v).onchange = e => { pnl.item = e.target.value; renderPainel(); };
   $("#pn-sort", v).onchange = e => { pnl.sort = e.target.value; renderPainel(); };
   const pps = $("#pn-pessoa", v); if (pps) pps.onchange = e => { pnl.pessoa = e.target.value; renderPainel(); };
   $("#pn-pdf", v).onclick = exportPainelPdf;
@@ -4756,7 +4830,8 @@ async function exportPdf(soMapas, escolha) {
       const land = canvas.width >= canvas.height * .95, PW = land ? 297 : 210, PH = land ? 210 : 297, M = 7, CW = PW - 2 * M, CH = PH - 2 * M;
       if (!pdf) pdf = new jsPDF({orientation: land ? "landscape" : "portrait", unit: "mm", format: "a4"}); else pdf.addPage("a4", land ? "landscape" : "portrait");
       let w = CW, h = canvas.height * CW / canvas.width; if (h > CH) { h = CH; w = canvas.width * CH / canvas.height; }
-      pdf.addImage(canvas.toDataURL("image/jpeg", .92), "JPEG", (PW - w) / 2, M, w, h);
+      const meio = el.querySelector && el.querySelector(".msheet"); // mapeamento: centralizado na folha, na horizontal e na vertical
+      pdf.addImage(canvas.toDataURL("image/jpeg", .92), "JPEG", (PW - w) / 2, meio ? (PH - h) / 2 : M, w, h);
     }
     if (!pdf) throw new Error("vazio");
     const safe = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9-]+/g, "_").replace(/^_|_$/g, "");
@@ -4828,7 +4903,7 @@ async function renderTeam() {
         <div class="panel acc-wide" id="sc-panel"></div>
         <div class="panel acc-wide" id="acc-panel"></div>
       </div>`;
-    renderDictPanel(); renderAccessPanel(); renderScopePanel($("#sc-panel"));
+    cfgBack(v); renderDictPanel(); renderAccessPanel(); renderScopePanel($("#sc-panel"));
     v.querySelectorAll("[data-rmv]").forEach(b => b.onclick = async () => {
       const k = b.dataset.rmv, e = b.dataset.e;
       if (!(await confirmBox("Remover acesso?", `<b>${esc(e)}</b> deixa de ${k === "editors" ? "editar" : "ver"} o sistema na hora, inclusive se estiver com ele aberto agora. A remoção fica com o seu nome.`, "Remover", true))) return;
@@ -4864,7 +4939,7 @@ async function renderTeam() {
     </div>`;
   renderChamadosPanel($("#ch-panel", v));
   $("#idle-sel", v).onchange = async e => { const m = +e.target.value; try { await db.doc("config/access").update({idleMin: m}); idleMin = m; toast(m ? `O sistema vai sair sozinho depois de ${e.target.selectedOptions[0].textContent} sem uso.` : "Saída automática desligada."); } catch { toast("Não foi possível salvar."); } };
-  renderMapPanel(); renderApprovals(); renderDictPanel(); renderAccessPanel(); renderScopePanel($("#sc-panel"));
+  cfgBack(v); renderMapPanel(); renderApprovals(); renderDictPanel(); renderAccessPanel(); renderScopePanel($("#sc-panel"));
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
   v.querySelectorAll("[data-add]").forEach(b => b.onclick = async () => {
     const k = b.dataset.add, inp = $({editors: "#add-ed", viewers: "#add-vi", gestores: "#add-ge"}[k], v), e = inp.value.trim().toLowerCase();
@@ -7439,6 +7514,7 @@ const estrutura = () => (escopo.estrutura && escopo.estrutura.length ? escopo.es
 const EQ_ORDER = ["quali", "infra", "estr", "acab", "gape"];
 const SVG = p => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const IC = {
+  pend: SVG('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'), config: SVG('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/>'),
   social: SVG('<path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'),
   home: SVG('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>'), fvs: SVG('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>'),
   planic: SVG('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>'), solos: SVG('<path d="M3 17l5-6 4 4 3-3 6 5"/><path d="M3 21h18"/>'),
@@ -7458,10 +7534,12 @@ const MEC = {
   modelos: {t: "Modelos de FV", ic: "modelos", d: "Os modelos oficiais da Tenda, com controle de revisão."},
   gape: {t: "Relatórios do GAPE", ic: "gape", d: "Relatórios com fotos e fichas em tabela no modelo do GAPE, e resposta aos relatórios recebidos."},
   lixeira: {t: "Lixeira", ic: "lixeira", d: "O que foi excluído fica 30 dias e pode ser restaurado."},
+  pend: {t: "Pendências", ic: "pend", d: "Tudo que está em aberto na equipe, com prioridade para o que envolve você: reprovações, problemas sem solução, PDA, assinaturas e notificações."},
+  config: {t: "Configurações", ic: "config", d: "Meu perfil, aparência e modo escuro, notificações, modelos de FV, gestão da equipe, cargos e dados do aparelho."},
   social: {t: "Social", ic: "social", d: "Conversas com a equipe: mensagens, áudios, fotos, documentos, FVs encaminhadas, cobranças de pendências e relatórios."},
   gestao: {t: "Gestão", ic: "gestao", d: "Equipe, acessos por obra e equipe, registro de acessos, dicionário e backup."}
 };
-const mecHref = (k, eq = curFrente) => ({inicio: "#eq-" + eq, fvs: "#" + eq, planic: "#planic", solos: "#solos", painel: "#painel", modelos: "#modelos", gape: "#gape", lixeira: "#lixeira", gestao: "#equipe", social: "#social"}[k]);
+const mecHref = (k, eq = curFrente) => ({inicio: "#eq-" + eq, fvs: "#" + eq, planic: "#planic", solos: "#solos", painel: "#painel", modelos: "#modelos", gape: "#gape", lixeira: "#lixeira", gestao: "#equipe", social: "#social", pend: "#pend", config: "#config"}[k]);
 /* permissões: administrador e gestores veem tudo; quem não tem regra definida também (tudo liberado por padrão) */
 function myScope() {
   const mail = String((window.__fb && window.__fb.email && window.__fb.email()) || "").toLowerCase();
@@ -7514,10 +7592,10 @@ function renderSide(on) {
   const F = FRENTES[curFrente], x = ctx.obra ? findObra(ctx.obra) : null;
   const items = ["inicio", ...F.mec];
   side.innerHTML = `<div class="sd-h"><div class="sd-o">${esc(x ? x.o.nome : "")}</div><div class="sd-e"><span>${IC[curFrente] || ""}</span>${esc(F.nome)}</div><a href="#obra-${esc(ctx.obra || "")}" class="sd-t">${IC.troca}Trocar equipe</a></div>
-    <nav class="sd-n">${items.map(k => `<a href="${mecHref(k)}" class="${k === on ? "on" : ""}">${IC[MEC[k].ic]}<span>${esc(MEC[k].t)}</span>${k === "painel" ? `<i class="sd-b" id="sd-painel"></i>` : ""}${k === "social" ? `<i class="sd-b ${socUnreadN() ? "bad" : ""}" id="sd-social">${socUnreadN() || ""}</i>` : ""}</a>`).join("")}</nav>
-    <nav class="sd-n sd-f"><a href="#lixeira" class="${on === "lixeira" ? "on" : ""}">${IC.lixeira}<span>Lixeira</span><i class="sd-b" id="sd-lix"></i></a>${isGestor ? `<a href="#equipe" class="${on === "gestao" ? "on" : ""}">${IC.gestao}<span>Gestão</span></a>` : ""}</nav>`;
+    <nav class="sd-n">${items.map(k => `<a href="${mecHref(k)}" class="${k === on ? "on" : ""}">${IC[MEC[k].ic]}<span>${esc(MEC[k].t)}</span>${k === "painel" ? `<i class="sd-b" id="sd-painel"></i>` : ""}${k === "social" ? `<i class="sd-b ${socUnreadN() ? "bad" : ""}" id="sd-social">${socUnreadN() || ""}</i>` : ""}${k === "pend" ? `<i class="sd-b" id="sd-pend"></i>` : ""}</a>`).join("")}</nav>
+    <nav class="sd-n sd-f"><a href="#lixeira" class="${on === "lixeira" ? "on" : ""}">${IC.lixeira}<span>Lixeira</span><i class="sd-b" id="sd-lix"></i></a></nav>`;
   side.onclick = e => { if (e.target.closest("a")) document.body.classList.remove("side-open"); };
-  pdaNav(); lixNav();
+  pdaNav(); lixNav(); setTimeout(pendBadge, 0);
 }
 function renderCtxNav() { // trilha no topo: regional › fábrica › obra › equipe
   const nav = $("#ctxnav"); if (!nav) return; const x = ctx.obra ? findObra(ctx.obra) : null, h = location.hash.replace(/^#/, "");
@@ -7532,11 +7610,11 @@ function renderEqHome() {
   const nome = (names.get(me) && names.get(me) !== "Você") ? names.get(me).split(" ")[0] : "";
   const L = F.cats.length ? [...fvs.entries()].map(([id, f]) => ({id, ...f})).filter(f => fvFrente(f) === curFrente) : [];
   const ab = L.filter(f => (f.status || "aberta") === "aberta"), s = sumStats(L), pct = pctAprov(s), late = L.reduce((a, f) => a + pdaOpen(f).filter(p => p.p && pdaDays(p.p) < 0).length, 0);
-  const extra = k => k === "fvs" ? `${ab.length} aberta(s) · ${L.length - ab.length} fechada(s)` : k === "planic" ? `${planics.size} planilha(s)` : k === "solos" ? `${(typeof solos !== "undefined" && solos.size) || 0} trecho(s)` : k === "gape" ? `${(typeof gapes !== "undefined" && gapes.size) || 0} relatório(s)` : k === "modelos" ? `${[...templates.values()].filter(t => F.cats.includes(t.cat || "OUTRO")).length} modelo(s) da equipe` : k === "painel" && late ? `${late} ação(ões) do PDA vencida(s)` : "";
+  const extra = k => k === "pend" ? (() => { const P = pdList(), m = P.filter(x => x.env).length; return `${P.length} em aberto${m ? ` · ${m} com você` : ""}`; })() : k === "fvs" ? `${ab.length} aberta(s) · ${L.length - ab.length} fechada(s)` : k === "planic" ? `${planics.size} planilha(s)` : k === "solos" ? `${(typeof solos !== "undefined" && solos.size) || 0} trecho(s)` : k === "gape" ? `${(typeof gapes !== "undefined" && gapes.size) || 0} relatório(s)` : k === "modelos" ? `${[...templates.values()].filter(t => F.cats.includes(t.cat || "OUTRO")).length} modelo(s) da equipe` : k === "painel" && late ? `${late} ação(ões) do PDA vencida(s)` : "";
   v.innerHTML = `<div class="eh-top"><div><div class="code">${esc(x ? `${x.r.nome} · ${x.f.nome} · ${x.o.nome}` : "")}</div><h1>${esc(F.nome)}</h1><div class="sub">Que bom ter você por aqui${nome ? ", " + esc(nome) : ""}! Escolha uma ferramenta para avançar.</div></div></div>
     ${F.cats.length ? `<div class="pl-kpis eh-k"><a class="pl-kpi" href="#${curFrente}" style="--c:#003e62"><b>${ab.length}</b><span>FVs abertas</span></a><a class="pl-kpi" href="#painel" style="--c:#2e7d32"><b>${pct == null ? "—" : pct + "%"}</b><span>itens aprovados</span></a><a class="pl-kpi" href="#painel" style="--c:#e0a800"><b>${s.V || 0}</b><span>a verificar</span></a><a class="pl-kpi ${s.R ? "bad" : ""}" href="#painel" style="--c:#e1251b"><b>${s.R || 0}</b><span>reprovações</span></a><a class="pl-kpi ${late ? "bad" : ""}" href="#painel" style="--c:#e1251b"><b>${late}</b><span>PDA vencido</span></a></div>` : ""}
     <div class="eh-grid">${F.mec.map(k => `<a class="eh-card" href="${mecHref(k)}"><span class="eh-ic">${IC[MEC[k].ic]}</span><div><span class="eh-l">${esc(F.curto)}</span><b>${esc(MEC[k].t)}</b><p>${esc(MEC[k].d)}</p>${extra(k) ? `<span class="eh-x">${esc(extra(k))}</span>` : ""}</div></a>`).join("")}
-      <a class="eh-card" href="#lixeira"><span class="eh-ic">${IC.lixeira}</span><div><span class="eh-l">Global</span><b>Lixeira</b><p>${esc(MEC.lixeira.d)}</p></div></a>${isGestor ? `<a class="eh-card" href="#equipe"><span class="eh-ic">${IC.gestao}</span><div><span class="eh-l">Global</span><b>Gestão</b><p>${esc(MEC.gestao.d)}</p></div></a>` : ""}</div>`;
+      <a class="eh-card" href="#lixeira"><span class="eh-ic">${IC.lixeira}</span><div><span class="eh-l">${esc(F.curto)}</span><b>Lixeira</b><p>${esc(MEC.lixeira.d)}</p></div></a></div>`;
 }
 /* acesso por obra e equipe (tela Gestão) */
 async function renderScopePanel(box) {
@@ -7576,7 +7654,7 @@ function watchConvs() {
   db.collection("conversas").where("membros", "array-contains", me).onSnapshot(sn => {
     const before = new Map([...convs].map(([k, v]) => [k, v.ult && v.ult.at]));
     convs.clear(); sn.docs.forEach(d => { const v = d.data(); if ((v.membros || []).includes(me)) convs.set(d.id, v); });
-    if (socBoot) convs.forEach((c, id) => { if (c.ult && c.ult.by !== me && c.ult.at !== before.get(id) && convUnread(c) && !(socCur === id && !$("#view-social").classList.contains("hidden"))) toast(`💬 ${names.get(c.ult.by) || "Nova mensagem"}: ${String(c.ult.txt || TIPO_PREV[c.ult.tipo] || "").slice(0, 60)}`); });
+    if (socBoot) convs.forEach((c, id) => { if (c.ult && c.ult.by !== me && c.ult.at !== before.get(id) && convUnread(c) && !(socCur === id && !$("#view-social").classList.contains("hidden")) && nPref("msg") && (beep(), true)) toast(`💬 ${names.get(c.ult.by) || "Nova mensagem"}: ${String(c.ult.txt || TIPO_PREV[c.ult.tipo] || "").slice(0, 60)}`); });
     socBoot = true; socBadges(); if (!$("#view-social").classList.contains("hidden")) socList();
   }, () => {});
 }
@@ -7585,7 +7663,7 @@ async function renderSocial(target) {
   const v = $("#view-social"); if (!team.length) await loadTeam(); const acc = await socAcc();
   if (!v.dataset.built) {
     v.dataset.built = "1";
-    v.innerHTML = `<div class="soc"><aside class="soc-l"><div class="soc-lh"><h1>Social</h1><button type="button" class="btn sm" data-cargo title="Seu cargo aparece para os outros na busca">Meu cargo</button></div>
+    v.innerHTML = `<div class="soc"><aside class="soc-l"><div class="soc-lh"><h1>Social</h1><a class="btn sm" href="#config-perfil" title="Foto e apelido">Meu perfil</a></div>
         <input type="search" class="soc-q" id="soc-q" placeholder="Buscar pessoa…" autocomplete="off" aria-label="Buscar pessoa">
         <div class="soc-f"><select id="soc-eq" aria-label="Equipe"><option value="">Todas as equipes</option>${EQ_ORDER.map(k => `<option value="${k}">${esc(FRENTES[k].nome)}</option>`).join("")}</select>
           <select id="soc-cargo" aria-label="Cargo"></select><select id="soc-perfil" aria-label="Perfil"><option value="">Todos os perfis</option>${["Administrador", "Gestor", "Editor", "Leitura"].map(p => `<option>${p}</option>`).join("")}</select></div>
@@ -7593,7 +7671,7 @@ async function renderSocial(target) {
       <section class="soc-r" id="soc-r"></section></div>`;
     $("#soc-q", v).oninput = e => { socQ.q = e.target.value; socList(); };
     ["eq", "cargo", "perfil"].forEach(k => $("#soc-" + k, v).onchange = e => { socQ[k] = e.target.value; socList(); });
-    $("[data-cargo]", v).onclick = async () => {
+    if ($("[data-cargo]", v)) $("[data-cargo]", v).onclick = async () => {
       const curC = (team.find(u => u.uid === me) || {}).cargo || "";
       const c = await modal({title: "Meu cargo", body: `<label class="fld">Cargo ou função<input type="text" id="mc" value="${esc(curC)}" maxlength="60" placeholder="Ex.: Estagiário de engenharia, Encarregado, Técnico de qualidade" list="mc-l"><datalist id="mc-l">${["Engenheiro(a)", "Estagiário(a) de engenharia", "Técnico(a) de qualidade", "Mestre de obras", "Encarregado(a)", "Gestor(a) de obra", "Almoxarife", "Técnico(a) de segurança"].map(x => `<option>${x}</option>`).join("")}</datalist></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mc", bg).value.trim() || " "}]});
       if (c == null) return; const val = c.trim(); patch(`users/${me}`, {cargo: val}); const u = team.find(x => x.uid === me); if (u) u.cargo = val; toast("Cargo salvo."); socList();
@@ -7609,10 +7687,11 @@ function socList() {
   const v = $("#view-social"), box = $("#soc-list"); if (!box) return; const acc = v._acc || {};
   const q = norm(socQ.q).trim();
   const people = team.filter(u => u.uid !== me).map(u => { const cid = convId(me, u.uid), c = convs.get(cid); return {...u, cid, c, perfil: socPerfil(u, acc), eqs: socEquipes(u, acc)}; })
-    .filter(u => (!q || norm(`${u.name} ${u.email} ${u.cargo || ""}`).includes(q)) && (!socQ.eq || u.eqs.includes(socQ.eq)) && (!socQ.cargo || u.cargo === socQ.cargo) && (!socQ.perfil || u.perfil === socQ.perfil))
+    .filter(u => (!q || norm(`${u.name} ${u.full || ""} ${u.apelido || ""} ${u.email} ${u.cargo || ""}`).includes(q)) && (!socQ.eq || u.eqs.includes(socQ.eq)) && (!socQ.cargo || u.cargo === socQ.cargo) && (!socQ.perfil || u.perfil === socQ.perfil))
     .sort((a, b) => (b.c && b.c.ult ? b.c.ult.at : "").localeCompare(a.c && a.c.ult ? a.c.ult.at : "") || a.name.localeCompare(b.name));
   const withC = people.filter(u => u.c && u.c.ult), rest = people.filter(u => !(u.c && u.c.ult));
-  const item = u => `<button type="button" class="soc-it ${socCur === u.cid ? "on" : ""} ${convUnread(u.c) ? "un" : ""}" data-soc="${esc(u.uid)}"><span class="soc-av">${esc((u.name || "?").charAt(0).toUpperCase())}</span><span class="soc-it-t"><b>${esc(u.name)}</b><small>${u.c && u.c.ult ? esc((u.c.ult.by === me ? "Você: " : "") + (u.c.ult.txt || TIPO_PREV[u.c.ult.tipo] || "")).slice(0, 80) : esc([u.cargo, u.perfil].filter(Boolean).join(" · ") || u.email)}</small></span><span class="soc-it-m">${u.c && u.c.ult ? `<small>${esc(socWhen(u.c.ult.at))}</small>` : ""}${convUnread(u.c) ? `<i></i>` : ""}</span></button>`;
+  const item = u => `<button type="button" class="soc-it ${socCur === u.cid ? "on" : ""} ${convUnread(u.c) ? "un" : ""}" data-soc="${esc(u.uid)}"><span class="soc-av">${avatarHtml(u)}</span><span class="soc-it-t"><b>${esc(u.name)}</b><small>${u.c && u.c.ult ? esc((u.c.ult.by === me ? "Você: " : "") + (u.c.ult.txt || TIPO_PREV[u.c.ult.tipo] || "")).slice(0, 80) : esc([u.cargo, u.perfil].filter(Boolean).join(" · ") || u.email)}</small></span><span class="soc-it-m">${u.c && u.c.ult ? `<small>${esc(socWhen(u.c.ult.at))}</small>` : ""}${convUnread(u.c) ? `<i></i>` : ""}</span></button>`;
+  setTimeout(() => fillAvatars(box), 0);
   box.innerHTML = (withC.length ? `<div class="soc-sec">Conversas</div>${withC.map(item).join("")}` : "") + (rest.length ? `<div class="soc-sec">${withC.length ? "Outras pessoas" : "Pessoas"}</div>${rest.map(item).join("")}` : "") || `<div class="soc-empty">Ninguém encontrado com esses filtros.</div>`;
 }
 function socWhen(at) { const d = new Date(at), t = new Date(); if (d.toDateString() === t.toDateString()) return d.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"}); return d.toLocaleDateString("pt-BR", {day: "2-digit", month: "2-digit"}); }
@@ -7631,7 +7710,7 @@ function socThread() {
   const r = $("#soc-r"); if (!r) return;
   if (!socCur) { r.innerHTML = `<div class="soc-ph"><b>Escolha uma pessoa para conversar</b>Mande mensagens, áudios, fotos, documentos, FVs, cobranças de pendências e relatórios.</div>`; return; }
   const other = convOther(convs.get(socCur) || {membros: socCur.split("__")}), u = team.find(x => x.uid === other) || {name: names.get(other) || "Usuário", email: ""}, acc = $("#view-social")._acc || {};
-  r.innerHTML = `<div class="soc-h"><button type="button" class="soc-back" data-socback aria-label="Voltar">←</button><span class="soc-av">${esc((u.name || "?").charAt(0).toUpperCase())}</span><div><b>${esc(u.name)}</b><small>${esc([u.cargo, socPerfil(u, acc), socEquipes(u, acc).map(k => FRENTES[k].curto).join(", ")].filter(Boolean).join(" · "))}</small></div></div>
+  r.innerHTML = `<div class="soc-h"><button type="button" class="soc-back" data-socback aria-label="Voltar">←</button><span class="soc-av">${avatarHtml(u)}</span><div><b>${esc(u.name)}</b>${u.full && u.full !== u.name ? ` <small class="sub">(${esc(u.full)})</small>` : ""}<small>${esc([u.cargo, socPerfil(u, acc), socEquipes(u, acc).map(k => FRENTES[k].curto).join(", ")].filter(Boolean).join(" · "))}</small></div></div>
     <div class="soc-msgs" id="soc-msgs"></div>
     <div class="soc-comp"><button type="button" class="soc-ib" data-attach title="Anexar" aria-label="Anexar">📎</button><textarea id="soc-in" rows="1" placeholder="Escreva uma mensagem…" aria-label="Mensagem"></textarea><button type="button" class="soc-ib" data-rec title="Gravar áudio" aria-label="Gravar áudio">🎤</button><button type="button" class="btn primary soc-send" data-send aria-label="Enviar">Enviar</button></div>
     <input type="file" id="soc-fimg" accept="image/*" multiple class="hidden"><input type="file" id="soc-fdoc" class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.xlsm,.ppt,.pptx,.txt,.csv,image/*,application/pdf">`;
@@ -7640,7 +7719,7 @@ function socThread() {
   ta.addEventListener("input", () => { ta.style.height = "auto"; ta.style.height = Math.min(140, ta.scrollHeight) + "px"; });
   $("#soc-fimg", r).onchange = async e => { const fs = [...e.target.files]; e.target.value = ""; for (const f of fs) await socSendFile(f, "foto"); };
   $("#soc-fdoc", r).onchange = async e => { const f = e.target.files[0]; e.target.value = ""; if (f) await socSendFile(f, /^image\//.test(f.type) ? "foto" : "doc"); };
-  socDrawMsgs(); setTimeout(() => ta.focus(), 50);
+  socDrawMsgs(); fillAvatars(r); setTimeout(() => ta.focus(), 50);
 }
 function socDrawMsgs() {
   const box = $("#soc-msgs"); if (!box) return; const c = convs.get(socCur) || {}, other = convOther(c), lidoOther = (c.lido || {})[other] || "";
@@ -7949,6 +8028,218 @@ async function renderChamadosPanel(box) {
   draw();
 }
 
+/* ---------- PERFIL: foto, apelido (o nome completo é fixo desde o cadastro) e cargo (definido pela gestão) ---------- */
+let myProf = {name: "", apelido: "", foto: "", cargo: "", email: ""};
+const fullNames = new Map();
+const dispName = p => (p && (String(p.apelido || "").trim() || p.name)) || "";
+async function loadMyProfile() {
+  try { const d = await db.doc(`users/${me}`).get(); const v = (d && (typeof d.exists === "function" ? d.exists() : d.exists)) ? d.data() : {}; myProf = {name: v.name || "", apelido: v.apelido || "", foto: v.foto || "", cargo: v.cargo || "", email: v.email || ""}; } catch {}
+  if (myProf.name) { fullNames.set(me, myProf.name); names.set(me, dispName(myProf)); }
+  paintUserbox();
+}
+function avatarHtml(p, cls = "") { const nm = dispName(p) || "?"; return p && p.foto ? `<img class="av-img ${cls}" data-avblob="${esc(p.foto)}" alt="">` : `<span class="av-ini ${cls}">${esc(nm.trim().charAt(0).toUpperCase())}</span>`; }
+function fillAvatars(root) { $$("img[data-avblob]", root || document).forEach(im => { if (im.src) return; mediaSrc({assetId: im.dataset.avblob}).then(s => { if (s) im.src = s; }); }); }
+function paintUserbox() {
+  const b = $("#userbox"); if (!b || !me) return;
+  let t = $(".ub-me", b);
+  if (!t) { t = document.createElement("button"); t.type = "button"; t.className = "ub-me"; t.title = "Meu perfil"; t.onclick = () => { location.hash = "config-perfil"; }; b.insertBefore(t, b.firstChild); $$("img:not(.av-img), span:not(.av-ini)", b).forEach(x => { if (!x.closest(".ub-me")) x.remove(); }); }
+  t.innerHTML = `${avatarHtml(myProf, "sm")}<span>${esc((dispName(myProf) || "").split(" ")[0] || "Perfil")}</span>`; fillAvatars(b);
+}
+async function saveProfile(up) { try { await db.doc(`users/${me}`).merge(up); Object.assign(myProf, up); names.set(me, dispName(myProf)); const u = team.find(x => x.uid === me); if (u) Object.assign(u, up, {name: dispName(myProf), full: myProf.name}); paintUserbox(); return true; } catch { toast("Não foi possível salvar o perfil."); return false; } }
+async function pickAvatar() {
+  return new Promise(res => { const i = document.createElement("input"); i.type = "file"; i.accept = "image/*"; i.onchange = async () => { const f = i.files[0]; if (!f) return res(null);
+    try { const bmp = await createImageBitmap(f, {imageOrientation: "from-image"}), S = 320, k = Math.max(S / bmp.width, S / bmp.height), c = mkCanvas(S, S), g = c.getContext("2d");
+      g.drawImage(bmp, (S - bmp.width * k) / 2, (S - bmp.height * k) / 2, bmp.width * k, bmp.height * k); const blob = await new Promise(r => c.toBlob(r, "image/jpeg", .85)); const a = await assets.upload(blob); res(a.id); } catch { toast("Não foi possível usar essa foto."); res(null); } }; i.click(); });
+}
+
+/* ---------- TEMA: claro, escuro ou automático ---------- */
+const temaPref = () => { try { return localStorage.getItem("fvs-tema") || "claro"; } catch { return "claro"; } };
+function aplicaTema(t = temaPref()) {
+  const dark = t === "escuro" || (t === "auto" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.body.classList.toggle("dark", dark); const b = $("#dk-btn"); if (b) { b.setAttribute("aria-pressed", dark); b.innerHTML = dark ? "☀︎" : "☾"; b.title = dark ? "Voltar ao modo claro" : "Modo escuro"; }
+  try { const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = dark ? "#1b1d21" : "#e1251b"; } catch {}
+}
+function setTema(t) { try { localStorage.setItem("fvs-tema", t); } catch {} aplicaTema(t); }
+function temaBoot() {
+  if (!$("#dk-btn")) { const b = document.createElement("button"); b.type = "button"; b.id = "dk-btn"; b.className = "dk-btn"; b.onclick = () => setTema(document.body.classList.contains("dark") ? "claro" : "escuro"); $("header.top .wrap").insertBefore(b, $("#hc-btn") || $("#userbox")); }
+  aplicaTema(); try { matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (temaPref() === "auto") aplicaTema(); }); } catch {}
+  try { const fs = localStorage.getItem("fvs-fonte"); document.documentElement.classList.toggle("fonte-g", fs === "g"); } catch {}
+}
+
+/* ---------- CONFIGURAÇÕES ---------- */
+const CFG = [
+  {k: "perfil", t: "Meu perfil", ic: "👤", d: "Foto, apelido e dados da conta"},
+  {k: "aparencia", t: "Aparência", ic: "🎨", d: "Modo escuro, modo sol e tamanho do texto"},
+  {k: "notif", t: "Notificações", ic: "🔔", d: "Avisos na tela e no sino"},
+  {k: "modelos", t: "Modelos de FV", ic: "📄", d: "Modelos oficiais e revisões", href: "#modelos"},
+  {k: "gestao", t: "Gestão da equipe", ic: "🛡", d: "Pessoas, acessos por obra e equipe, registro de acessos", href: "#equipe", gest: true},
+  {k: "usuarios", t: "Usuários e cargos", ic: "🪪", d: "Cargo e função de cada pessoa", gest: true},
+  {k: "dados", t: "Dados e aparelho", ic: "💾", d: "Envios pendentes, uso offline e memória do aparelho"},
+  {k: "sobre", t: "Sobre e atalhos", ic: "ℹ️", d: "Versão, atalhos de teclado e ajuda"}
+];
+const CARGOS = ["Engenheiro(a) de obra", "Engenheiro(a) de qualidade", "Estagiário(a) de engenharia", "Técnico(a) de qualidade", "Técnico(a) de segurança", "Mestre de obras", "Encarregado(a)", "Gestor(a) de obra", "Coordenador(a)", "Almoxarife", "Auxiliar administrativo", "Projetista", "Topógrafo(a)"];
+async function renderConfig(sec) {
+  const v = $("#view-config"), L = CFG.filter(c => !c.gest || isGestor);
+  if (!sec) sec = "inicio";
+  const head = `<div class="page-title"><div><h1>Configurações</h1><div class="sub">Preferências da sua conta e deste aparelho${isGestor ? ", modelos e gestão da equipe " + esc((FRENTES[curFrente] || {}).nome || "") : ""}.</div></div></div>`;
+  const nav = `<nav class="cfg-nav">${L.map(c => `<a href="${c.href || "#config-" + c.k}" class="${sec === c.k ? "on" : ""}"><span>${c.ic}</span>${esc(c.t)}</a>`).join("")}</nav>`;
+  let body = "";
+  if (sec === "inicio") body = `<div class="cfg-grid">${L.map(c => `<a class="eh-card" href="${c.href || "#config-" + c.k}"><span class="eh-ic cfg-ic">${c.ic}</span><div><b>${esc(c.t)}</b><p>${esc(c.d)}</p></div></a>`).join("")}</div>`;
+  else if (sec === "perfil") {
+    const acc = await socAcc().catch(() => ({})), perf = socPerfil({email: String(myProf.email || (window.__fb.email && window.__fb.email()) || "").toLowerCase()}, acc);
+    body = `<div class="panel cfg-pf"><div class="cfg-av">${avatarHtml(myProf, "lg")}<div><button type="button" class="btn sm" data-pfoto>Trocar foto</button>${myProf.foto ? `<button type="button" class="btn sm ghost danger" data-pfrm>Remover</button>` : ""}<p class="sub" style="margin:6px 0 0">A foto aparece no Social, no topo e no histórico.</p></div></div>
+      <div class="grid2" style="margin-top:14px"><label class="fld">Nome completo<input type="text" value="${esc(myProf.name)}" readonly class="ro-fld" title="O nome completo vem do cadastro e não pode ser alterado"></label>
+      <label class="fld">Apelido (como aparece na interface)<input type="text" id="pf-ap" value="${esc(myProf.apelido)}" maxlength="30" placeholder="Ex.: ${esc((myProf.name || "Junior").split(" ")[0])}"></label>
+      <label class="fld">Cargo<input type="text" value="${esc(myProf.cargo || "Não definido")}" readonly class="ro-fld" title="Quem define o cargo é a gestão"></label>
+      <label class="fld">E-mail<input type="text" value="${esc(myProf.email || (window.__fb.email && window.__fb.email()) || "")}" readonly class="ro-fld"></label>
+      <label class="fld">Perfil de acesso<input type="text" value="${esc(perf || "—")}" readonly class="ro-fld"></label>
+      <label class="fld">Equipes<input type="text" value="${esc(socEquipes({email: String(myProf.email || "").toLowerCase()}, acc).map(k => FRENTES[k].nome).join(", "))}" readonly class="ro-fld"></label></div>
+      <p class="sub">O nome completo é usado nos documentos (conferente da FV, assinaturas, histórico oficial) e não muda. O apelido serve só para a interface ficar mais limpa; na busca do Social as duas formas funcionam.</p>
+      <div style="display:flex;gap:8px"><button type="button" class="btn primary" data-psave>Salvar apelido</button></div></div>`;
+  } else if (sec === "aparencia") {
+    const t = temaPref(), fs = (() => { try { return localStorage.getItem("fvs-fonte") || "n"; } catch { return "n"; } })(), hc = document.body.classList.contains("hc");
+    body = `<div class="panel"><h2 class="sec-h">Tema</h2><div class="cfg-opts">${[["claro", "☀︎", "Claro"], ["escuro", "☾", "Escuro"], ["auto", "◐", "Automático (igual ao aparelho)"]].map(([k, i, n]) => `<label class="cfg-opt ${t === k ? "on" : ""}"><input type="radio" name="tema" value="${k}" ${t === k ? "checked" : ""}><span class="cfg-ic2">${i}</span><b>${n}</b></label>`).join("")}</div>
+      <p class="sub">As fichas (FV, F.007, PDA, mapeamentos) continuam brancas como o papel, também no modo escuro, para ficarem iguais ao PDF.</p>
+      <h2 class="sec-h" style="margin-top:16px">Modo sol</h2><label class="cfg-sw"><input type="checkbox" data-hc ${hc ? "checked" : ""}><span>Alto contraste para usar na obra, no sol</span></label>
+      <h2 class="sec-h" style="margin-top:16px">Tamanho do texto</h2><div class="cfg-opts">${[["n", "Normal"], ["g", "Maior"]].map(([k, n]) => `<label class="cfg-opt ${fs === k ? "on" : ""}"><input type="radio" name="fonte" value="${k}" ${fs === k ? "checked" : ""}><b style="font-size:${k === "g" ? 17 : 14}px">Aa</b><span>${n}</span></label>`).join("")}</div></div>`;
+  } else if (sec === "notif") {
+    const pref = k => { try { return localStorage.getItem("fvs-n-" + k) !== "0"; } catch { return true; } };
+    body = `<div class="panel"><h2 class="sec-h">Avisos neste aparelho</h2>
+      <label class="cfg-sw"><input type="checkbox" data-np="msg" ${pref("msg") ? "checked" : ""}><span>Mostrar aviso na tela quando chegar mensagem no Social</span></label>
+      <label class="cfg-sw"><input type="checkbox" data-np="ntf" ${pref("ntf") ? "checked" : ""}><span>Mostrar aviso na tela quando alguém me notificar</span></label>
+      <label class="cfg-sw"><input type="checkbox" data-np="som" ${pref("som") ? "checked" : ""}><span>Tocar um som curto junto com o aviso</span></label>
+      <p class="sub">O sino do topo sempre guarda as notificações e as mensagens novas, mesmo com os avisos desligados.</p></div>`;
+  } else if (sec === "usuarios" && isGestor) {
+    if (!team.length) await loadTeam(); const acc = await socAcc().catch(() => ({}));
+    const L2 = team.filter(u => inEqEmail(u.email) || isOwner).sort((a, b) => a.name.localeCompare(b.name));
+    body = `<div class="panel"><h2 class="sec-h">Usuários e cargos · ${esc((FRENTES[curFrente] || {}).nome || "")}</h2><p class="sub" style="margin:0 0 10px">Só a gestão define o cargo. Ele aparece no perfil da pessoa e na busca do Social.</p>
+      <input type="search" id="us-q" placeholder="Buscar pessoa…" style="width:100%;max-width:360px;margin-bottom:8px"><datalist id="cg-l">${CARGOS.map(c => `<option>${esc(c)}</option>`).join("")}</datalist>
+      <div class="us-list">${L2.map(u => `<div class="us-row" data-us="${esc(u.uid)}"><span class="soc-av">${avatarHtml(u)}</span><div class="us-n"><b>${esc(u.full || u.name)}</b><small>${esc(u.apelido ? "“" + u.apelido + "” · " : "")}${esc(u.email)} · ${esc(socPerfil(u, acc))}</small></div><input type="text" list="cg-l" value="${esc(u.cargo || "")}" placeholder="Cargo" data-cg maxlength="60"><button type="button" class="btn sm" data-cgs>Salvar</button></div>`).join("") || `<p class="sub">Ninguém nesta equipe.</p>`}</div></div>`;
+  } else if (sec === "dados") {
+    const pend = (window.__fb && window.__fb.pendingCount && window.__fb.pendingCount()) || 0;
+    let est = ""; try { const e = await navigator.storage.estimate(); est = `${(e.usage / 1048576).toFixed(1)} MB usados neste aparelho`; } catch {}
+    body = `<div class="panel"><h2 class="sec-h">Envios e uso offline</h2><p>${navigator.onLine ? "🟢 Conectado." : "🟠 Sem internet: o que você preencher fica guardado e vai quando a conexão voltar."} ${pend ? `<b>${pend}</b> alteração(ões) aguardando envio.` : "Nada aguardando envio."}</p><p class="sub">${esc(est)}</p>
+      <h2 class="sec-h" style="margin-top:14px">Memória do aparelho</h2><p class="sub" style="margin:0 0 8px">Se o sistema ficar estranho depois de uma atualização, limpe a memória deste aparelho. Seus dados ficam guardados no servidor; só o que ainda não foi enviado se perderia, por isso o botão só funciona com tudo enviado.</p>
+      <button type="button" class="btn" data-clr ${pend ? "disabled" : ""}>Limpar memória e recarregar</button></div>`;
+  } else if (sec === "sobre") {
+    body = `<div class="panel"><h2 class="sec-h">Sistema de FVs</h2><p>Fichas de verificação, F.007, PDA, mapeamentos, planicidade, solos, GAPE, Social e pendências da obra ${esc(((findObra(ctx.obra) || {}).o || {}).nome || "")}.</p>
+      <h2 class="sec-h" style="margin-top:14px">Atalhos no mapeamento</h2><ul class="cfg-keys"><li><kbd>Ctrl</kbd>+<kbd>Z</kbd> desfazer · <kbd>Ctrl</kbd>+<kbd>Y</kbd> refazer</li><li><kbd>Delete</kbd> apaga o desenho selecionado</li><li><kbd>Esc</kbd> cancela o desenho em andamento</li><li>Roda do mouse: zoom · arrastar com a mão: mover a planta</li></ul>
+      <h2 class="sec-h" style="margin-top:14px">Atalhos na planilha de planicidade</h2><ul class="cfg-keys"><li><kbd>Tab</kbd>/<kbd>Enter</kbd> próxima célula · <kbd>Ctrl</kbd>+<kbd>D</kbd> copia para baixo · <kbd>Ctrl</kbd>+<kbd>V</kbd> cola do Excel</li></ul>
+      <p class="sub" style="margin-top:12px">Dúvidas, problemas ou ideias: botão <b>?</b> no canto da tela.</p></div>`;
+  }
+  v.innerHTML = head + `<div class="cfg">${sec === "inicio" ? "" : nav}<div class="cfg-b">${body}</div></div>`;
+  fillAvatars(v);
+  // ações
+  const q = s0 => $(s0, v);
+  if (q("[data-pfoto]")) q("[data-pfoto]").onclick = async () => { const id = await pickAvatar(); if (id && await saveProfile({foto: id})) { toast("Foto atualizada."); renderConfig("perfil"); } };
+  if (q("[data-pfrm]")) q("[data-pfrm]").onclick = async () => { if (await saveProfile({foto: ""})) renderConfig("perfil"); };
+  if (q("[data-psave]")) q("[data-psave]").onclick = async () => { const ap = q("#pf-ap").value.trim().slice(0, 30); if (await saveProfile({apelido: ap})) toast(ap ? `Pronto: você aparece como “${ap}”.` : "Apelido removido: aparece o nome completo."); };
+  $$("[name=tema]", v).forEach(r => r.onchange = () => { setTema(r.value); renderConfig("aparencia"); });
+  $$("[name=fonte]", v).forEach(r => r.onchange = () => { try { localStorage.setItem("fvs-fonte", r.value); } catch {} document.documentElement.classList.toggle("fonte-g", r.value === "g"); renderConfig("aparencia"); });
+  if (q("[data-hc]")) q("[data-hc]").onchange = e => setHc(e.target.checked);
+  $$("[data-np]", v).forEach(c => c.onchange = () => { try { localStorage.setItem("fvs-n-" + c.dataset.np, c.checked ? "1" : "0"); } catch {} });
+  if (q("#us-q")) q("#us-q").oninput = e => { const s0 = norm(e.target.value); $$(".us-row", v).forEach(r => r.classList.toggle("hidden", !!s0 && !norm(r.textContent).includes(s0))); };
+  $$("[data-cgs]", v).forEach(b => b.onclick = async () => { const r = b.closest("[data-us]"), uid0 = r.dataset.us, cg = $("[data-cg]", r).value.trim(); try { await db.doc(`users/${uid0}`).merge({cargo: cg}); const u = team.find(x => x.uid === uid0); if (u) u.cargo = cg; if (uid0 === me) myProf.cargo = cg; toast("Cargo salvo."); } catch { toast("Não foi possível salvar. Publique as regras novas do Firebase."); } });
+  if (q("[data-clr]")) q("[data-clr]").onclick = async () => { if (!(await confirmBox("Limpar memória do aparelho?", "O sistema recarrega e baixa tudo de novo do servidor.", "Limpar e recarregar", true))) return; try { const ks = await caches.keys(); await Promise.all(ks.map(k => caches.delete(k))); } catch {} try { const rs = await navigator.serviceWorker.getRegistrations(); await Promise.all(rs.map(r => r.unregister())); } catch {} location.reload(); };
+}
+const nPref = k => { try { return localStorage.getItem("fvs-n-" + k) !== "0"; } catch { return true; } };
+function beep() { if (!nPref("som")) return; try { const a = new (window.AudioContext || window.webkitAudioContext)(), o = a.createOscillator(), g = a.createGain(); o.frequency.value = 880; g.gain.value = .05; o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime + .12); } catch {} }
+
+/* ---------- PENDÊNCIAS: tudo que está em aberto na equipe, primeiro o que envolve você ---------- */
+const PD_TIPO = {rep: {t: "Reprovação sem reinspeção", ic: "✕"}, prob: {t: "Problema sem solução", ic: "⚠️"}, pda: {t: "Ação do PDA", ic: "⏱"}, ver: {t: "Itens a verificar", ic: "◻"}, parada: {t: "FV parada", ic: "💤"}, assin: {t: "Assinatura pendente", ic: "✍️"}, notif: {t: "Notificação", ic: "🔔"}};
+const PD_URG = ["critica", "alta", "media", "baixa"];
+let pdF = {q: "", tipo: "", urg: "", env: "", folder: "", cat: "", item: "", local: "", sort: "prio"}, pdObs = new Map(), pdObsAt = 0, pdLoading = false;
+async function pdLoadObs(L) {
+  if (pdLoading || Date.now() - pdObsAt < 90000) return; pdLoading = true;
+  const ids = L.filter(f => f.status !== "fechada" || true).map(f => f.id);
+  for (let i = 0; i < ids.length; i += 8) await Promise.all(ids.slice(i, i + 8).map(async id => { try { const sn = await db.collection(`fvs/${id}/obs`).get(); pdObs.set(id, sn.docs.map(d => ({id: d.id, ...d.data()}))); } catch {} }));
+  pdObsAt = Date.now(); pdLoading = false; if (!$("#view-pend").classList.contains("hidden")) renderPend();
+}
+const itemLbl = it => String(splitLbl(it.t)[0] || it.t || "").replace(/\s+/g, " ").trim().toUpperCase().slice(0, 80);
+function pdList() {
+  const meFull = norm(myProf.name || ""), meNick = norm(dispName(myProf)), isMe = t => { const n = norm(t || ""); return !!n && (n === meFull || n === meNick || (meFull && meFull.startsWith(n) && n.length > 3)); };
+  const myN = notifList().filter(n => n.to === me && n.kind !== "chamado"), out = [], t0 = today();
+  const L = [...fvs.entries()].map(([id, f]) => ({id, ...f})).filter(f => !f.deleted && !f.trashAt && fvFrente(f) === eqFv());
+  for (const f of L) {
+    const cols = activeCols(f), cells = f.cells || {}, age = Math.max(0, Math.round((Date.now() - new Date(f.updatedAt || f.createdAt || Date.now()).getTime()) / 864e5)), mine = isMe(f.conferente) || f.createdBy === me, base = {fv: f.id, code: f.code || "", local: f.local || "", titulo: f.title || "", folder: f.folder || "", cat: f.cat || "OUTRO"};
+    const nOf = (row) => myN.filter(n => n.fv === f.id && (!row || n.row === row));
+    if (f.status !== "fechada") {
+      (f.items || []).forEach(it => cols.forEach(([cid, c]) => { if (cells[it.id + "_" + cid] !== "R") return;
+        out.push({...base, k: `rep:${f.id}:${it.id}:${cid}`, tipo: "rep", item: it.n, itemLbl: itemLbl(it), lcl: c.name, txt: `${it.n} ${splitLbl(it.t)[0]} — reprovado em ${c.name}`, quando: f.updatedAt || f.createdAt, urg: age > 7 ? "alta" : "media", env: mine ? "conferente" : "", tab: "fv"}); }));
+      const s0 = stats(f); if (s0.E && s0.total) out.push({...base, k: `ver:${f.id}`, tipo: "ver", txt: `${s0.E} verificação(ões) em branco de ${s0.total}`, quando: f.updatedAt || f.createdAt, urg: "baixa", env: mine ? "conferente" : "", tab: "fv"});
+      if (age > 15) out.push({...base, k: `parada:${f.id}`, tipo: "parada", txt: `Sem alteração há ${age} dias`, quando: f.updatedAt || f.createdAt, urg: age > 30 ? "alta" : "media", env: mine ? "conferente" : "", tab: "fv"});
+      (pdObs.get(f.id) || []).forEach(o => { const pr = String(o.problema || "").replace(/^[^:\n]{1,40}:\s*/, "").trim(); if (!pr || String(o.solucao || "").trim()) return; const it = (f.items || []).find(i => i.id === o.item);
+        const nn = nOf(o.id), d = Math.round((Date.now() - new Date(o.createdAt || f.createdAt).getTime()) / 864e5);
+        out.push({...base, k: `prob:${f.id}:${o.id}`, tipo: "prob", item: it ? it.n : "", itemLbl: it ? itemLbl(it) : "", lcl: (String(o.problema).match(/^([^:\n]{1,40}):/) || [])[1] || "", txt: String(o.problema).trim(), quando: o.createdAt, urg: nn.length ? nn.reduce((a, n) => PD_URG.indexOf(n.urg) < PD_URG.indexOf(a) ? n.urg : a, "baixa") : d > 7 ? "alta" : "media", env: nn.length ? "notificado" : mine ? "conferente" : "", nn, row: o.id, sheet: o.sheet || "fv", folha: obsFolha(o), tab: o.sheet === "f007" ? "f007" : "fv"}); });
+    } else if (!f.assinatura) {
+      const dd = Math.round((Date.now() - new Date((f.fechamento || t0) + "T12:00:00").getTime()) / 864e5);
+      out.push({...base, k: `assin:${f.id}`, tipo: "assin", txt: `Fechada em ${fmtDate(f.fechamento)} e ainda sem assinatura do(a) gestor(a)${f.gestor ? " " + f.gestor : ""}`, quando: f.fechamento, urg: dd > 3 ? "alta" : "media", env: isMe(f.gestor) ? "gestor" : "", tab: "fv"});
+    }
+    pdaOpen(f).forEach(a => { const dd = a.p ? pdaDays(a.p) : null, resp = a.ru === me || isMe(a.r), sup = a.su === me || isMe(a.sp), nn = nOf(a.id);
+      const urg = nn.some(n => n.urg === "critica") || (dd !== null && dd < -7) ? "critica" : (dd !== null && dd < 0) || nn.some(n => n.urg === "alta") ? "alta" : dd === null || dd <= 3 ? "media" : "baixa";
+      out.push({...base, k: `pda:${f.id}:${a.id}`, tipo: "pda", txt: a.t || "Ação do PDA", resp: a.r || "", prazo: a.p || "", dd, quando: a.p || f.updatedAt, urg, env: nn.length ? "notificado" : resp ? "responsavel" : sup ? "suporte" : "", nn, row: a.id, tab: "pda"}); });
+  }
+  // notificações que eu recebi e ainda não viraram outra pendência
+  myN.filter(n => !n.lida && !out.some(x => x.row && x.row === n.row)).forEach(n => { const f = fvs.get(n.fv); if (!f || fvFrente(f) !== eqFv()) return;
+    out.push({fv: n.fv, code: n.fvCode, local: n.fvLocal, titulo: "", folder: f.folder || "", cat: f.cat || "OUTRO", k: `notif:${n.id}`, tipo: "notif", item: n.item, txt: `${names.get(n.from) || n.fromName || "Alguém"} notificou você: ${n.texto || ""}${n.msg ? " — “" + n.msg + "”" : ""}`, quando: n.at, urg: n.urg || "media", env: "notificado", nn: [n], row: n.row, tab: n.kind === "pda" ? "pda" : n.sheet === "f007" ? "f007" : "fv", nid: n.id}); });
+  out.forEach(x => { x.prio = (x.env ? 0 : 10) + PD_URG.indexOf(x.urg) * 2 + (x.env === "notificado" ? -1 : 0); });
+  return out;
+}
+function renderPend() {
+  const v = $("#view-pend"); if (!v) return;
+  const L0 = [...fvs.entries()].map(([id, f]) => ({id, ...f})).filter(f => !f.deleted && fvFrente(f) === eqFv()); pdLoadObs(L0);
+  const all = pdList(), f = pdF, q = norm(f.q).trim();
+  const V = all.filter(x => (!f.tipo || x.tipo === f.tipo) && (!f.urg || x.urg === f.urg) && (!f.env || (f.env === "eu" ? !!x.env : f.env === "notificado" ? x.env === "notificado" : f.env === "resp" ? ["responsavel", "suporte"].includes(x.env) : true))
+    && (!f.folder || inFolder({folder: x.folder}, f.folder)) && (!f.cat || x.cat === f.cat) && (!f.item || x.itemLbl === f.item) && (!f.local || norm(x.lcl || x.local) === norm(f.local))
+    && (!q || norm(`${x.code} ${x.local} ${x.titulo} ${x.txt} ${x.item || ""} ${x.resp || ""} ${x.lcl || ""}`).includes(q)));
+  const srt = {prio: (a, b) => a.prio - b.prio || String(a.quando || "").localeCompare(String(b.quando || "")), antiga: (a, b) => String(a.quando || "").localeCompare(String(b.quando || "")), recente: (a, b) => String(b.quando || "").localeCompare(String(a.quando || "")), prazo: (a, b) => String(a.prazo || "9").localeCompare(String(b.prazo || "9")), fv: (a, b) => String(a.code).localeCompare(String(b.code), "pt-BR", {numeric: true})};
+  V.sort(srt[f.sort] || srt.prio);
+  const cnt = k => all.filter(x => x.tipo === k).length, mineN = all.filter(x => x.env).length;
+  const items = [...new Set(all.map(x => x.itemLbl).filter(Boolean))].sort(), locais = [...new Set(all.map(x => x.lcl).filter(Boolean))].sort((a, b) => a.localeCompare(b, "pt-BR", {numeric: true}));
+  const fOpts = [...folders.keys()].map(id => ({id, p: pathText(id)})).sort((a, b) => a.p.localeCompare(b.p, "pt-BR"));
+  const envTxt = {notificado: "Você foi notificado", responsavel: "Você é o responsável", suporte: "Você é o suporte", conferente: "Você é o conferente", gestor: "Aguardando sua assinatura"};
+  const sel = (id, lbl, opts, val) => `<label class="fld">${lbl}<select data-pf="${id}"><option value="">Todos</option>${opts.map(([k, t]) => `<option value="${esc(k)}" ${k === val ? "selected" : ""}>${esc(t)}</option>`).join("")}</select></label>`;
+  v.innerHTML = `<div class="page-title"><div><h1>Pendências</h1><div class="sub">Tudo que está em aberto na equipe ${esc((FRENTES[curFrente] || {}).nome || "")}. Primeiro o que envolve você; o que for resolvido sai daqui sozinho.${pdLoading ? " · carregando os problemas das fichas…" : ""}</div></div></div>
+    <div class="pd-kpis"><button type="button" class="pd-k ${f.env === "eu" ? "on" : ""}" data-pk="eu"><b>${mineN}</b><span>Comigo</span></button>${Object.entries(PD_TIPO).filter(([k]) => cnt(k)).map(([k, x]) => `<button type="button" class="pd-k ${f.tipo === k ? "on" : ""}" data-pt="${k}"><b>${cnt(k)}</b><span>${x.ic} ${esc(x.t)}</span></button>`).join("")}</div>
+    <div class="pn-filters pd-f">
+      <label class="fld pd-q">Buscar<input type="search" data-pf="q" value="${esc(f.q)}" placeholder="FV, local, item, problema, responsável…"></label>
+      ${sel("tipo", "Tipo", Object.entries(PD_TIPO).map(([k, x]) => [k, x.t]), f.tipo)}
+      ${sel("urg", "Urgência", [["critica", "Crítica"], ["alta", "Alta"], ["media", "Média"], ["baixa", "Baixa"]], f.urg)}
+      ${sel("env", "Envolvimento", [["eu", "Comigo (qualquer forma)"], ["notificado", "Fui notificado"], ["resp", "Sou responsável/suporte"]], f.env)}
+      ${sel("folder", "Pasta", fOpts.map(o => [o.id, o.p]), f.folder)}
+      ${sel("cat", "Categoria", Object.entries(CATS), f.cat)}
+      ${sel("item", "Item da FV", items.map(i => [i, i]), f.item)}
+      ${sel("local", "Local inspecionado", locais.map(l => [l, l]), f.local)}
+      <label class="fld">Ordenar<select data-pf="sort">${[["prio", "Prioridade"], ["antiga", "Mais antigas"], ["recente", "Mais recentes"], ["prazo", "Prazo"], ["fv", "Código da FV"]].map(([k, t]) => `<option value="${k}" ${k === f.sort ? "selected" : ""}>${t}</option>`).join("")}</select></label>
+      ${Object.entries(f).some(([k, x]) => x && k !== "sort") ? `<button type="button" class="btn sm ghost" data-pclr style="align-self:flex-end">Limpar filtros</button>` : ""}
+    </div>
+    <div class="pd-n sub">${V.length} pendência(s)${V.length !== all.length ? ` de ${all.length}` : ""}</div>
+    <div class="pd-list">${V.slice(0, 400).map(x => `<div class="pd-it u-${x.urg} ${x.env ? "mine" : ""}"><div class="pd-l"><span class="pd-u">${{critica: "Crítica", alta: "Alta", media: "Média", baixa: "Baixa"}[x.urg]}</span><span class="pd-tp">${PD_TIPO[x.tipo].ic} ${esc(PD_TIPO[x.tipo].t)}</span></div>
+      <div class="pd-c"><b>${esc(x.txt).slice(0, 260)}</b><small><a href="#fv-${esc(x.fv)}">${esc(x.code)}</a> · ${esc(x.local)}${x.item ? " · item " + esc(x.item) : ""}${x.lcl && x.tipo !== "rep" ? " · " + esc(x.lcl) : ""}${x.sheet === "f007" ? " · F.007" : x.folha ? " · folha " + (x.folha + 1) : ""}${x.resp ? " · resp.: " + esc(x.resp) : ""}${x.prazo ? ` · prazo <b class="${x.dd < 0 ? "late" : ""}">${esc(fmtDate(x.prazo))}${x.dd < 0 ? ` (${-x.dd}d atrasado)` : ""}</b>` : ""}${x.quando && !x.prazo ? " · " + esc(fmtDate(String(x.quando).slice(0, 10))) : ""}</small>${x.env ? `<span class="pd-env">${esc(envTxt[x.env] || "")}</span>` : ""}${(x.nn || []).map(n => `<span class="pd-nt">🔔 ${esc(names.get(n.from) || n.fromName || "")}${n.msg ? ": “" + esc(n.msg) + "”" : ""}</span>`).join("")}</div>
+      <div class="pd-a"><button type="button" class="btn sm primary" data-pgo="${esc(x.k)}">Abrir</button>${x.row && (x.tipo === "prob" || x.tipo === "pda") ? `<button type="button" class="btn sm" data-pfw="${esc(x.k)}" title="Encaminhar pelo Social">↗</button>` : ""}${x.nid ? `<button type="button" class="btn sm ghost" data-pok="${esc(x.nid)}" title="Marcar como vista">✓</button>` : ""}</div></div>`).join("") || `<div class="empty"><b>Nenhuma pendência ${all.length ? "com esses filtros" : "na equipe"} 🎉</b>${all.length ? "Mude ou limpe os filtros." : "Quando houver reprovação, problema sem solução, ação do PDA ou notificação, aparece aqui."}</div>`}</div>`;
+  $$("[data-pf]", v).forEach(el => { const ev = el.tagName === "INPUT" ? "input" : "change"; el.addEventListener(ev, () => { pdF[el.dataset.pf] = el.value; if (ev === "input") { clearTimeout(v._t); v._t = setTimeout(() => { const pos = el.selectionStart; renderPend(); const n = $(`[data-pf="${el.dataset.pf}"]`, v); n.focus(); try { n.setSelectionRange(pos, pos); } catch {} }, 250); } else renderPend(); }); });
+  v.onclick = async e => {
+    if (e.target.closest("[data-pclr]")) { pdF = {q: "", tipo: "", urg: "", env: "", folder: "", cat: "", item: "", local: "", sort: pdF.sort}; return renderPend(); }
+    const pk = e.target.closest("[data-pk]"); if (pk) { pdF.env = pdF.env === "eu" ? "" : "eu"; return renderPend(); }
+    const pt = e.target.closest("[data-pt]"); if (pt) { pdF.tipo = pdF.tipo === pt.dataset.pt ? "" : pt.dataset.pt; return renderPend(); }
+    const ok = e.target.closest("[data-pok]"); if (ok) { patch(`notifs/${ok.dataset.pok}`, {lida: true}); return; }
+    const go = e.target.closest("[data-pgo],[data-pfw]"); if (!go) return;
+    const x = pdList().find(y => y.k === (go.dataset.pgo || go.dataset.pfw)); if (!x) return;
+    (x.nn || []).forEach(n => { if (!n.lida) patch(`notifs/${n.id}`, {lida: true}); });
+    location.hash = "fv-" + x.fv;
+    setTimeout(() => { if (!cur || cur.id !== x.fv) return; const fv0 = fvs.get(x.fv);
+      if (x.tipo === "rep" || x.tipo === "ver") { const cid = x.k.split(":")[3], cp = cid ? colPages(fv0).find(c => c[0] === cid) : null; if (cp && cp[2] !== (cur.folha || 0)) { cur.folha = cp[2]; renderChk(fv0); } setTab("fv"); return; }
+      if (x.row) { const o = cur.obs.find(z => z.id === x.row), d = cur.pda.find(z => z.id === x.row);
+        if (o && o.sheet === "f007") { cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === x.row) / F007_LIN); renderProbRows(fv0, "f007"); } else if (o && obsFolha(o) !== (cur.folha || 0)) { cur.folha = obsFolha(o); renderChk(fv0); }
+        if (d) { cur.pdapg = Math.floor(cur.pda.findIndex(z => z.id === x.row) / PDA_LIN); renderPda(fv0); }
+        setTab(x.tab || "fv");
+        setTimeout(() => { const tr = $(`tr[data-id="${x.row}"]`); if (tr) { tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); tr.scrollIntoView({block: "center"}); }
+          if (go.dataset.pfw) fwdProblem(x.tipo === "pda" ? "pda" : "obs", x.row); }, 400);
+      } else setTab(x.tab || "fv"); }, 1000);
+  };
+}
+function pendBadge() { const b = $("#sd-pend"); if (!b) return; let n = 0; try { n = pdList().filter(x => x.env && ["critica", "alta"].includes(x.urg)).length; } catch {} b.textContent = n || ""; b.className = "sd-b" + (n ? " bad" : ""); b.title = n ? `${n} pendência(s) urgente(s) com você` : ""; }
+
 /* ---------- rotas e filtros ---------- */
 function route() {
   document.body.classList.remove("in-social");
@@ -7967,30 +8258,32 @@ function route() {
   if (!ensureObra()) { location.replace("#sel"); return; }
   if (h.startsWith("eq-")) { const k = h.slice(3); if (!FRENTES[k] || !canEq(k)) { location.replace("#obra-" + ctx.obra); return; } setFrente(k); showOnly("eqhome"); renderEqHome(); renderSide("inicio"); renderCtxNav(); window.scrollTo(0, 0); closeFv(); closeSolo(); closePlanic(); closeGape(); return; }
   if (FV_EQ.includes(h)) { setFrente(h); h = ""; }
-  const isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-"), isPlanic = h === "planic" || h.startsWith("planic-"), isSocial = h === "social" || h.startsWith("social-");
+  const isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-"), isPlanic = h === "planic" || h.startsWith("planic-"), isSocial = h === "social" || h.startsWith("social-"), isConfig = h === "config" || h.startsWith("config-"), isPend = h === "pend";
   if (isSolos) setFrente("infra"); else if (isPlanic) setFrente("quali"); else if (isGape) setFrente("gape");
   else if (isFolder && foldersLoaded) setFrente(frenteOfFolder(h.slice(6)));
   else if (isFv && fvs.get(h.slice(3))) setFrente(fvFrente(fvs.get(h.slice(3))));
   else if ((h === "" || isTpl || isPainel) && !FRENTES[curFrente].fv) setFrente("quali");
   if (!canEq(curFrente) && !isTeam && !isLix) { location.replace("#obra-" + ctx.obra); return; }
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
-  const isList = !(isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix || isPlanic || isSocial);
-  showOnly(isSocial ? "social" : isTeam ? "team" : isList ? "list" : isLix ? "lix" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "tpl" : "fv");
+  const isList = !(isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix || isPlanic || isSocial || isConfig || isPend);
+  showOnly(isPend ? "pend" : isConfig ? "config" : isSocial ? "social" : isTeam ? "team" : isList ? "list" : isLix ? "lix" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "tpl" : "fv");
   if (isTeam) renderTeam();
   if (isLix && db) { renderLixeira(); sweepTrash(); }
   if (isSolos && db) { if (h.startsWith("solo-")) openSolo(h.slice(5)); else { closeSolo(); solTab = h === "solos-acomp" ? "acomp" : "trechos"; renderSolos(); } } else closeSolo();
   if (isPlanic && db) { if (h.startsWith("planic-")) openPlanic(h.slice(7)); else { closePlanic(); renderPlanicList(); } } else closePlanic();
   if (isPainel) renderPainel();
   document.body.classList.toggle("in-social", isSocial);
+  if (isConfig && db) renderConfig(h.startsWith("config-") ? h.slice(7) : "");
+  if (isPend && db) renderPend();
   if (isSocial && db) renderSocial(h.startsWith("social-") ? h.slice(7) : null);
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   if (isTpl) renderTemplates();
-  renderSide(isSocial ? "social" : isTeam ? "gestao" : isLix ? "lixeira" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "modelos" : "fvs");
+  renderSide(isPend ? "pend" : isConfig || isTpl || isTeam ? "config" : isSocial ? "social" : isTeam ? "gestao" : isLix ? "lixeira" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "config" : "fvs");
   renderCtxNav();
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
 }
-function showOnly(k) { ["sel", "eqhome", "team", "list", "lix", "solos", "planic", "painel", "gape", "tpl", "fv", "social"].forEach(v => { const el = $("#view-" + v); if (el) el.classList.toggle("hidden", v !== k); }); }
+function showOnly(k) { ["sel", "eqhome", "team", "list", "lix", "solos", "planic", "painel", "gape", "tpl", "fv", "social", "config", "pend"].forEach(v => { const el = $("#view-" + v); if (el) el.classList.toggle("hidden", v !== k); }); }
 function renderFbar() {}
 window.addEventListener("hashchange", route);
 $("#side-tg").onclick = () => document.body.classList.toggle("side-open");
@@ -8026,6 +8319,7 @@ async function init() {
     try { if ((await user.can("data.write")) === false) setReadOnly("Você pode ver as FVs, mas não editar. Peça ao administrador para liberar seu e-mail como editor."); } catch {}
     names.set(me, "Você");
     try { const p = await user.me(); if (p && p.name) names.set(me, p.name); } catch {}
+    loadMyProfile();
   }
   window.__onWriteError = writeErr;
   if (isGestor) $("#nav-team").classList.remove("hidden");
@@ -8045,7 +8339,7 @@ async function init() {
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
     renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
-    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); helpBoot(); }
+    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); helpBoot(); temaBoot(); }
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     const first = !foldersLoaded; folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;

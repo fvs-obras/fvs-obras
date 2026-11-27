@@ -228,7 +228,7 @@ const userApi = {
     await Promise.all(ids.map(async id => {
       if (!profileCache.has(id)) { try { const s = await getDoc(doc(fs, "users", id)); profileCache.set(id, s.exists() ? s.data() : {}); } catch { profileCache.set(id, {}); } }
       const p = profileCache.get(id) || {};
-      out[id] = { id, name: p.name || (p.email ? String(p.email).split("@")[0] : "") };
+      out[id] = { id, name: String(p.apelido || "").trim() || p.name || (p.email ? String(p.email).split("@")[0] : ""), full: p.name || "", foto: p.foto || "", cargo: p.cargo || "" };
     }));
     return out;
   }
@@ -296,7 +296,7 @@ function showLogin(mode = "in", msg = "", ok = false) {
     <div class="auth-btns">${googleBtn}${window.LOGIN_MICROSOFT ? msBtn : ""}</div>
     <div class="auth-or"><span>ou com e-mail e senha</span></div>
     <form id="g-form" class="auth-form" novalidate>
-      ${up ? `<input type="text" id="g-name" placeholder="Seu nome" autocomplete="name" required>` : ""}
+      ${up ? `<input type="text" id="g-name" placeholder="Nome completo (não pode ser alterado depois)" autocomplete="name" required>` : ""}
       <input type="email" id="g-email" placeholder="E-mail" autocomplete="email" inputmode="email" required>
       <input type="password" id="g-pass" placeholder="${up ? "Crie uma senha (mín. 6 caracteres)" : "Senha"}" autocomplete="${up ? "new-password" : "current-password"}" required>
       <button class="btn primary" type="submit" id="g-submit">${up ? "Criar conta" : "Entrar"}</button>
@@ -314,7 +314,7 @@ function showLogin(mode = "in", msg = "", ok = false) {
   $("#g-form").onsubmit = async e => {
     e.preventDefault();
     const em = $("#g-email").value.trim(), pw = $("#g-pass").value, nm = up ? $("#g-name").value.trim() : "";
-    if (up && !nm) { showLogin("up", "Digite seu nome: ele aparece no histórico de quem editou."); $("#g-email").value = em; return; }
+    if (up && (nm.split(/\s+/).filter(w => w.length > 1).length < 2)) { showLogin("up", "Digite seu nome completo (nome e sobrenome). Ele aparece nos documentos e não pode ser alterado depois; o apelido você escolhe no seu perfil."); $("#g-email").value = em; return; }
     $("#g-submit").disabled = true; $("#g-submit").textContent = "Aguarde…";
     try {
       if (up) {
@@ -376,7 +376,9 @@ async function enter(u) {
   try { sessionStorage.removeItem("fvs-idle-out"); } catch {}
   gate(`<p>Entrando como <b>${esc(u.email)}</b>…</p>`);
   const nm = u.displayName || pendingName;
-  setDoc(doc(fs, "users", u.uid), { ...(nm ? { name: nm } : {}), email: u.email, photo: u.photoURL || "", lastSeen: new Date().toISOString(), pendente: false }, { merge: true }).catch(() => {});
+  // o nome completo é gravado uma vez só (no cadastro); depois não muda
+  getDoc(doc(fs, "users", u.uid)).then(sn => { const has = sn.exists() && String((sn.data() || {}).name || "").trim();
+    return setDoc(doc(fs, "users", u.uid), { ...(nm && !has ? { name: nm } : {}), email: u.email, photo: u.photoURL || "", lastSeen: new Date().toISOString(), pendente: false }, { merge: true }); }).catch(() => {});
   try { await readAccess(); } catch { accessDoc = null; }
   role = computeRole(u.email);
   if (role === "none") {
