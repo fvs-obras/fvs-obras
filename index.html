@@ -900,6 +900,20 @@ body.ng [data-pjdel],body.ng [data-pjrm],body.ng [data-delpl],body.ng #g-del,bod
 .ntf-x{border:0;background:none;color:#999;font-size:14px;cursor:pointer;padding:2px 6px;border-radius:6px}.ntf-x:hover{background:var(--bad-soft);color:var(--bad)}
 .ntf-e{padding:28px 16px;text-align:center;color:var(--muted);display:grid;gap:4px}.ntf-e small{font-size:12px}
 #print-root .sp-u{text-decoration:none}#print-root .rdots,#print-root td.x button{visibility:hidden!important}
+.ro-fld{background:#f4f4f4!important;color:var(--muted)!important;cursor:not-allowed}
+.tmap-pickbtn{align-self:flex-start;margin-top:6px;text-transform:none;letter-spacing:0}
+.tmp{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:14px;align-items:start}
+.tmp-map{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;user-select:none}
+.tmp-map img{display:block;width:100%;height:auto}
+.tmp-marking .tmp-map{cursor:crosshair;outline:3px solid var(--red);outline-offset:-3px}
+.tmp-pin{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:rgba(29,29,27,.78);color:#fff;font-weight:800;font-size:12px;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.35);padding:0;min-height:0}
+.tmp-pin.on{background:var(--red);transform:translate(-50%,-50%) scale(1.15)}.tmp-pin.mk{outline:3px solid #ffd166}
+.tmp-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.tmp-nums{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.tmp-n{height:34px;border:1px solid var(--line);border-radius:8px;background:#fff;font-weight:700;cursor:pointer;padding:0;min-height:0}
+.tmp-n.on{background:var(--red);border-color:var(--red);color:#fff}.tmp-n.np{border-style:dashed}.tmp-n.mk{outline:3px solid #ffd166}
+.tmp-sel{font-size:13px}
+@media (max-width:700px){.tmp{grid-template-columns:1fr}.tmp-nums{grid-template-columns:repeat(8,1fr)}}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1066,6 +1080,10 @@ const ST = {
 const PDCA = ["", "PLAN", "EXEC", "VERIF", "PADR"];
 const PDCA_NAME = {"":"Sem status", PLAN:"Planejamento", EXEC:"Execução", VERIF:"Verificação", PADR:"Padronização"};
 const normPdca = v => v === "OK" ? "PADR" : (PDCA.includes(v) ? v : "");
+/* gestores que podem constar na FV: por enquanto só esta opção; depois a lista virá da aba Gestão */
+const GESTORES_FV = ["Gabriela Lucas Rodrigues"];
+const myName = () => { const n = names.get(me); return n && n !== "Você" ? n : ""; };
+const gestOpts = cur0 => [...GESTORES_FV, ...(cur0 && !GESTORES_FV.includes(cur0) ? [cur0] : [])].map(n => `<option value="${esc(n)}" ${n === cur0 ? "selected" : ""}>${esc(n)}${GESTORES_FV.includes(n) ? "" : " (antigo)"}</option>`).join("");
 const FLBL = {item:"item", problema:"problema", solucao:"solução", data:"data", responsavel:"responsável", acao:"ação", suporte:"suporte", prazo:"prazo", status:"status"};
 
 let toastT;
@@ -1513,17 +1531,20 @@ async function newFvDialog(preTpl) {
     <label class="fld">Obra<input type="text" id="n-obra" list="dl-obras" value="${esc(lastObra)}" placeholder="Nome da obra"></label>
     <label class="fld">Local (conjunto)<input type="text" id="n-local" placeholder="Escolha ou digite: Trechos, Bloco, Piscina…"></label>
     <label class="fld">Data de abertura<input type="date" id="n-ab" value="${today()}"></label>
-    <label class="fld">Conferente<input type="text" id="n-conf"></label>
-    <label class="fld">Gestor(a)<input type="text" id="n-gest"></label>
-    <div class="fld" style="grid-column:1/-1"><span id="n-loclbl">Locais inspecionados</span>${chipHtml("n-cols", "Digite ou escolha da lista (ex.: Trecho 1) e aperte Enter")}</div>
+    <label class="fld">Conferente (quem cria a FV)<input type="text" id="n-conf" value="${esc(myName())}" readonly class="ro-fld" title="O conferente é quem cria a FV: vem do seu perfil e não pode ser trocado"></label>
+    <label class="fld">Gestor(a)<select id="n-gest">${gestOpts(GESTORES_FV[0])}</select></label>
+    <div class="fld" style="grid-column:1/-1"><span id="n-loclbl">Locais inspecionados</span>${chipHtml("n-cols", "Digite ou escolha da lista (ex.: Trecho 1) e aperte Enter")}<button type="button" class="btn sm tmap-pickbtn hidden" id="n-tmap">🗺 Escolher os trechos no mapa de trechos</button></div>
   </div><datalist id="dl-obras">${obras.map(o => `<option value="${esc(o)}">`).join("")}</datalist>`;
   const res = await modal({title:"Nova FV", body, actions:[{label:"Cancelar", value:null},{label:"Criar FV", cls:"primary", value: bg => ({
     tpl: $("#n-tpl", bg).value, folder: $("#n-folder", bg).value, frente: $("#n-frente", bg).value, obra: $("#n-obra", bg).value.trim(), local: $("#n-local", bg).value.trim(), abertura: $("#n-ab", bg).value,
-    conferente: $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value.trim(), cols: bg._cf ? bg._cf.get() : []
+    conferente: myName() || $("#n-conf", bg).value.trim(), gestor: $("#n-gest", bg).value, cols: bg._cf ? bg._cf.get() : []
   })}], onOpen: bg => {
     const upd = () => { const t = templates.get($("#n-tpl", bg).value); $("#n-loclbl", bg).textContent = `Locais inspecionados · ${t?.localLabel || "Local"} · ${tplMaxCols(t)} por folha (o que passar vai para uma nova folha)`; };
     $("#n-tpl", bg).onchange = upd; upd(); localPicker($("#n-local", bg), () => setTimeout(() => bg._cf.focus(), 30));
     bg._cf = chipField($("#n-cols", bg), (inp, onPick, used) => colsPicker(inp, () => $("#n-local", bg).value, used, {onPick}));
+    const tbtn = $("#n-tmap", bg), tsync = () => { const g = locGrupo($("#n-local", bg).value); tbtn.classList.toggle("hidden", !(g && g.k === "trechos")); };
+    $("#n-local", bg).addEventListener("input", tsync); $("#n-local", bg).addEventListener("change", tsync); tsync();
+    tbtn.onclick = async () => { const L = bg._cf.get(), r = await trechoMapPick(L.filter(v => /^trecho\s*\d+$/i.test(v))); if (r) bg._cf.set([...L.filter(v => !/^trecho\s*\d+$/i.test(v)), ...r]); };
     $("#n-filter", bg).addEventListener("input", e => { const sel = $("#n-tpl", bg), v = sel.value; sel.innerHTML = tplOptions(list, v, e.target.value); if (!sel.value && sel.options.length) sel.selectedIndex = 0; upd(); });
     if (preTpl) bg._cf.focus(); else $("#n-filter", bg).focus();
   }});
@@ -1649,8 +1670,8 @@ function obraBlock(prefix) {
 function dadosBlock() {
   return `<table class="blk dados" style="width:44%"><colgroup><col style="width:21%"><col style="width:29%"><col style="width:15%"><col></colgroup>
     <tr><td colspan="4" class="c b">DADOS</td></tr>
-    <tr><td style="text-align:right">CONFERENTE</td><td class="fill"><input type="text" data-hf="conferente" aria-label="Conferente"></td><td rowspan="2" class="lbl">ASSINATURA<br>GESTOR(A)</td><td rowspan="2" class="fill" data-sign></td></tr>
-    <tr><td style="text-align:right">GESTOR(A)</td><td class="fill"><input type="text" data-hf="gestor" aria-label="Gestor(a)"></td></tr></table>`;
+    <tr><td style="text-align:right">CONFERENTE</td><td class="fill"><input type="text" data-hf="conferente" data-fixo aria-label="Conferente" title="O conferente é quem criou a FV e não pode ser alterado"></td><td rowspan="2" class="lbl">ASSINATURA<br>GESTOR(A)</td><td rowspan="2" class="fill" data-sign></td></tr>
+    <tr><td style="text-align:right">GESTOR(A)</td><td class="fill"><select data-hf="gestor" aria-label="Gestor(a)"></select></td></tr></table>`;
 }
 const HF_LBL = {obra:"obra", abertura:"data de abertura", fechamento:"data de fechamento", local:"local", conferente:"conferente", gestor:"gestor(a)", almoxarife:"almoxarife"};
 function wireHeaderFields(root) {
@@ -1671,7 +1692,8 @@ function wireHeaderFields(root) {
 }
 function syncHeaderFields(root, fv) {
   const lk = locked(fv);
-  $$("[data-hf]", root).forEach(el => { setVal(el, fv[el.dataset.hf]); el.disabled = lk; });
+  $$('select[data-hf="gestor"]', root).forEach(el => { const v = fv.gestor || ""; if (el._v !== v || !el.options.length) { el.innerHTML = (v ? "" : `<option value="" selected>—</option>`) + gestOpts(v); el._v = v; } });
+  $$("[data-hf]", root).forEach(el => { setVal(el, fv[el.dataset.hf]); el.disabled = lk || el.hasAttribute("data-fixo"); });
   $$("[data-sign]", root).forEach(td => {
     const a = fv.assinatura;
     td.innerHTML = a && a.by ? `<div class="sign"><span class="ok">✓ Assinado por ${who(a.by)}<br><span style="font-weight:500;color:#000">${fmtFull(a.at)}</span></span>${canWrite && (a.by === me || isOwner) ? `<button type="button" data-signact="unsign">Remover</button>` : ""}</div>`
@@ -1883,6 +1905,46 @@ async function ncBlock(P, target) {
 }
 window.addEventListener("beforeunload", e => { if (ncPend().length) { e.preventDefault(); e.returnValue = ""; } });
 
+/* ---------- escolher trechos clicando no mapa de trechos ----------
+   O gestor marca uma vez onde fica cada trecho no mapa (fica guardado em library/mapa.pts); depois qualquer pessoa
+   escolhe os trechos tocando nos números. Sem marcação, a escolha é pelos botões numerados ao lado do mapa. */
+async function trechoMapPick(selected) {
+  if (!mapa || !mapa.img) { toast("O mapa de trechos ainda não foi carregado (Gestão › Mapa de trechos)."); return null; }
+  const sel = new Set(selected.map(v => +String(v).replace(/\D/g, "")).filter(Boolean));
+  let pts = {...(mapa.pts || {})}, mark = 0, dirty = false, extra = 0;
+  const maxN = () => Math.max(23, extra, ...Object.keys(pts).map(Number), ...sel);
+  const r = await modal({title: "Escolher trechos no mapa", wide: true, body: `<p class="sub" style="margin:0 0 8px" data-tmh></p>
+      <div class="tmp"><div class="tmp-map" data-tmap><img src="${mapa.img}" alt="Mapa de trechos" draggable="false"><div class="tmp-pins" data-pins></div></div>
+      <div class="tmp-side"><div class="tmp-lbl">Trechos</div><div class="tmp-nums" data-nums></div>${isGestor ? `<button type="button" class="btn sm" data-mark style="margin-top:10px">📍 Marcar posições no mapa</button>` : ""}<div class="tmp-sel" data-sel></div></div></div>`,
+    onOpen: bg => {
+      const draw = () => {
+        $("[data-tmh]", bg).innerHTML = mark ? `<b>Modo de marcação:</b> escolha um número à direita e toque no mapa onde fica esse trecho. Toque de novo em <b>Concluir marcação</b> para voltar.` : Object.keys(pts).length ? "Toque nos números do mapa (ou nos botões ao lado) para incluir ou tirar trechos da FV." : `Toque nos botões ao lado para escolher os trechos.${isGestor ? " Para tocar direto no mapa, use <b>Marcar posições no mapa</b> uma vez." : " (O gestor ainda não marcou as posições no mapa.)"}`;
+        $("[data-pins]", bg).innerHTML = Object.entries(pts).map(([n, [x, y]]) => `<button type="button" class="tmp-pin ${sel.has(+n) ? "on" : ""} ${mark === +n ? "mk" : ""}" data-pin="${n}" style="left:${x * 100}%;top:${y * 100}%" aria-label="Trecho ${n}">${n}</button>`).join("");
+        $("[data-nums]", bg).innerHTML = Array.from({length: maxN()}, (_, i) => i + 1).map(n => `<button type="button" class="tmp-n ${sel.has(n) ? "on" : ""} ${mark === n ? "mk" : ""} ${pts[n] ? "" : "np"}" data-n="${n}" title="${pts[n] ? "" : "Sem posição marcada no mapa"}">${n}</button>`).join("") + `<button type="button" class="tmp-n tmp-more" data-more title="Mais trechos">+</button>`;
+        const L = [...sel].sort((a, b) => a - b); $("[data-sel]", bg).innerHTML = L.length ? `<div class="tmp-lbl" style="margin-top:12px">${L.length} selecionado(s)</div>${L.map(n => `Trecho ${n}`).join(", ")}` : `<div class="sub" style="margin-top:12px">Nenhum trecho selecionado.</div>`;
+        const mb = $("[data-mark]", bg); if (mb) mb.textContent = mark ? "✓ Concluir marcação" : "📍 Marcar posições no mapa";
+        bg.classList.toggle("tmp-marking", !!mark);
+      };
+      bg.addEventListener("click", e => {
+        const pin = e.target.closest("[data-pin]"), num = e.target.closest("[data-n]");
+        if (e.target.closest("[data-more]")) { const n = maxN() + 1; if (mark) mark = n; else sel.add(n); extra = Math.max(extra, n); draw(); return; }
+        if (e.target.closest("[data-mark]")) { mark = mark ? 0 : (Array.from({length: maxN()}, (_, i) => i + 1).find(n => !pts[n]) || 1); if (!mark && dirty) { create("library/mapa", {...mapa, pts, updatedAt: nowIso(), updatedBy: me}).then(() => toast("Posições dos trechos salvas.")).catch(() => {}); mapa = {...mapa, pts}; dirty = false; } draw(); return; }
+        if (mark) {
+          if (num) { mark = +num.dataset.n; draw(); return; }
+          if (pin) { mark = +pin.dataset.pin; draw(); return; }
+          const mp = e.target.closest("[data-tmap]"); if (!mp) return; const rc = $("img", mp).getBoundingClientRect();
+          pts[mark] = [Math.max(0, Math.min(1, (e.clientX - rc.left) / rc.width)), Math.max(0, Math.min(1, (e.clientY - rc.top) / rc.height))].map(v => Math.round(v * 10000) / 10000); dirty = true;
+          mark = Math.min(mark + 1, 200); draw(); return;
+        }
+        const n = pin ? +pin.dataset.pin : num ? +num.dataset.n : 0; if (!n) return;
+        sel.has(n) ? sel.delete(n) : sel.add(n); draw();
+      });
+      draw();
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Usar estes trechos", cls: "primary", value: () => [...sel].sort((a, b) => a - b).map(n => `Trecho ${n}`)}]});
+  if (dirty && isGestor) { try { await create("library/mapa", {...mapa, pts, updatedAt: nowIso(), updatedBy: me}); mapa = {...mapa, pts}; } catch {} }
+  return r;
+}
 /* ---------- escolha de cor (estilo Paint): quadro de cores, faixa de matiz, HEX/RGB, cores básicas e personalizadas ---------- */
 const CORES_BASICAS = ["#f08080","#e8382c","#7a4040","#8b3a3a","#3d0000","#a0ffff","#7fffff","#3a86ef","#0026ff","#001a99","#1a3f80","#001473",
   "#ffff99","#ffff3b","#f0a060","#f08850","#7a4510","#808020","#8080ff","#7a2ff0","#3a80c0","#000040","#5a1a6a","#3d0a40",
@@ -2044,7 +2106,7 @@ function chipField(wrap, attach) {
   });
   inp.addEventListener("blur", () => setTimeout(() => { if (document.activeElement !== inp && !document.querySelector(".lp-box")) flush(); }, 150));
   draw();
-  return {get: () => { flush(); return list.slice(); }, add, focus: () => inp.focus()};
+  return {get: () => { flush(); return list.slice(); }, add, focus: () => inp.focus(), set: L => { list.length = 0; L.forEach(v => { if (v && !list.some(x => norm(x) === norm(v))) list.push(v); }); draw(); }};
 }
 const chipHtml = (id, ph) => `<div class="chipf" id="${id}"><input type="text" class="chipf-in" data-ph="${esc(ph)}" placeholder="${esc(ph)}" autocomplete="off"></div>`;
 /* linhas de problema / solução (FV e F.007) */
