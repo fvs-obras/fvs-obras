@@ -971,6 +971,22 @@ body.ng [data-pjdel],body.ng [data-pjrm],body.ng [data-delpl],body.ng #g-del,bod
 .ntf-sec{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 12px 2px;background:#fafafa}
 a.ntf-b{text-decoration:none}
 @media (max-width:900px){#view-social{margin:0 -16px}.soc{grid-template-columns:1fr;height:calc(100vh - 110px)}.soc-r{display:none}#view-social.soc-open .soc-l{display:none}#view-social.soc-open .soc-r{display:flex}.soc-back{display:block}.soc-att{grid-template-columns:repeat(2,1fr)}}
+#print-root .mprev{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center}
+#print-root .mprev img{display:block!important;margin:0 auto!important}
+.soc-card.prob{border-left:4px solid #ef6c00}.pb-st{font-size:10.5px;font-weight:800;border-radius:999px;padding:1px 7px;margin-left:4px}.pb-st.aberto{background:#fff1e0;color:#b35a00}.pb-st.ok{background:#e7f4e8;color:#2e7d32}
+.help-fab{position:fixed;right:22px;bottom:22px;z-index:55;width:52px;height:52px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:24px;font-weight:800;box-shadow:0 8px 22px rgba(225,37,27,.35);cursor:pointer}
+.help-fab:hover{transform:scale(1.06)}
+.help-menu{position:fixed;right:22px;bottom:84px;z-index:56;width:min(320px,calc(100vw - 30px));background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.2);padding:6px;display:grid;gap:2px}
+.help-menu button{display:flex;gap:12px;align-items:center;text-align:left;border:0;background:none;padding:10px;border-radius:10px;cursor:pointer;color:var(--ink)}
+.help-menu button:hover{background:var(--red-soft)}.help-menu button > span:first-child{font-size:22px;width:30px;text-align:center}.help-menu b{display:block;font-size:14px}.help-menu small{font-size:12px;color:var(--muted)}
+.help-meus{border-top:1px solid var(--line)!important;border-radius:0 0 10px 10px!important}
+.faq{display:grid;gap:6px;margin-top:10px;max-height:46vh;overflow:auto}.faq details{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}.faq summary{font-weight:700;cursor:pointer}.faq p{margin:8px 0 0;font-size:13.5px}
+.ch-list{display:grid;gap:6px}.ch-it{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}.ch-it summary{display:flex;gap:10px;align-items:center;cursor:pointer;flex-wrap:wrap}.ch-it summary b{flex:1;min-width:160px}
+.ch-tp{font-size:12px;font-weight:800;color:var(--muted)}.ch-st{font-size:11px;font-weight:800;border-radius:999px;padding:2px 9px;background:var(--fill)}.ch-st.novo{background:var(--red);color:#fff}.ch-st.analise{background:#fff1e0;color:#b35a00}.ch-st.resolvido{background:#e7f4e8;color:#2e7d32}
+.ch-resp{border-left:3px solid #2e7d32;background:#f4faf4;padding:8px 10px;border-radius:6px;font-size:13px}.ch-img{max-width:100%;max-height:340px;border:1px solid var(--line);border-radius:8px;margin:6px 0}
+.ch-ans{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap;margin-top:6px}.ch-ans select{width:auto!important}.ch-ans textarea{flex:1;min-width:200px}
+body.has-side .help-fab{right:22px}@media (max-width:760px){.help-fab{right:14px;bottom:14px;width:46px;height:46px;font-size:20px}.help-menu{right:14px;bottom:70px}}
+body.in-social .help-fab{bottom:92px}body.in-social .help-menu{bottom:154px}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1698,7 +1714,14 @@ function renderBar(fv) {
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><label for="b-folder" style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em">Pasta</label><select id="b-folder" style="width:auto;min-width:200px;min-height:34px;padding:4px 8px"></select><span style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-left:6px">Equipe</span><span class="eq-tag" id="b-eq" title="A FV fica sempre na equipe em que foi criada"></span></div>
       <div id="b-stats"></div><div id="b-rev"></div><button class="btn sm sp-chip hidden" id="b-spell" type="button"></button><div class="lastedit" id="b-last"></div>`;
     $("#b-spell").onclick = spellReview;
-    $("#b-close").onclick = toggleClose; $("#b-del").onclick = deleteFv; $("#b-maps").onclick = () => exportPdf(true); $("#b-pdf").onclick = () => exportPdf(false);
+    $("#b-close").onclick = toggleClose; $("#b-del").onclick = deleteFv; $("#b-maps").onclick = async () => {
+      if (!cur) return; const L = cur.maps.filter(m => m.img);
+      if (!L.length && !(mapa && mapa.img)) return toast("Esta FV ainda não tem mapeamento.");
+      const r = await modal({title: "Baixar mapeamentos", body: `<p class="sub" style="margin:0 0 8px">Marque o que entra no PDF. Cada um sai numa página.</p><div class="pf-l">${mapa && mapa.img ? `<label class="pf-i pf-r"><input type="checkbox" value="__trechos"><span><b>Mapa de trechos</b></span></label>` : ""}${L.map(m => `<label class="pf-i pf-r"><input type="checkbox" value="${esc(m.id)}" checked><span><b>${esc(m.title || "Mapeamento")}</b> <small>${markersOf(m.shapes).length} nota(s) · escala ${mEsc(m)}%</small></span></label>`).join("")}</div><div style="display:flex;gap:8px;margin-top:8px"><button type="button" class="btn sm ghost" data-mall>Marcar todos</button><button type="button" class="btn sm ghost" data-mnone>Desmarcar todos</button></div>`,
+        onOpen: bg => { $("[data-mall]", bg).onclick = () => $$(".pf-l input", bg).forEach(c => c.checked = true); $("[data-mnone]", bg).onclick = () => $$(".pf-l input", bg).forEach(c => c.checked = false); },
+        actions: [{label: "Cancelar", value: null}, {label: "Baixar PDF", cls: "primary", validate: bg => { if (!$$(".pf-l input:checked", bg).length) { toast("Marque pelo menos um mapeamento."); return false; } return true; }, value: bg => $$(".pf-l input:checked", bg).map(c => c.value)}]});
+      if (r) exportPdf(true, r);
+    }; $("#b-pdf").onclick = () => exportPdf(false);
     $("#b-folder").onchange = e => { const id = cur.id, v = e.target.value; patch(`fvs/${id}`, stamp({folder: v})); logAct(id, `Moveu para a pasta ${v ? pathText(v) : "Início"}`); toast(`FV movida para ${v ? pathText(v) : "Início"}.`); };
   }
   $("#b-code").textContent = `${fv.code} · ${CATS[fv.cat] || ""}${fv.obra ? " · " + fv.obra : ""}`;
@@ -2657,11 +2680,11 @@ document.addEventListener("click", e => {
   const canDel = del && del.style.visibility !== "hidden", canPh = ph && ph.style.visibility !== "hidden", canNt = !!tr.dataset.id && canWrite;
   const nPh = ph ? (ph.textContent.match(/\d+/) || [""])[0] : "";
   rpop = document.createElement("div"); rpop.className = "rpop ui"; rpop._tr = tr;
-  rpop.innerHTML = `${canNt ? `<button type="button" data-ra="nt" data-tip="Notificar usuários" aria-label="Notificar usuários">🔔</button>` : ""}${canPh ? `<button type="button" data-ra="ph" data-tip="Fotos" aria-label="Fotos">📷${nPh ? `<b>${nPh}</b>` : ""}</button>` : ""}${canDel ? `<button type="button" data-ra="del" class="rx" data-tip="Excluir" aria-label="Excluir">✕</button>` : ""}` || `<span class="sub" style="padding:4px 8px">Sem ações</span>`;
+  rpop.innerHTML = `${tr.dataset.id ? `<button type="button" data-ra="fw" data-tip="Encaminhar para usuário" aria-label="Encaminhar para usuário">↗</button>` : ""}${canNt ? `<button type="button" data-ra="nt" data-tip="Notificar usuários" aria-label="Notificar usuários">🔔</button>` : ""}${canPh ? `<button type="button" data-ra="ph" data-tip="Fotos" aria-label="Fotos">📷${nPh ? `<b>${nPh}</b>` : ""}</button>` : ""}${canDel ? `<button type="button" data-ra="del" class="rx" data-tip="Excluir" aria-label="Excluir">✕</button>` : ""}` || `<span class="sub" style="padding:4px 8px">Sem ações</span>`;
   document.body.appendChild(rpop);
   const r = b.getBoundingClientRect(), w = rpop.offsetWidth; rpop.style.top = (r.top + r.height / 2 - rpop.offsetHeight / 2) + "px"; rpop.style.left = Math.max(6, r.left - w - 6) + "px";
   rpop.onclick = ev => { const a = ev.target.closest("[data-ra]"); if (!a) return; rpopClose();
-    if (a.dataset.ra === "del") del.click(); else if (a.dataset.ra === "ph") ph.click(); else notifyDialog(kind, tr.dataset.id); };
+    if (a.dataset.ra === "del") del.click(); else if (a.dataset.ra === "ph") ph.click(); else if (a.dataset.ra === "fw") fwdProblem(kind, tr.dataset.id); else notifyDialog(kind, tr.dataset.id); };
 });
 window.addEventListener("scroll", rpopClose, true);
 
@@ -3054,7 +3077,7 @@ function notifPanel() {
     const msgHtml = MU.length ? `<div class="ntf-sec">Mensagens</div>${MU.map(([cid, c]) => `<div class="ntf-i nova"><span class="ntf-u" style="--c:#003e62">💬</span><a class="ntf-b" href="#social-${esc(convOther(c))}" data-nmsg><b>${esc(names.get(c.ult.by) || "Alguém")}</b> mandou mensagem<span class="ntf-t">${esc(String(c.ult.txt || TIPO_PREV[c.ult.tipo] || "").slice(0, 100))}</span><span class="ntf-w">${fmtFull(c.ult.at)}</span></a><span></span></div>`).join("")}${L.length ? `<div class="ntf-sec">Notificações</div>` : ""}` : "";
     npanel.innerHTML = `<div class="ntf-h"><b>Notificações e mensagens</b>${nUn ? `<span class="ntf-c">${nUn} nova${nUn > 1 ? "s" : ""}</span>` : ""}<span style="flex:1"></span>${nUn ? `<button type="button" class="btn sm ghost" data-nall>Marcar como lidas</button>` : ""}${L.some(n => n.lida) ? `<button type="button" class="btn sm ghost" data-nclr>Limpar lidas</button>` : ""}</div>
       <div class="ntf-l">${msgHtml}${L.length ? L.map(n => { const u = URG[n.urg] || URG.media; return `<div class="ntf-i ${n.lida ? "" : "nova"}" data-nid="${esc(n.id)}"><span class="ntf-u" style="--c:${u.c}">${u.t}</span>
-        <button type="button" class="ntf-b" data-nopen><b>${esc(n.fromName || names.get(n.from) || "Alguém")}</b> notificou ${n.kind === "pda" ? "uma ação do PDA" : "um problema"}${n.item ? ` do item ${esc(n.item)}` : ""}<span class="ntf-fv">${esc(n.fvCode)} · ${esc(n.fvLocal)}</span>${n.texto ? `<span class="ntf-t">${esc(n.texto)}</span>` : ""}${n.msg ? `<span class="ntf-m">“${esc(n.msg)}”</span>` : ""}<span class="ntf-w">${fmtFull(n.at)}</span></button>
+        <button type="button" class="ntf-b" data-nopen><b>${esc(n.fromName || names.get(n.from) || "Alguém")}</b> ${n.kind === "chamado" ? (n.fvLocal === "Resposta ao seu chamado" ? "respondeu o seu chamado" : "abriu um chamado") : `notificou ${n.kind === "pda" ? "uma ação do PDA" : "um problema"}${n.item ? ` do item ${esc(n.item)}` : ""}`}<span class="ntf-fv">${esc(n.fvCode)} · ${esc(n.fvLocal)}</span>${n.texto ? `<span class="ntf-t">${esc(n.texto)}</span>` : ""}${n.msg ? `<span class="ntf-m">“${esc(n.msg)}”</span>` : ""}<span class="ntf-w">${fmtFull(n.at)}</span></button>
         <button type="button" class="ntf-x" data-ndel title="Excluir" aria-label="Excluir notificação">✕</button></div>`; }).join("") : MU.length ? "" : `<div class="ntf-e">Nenhuma notificação.<small>Quando alguém marcar você num problema ou ação, o aviso aparece aqui.</small></div>`}</div>`;
     const bb = $("#bell").getBoundingClientRect(); npanel.style.top = bb.bottom + 8 + "px"; npanel.style.right = Math.max(8, innerWidth - bb.right - 40) + "px";
   };
@@ -3065,6 +3088,7 @@ function notifPanel() {
     if (e.target.closest("[data-nclr]")) { notifList().filter(n => n.lida).forEach(n => { notifs.delete(n.id); remove(`notifs/${n.id}`).catch(() => {}); }); draw(); bellRender(); return; }
     const it = e.target.closest("[data-nid]"); if (!it) return; const n = notifs.get(it.dataset.nid); if (!n) return;
     if (e.target.closest("[data-ndel]")) { notifs.delete(it.dataset.nid); remove(`notifs/${it.dataset.nid}`).catch(() => {}); draw(); bellRender(); return; }
+    if (e.target.closest("[data-nopen]") && n.kind === "chamado") { if (!n.lida) patch(`notifs/${it.dataset.nid}`, {lida: true}); npanelClose(); if (isOwner && n.to === me && n.from !== me && n.fvLocal !== "Resposta ao seu chamado") location.hash = "equipe"; else myChamados(); return; }
     if (e.target.closest("[data-nopen]")) {
       if (!n.lida) patch(`notifs/${it.dataset.nid}`, {lida: true});
       npanelClose(); const go = () => { if (!cur || cur.id !== n.fv) return; const ro = (n.kind === "pda" ? cur.pda : cur.obs).find(x => x.id === n.row);
@@ -4664,8 +4688,8 @@ function staticize(orig, clone) {
   clone.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
   return clone;
 }
-async function exportPdf(soMapas) {
-  soMapas = soMapas === true;
+async function exportPdf(soMapas, escolha) {
+  soMapas = soMapas === true; const pick = Array.isArray(escolha) ? new Set(escolha) : null;
   const fv = fvs.get(cur.id); if (!fv) return;
   if (soMapas && !(cur.maps || []).some(m => m.img) && !(mapa && mapa.img)) { toast("Esta FV ainda não tem mapeamento."); return; }
   const dl = await claude.use("downloads");
@@ -4688,9 +4712,9 @@ async function exportPdf(soMapas) {
       }
       cur.folha = back; renderChk(fv);
     }
-    const mapSheet = $("#sheet-map"); if (mapSheet && mapa && mapa.img) { const c = staticize(mapSheet, mapSheet.cloneNode(true)); c.querySelectorAll(".zoom").forEach(e => e.classList.remove("zoom")); sections.push(page(c)); }
+    const mapSheet = $("#sheet-map"); if (mapSheet && mapa && mapa.img && (!pick || pick.has("__trechos"))) { const c = staticize(mapSheet, mapSheet.cloneNode(true)); c.querySelectorAll(".zoom").forEach(e => e.classList.remove("zoom")); sections.push(page(c)); }
     for (const m of cur.maps) {
-      if (!m.img) continue;
+      if (!m.img || (pick && !pick.has(m.id))) continue;
       let url = ""; try { url = await mapImageUrl(m, 2200); } catch {}
       if (!url) continue;
       const mks = markersOf(m.shapes), s = document.createElement("div"); s.className = "sheet msheet";
@@ -4834,9 +4858,11 @@ async function renderTeam() {
       <div class="panel" id="dict-panel"></div>
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Saída automática</h2><div class="sub">Depois de quanto tempo sem uso o sistema sai da conta sozinho, em todos os aparelhos (útil no computador do contêiner e em tablet compartilhado). Dois minutos antes aparece um aviso para continuar conectado.</div>
         <label class="fld" style="margin-top:10px;max-width:280px">Sair depois de<select id="idle-sel">${[[15, "15 minutos"], [30, "30 minutos"], [60, "1 hora"], [120, "2 horas"], [0, "Nunca sair sozinho"]].map(([m, t]) => `<option value="${m}" ${m === idleMin ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+      <div class="panel acc-wide" id="ch-panel"></div>
       <div class="panel acc-wide" id="sc-panel"></div>
       <div class="panel acc-wide" id="acc-panel"></div>
     </div>`;
+  renderChamadosPanel($("#ch-panel", v));
   $("#idle-sel", v).onchange = async e => { const m = +e.target.value; try { await db.doc("config/access").update({idleMin: m}); idleMin = m; toast(m ? `O sistema vai sair sozinho depois de ${e.target.selectedOptions[0].textContent} sem uso.` : "Saída automática desligada."); } catch { toast("Não foi possível salvar."); } };
   renderMapPanel(); renderApprovals(); renderDictPanel(); renderAccessPanel(); renderScopePanel($("#sc-panel"));
   const save = async () => { try { await window.__fb.setAccess(acc); toast("Lista de acesso salva."); renderTeam(); } catch { toast("Não foi possível salvar a lista de acesso."); } };
@@ -7541,7 +7567,7 @@ const convId = (a, b) => [a, b].sort().join("__");
 const convOther = c => (c.membros || []).find(u => u !== me) || "";
 const convUnread = c => !!(c && c.ult && c.ult.by !== me && !(c.lido && c.lido[me] && c.lido[me] >= c.ult.at));
 const socUnreadN = () => [...convs.values()].filter(convUnread).length;
-const TIPO_PREV = {texto: "", foto: "📷 Foto", audio: "🎤 Áudio", doc: "📄 Documento", fv: "📋 FV encaminhada", cob: "⏰ Cobrança", rel: "📊 Relatório"};
+const TIPO_PREV = {texto: "", foto: "📷 Foto", audio: "🎤 Áudio", doc: "📄 Documento", fv: "📋 FV encaminhada", cob: "⏰ Cobrança", rel: "📊 Relatório", prob: "⚠️ Problema encaminhado"};
 let accCache = null;
 async function socAcc() { if (!accCache) { try { accCache = await window.__fb.getAccess(); } catch { accCache = {}; } } return accCache; }
 function socPerfil(u, acc) { const e = u.email, a = acc || {}; if ((window.ADMIN_EMAILS || []).map(x => String(x).toLowerCase()).includes(e)) return "Administrador"; if ((a.gestores || []).includes(e)) return "Gestor"; if ((a.editors || []).includes(e)) return "Editor"; if ((a.viewers || []).includes(e)) return "Leitura"; return ""; }
@@ -7636,6 +7662,7 @@ function socBody(m) {
   if (m.tipo === "doc") return `<button type="button" class="soc-card soc-doc" data-dl="${esc(m.blob)}" data-nome="${esc(m.nome || "documento")}"><span class="soc-ci">📄</span><span><b>${esc(m.nome || "Documento")}</b><small>${m.tam ? (m.tam / 1024 > 1024 ? (m.tam / 1048576).toFixed(1) + " MB" : Math.round(m.tam / 1024) + " KB") : ""} · Baixar</small></span></button>${t}`;
   if (m.tipo === "fv" && m.fv) return `<div class="soc-card"><span class="soc-ci">📋</span><span><b>${esc(m.fv.code)} · ${esc(m.fv.local || "")}</b><small>${esc(m.fv.title || "")}${m.fv.itemN ? ` · olhar o item <b>${esc(m.fv.itemN)}</b>` : ""}</small><button type="button" class="btn sm" data-gofv="${esc(m.fv.id)}" data-item="${esc(m.fv.itemN || "")}">Abrir FV</button></span></div>${t}`;
   if (m.tipo === "cob" && m.cob) return `<div class="soc-card cob"><span class="soc-ci">⏰</span><span><b>Cobrança · ${esc({pda: "Ação do PDA", obs: "Problema da FV", f007: "Problema da F.007", fv: "FV"}[m.cob.kind] || "Pendência")}</b><small>${esc(m.cob.code || "")}${m.cob.local ? " · " + esc(m.cob.local) : ""}${m.cob.item ? " · item " + esc(m.cob.item) : ""}</small>${m.cob.texto ? `<span class="soc-cq">${esc(m.cob.texto)}</span>` : ""}${m.cob.prazo ? `<small>Prazo: <b>${esc(fmtDate(m.cob.prazo))}</b></small>` : ""}<button type="button" class="btn sm" data-gofv="${esc(m.cob.fv)}" data-tab="${esc(m.cob.kind === "pda" ? "pda" : m.cob.kind === "f007" ? "f007" : "fv")}" data-row="${esc(m.cob.row || "")}">Abrir</button></span></div>${t}`;
+  if (m.tipo === "prob" && m.prob) { const q = m.prob; return `<div class="soc-card prob"><span class="soc-ci">⚠️</span><span><b>${esc({pda: "Ação do PDA", f007: "Problema da F.007", obs: "Problema da FV"}[q.kind] || "Problema")}${q.item ? ` · item ${esc(q.item)}` : ""}</b><small>${esc(q.code)}${q.local ? " · " + esc(q.local) : ""}${q.folha > 1 ? " · folha " + q.folha : ""}</small>${q.problema ? `<span class="soc-cq"><b>Problema:</b> ${esc(q.problema)}</span>` : ""}${q.solucao ? `<span class="soc-cq"><b>${q.kind === "pda" ? "Ação" : "Solução"}:</b> ${esc(q.solucao)}</span>` : ""}<small>${esc(q.status || "")}${q.resp ? " · resp.: " + esc(q.resp) : ""}${q.prazo ? " · prazo " + esc(fmtDate(q.prazo)) : ""}</small><button type="button" class="btn sm" data-gofv="${esc(q.fv)}" data-tab="${q.kind === "pda" ? "pda" : q.kind === "f007" ? "f007" : "fv"}" data-row="${esc(q.row)}">Abrir na FV</button></span></div>${t}`; }
   if (m.tipo === "rel" && m.rel) return `<div class="soc-card"><span class="soc-ci">📊</span><span><b>${esc(m.rel.titulo || "Relatório")}</b><small>${esc({gape: "Relatório do GAPE", planic: "Planilha de planicidade", solo: "Trecho de solos"}[m.rel.tipo] || "Relatório")}</small><button type="button" class="btn sm" data-gorel="${esc(m.rel.tipo)}|${esc(m.rel.id)}">Abrir</button></span></div>${t}`;
   return t;
 }
@@ -7686,12 +7713,50 @@ async function socPickFv(title) {
     onOpen: (bg, done) => { $("#pf-q", bg).oninput = e => { const q = norm(e.target.value); $$(".pf-i", bg).forEach(b => b.classList.toggle("hidden", !!q && !norm(b.textContent).includes(q))); }; bg.addEventListener("click", e => { const b = e.target.closest("[data-pf]"); if (b) { bg._pick = b.dataset.pf; $(".acts .primary", bg).click(); } }); },
     actions: [{label: "Cancelar", value: null}, {label: "Escolher", cls: "primary hidden", value: bg => bg._pick || null}]});
 }
+
+/* problema (linha da FV, F.007 ou PDA) como card do Social */
+function probCard(fvId, f, kind, row) {
+  const it = (f.items || []).find(i => i.id === row.item), pk = kind === "pda" ? "pda" : row.sheet === "f007" ? "f007" : "obs";
+  return {kind: pk, fv: fvId, code: f.code || "", local: f.local || "", row: row.id, item: it ? it.n : "", folha: pk === "obs" ? obsFolha(row) + 1 : 0,
+    problema: String(row.problema || "").slice(0, 400), solucao: String(kind === "pda" ? (row.acao || "") : (row.solucao || "")).slice(0, 400), prazo: row.prazo || "", resp: String(row.responsavel || "").slice(0, 60),
+    status: kind === "pda" ? (PDCA_NAME[normPdca(row.status)] || "") : (String(row.solucao || "").trim() ? "Com solução" : "Sem solução")};
+}
+async function socSendTo(otherUid, msg) {
+  const cid = convId(me, otherUid), at = nowIso();
+  try {
+    if (!convs.has(cid)) { await db.doc(`conversas/${cid}`).set({membros: [me, otherUid].sort(), at, lido: {}}); convs.set(cid, {membros: [me, otherUid].sort(), at, lido: {}}); }
+    await create(`conversas/${cid}/msgs/${uid("m")}`, {...msg, by: me, at});
+    patch(`conversas/${cid}`, {ult: {txt: String(msg.txt || "").slice(0, 120), tipo: msg.tipo, by: me, at}, at, lido: {[me]: at}});
+    return true;
+  } catch { toast("Não foi possível enviar. Confira a conexão e se as regras novas do Firebase foram publicadas."); return false; }
+}
+async function socPickPeople(title, ctxHtml) {
+  if (!team.length) await loadTeam();
+  const people = team.filter(u => u.uid !== me);
+  if (!people.length) { toast("Ainda não há outras pessoas cadastradas no sistema."); return null; }
+  return modal({title, wide: true, body: `${ctxHtml || ""}<div class="fld" style="margin-top:12px"><span>Para quem</span><input type="search" id="fw-q" placeholder="Buscar pessoa…" autocomplete="off"></div>
+      <div class="nt-people" id="fw-people">${people.map(u => `<label class="nt-p"><input type="checkbox" value="${esc(u.uid)}"><span class="nt-av">${esc((u.name || "?").charAt(0).toUpperCase())}</span><span><b>${esc(u.name)}</b><small>${esc(u.cargo || u.email)}</small></span></label>`).join("")}</div>
+      <label class="fld" style="margin-top:12px">Mensagem<textarea id="fw-msg" rows="3" maxlength="2000" placeholder="Ex.: dá uma olhada nesse problema, o que acha da solução?"></textarea></label>`,
+    onOpen: bg => { $("#fw-q", bg).oninput = e => { const q = norm(e.target.value); $$(".nt-p", bg).forEach(l => l.classList.toggle("hidden", !!q && !norm(l.textContent).includes(q))); }; },
+    actions: [{label: "Cancelar", value: null}, {label: "Encaminhar", cls: "primary", validate: bg => { if (!$$("#fw-people input:checked", bg).length) { toast("Escolha pelo menos uma pessoa."); return false; } return true; },
+      value: bg => ({to: $$("#fw-people input:checked", bg).map(c => c.value), msg: $("#fw-msg", bg).value.trim()})}]});
+}
+async function fwdProblem(kind, rowId) {
+  if (!cur || !rowId) return; const f = fvs.get(cur.id); if (!f) return;
+  const row = (kind === "pda" ? cur.pda : cur.obs).find(x => x.id === rowId); if (!row) return;
+  const pc = probCard(cur.id, f, kind, row);
+  const r = await socPickPeople("Encaminhar problema", `<div class="nt-ctx"><b>${esc(f.code)} · ${esc(f.local || "")}</b><span>${{pda: "Ação do PDA", f007: "Problema na F.007", obs: "Problema na FV" + (pc.folha > 1 ? " · folha " + pc.folha : "")}[pc.kind]}${pc.item ? " · item " + esc(pc.item) : ""}</span>${pc.problema ? `<p>${esc(pc.problema.slice(0, 220))}</p>` : ""}</div>`);
+  if (!r) return; let ok = 0;
+  for (const u of r.to) if (await socSendTo(u, {tipo: "prob", txt: r.msg, prob: pc})) ok++;
+  if (ok) { logAct(cur.id, `Encaminhou ${pc.kind === "pda" ? "uma ação do PDA" : "o problema"}${pc.item ? " do item " + pc.item : ""} para ${r.to.map(u => (team.find(x => x.uid === u) || {}).name || "alguém").join(", ")} pelo Social`); toast(ok > 1 ? `Encaminhado para ${ok} pessoas. Veja no Social.` : "Encaminhado. Veja no Social."); }
+}
 async function socAttach(anchor) {
   const r = await modal({title: "Anexar", body: `<div class="soc-att">
       <button type="button" data-a="img"><span>📷</span><b>Foto do aparelho</b><small>Câmera ou galeria</small></button>
       <button type="button" data-a="fvimg"><span>🖼</span><b>Foto de uma FV</b><small>Da aba de fotos</small></button>
       <button type="button" data-a="doc"><span>📄</span><b>Documento</b><small>PDF, Word, Excel… até 650 KB</small></button>
       <button type="button" data-a="fv"><span>📋</span><b>Encaminhar FV</b><small>Pedir para olhar um item</small></button>
+      <button type="button" data-a="prob"><span>⚠️</span><b>Problema específico</b><small>Uma linha da FV, F.007 ou PDA</small></button>
       <button type="button" data-a="cob"><span>⏰</span><b>Cobrar pendência</b><small>PDA, problema da FV ou F.007</small></button>
       <button type="button" data-a="rel"><span>📊</span><b>Relatório</b><small>GAPE, planicidade, solos</small></button></div>`,
     onOpen: bg => bg.addEventListener("click", e => { const b = e.target.closest("[data-a]"); if (b) { bg._a = b.dataset.a; $(".acts .primary", bg).click(); } }),
@@ -7715,6 +7780,18 @@ async function socAttach(anchor) {
     const x = await modal({title: `Encaminhar ${f.code}`, body: `<label class="fld">Item para olhar (opcional)<select id="ef-it"><option value="">A FV inteira</option>${(f.items || []).map(i => `<option value="${esc(i.n)}">${esc(i.n)} · ${esc(splitLbl(i.t)[0]).slice(0, 70)}</option>`).join("")}</select></label><label class="fld" style="margin-top:10px">Mensagem<textarea id="ef-t" rows="2" placeholder="Ex.: confere esse item pra mim?"></textarea></label>`,
       actions: [{label: "Cancelar", value: null}, {label: "Encaminhar", cls: "primary", value: bg => ({it: $("#ef-it", bg).value, t: $("#ef-t", bg).value.trim()})}]});
     if (!x) return; return socSend({tipo: "fv", txt: x.t, fv: {id, code: f.code, local: f.local || "", title: f.title || "", itemN: x.it}});
+  }
+  if (r === "prob") {
+    const id = await socPickFv("Problema de qual FV?"); if (!id) return; const f = fvs.get(id);
+    let obs = [], pda = []; try { [obs, pda] = await Promise.all(["obs", "pda"].map(async k => (await db.collection(`fvs/${id}/${k}`).get()).docs.map(d => ({id: d.id, ...d.data()})))); } catch {}
+    const itN = iid => ((f.items || []).find(i => i.id === iid) || {}).n || "—";
+    const rows = [...obs.filter(o => String(o.problema || "").trim()).sort((a, b) => String(a.createdAt).localeCompare(String(b.createdAt))).map(o => ({kind: "obs", o, lbl: `${o.sheet === "f007" ? "F.007" : "FV" + (obsFolha(o) ? " folha " + (obsFolha(o) + 1) : "")} · item ${itN(o.item)} · ${String(o.problema).trim().slice(0, 80)}`, st: String(o.solucao || "").trim() ? "ok" : "aberto"})),
+      ...pda.filter(d => String(d.problema || d.acao || "").trim()).map(d => ({kind: "pda", o: d, lbl: `PDA · ${String(d.problema || d.acao).trim().slice(0, 80)}${d.prazo ? " · prazo " + fmtDate(d.prazo) : ""}`, st: normPdca(d.status) === PDA_DONE ? "ok" : "aberto"}))];
+    if (!rows.length) return toast("Essa FV não tem problemas registrados.");
+    const x = await modal({title: `Problemas · ${f.code}`, wide: true, body: `<input type="search" id="pb-q" placeholder="Buscar…" autocomplete="off" style="width:100%"><div class="pf-l">${rows.map((o, i) => `<label class="pf-i pf-r"><input type="radio" name="pb" value="${i}" ${i === 0 ? "checked" : ""}><span>${esc(o.lbl)} <small class="pb-st ${o.st}">${o.st === "ok" ? "resolvido" : "em aberto"}</small></span></label>`).join("")}</div><label class="fld" style="margin-top:10px">Mensagem<textarea id="pb-t" rows="2"></textarea></label>`,
+      onOpen: bg => { $("#pb-q", bg).oninput = e => { const q = norm(e.target.value); $$(".pf-r", bg).forEach(b => b.classList.toggle("hidden", !!q && !norm(b.textContent).includes(q))); }; },
+      actions: [{label: "Cancelar", value: null}, {label: "Enviar", cls: "primary", value: bg => ({o: rows[+($("[name=pb]:checked", bg) || {value: 0}).value], t: $("#pb-t", bg).value.trim()})}]});
+    if (!x) return; return socSend({tipo: "prob", txt: x.t, prob: probCard(id, f, x.o.kind, x.o.o)});
   }
   if (r === "cob") {
     const id = await socPickFv("Cobrar pendência de qual FV?"); if (!id) return; const f = fvs.get(id);
@@ -7755,7 +7832,11 @@ async function socClick(e) {
     const tab = go.dataset.tab, row = go.dataset.row, item = go.dataset.item;
     location.hash = "fv-" + id;
     setTimeout(() => { if (!cur || cur.id !== id) return;
-      if (tab && tab !== "fv") setTab(tab);
+      if (row) { const o = cur.obs.find(z => z.id === row), d = cur.pda.find(z => z.id === row), fv0 = fvs.get(id);
+        if (o && o.sheet === "f007") { cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === row) / F007_LIN); renderProbRows(fv0, "f007"); }
+        else if (o && obsFolha(o) !== (cur.folha || 0)) { cur.folha = obsFolha(o); renderChk(fv0); }
+        if (d) { cur.pdapg = Math.floor(cur.pda.findIndex(z => z.id === row) / PDA_LIN); renderPda(fv0); } }
+      if (tab && tab !== "fv") setTab(tab); else setTab("fv");
       if (row) { const tr = $(`tr[data-id="${row}"]`); if (tr) { tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); tr.scrollIntoView({block: "center"}); } }
       if (item) toast(`Olhar o item ${item}.`); }, 900);
     return;
@@ -7764,8 +7845,113 @@ async function socClick(e) {
   const dm = e.target.closest("[data-sdelm]"); if (dm) { const mid = dm.closest("[data-mid]").dataset.mid; if (await confirmBox("Apagar mensagem?", "A mensagem some para as duas pessoas.", "Apagar", true)) remove(`conversas/${socCur}/msgs/${mid}`).catch(() => {}); }
 }
 
+
+/* ---------- Ajuda (botão flutuante): Suporte, Denúncia e Sugestões ----------
+   Cada envio vira um chamado em "chamados" (com protocolo), aparece no sino do administrador e na Gestão › Chamados.
+   E-mail automático: opcional, pelo EmailJS (configurado em firebase-config.js; o e-mail de destino fica só na conta do EmailJS). */
+const CH_TIPO = {sup: {t: "Suporte", ic: "🛟", pre: "SUP", d: "Dúvidas e ajuda para usar o sistema"}, den: {t: "Denúncia", ic: "🐞", pre: "BUG", d: "Erros, falhas e problemas encontrados"}, sug: {t: "Sugestões", ic: "💡", pre: "SUG", d: "Ideias para melhorar o sistema"}};
+const CH_ST = {novo: "Novo", analise: "Em análise", resolvido: "Resolvido", arquivado: "Arquivado"};
+const jsErrs = [];
+window.addEventListener("error", e => { jsErrs.push(`${new Date().toISOString().slice(11, 19)} ${String(e.message || "").slice(0, 160)}`); if (jsErrs.length > 8) jsErrs.shift(); });
+window.addEventListener("unhandledrejection", e => { jsErrs.push(`${new Date().toISOString().slice(11, 19)} promessa: ${String((e.reason && e.reason.message) || e.reason || "").slice(0, 160)}`); if (jsErrs.length > 8) jsErrs.shift(); });
+const FAQ = [
+  ["Como criar uma FV?", "Na equipe, abra <b>Fichas de verificação › + Nova FV</b>, escolha o modelo, o local (conjunto) e os locais inspecionados. O conferente é você e o gestor vem da lista."],
+  ["Marquei X e não consigo sair da FV", "Toda reprovação precisa do <b>problema</b> e da <b>solução</b> escritos. Escreva na linha que abriu ou use <b>Tirar o X</b> no aviso."],
+  ["Por que não consigo fechar ou assinar a FV?", "Só o gestor fecha. A FV e a F.007 só fecham com todas as linhas resolvidas, e ninguém assina enquanto houver item reprovado."],
+  ["Como mando fotos?", "Nos três pontos (⋯) ao lado do problema, toque em 📷 Fotos, ou use a aba Fotos da FV. Fotos são reduzidas automaticamente."],
+  ["Como uso o mapeamento?", "Na aba Mapeamentos, <b>Abrir e editar</b>: desenhe, escreva, marque com números, mude cor, opacidade, gire a planta e use a borracha. Tudo entra no desfazer (↶)."],
+  ["Funciona sem internet?", "Sim: o que você preencher sem sinal fica guardado no aparelho e é enviado quando a conexão voltar. Não feche o navegador antes disso."],
+  ["Como falo com outra pessoa do sistema?", "Pela aba <b>Social</b>: mensagens, áudios, fotos, documentos, FVs, problemas e cobranças."],
+  ["Excluí algo sem querer", "Peça ao gestor da sua equipe: o que é excluído fica 30 dias na Lixeira da equipe e pode ser restaurado."]];
+function helpBoot() {
+  if ($("#help-fab")) return;
+  const b = document.createElement("button"); b.type = "button"; b.id = "help-fab"; b.className = "help-fab ui"; b.setAttribute("aria-label", "Ajuda, denúncias e sugestões"); b.title = "Ajuda, denúncias e sugestões"; b.innerHTML = "?";
+  document.body.appendChild(b);
+  b.onclick = e => { e.stopPropagation(); const m = $("#help-menu"); if (m) { m.remove(); return; }
+    const d = document.createElement("div"); d.id = "help-menu"; d.className = "help-menu ui";
+    d.innerHTML = Object.entries(CH_TIPO).map(([k, x]) => `<button type="button" data-hk="${k}"><span>${x.ic}</span><span><b>${x.t}</b><small>${x.d}</small></span></button>`).join("") + `<button type="button" data-hk="meus" class="help-meus"><span>📨</span><span><b>Meus chamados</b><small>Acompanhe o que você enviou</small></span></button>`;
+    document.body.appendChild(d);
+    d.onclick = ev => { const x = ev.target.closest("[data-hk]"); if (!x) return; d.remove(); x.dataset.hk === "meus" ? myChamados() : x.dataset.hk === "sup" ? supportFlow() : chamadoForm(x.dataset.hk); };
+  };
+  document.addEventListener("click", e => { const m = $("#help-menu"); if (m && !e.target.closest("#help-menu") && !e.target.closest("#help-fab")) m.remove(); });
+}
+async function supportFlow() {
+  const r = await modal({title: "🛟 Suporte", wide: true, body: `<p class="sub" style="margin:0 0 10px">Veja se a sua dúvida já tem resposta. Se não tiver, fale com o suporte.</p>
+      <input type="search" id="faq-q" placeholder="Buscar na ajuda… (ex.: fechar, foto, mapa)" autocomplete="off" style="width:100%">
+      <div class="faq" id="faq">${FAQ.map(([q, a]) => `<details><summary>${esc(q)}</summary><p>${a}</p></details>`).join("")}</div>`,
+    onOpen: bg => { $("#faq-q", bg).oninput = e => { const q = norm(e.target.value); $$("#faq details", bg).forEach(d => { const hit = !q || norm(d.textContent).includes(q); d.classList.toggle("hidden", !hit); if (q && hit) d.open = true; }); }; },
+    actions: [{label: "Fechar", value: null}, {label: "Ainda preciso de ajuda", cls: "primary", value: "form"}]});
+  if (r === "form") chamadoForm("sup");
+}
+async function chamadoForm(tipo) {
+  const T = CH_TIPO[tipo], where = location.hash.replace("#", "") || "início", fv = cur && fvs.get(cur.id);
+  const cats = {sup: ["Como usar uma função", "Acesso e login", "FVs e fichas", "Mapeamento", "PDA", "Fotos e documentos", "Social", "Outro"], den: ["Erro / tela travou", "Dado sumiu ou errado", "Botão não funciona", "Lentidão", "Problema de acesso", "Conteúdo inadequado", "Outro"], sug: ["FVs e fichas", "Mapeamento", "PDA", "Social", "Painel e relatórios", "Aparência", "Outra área"]}[tipo];
+  const r = await modal({title: `${T.ic} ${T.t}`, wide: true, body: `<div class="grid2"><label class="fld">${tipo === "sug" ? "Área" : "Assunto"}<select id="ch-cat">${cats.map(c => `<option>${esc(c)}</option>`).join("")}</select></label>
+      <label class="fld">${tipo === "den" ? "Gravidade" : tipo === "sug" ? "Importância para você" : "Urgência"}<select id="ch-pri">${(tipo === "den" ? ["Baixa", "Média", "Alta", "Impede o trabalho"] : tipo === "sug" ? ["Seria bom ter", "Ajudaria bastante", "Muito importante"] : ["Posso esperar", "Hoje", "Agora (estou travado)"]).map((x, i) => `<option ${i === 1 ? "selected" : ""}>${x}</option>`).join("")}</select></label></div>
+      <label class="fld" style="margin-top:10px">Título<input type="text" id="ch-tit" maxlength="120" placeholder="${tipo === "den" ? "Ex.: botão de fechar FV não responde" : tipo === "sug" ? "Ex.: filtro por data no Painel" : "Ex.: como anexar uma IT?"}"></label>
+      <label class="fld" style="margin-top:10px">${tipo === "den" ? "O que aconteceu e como chegar no problema (passo a passo)" : tipo === "sug" ? "Descreva a ideia e como ela ajudaria" : "Explique a sua dúvida"}<textarea id="ch-desc" rows="5" maxlength="4000"></textarea></label>
+      <label class="fld" style="margin-top:10px">Print da tela (opcional)<input type="file" id="ch-img" accept="image/*"></label>
+      <p class="sub" style="margin:8px 0 0">Vão junto, para ajudar a resolver: onde você está no sistema (<b>${esc(where)}</b>${fv ? `, FV ${esc(fv.code)}` : ""}), sua equipe, o aparelho e o navegador${tipo === "den" ? ", e os últimos erros registrados pela tela" : ""}.</p>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Enviar", cls: "primary", validate: bg => { if ($("#ch-tit", bg).value.trim().length < 4 || $("#ch-desc", bg).value.trim().length < 8) { toast("Preencha o título e a descrição."); return false; } return true; },
+      value: bg => ({cat: $("#ch-cat", bg).value, pri: $("#ch-pri", bg).value, tit: $("#ch-tit", bg).value.trim(), desc: $("#ch-desc", bg).value.trim(), img: $("#ch-img", bg).files[0] || null})}]});
+  if (!r) return;
+  const at = nowIso(), d = new Date(), prot = `${T.pre}-${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
+  let img = ""; if (r.img && assets) { try { img = (await assets.upload(await compress(r.img))).id; } catch {} }
+  const doc0 = {prot, tipo, cat: r.cat, pri: r.pri, tit: r.tit, desc: r.desc, img, st: "novo", by: me, nome: myName() || names.get(me) || "", email: String((window.__fb && window.__fb.email && window.__fb.email()) || ""), at,
+    ctx: {onde: where, fv: fv ? fv.code : "", equipe: (FRENTES[curFrente] || {}).nome || "", obra: ctx.obra ? ((findObra(ctx.obra) || {}).o || {}).nome || "" : "", nav: navigator.userAgent.slice(0, 200), tela: `${innerWidth}x${innerHeight}`, online: navigator.onLine, erros: tipo === "den" ? jsErrs.slice(-8) : []}};
+  try { await create(`chamados/${uid("ch")}`, doc0); } catch { toast("Não foi possível enviar agora. Tente de novo em instantes."); return; }
+  chamadoAvisar(doc0);
+  modal({title: "Recebido ✓", body: `<p style="margin-top:0">${{sup: "Seu pedido de suporte foi enviado", den: "Sua denúncia foi enviada", sug: "Sua sugestão foi enviada"}[tipo]} com o protocolo <b>${prot}</b>.</p><p class="sub" style="margin:0">Acompanhe em <b>? › Meus chamados</b>. Quando houver resposta, ela aparece lá e no sino.</p>`, actions: [{label: "Ok", cls: "primary", value: null}]});
+}
+async function chamadoAvisar(c) {
+  // 1) sino do administrador
+  try { if (!team.length) await loadTeam(); const adm = (window.ADMIN_EMAILS || []).map(x => String(x).toLowerCase()), T = CH_TIPO[c.tipo];
+    for (const u of team.filter(x => adm.includes(x.email) && x.uid !== me)) await create(`notifs/${uid("n")}`, {to: u.uid, from: me, fromName: c.nome, kind: "chamado", fv: "", fvCode: c.prot, fvLocal: `${T.t} · ${c.cat}`, row: "", item: "", texto: c.tit, msg: c.pri, urg: c.tipo === "den" && /Impede|Alta/.test(c.pri) ? "alta" : "media", at: c.at, lida: false});
+  } catch {}
+  // 2) e-mail (opcional): EmailJS configurado em firebase-config.js → window.EMAIL_AVISO = {servico, modelo, chave}
+  const E = window.EMAIL_AVISO; if (!E || !E.servico || !E.modelo || !E.chave) return;
+  const T = CH_TIPO[c.tipo];
+  try {
+    await fetch("https://api.emailjs.com/api/v1.0/email/send", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({service_id: E.servico, template_id: E.modelo, user_id: E.chave, template_params: {
+      assunto: `[FVs da Obra] ${T.t.toUpperCase()} · ${c.prot} · ${c.tit}`, protocolo: c.prot, tipo: T.t, categoria: c.cat, prioridade: c.pri, titulo: c.tit, descricao: c.desc,
+      usuario: c.nome, email_usuario: c.email, quando: new Date(c.at).toLocaleString("pt-BR"), onde: c.ctx.onde, fv: c.ctx.fv || "—", equipe: c.ctx.equipe, obra: c.ctx.obra, aparelho: `${c.ctx.tela} · ${c.ctx.nav}`, erros: (c.ctx.erros || []).join("\n") || "—", print: c.img ? "Sim (ver no sistema, Gestão › Chamados)" : "Não"}})});
+  } catch {}
+}
+async function myChamados() {
+  let L = []; try { L = (await db.collection("chamados").where("by", "==", me).get()).docs.map(d => ({id: d.id, ...d.data()})).filter(c => c.by === me).sort((a, b) => String(b.at).localeCompare(String(a.at))); } catch {}
+  modal({title: "📨 Meus chamados", wide: true, body: L.length ? `<div class="ch-list">${L.map(c => `<details class="ch-it"><summary><span class="ch-tp">${CH_TIPO[c.tipo].ic} ${esc(c.prot)}</span><b>${esc(c.tit)}</b><span class="ch-st ${c.st}">${CH_ST[c.st] || c.st}</span></summary><p class="sub">${esc(CH_TIPO[c.tipo].t)} · ${esc(c.cat)} · ${fmtFull(c.at)}</p><p style="white-space:pre-wrap">${esc(c.desc)}</p>${c.resp ? `<div class="ch-resp"><b>Resposta${c.respBy ? " de " + esc(names.get(c.respBy) || "administrador") : ""}</b> · ${fmtFull(c.respAt)}<p style="white-space:pre-wrap;margin:4px 0 0">${esc(c.resp)}</p></div>` : `<p class="sub">Ainda sem resposta.</p>`}</details>`).join("")}</div>` : `<div class="soc-empty">Você ainda não enviou nenhum chamado.</div>`,
+    actions: [{label: "Fechar", cls: "primary", value: null}]});
+}
+async function renderChamadosPanel(box) {
+  if (!box || !isOwner) return;
+  let L = []; try { L = (await db.collection("chamados").get()).docs.map(d => ({id: d.id, ...d.data()})).sort((a, b) => String(b.at).localeCompare(String(a.at))); } catch { box.innerHTML = `<h2 class="sec-h">Chamados</h2><p class="sub">Não foi possível ler os chamados. Publique as regras novas do Firebase.</p>`; return; }
+  const f = box._f || (box._f = {tipo: "", st: "aberto"});
+  const draw = () => {
+    const V = L.filter(c => (!f.tipo || c.tipo === f.tipo) && (f.st === "" || (f.st === "aberto" ? ["novo", "analise"].includes(c.st) : c.st === f.st)));
+    box.innerHTML = `<h2 class="sec-h">Chamados <small class="sub">(${L.filter(c => c.st === "novo").length} novo(s))</small></h2><p class="sub" style="margin:0 0 8px">Suporte, denúncias e sugestões enviados pelo botão <b>?</b>. Responda aqui: a pessoa vê a resposta em "Meus chamados" e recebe aviso no sino.</p>
+      <div class="acc-f"><label class="fld">Tipo<select data-cf="tipo"><option value="">Todos</option>${Object.entries(CH_TIPO).map(([k, x]) => `<option value="${k}" ${f.tipo === k ? "selected" : ""}>${x.t}</option>`).join("")}</select></label><label class="fld">Situação<select data-cf="st"><option value="aberto" ${f.st === "aberto" ? "selected" : ""}>Em aberto</option><option value="" ${f.st === "" ? "selected" : ""}>Todos</option>${Object.entries(CH_ST).map(([k, x]) => `<option value="${k}" ${f.st === k ? "selected" : ""}>${x}</option>`).join("")}</select></label></div>
+      <div class="ch-list">${V.map(c => `<details class="ch-it" data-ch="${esc(c.id)}"><summary><span class="ch-tp">${CH_TIPO[c.tipo].ic} ${esc(c.prot)}</span><b>${esc(c.tit)}</b><span class="ch-st ${c.st}">${CH_ST[c.st] || c.st}</span></summary>
+        <p class="sub">${esc(c.nome)} (${esc(c.email)}) · ${fmtFull(c.at)} · ${esc(CH_TIPO[c.tipo].t)} › ${esc(c.cat)} · <b>${esc(c.pri)}</b></p><p style="white-space:pre-wrap">${esc(c.desc)}</p>
+        <p class="sub">Onde: ${esc(c.ctx && c.ctx.onde || "")}${c.ctx && c.ctx.fv ? " · FV " + esc(c.ctx.fv) : ""} · ${esc(c.ctx && c.ctx.equipe || "")} · ${esc(c.ctx && c.ctx.tela || "")}${c.ctx && c.ctx.erros && c.ctx.erros.length ? `<br>Erros: ${c.ctx.erros.map(esc).join("<br>")}` : ""}</p>
+        ${c.img ? `<img class="ch-img" data-blob="${esc(c.img)}" alt="Print">` : ""}
+        <div class="ch-ans"><select data-chst>${Object.entries(CH_ST).map(([k, x]) => `<option value="${k}" ${c.st === k ? "selected" : ""}>${x}</option>`).join("")}</select><textarea data-chresp rows="2" placeholder="Resposta para ${esc(c.nome)}">${esc(c.resp || "")}</textarea><button type="button" class="btn sm primary" data-chsave>Salvar</button></div></details>`).join("") || `<p class="sub">Nada aqui.</p>`}</div>`;
+    $$("img[data-blob]", box).forEach(im => mediaSrc({assetId: im.dataset.blob}).then(s0 => { if (s0) im.src = s0; }));
+  };
+  box.onchange = e => { const k = e.target.dataset.cf; if (k) { f[k] = e.target.value; draw(); } };
+  box.onclick = async e => {
+    const b = e.target.closest("[data-chsave]"); if (!b) return; const it = b.closest("[data-ch]"), c = L.find(x => x.id === it.dataset.ch); if (!c) return;
+    const st0 = $("[data-chst]", it).value, rp = $("[data-chresp]", it).value.trim(), at = nowIso(), up = {st: st0};
+    if (rp && rp !== (c.resp || "")) Object.assign(up, {resp: rp, respBy: me, respAt: at});
+    try { await patch(`chamados/${c.id}`, up); Object.assign(c, up);
+      if (up.resp) create(`notifs/${uid("n")}`, {to: c.by, from: me, fromName: myName(), kind: "chamado", fv: "", fvCode: c.prot, fvLocal: "Resposta ao seu chamado", row: "", item: "", texto: rp.slice(0, 300), msg: CH_ST[st0], urg: "baixa", at, lida: false}).catch(() => {});
+      toast("Chamado atualizado."); draw(); } catch { toast("Não foi possível salvar."); }
+  };
+  draw();
+}
+
 /* ---------- rotas e filtros ---------- */
 function route() {
+  document.body.classList.remove("in-social");
   if (cur && location.hash !== "#fv-" + cur.id) { const P = ncPend(); if (P.length) { const tg = location.hash; history.replaceState(null, "", "#fv-" + cur.id); ncBlock(P, tg); return; } }
   let h = location.hash.replace(/^#/, "");
   if (!h) { h = "sel"; history.replaceState(null, "", "#sel"); }
@@ -7795,6 +7981,7 @@ function route() {
   if (isSolos && db) { if (h.startsWith("solo-")) openSolo(h.slice(5)); else { closeSolo(); solTab = h === "solos-acomp" ? "acomp" : "trechos"; renderSolos(); } } else closeSolo();
   if (isPlanic && db) { if (h.startsWith("planic-")) openPlanic(h.slice(7)); else { closePlanic(); renderPlanicList(); } } else closePlanic();
   if (isPainel) renderPainel();
+  document.body.classList.toggle("in-social", isSocial);
   if (isSocial && db) renderSocial(h.startsWith("social-") ? h.slice(7) : null);
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   if (isTpl) renderTemplates();
@@ -7858,7 +8045,7 @@ async function init() {
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
     renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
-    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); }
+    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); helpBoot(); }
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     const first = !foldersLoaded; folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
