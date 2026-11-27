@@ -1016,6 +1016,31 @@ a.ntf-b{text-decoration:none}
 .soc-card.prob{border-left:4px solid #ef6c00}.pb-st{font-size:10.5px;font-weight:800;border-radius:999px;padding:1px 7px;margin-left:4px}.pb-st.aberto{background:#fff1e0;color:#b35a00}.pb-st.ok{background:#e7f4e8;color:#2e7d32}
 .help-fab{position:fixed;right:22px;bottom:22px;z-index:55;width:52px;height:52px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:24px;font-weight:800;box-shadow:0 8px 22px rgba(225,37,27,.35);cursor:pointer}
 .help-fab:hover{transform:scale(1.06)}
+.ia-fab{position:fixed;right:22px;bottom:84px;z-index:55;width:52px;height:52px;border-radius:50%;border:0;background:linear-gradient(135deg,#1a3c8f,#6a1b9a);color:#fff;box-shadow:0 8px 22px rgba(26,60,143,.35);cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ia-fab:hover{transform:scale(1.06)}body.has-ia .help-menu{bottom:146px}body.in-social .ia-fab{bottom:154px}body.in-social.has-ia .help-menu{bottom:216px}
+.ia-panel{position:fixed;right:22px;bottom:22px;z-index:70;width:min(420px,calc(100vw - 30px));height:min(660px,calc(100vh - 100px));background:var(--panel,#fff);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden}
+.ia-h{display:flex;gap:10px;align-items:center;padding:12px 12px 12px 14px;background:linear-gradient(135deg,#1a3c8f,#6a1b9a);color:#fff}.ia-h>div{flex:1;min-width:0}.ia-h b{display:block;font-size:15px}.ia-h small{opacity:.85;font-size:11.5px}
+.ia-av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.ia-hb{border:0;background:rgba(255,255,255,.15);color:#fff;width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:16px}.ia-hb:hover{background:rgba(255,255,255,.28)}
+.ia-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--bg,#f6f6f6)}
+.ia-m{max-width:88%;padding:9px 12px;border-radius:14px;font-size:14px;line-height:1.45;word-wrap:break-word}.ia-m p{margin:0 0 6px}.ia-m p:last-child{margin-bottom:0}.ia-m ul,.ia-m ol{margin:4px 0 6px;padding-left:20px}.ia-m li{margin:2px 0}
+.ia-m code{background:rgba(0,0,0,.07);padding:1px 4px;border-radius:4px;font-size:12.5px}
+.ia-m.u{align-self:flex-end;background:#1a3c8f;color:#fff;border-bottom-right-radius:4px}.ia-m.a{align-self:flex-start;background:var(--panel,#fff);border:1px solid var(--line);border-bottom-left-radius:4px}
+.ia-mf{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}.ia-mf img{width:84px;height:84px;object-fit:cover;border-radius:8px}
+.ia-err{color:var(--red)!important;font-weight:600}.ia-act{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}.ia-act button{border:0;background:none;padding:0;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline}
+.ia-dots{display:inline-flex;gap:4px;padding:4px 0}.ia-dots i{width:7px;height:7px;border-radius:50%;background:#999;animation:iad 1s infinite}.ia-dots i:nth-child(2){animation-delay:.15s}.ia-dots i:nth-child(3){animation-delay:.3s}
+@keyframes iad{0%,100%{opacity:.25}50%{opacity:1}}
+.ia-hi{margin:auto 0;text-align:center;color:var(--ink);padding:10px}.ia-hi p{color:var(--muted);font-size:13.5px}.ia-sugs{display:grid;gap:6px;margin-top:10px}
+.ia-sugs button{border:1px solid var(--line);background:var(--panel,#fff);border-radius:10px;padding:9px 10px;text-align:left;font-size:13px;cursor:pointer;color:var(--ink)}.ia-sugs button:hover{border-color:#1a3c8f}
+.ia-fotos{display:none;gap:6px;padding:8px 10px 0;flex-wrap:wrap;border-top:1px solid var(--line)}.ia-fotos.on{display:flex}.ia-fotos span{position:relative}.ia-fotos img{width:56px;height:56px;object-fit:cover;border-radius:8px;display:block}
+.ia-fotos button{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:#000;color:#fff;font-size:13px;line-height:20px;cursor:pointer;padding:0}
+.ia-comp{display:flex;gap:6px;align-items:flex-end;padding:8px 10px;border-top:1px solid var(--line);background:var(--panel,#fff)}
+.ia-comp textarea{flex:1;resize:none;border:1px solid var(--line);border-radius:18px;padding:9px 12px;font:inherit;font-size:14px;min-height:40px;max-height:140px;background:var(--bg,#fff);color:var(--ink)}
+.ia-cam,.ia-send{flex:none;width:40px;height:40px;border-radius:50%;border:0;cursor:pointer;font-size:17px}.ia-cam{background:var(--bg,#eee)}.ia-send{background:#1a3c8f;color:#fff}
+.ia-ft{font-size:10.5px;color:var(--muted);text-align:center;padding:0 10px 8px;background:var(--panel,#fff)}
+@media (max-width:760px){.ia-fab{right:14px;bottom:70px;width:46px;height:46px}body.has-ia .help-menu{bottom:126px}.ia-panel{inset:0;width:100%;height:100%;border-radius:0;border:0}body.in-social .ia-fab{bottom:148px}}
+body.has-side .ia-fab{right:22px}
+body.dark .ia-m.a,body.dark .ia-comp,body.dark .ia-ft,body.dark .ia-sugs button{background:var(--panel)!important}
 .help-menu{position:fixed;right:22px;bottom:84px;z-index:56;width:min(320px,calc(100vw - 30px));background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 40px rgba(0,0,0,.2);padding:6px;display:grid;gap:2px}
 .help-menu button{display:flex;gap:12px;align-items:center;text-align:left;border:0;background:none;padding:10px;border-radius:10px;cursor:pointer;color:var(--ink)}
 .help-menu button:hover{background:var(--red-soft)}.help-menu button > span:first-child{font-size:22px;width:30px;text-align:center}.help-menu b{display:block;font-size:14px}.help-menu small{font-size:12px;color:var(--muted)}
@@ -8371,7 +8396,8 @@ const FAQ = [
   ["Como uso o mapeamento?", "Na aba Mapeamentos, <b>Abrir e editar</b>: desenhe, escreva, marque com números, mude cor, opacidade, gire a planta e use a borracha. Tudo entra no desfazer (↶)."],
   ["Funciona sem internet?", "Sim: o que você preencher sem sinal fica guardado no aparelho e é enviado quando a conexão voltar. Não feche o navegador antes disso."],
   ["Como falo com outra pessoa do sistema?", "Pela aba <b>Social</b>: mensagens, áudios, fotos, documentos, FVs, problemas e cobranças."],
-  ["Excluí algo sem querer", "Peça ao gestor da sua equipe: o que é excluído fica 30 dias na Lixeira da equipe e pode ser restaurado."]];
+  ["Excluí algo sem querer", "Peça ao gestor da sua equipe: o que é excluído fica 30 dias na Lixeira da equipe e pode ser restaurado."],
+  ["Tem como perguntar para uma IA?", "Sim: o botão <b>✦</b> logo acima do \"?\" abre o <b>Assistente IA</b>. Ele explica como usar o sistema, tira dúvidas técnicas da obra e analisa fotos. Confira decisões técnicas com o engenheiro, a IT e o projeto."]];
 function helpBoot() {
   if ($("#help-fab")) return;
   const b = document.createElement("button"); b.type = "button"; b.id = "help-fab"; b.className = "help-fab ui"; b.setAttribute("aria-label", "Ajuda, denúncias e sugestões"); b.title = "Ajuda, denúncias e sugestões"; b.innerHTML = "?";
@@ -8383,6 +8409,158 @@ function helpBoot() {
     d.onclick = ev => { const x = ev.target.closest("[data-hk]"); if (!x) return; d.remove(); x.dataset.hk === "meus" ? myChamados() : x.dataset.hk === "sup" ? supportFlow() : chamadoForm(x.dataset.hk); };
   };
   document.addEventListener("click", e => { const m = $("#help-menu"); if (m && !e.target.closest("#help-menu") && !e.target.closest("#help-fab")) m.remove(); });
+}
+/* ---------- Assistente IA (Firebase AI Logic + Gemini Developer API) ----------
+   Configuração em firebase-config.js: window.IA_SUPORTE = {recaptcha: "CHAVE_DO_SITE_RECAPTCHA", modelo: "", limiteDia: 60}
+   Usa um app Firebase separado ("ia", SDK mais novo), só para a IA: o resto do sistema não muda. */
+const IA_V = "13.4.0", IA_BASE = `https://www.gstatic.com/firebasejs/${IA_V}/`;
+const IA_MODELOS = ["gemini-3.6-flash", "gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite"];
+const IA_MANUAL = `SISTEMA "FVs DA OBRA" (web, celular e computador) — obra Parque dos Sonhos V, Tenda, regional GO.
+Navegação: Regional › Fábrica › Obra › Equipe (Qualidade, Infraestrutura, Estrutura, Acabamento, GAPE). Menu lateral: Início, Pendências, Fichas de verificação, Solos (Infra), Planicidade (Qualidade), GAPE, Painel, Social, Configurações e Lixeira (só gestor). "Trocar equipe" no topo do menu.
+FVs (Fichas de Verificação): "+ Nova FV" escolhe o modelo, o local (conjunto: Anexos, Trechos, Bloco, Piscina, CPG's, GLP's) e os locais inspecionados (caixas com ×; toque para editar). Conferente = nome completo de quem criou (não muda); gestor vem da lista. Cada célula: A (aprovado), R/X (reprovado), Ⓧ (reprovado e aprovado na reinspeção), NA. Toda reprovação exige PROBLEMA e SOLUÇÃO escritos; sem isso não sai da FV (opções "Escrever agora" ou "Tirar o X"). Cada folha tem 10 linhas de problemas próprias. F.007 (observações complementares) tem 30 linhas por folha e fecha junto com a FV; linhas abertas travam o fechamento. PDA (plano de ação) tem 10 linhas por folha e continua liberado depois de fechar. Só o gestor fecha; ninguém assina com item reprovado; o gestor tem 72 h para assinar. Menu ⋯ de cada linha: ↗ encaminhar (Social), 🔔 notificar com urgência, 📷 fotos, ✕ excluir. Abas da FV: mapeamentos (editor com desenho, texto, marcadores numerados, cores/opacidade, borracha, girar planta, escala na folha, desfazer ↶), fotos, documentos (ITs/ETs da biblioteca), projetos, histórico detalhado. "Baixar PDF" gera FV, F.007, PDA e mapeamentos, cada parte numa página; "Baixar mapeamentos" escolhe quais.
+Solos (Infra) — Mapeamento de compactação de faixa terraplenada F.045-QUALI: capa (dados, quantidade de camadas, resumo por camada, assinaturas do responsável pela coleta e do gestor), mapa com a demarcação (desenhado no projeto ou imagem anexada; cada camada com uma cor, legenda de cores), relatórios dos ensaios do laboratório (o sistema lê o PDF/foto, você confere e ele analisa G.C. e desvio de umidade pelos critérios da capa: G.C. mínimo padrão 97%, 100% nas 3 últimas camadas, desvio de umidade ±3 p.p., ensaios por camada pela área) e validação do projetista quando há ensaio fora do critério. Avisa falta de relatório por camada e camada acima da capa. "Baixar mapeamento (PDF)" para enviar ao projetista; na lista, "Baixar mapeamentos" baixa vários.
+Planicidade e esquadro (Qualidade): importa planilha/PDF/foto das medições, mapa por torre e pavimento. GAPE: relatórios Report & Run com fotos e fichas em tabela. Painel: andamento por FV, por item (filtro "Item da FV"), por pasta. Pendências: tudo em aberto, priorizando o que envolve a pessoa. Social: conversas com texto, áudio, fotos, documentos, FVs e cobranças. Configurações: perfil (foto e apelido; nome completo não muda; cargo é definido pela gestão), aparência (claro/escuro, modo sol), notificações, modelos de FV, gestão da equipe, usuários e cargos, dados e aparelho. Lixeira: o que é excluído fica 30 dias e só o gestor restaura/exclui. Sem internet o que é preenchido fica no aparelho e sobe quando o sinal volta. Botão "?" no canto: Suporte (ajuda e chamado), Denúncia de erro, Sugestões, Meus chamados.`;
+const IA_SYS = ctx => `Você é o assistente de suporte do sistema "FVs da Obra", usado pela equipe de qualidade da Tenda na obra Parque dos Sonhos V (Goiânia/GO), uma construtora de habitação popular.
+Responda sempre em português do Brasil, de forma direta e curta (a pessoa costuma estar no celular, na obra). Use listas curtas quando ajudar. Não use tabelas largas.
+Você ajuda com: (1) uso do sistema, explicando onde tocar e o passo a passo; (2) dúvidas técnicas de obra: execução, qualidade, inspeção, tolerâncias, normas ABNT, patologias, terraplenagem e compactação, concreto, alvenaria, revestimentos, instalações, segurança do trabalho; (3) análise de fotos de obra: descreva o que vê, aponte possíveis não conformidades, causas prováveis e o que verificar ou fazer.
+Regras: quando falar de norma, cite o número só se tiver certeza e diga quando o valor depende do projeto, da IT/ET da Tenda ou do fabricante. Os critérios das FVs da Tenda (abaixo, quando houver) têm prioridade sobre valores genéricos. Em decisões estruturais, de segurança ou de aceitação de serviço, oriente confirmar com o engenheiro responsável, o projetista ou a IT. Se não souber, diga que não sabe e sugira onde confirmar. Pela foto, deixe claro o que é certeza e o que é suposição. Se a dúvida for um erro do sistema ou algo que você não resolve, sugira abrir um chamado no botão "?" > Suporte ou Denúncia.
+Ao sugerir um texto de problema/solução para a FV, escreva no estilo curto usado em campo (ex.: "Problema: cota 5 cm abaixo do projeto no trecho 2. Solução: complementar aterro e recompactar.").
+
+${IA_MANUAL}
+
+Contexto atual da pessoa:
+${ctx}`;
+let iaP = null, iaModelOk = null;
+const iaCfg = () => window.IA_SUPORTE || {};
+function iaClient() {
+  if (!iaP) iaP = (async () => {
+    const C = iaCfg(), cfg = window.FIREBASE_CONFIG || {};
+    if (!C.recaptcha) throw Object.assign(new Error("cfg"), {code: "cfg"});
+    const [A, AC, AI] = await Promise.all([import(IA_BASE + "firebase-app.js"), import(IA_BASE + "firebase-app-check.js"), import(IA_BASE + "firebase-ai.js")]).catch(() => { throw Object.assign(new Error("lib"), {code: "lib"}); });
+    const app = A.getApps().find(a => a.name === "ia") || A.initializeApp(cfg, "ia");
+    if (C.debug) self.FIREBASE_APPCHECK_DEBUG_TOKEN = C.debug;
+    AC.initializeAppCheck(app, {provider: new AC.ReCaptchaEnterpriseProvider(C.recaptcha), isTokenAutoRefreshEnabled: true});
+    return {AI, ai: AI.getAI(app, {backend: new AI.GoogleAIBackend()})};
+  })().catch(e => { iaP = null; throw e; });
+  return iaP;
+}
+/* critérios das FVs da Tenda que combinam com a pergunta (busca simples por palavras) */
+const IA_STOP = new Set("a o e de da do das dos em no na nos nas um uma para por com sem que qual quais como onde quando se ou ao aos à às é ser foi tem ter mais menos muito pode posso devo deve isso esse essa este esta meu minha seu sua sobre entre qual quanto quanta fazer faço fica ficar ja já nao não sim tá ta pra pro".split(" "));
+const iaWords = s => norm(s).replace(/[^a-z0-9çáéíóúâêôãõ ]/gi, " ").split(/\s+/).filter(w => w.length > 2 && !IA_STOP.has(w));
+function iaContext(q) {
+  const W = new Set(iaWords(q)); if (!W.size) return "";
+  const hits = [];
+  templates.forEach((t, id) => (t.items || []).forEach(it => { const txt = `${it.g || ""} ${it.t || ""} ${it.tol || ""}`, ws = iaWords(txt + " " + (t.title || "")); let s = 0; ws.forEach(w => { if (W.has(w)) s += w.length > 5 ? 2 : 1; }); if (s >= 2) hits.push({s, t, it}); }));
+  hits.sort((a, b) => b.s - a.s);
+  const top = hits.slice(0, 18), by = new Map(); top.forEach(h => { const k = `${h.t.code || ""} ${h.t.title || ""}`; if (!by.has(k)) by.set(k, []); by.get(k).push(h.it); });
+  const its = docLib.map(d => ({d, s: iaWords(d.title || "").filter(w => W.has(w)).length})).filter(x => x.s).sort((a, b) => b.s - a.s).slice(0, 6);
+  let out = "";
+  if (by.size) out += "Critérios das FVs da Tenda que podem ter relação:\n" + [...by.entries()].map(([k, L]) => `${k}:\n` + L.map(it => `- ${it.n || ""} ${String(it.t || "").slice(0, 400)}${it.tol ? ` (tolerância: ${it.tol})` : ""}`).join("\n")).join("\n") + "\n";
+  if (its.length) out += "ITs/ETs da biblioteca com nome parecido (o texto delas não está disponível para você; indique para a pessoa consultar): " + its.map(x => `${x.d.code || x.d.kind} – ${x.d.title}`).join("; ") + "\n";
+  return out.slice(0, 9000);
+}
+function iaScreen() {
+  const h = location.hash.replace("#", "") || "início", L = [`Tela: ${h}`, `Equipe: ${(FRENTES[curFrente] || {}).nome || curFrente}`, `Usuário: ${myName() || "—"}${isGestor ? " (gestor)" : ""}${canWrite ? "" : " (somente leitura)"}`, `Data: ${fmtDate(today())}`];
+  try {
+    const f = cur && fvs.get(cur.id);
+    if (f && /^fv-/.test(h)) { const s = stats(f); L.push(`FV aberta: ${f.code || ""} ${f.title || ""} · local ${f.local || "—"} · ${f.status === "fechada" ? "fechada" : "aberta"} · ${s.R || 0} reprovado(s)`); }
+    const t = scur && solos.get(scur.id);
+    if (t && /^solo-/.test(h)) { const i = soloInfo(t); L.push(`Trecho de solos aberto: ${t.nome || ""} · ${i.total} camadas · ${i.cnt.V} no critério · pendências: ${i.pend.filter(p => p.sev !== "info").map(p => p.txt).slice(0, 4).join(" | ") || "nenhuma"}`); }
+  } catch {}
+  return L.join("\n");
+}
+/* conversa: guardada só neste aparelho (sem as fotos) */
+const IA_KEY = () => "fvs-ia-" + me;
+let ia = {msgs: [], busy: false, fotos: []};
+function iaLoad() { try { ia.msgs = JSON.parse(localStorage.getItem(IA_KEY()) || "[]"); } catch { ia.msgs = []; } }
+function iaSave() { try { localStorage.setItem(IA_KEY(), JSON.stringify(ia.msgs.slice(-40).map(m => ({r: m.r, t: m.t, nf: m.nf || (m.fotos || []).length || 0, at: m.at})))); } catch {} }
+function iaCount() { const k = "fvs-ia-n-" + today(); let n = 0; try { n = +localStorage.getItem(k) || 0; localStorage.setItem(k, n + 1); } catch {} return n; }
+/* markdown simples das respostas */
+function iaMd(s) {
+  const lines = esc(s).split("\n"), out = []; let list = null;
+  const inl = x => x.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<i>$2</i>").replace(/`([^`]+)`/g, "<code>$1</code>");
+  lines.forEach(l => { const m = /^\s*(?:[-*•]|\d+[.)])\s+(.*)$/.exec(l), hd = /^\s*#{1,4}\s+(.*)$/.exec(l), ol = /^\s*\d+[.)]\s/.test(l);
+    if (m) { const tag = ol ? "ol" : "ul"; if (!list || list !== tag) { if (list) out.push(`</${list}>`); out.push(`<${tag}>`); list = tag; } out.push(`<li>${inl(m[1])}</li>`); return; }
+    if (list) { out.push(`</${list}>`); list = null; }
+    if (hd) out.push(`<p><b>${inl(hd[1])}</b></p>`); else if (l.trim()) out.push(`<p>${inl(l)}</p>`); });
+  if (list) out.push(`</${list}>`);
+  return out.join("");
+}
+function iaBoot() {
+  if ($("#ia-fab")) return;
+  const b = document.createElement("button"); b.type = "button"; b.id = "ia-fab"; b.className = "ia-fab ui"; b.setAttribute("aria-label", "Assistente IA: tire dúvidas do sistema e da obra"); b.title = "Assistente IA: dúvidas do sistema e da obra";
+  b.innerHTML = `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9zM5 15l.7 1.8 1.8.7-1.8.7L5 20l-.7-1.8-1.8-.7 1.8-.7z"/></svg>`;
+  document.body.appendChild(b); document.body.classList.add("has-ia");
+  b.onclick = () => { const p = $("#ia-panel"); if (p) { p.remove(); return; } const m = $("#help-menu"); if (m) m.remove(); iaOpen(); };
+}
+function iaOpen() {
+  iaLoad(); const p = document.createElement("div"); p.id = "ia-panel"; p.className = "ia-panel ui"; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Assistente IA");
+  p.innerHTML = `<div class="ia-h"><span class="ia-av">✦</span><div><b>Assistente IA</b><small>Dúvidas do sistema e da obra · pode mandar foto</small></div><button type="button" class="ia-hb" data-ianew title="Nova conversa" aria-label="Nova conversa">↺</button><button type="button" class="ia-hb" data-iax title="Fechar" aria-label="Fechar">✕</button></div>
+    <div class="ia-msgs" id="ia-msgs" aria-live="polite"></div>
+    <div class="ia-fotos" id="ia-fotos"></div>
+    <form class="ia-comp" id="ia-form"><button type="button" class="ia-cam" data-iafoto title="Anexar foto" aria-label="Anexar foto">📷</button><textarea id="ia-in" rows="1" maxlength="4000" placeholder="Pergunte sobre o sistema ou a obra…"></textarea><button type="submit" class="ia-send" aria-label="Enviar">➤</button>
+      <input type="file" id="ia-file" accept="image/*" multiple class="hidden"></form>
+    <div class="ia-ft">A IA pode errar: confira decisões técnicas com o engenheiro, a IT e o projeto. Não envie dados pessoais.</div>`;
+  document.body.appendChild(p); ia.fotos = [];
+  const inp = $("#ia-in", p);
+  inp.addEventListener("input", () => { inp.style.height = "auto"; inp.style.height = Math.min(140, inp.scrollHeight) + "px"; });
+  inp.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey && !matchMedia("(pointer:coarse)").matches) { e.preventDefault(); $("#ia-form", p).requestSubmit(); } });
+  $("[data-iax]", p).onclick = () => p.remove();
+  $("[data-ianew]", p).onclick = () => { if (ia.busy) return; ia.msgs = []; iaSave(); iaRender(); inp.focus(); };
+  $("[data-iafoto]", p).onclick = () => $("#ia-file", p).click();
+  $("#ia-file", p).onchange = async e => { const fs = [...e.target.files].slice(0, 4 - ia.fotos.length); e.target.value = ""; for (const f of fs) { try { const {url} = await shrinkImage(f, 1280, 420000); ia.fotos.push(url); } catch { toast(`Não foi possível ler ${f.name}.`); } } iaFotos(); };
+  $("#ia-fotos", p).onclick = e => { const x = e.target.closest("[data-iarm]"); if (x) { ia.fotos.splice(+x.dataset.iarm, 1); iaFotos(); } };
+  $("#ia-form", p).onsubmit = e => { e.preventDefault(); iaSend(inp.value.trim()); };
+  $("#ia-msgs", p).addEventListener("click", e => { const s = e.target.closest("[data-iasug]"); if (s) iaSend(s.dataset.iasug); if (e.target.closest("[data-iach]")) { p.remove(); chamadoForm("sup"); } const c = e.target.closest("[data-iacp]"); if (c) { const m = ia.msgs[+c.dataset.iacp]; if (m && navigator.clipboard) navigator.clipboard.writeText(m.t).then(() => toast("Resposta copiada.")).catch(() => {}); } });
+  iaRender(); setTimeout(() => inp.focus(), 50);
+}
+function iaFotos() { const box = $("#ia-fotos"); if (!box) return; box.innerHTML = ia.fotos.map((u, i) => `<span><img src="${u}" alt="Foto ${i + 1}"><button type="button" data-iarm="${i}" aria-label="Tirar foto">×</button></span>`).join(""); box.classList.toggle("on", !!ia.fotos.length); }
+function iaRender() {
+  const box = $("#ia-msgs"); if (!box) return;
+  const sug = ["Como fecho e assino uma FV?", "Qual o G.C. mínimo na compactação de aterro?", "Como anexo o relatório de ensaio no Solos?", "Quais os cuidados na cura do concreto?"];
+  box.innerHTML = ia.msgs.length ? ia.msgs.map((m, i) => `<div class="ia-m ${m.r}">${m.fotos && m.fotos.length ? `<div class="ia-mf">${m.fotos.map(u => `<img src="${u}" alt="Foto enviada">`).join("")}</div>` : m.nf ? `<div class="sub">📷 ${m.nf} foto(s) enviada(s)</div>` : ""}${m.r === "u" ? `<p>${esc(m.t).replace(/\n/g, "<br>")}</p>` : m.err ? `<p class="ia-err">${esc(m.t)}</p>` : iaMd(m.t) || `<span class="ia-dots"><i></i><i></i><i></i></span>`}${m.r === "a" && !m.err && m.t && !m.live ? `<div class="ia-act"><button type="button" data-iacp="${i}">Copiar</button><button type="button" data-iach>Não resolveu? Abrir chamado</button></div>` : ""}</div>`).join("")
+    : `<div class="ia-hi"><b>Olá${myName() ? ", " + esc(myName().split(" ")[0]) : ""}!</b><p>Pergunte como usar o sistema ou tire dúvidas da obra. Pode mandar foto de um serviço para eu analisar.</p><div class="ia-sugs">${sug.map(s => `<button type="button" data-iasug="${esc(s)}">${esc(s)}</button>`).join("")}</div></div>`;
+  box.scrollTop = box.scrollHeight;
+}
+const iaErrTxt = e => { const c = e && e.code, m = String((e && e.message) || "");
+  if (c === "cfg") return isOwner || isGestor ? "O assistente ainda não foi configurado: falta a chave do reCAPTCHA (App Check) em firebase-config.js → window.IA_SUPORTE. Veja o passo a passo no LEIA-ME." : "O assistente ainda não foi configurado. Avise o administrador.";
+  if (c === "lib") return "Não foi possível carregar o assistente. Verifique a internet.";
+  if (/app.?check|attestation|recaptcha/i.test(m)) return "O assistente recusou o acesso (verificação App Check/reCAPTCHA). Confira se o domínio do site está na chave do reCAPTCHA e se o app da Web está registrado no App Check.";
+  if (/429|quota|resource.?exhausted|rate/i.test(m)) return "O limite gratuito do assistente foi atingido agora. Espere um pouco e tente de novo.";
+  if (/api.?not.?enabled|has not been used|firebasevertexai|generativelanguage/i.test(m)) return "O Firebase AI Logic ainda não está ativado no projeto (console do Firebase › AI Logic › Começar).";
+  if (/safety|blocked/i.test(m)) return "A resposta foi bloqueada pelo filtro de segurança da IA. Tente perguntar de outro jeito.";
+  if (!navigator.onLine) return "Sem internet: o assistente precisa de conexão.";
+  return "Não consegui responder agora. Tente de novo em instantes."; };
+async function iaSend(text) {
+  if (ia.busy || (!text && !ia.fotos.length)) return;
+  const C = iaCfg(), lim = +C.limiteDia || 60;
+  const box = $("#ia-msgs"), inp = $("#ia-in"); if (!box) return;
+  if (iaCount() >= lim) { ia.msgs.push({r: "a", t: `Você chegou ao limite de ${lim} perguntas por dia neste aparelho. Volte amanhã ou abra um chamado no botão "?".`, err: true, at: nowIso()}); iaRender(); return; }
+  const fotos = ia.fotos.slice(), q = text || "Analise esta foto da obra.";
+  ia.msgs.push({r: "u", t: q, fotos, at: nowIso()}); ia.fotos = []; iaFotos(); if (inp) { inp.value = ""; inp.style.height = "auto"; }
+  const ans = {r: "a", t: "", live: true, at: nowIso()}; ia.msgs.push(ans); ia.busy = true; iaRender();
+  try {
+    const {AI, ai} = await iaClient();
+    const hist = ia.msgs.slice(0, -2).slice(-12).filter(m => m.t && !m.err).map(m => ({role: m.r === "u" ? "user" : "model", parts: [{text: m.r === "u" && (m.fotos && m.fotos.length || m.nf) ? `[enviou ${m.fotos ? m.fotos.length : m.nf} foto(s)] ${m.t}` : m.t}]}));
+    while (hist.length && hist[0].role !== "user") hist.shift();
+    const extra = iaContext(q + " " + ia.msgs.filter(m => m.r === "u").slice(-3, -1).map(m => m.t).join(" "));
+    const parts = [...fotos.map(u => ({inlineData: {mimeType: u.slice(5, u.indexOf(";")) || "image/jpeg", data: u.slice(u.indexOf(",") + 1)}})), {text: q}];
+    const sys = IA_SYS(iaScreen() + (extra ? "\n\n" + extra : ""));
+    const tryModels = [...new Set([C.modelo, iaModelOk, ...IA_MODELOS].filter(Boolean))];
+    let lastErr = null, done = false;
+    for (const name of tryModels) {
+      try {
+        const model = AI.getGenerativeModel(ai, {model: name, systemInstruction: sys, generationConfig: {maxOutputTokens: 2048}});
+        const chat = model.startChat({history: hist}), res = await chat.sendMessageStream(parts);
+        for await (const ch of res.stream) { let t = ""; try { t = ch.text(); } catch {} if (t) { ans.t += t; const el = box.lastElementChild; if (el) { el.innerHTML = iaMd(ans.t); box.scrollTop = box.scrollHeight; } } }
+        if (!ans.t) { const r = await res.response; try { ans.t = r.text(); } catch {} }
+        iaModelOk = name; done = true; break;
+      } catch (e) { lastErr = e; const m = String(e && e.message || ""); if (!ans.t && (/404|not.?found|not supported|is not found|limit: ?0/i.test(m))) continue; throw e; }
+    }
+    if (!done) throw lastErr || new Error("sem modelo");
+    if (!ans.t.trim()) { ans.t = "Não consegui gerar uma resposta. Tente perguntar de outro jeito."; ans.err = true; }
+  } catch (e) { ans.t = iaErrTxt(e); ans.err = true; }
+  finally { ans.live = false; ia.busy = false; ia.msgs.forEach(m => { if (m.fotos && m.fotos.length) { m.nf = m.fotos.length; } }); iaSave(); iaRender(); }
 }
 async function supportFlow() {
   const r = await modal({title: "🛟 Suporte", wide: true, body: `<p class="sub" style="margin:0 0 10px">Veja se a sua dúvida já tem resposta. Se não tiver, fale com o suporte.</p>
@@ -8769,7 +8947,7 @@ async function init() {
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
     renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
-    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); helpBoot(); temaBoot(); }
+    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); helpBoot(); iaBoot(); temaBoot(); }
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     const first = !foldersLoaded; folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
