@@ -91,7 +91,7 @@ const dbApi = { doc: p => wrapDoc(p), collection: p => wrapQuery(p) };
 /* ---------- arquivos e fotos (guardados no Firestore, sem precisar do Storage pago) ---------- */
 const MAX_B64 = 900 * 1024; // documento do Firestore aceita até ~1 MB (PDFs e plantas)
 const MAX_IMG = 500 * 1024; // fotos: no máximo ~370 KB cada, para caber mais fotos no 1 GB do plano gratuito
-const OK_TYPES = /^(image\/(jpeg|png|webp|gif|bmp)|application\/pdf)$/i;
+const OK_TYPES = /^(image\/(jpeg|png|webp|gif|bmp)|application\/pdf|audio\/(webm|ogg|mp4|mpeg)|text\/(plain|csv)|application\/(msword|vnd\.ms-excel|vnd\.ms-powerpoint|vnd\.ms-excel\.sheet\.macroEnabled\.12|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|spreadsheetml\.sheet|presentationml\.presentation)))$/i; // fotos, PDF e, no Social, áudio e documentos
 const toDataURL = blob => new Promise((ok, bad) => { const r = new FileReader(); r.onload = () => ok(r.result); r.onerror = bad; r.readAsDataURL(blob); });
 async function shrinkImage(blob) {
   let url = await toDataURL(blob);
@@ -109,14 +109,14 @@ async function shrinkImage(blob) {
 const blobCache = new Map();
 const assetsApi = {
   upload: async blob => {
-    if (!blob || !OK_TYPES.test(blob.type || "")) throw { code: "bad_type" };     // só fotos e PDF
+    if (!blob || !OK_TYPES.test(String(blob.type || "").split(";")[0])) throw { code: "bad_type" };
     if (blob.size > 40 * 1024 * 1024) throw { code: "too_large" };               // arquivo original acima de 40 MB
     let data;
     if (blob.type && blob.type.startsWith("image/")) data = await shrinkImage(blob);
     else { data = await toDataURL(blob); if (data.length > MAX_B64) throw { code: "too_large" }; }
     const id = "b_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 9);
     blobCache.set(id, data);
-    track(setDoc(doc(fs, "blobs", id), { data, type: data.startsWith("data:image/jpeg") ? "image/jpeg" : (blob.type || ""), size: blob.size || 0, by: auth.currentUser.uid, at: new Date().toISOString() }), "blobs/" + id);
+    track(setDoc(doc(fs, "blobs", id), { data, type: data.startsWith("data:image/jpeg") ? "image/jpeg" : String(blob.type || "").split(";")[0], size: blob.size || 0, by: auth.currentUser.uid, at: new Date().toISOString() }), "blobs/" + id);
     return { id, url: "", sizeBytes: blob.size, contentType: blob.type };
   },
   delete: async id => { blobCache.delete(id); deleteDoc(doc(fs, "blobs", id)).catch(() => {}); },

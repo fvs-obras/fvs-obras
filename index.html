@@ -918,6 +918,59 @@ body.ng [data-pjdel],body.ng [data-pjrm],body.ng [data-delpl],body.ng #g-del,bod
 #print-root .mprev{border:1px solid #000!important;min-height:0;padding:10px;margin-top:7px}
 #print-root .mprev img{max-height:calc(var(--esc,1) * 600px)!important;max-width:calc(var(--esc,1) * 100%)!important}
 .msc{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);margin-left:8px}.msc select{min-height:30px!important;height:30px;padding:2px 6px!important;width:auto!important;font-size:12px}
+.tmp-map{position:relative}.tmp-svg{position:absolute;inset:0;width:100%;height:100%}
+.tmp-svg polygon{fill:rgba(225,37,27,0);stroke:rgba(255,255,255,0);stroke-width:.003;cursor:pointer;transition:fill .12s}
+.tmp-svg polygon:hover{fill:rgba(255,255,255,.28);stroke:#fff}
+.tmp-svg polygon.on{fill:rgba(225,37,27,.42);stroke:#e1251b;stroke-width:.004}
+.tmp-svg polygon.on:hover{fill:rgba(225,37,27,.55)}
+#view-social{margin:0 -24px}
+.soc{display:grid;grid-template-columns:340px minmax(0,1fr);height:calc(100vh - 70px);border-top:1px solid var(--line);background:#fff}
+.soc-l{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;padding:14px 12px 0}
+.soc-lh{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.soc-lh h1{font-size:24px;margin:0}
+.soc-q{width:100%;min-height:42px;border-radius:999px!important;padding-left:16px!important}
+.soc-f{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:8px 0}.soc-f select{min-height:34px!important;font-size:12px;padding:4px 6px!important}
+.soc-list{overflow:auto;flex:1;margin:0 -12px;padding:0 6px 10px}
+.soc-sec{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:10px 8px 4px}
+.soc-it{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:9px 8px;border-radius:10px;cursor:pointer;color:var(--ink)}
+.soc-it:hover{background:var(--fill)}.soc-it.on{background:var(--red-soft)}
+.soc-av{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--graphite);color:#fff;font-weight:800;flex:none}
+.soc-it-t{flex:1;min-width:0;display:grid}.soc-it-t b{font-size:14px}.soc-it-t small{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.soc-it.un .soc-it-t small{color:var(--ink);font-weight:700}.soc-it-m{display:grid;justify-items:end;gap:4px}.soc-it-m small{font-size:11px;color:var(--muted)}.soc-it-m i{width:10px;height:10px;border-radius:50%;background:var(--red)}
+.soc-empty,.soc-ph{color:var(--muted);text-align:center;padding:30px 16px;display:grid;gap:6px}.soc-ph{align-self:center;margin:auto;max-width:360px}.soc-ph b{color:var(--ink);font-size:16px}.soc-ph.sm{padding:40px 10px}
+.soc-r{display:flex;flex-direction:column;min-height:0;background:#f6f4f2}
+.soc-h{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border-bottom:1px solid var(--line)}.soc-h b{display:block}.soc-h small{font-size:12px;color:var(--muted)}
+.soc-back{display:none;border:0;background:none;font-size:20px;cursor:pointer}
+.soc-msgs{flex:1;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:4px}
+.soc-day{align-self:center;font-size:11px;font-weight:700;color:var(--muted);background:#fff;border-radius:999px;padding:3px 10px;margin:10px 0 4px;text-transform:capitalize}
+.soc-m{display:flex}.soc-m.me{justify-content:flex-end}
+.soc-b{position:relative;max-width:min(560px,78%);background:#fff;border-radius:12px;padding:8px 10px 18px;box-shadow:0 1px 2px rgba(0,0,0,.08);display:grid;gap:6px;min-width:90px}
+.soc-m.me .soc-b{background:#ffe9e6}
+.soc-tx{white-space:pre-wrap;word-break:break-word;font-size:14px}
+.soc-t{position:absolute;right:8px;bottom:3px;font-size:10.5px;color:var(--muted)}.soc-t i{font-style:normal;margin-left:4px;letter-spacing:-3px}.soc-t i.lido{color:#1e88e5}
+.soc-del{position:absolute;top:2px;right:2px;border:0;background:none;color:#999;cursor:pointer;opacity:0;font-size:12px}.soc-b:hover .soc-del{opacity:1}
+.soc-img{max-width:280px;max-height:280px;border-radius:8px;cursor:zoom-in;background:#eee;min-height:80px;min-width:120px;object-fit:cover}
+.soc-b audio{width:260px;max-width:100%}.soc-ref{font-size:11.5px;color:var(--muted)}
+.soc-card{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:#fafafa;text-align:left;color:var(--ink)}
+.soc-card > span:last-child{display:grid;gap:3px}.soc-card b{font-size:13.5px}.soc-card small{font-size:12px;color:var(--muted)}.soc-card .btn{justify-self:start;margin-top:4px}
+.soc-card.cob{border-left:4px solid var(--red)}.soc-cq{font-size:13px}.soc-ci{font-size:22px;line-height:1}.soc-doc{cursor:pointer;width:100%}
+.soc-comp{display:flex;align-items:flex-end;gap:8px;padding:10px 12px;background:#fff;border-top:1px solid var(--line)}
+.soc-comp textarea{flex:1;resize:none;min-height:42px!important;max-height:140px;border-radius:20px!important;padding:10px 14px!important;font-size:14px}
+.soc-ib{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:18px;cursor:pointer;flex:none;padding:0}
+.soc-ib.rec{width:auto;padding:0 12px;border-radius:999px;background:var(--red);color:#fff;font-size:13px;font-weight:700;border-color:var(--red)}
+.soc-send{min-height:42px;border-radius:999px}
+.soc-att{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.soc-att button{display:grid;justify-items:center;gap:4px;padding:14px 8px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;text-align:center}
+.soc-att button:hover{border-color:var(--red);background:var(--red-soft)}.soc-att span{font-size:26px}.soc-att b{font-size:13px}.soc-att small{font-size:11px;color:var(--muted)}
+.pf-l{display:grid;gap:6px;max-height:48vh;overflow:auto;margin-top:8px}
+.pf-i{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-align:left;border:1px solid var(--line);border-radius:10px;padding:9px 12px;background:#fff;cursor:pointer}
+.pf-i:hover{border-color:var(--red)}.pf-i span{font-size:13px}.pf-i small{font-size:11.5px;color:var(--muted)}
+.pf-r{grid-template-columns:auto 1fr;text-transform:none;letter-spacing:0}.pf-r:has(input:checked){border-color:var(--red);background:var(--red-soft)}.pf-r input{width:18px;height:18px;min-height:0}
+.pf-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;max-height:56vh;overflow:auto}
+.pf-ph{border:2px solid transparent;border-radius:10px;padding:0;background:#f4f4f4;cursor:pointer;overflow:hidden;display:grid}
+.pf-ph img{width:100%;aspect-ratio:1;object-fit:cover;background:#ddd}.pf-ph small{font-size:11px;padding:4px;color:var(--muted)}.pf-ph.on{border-color:var(--red);box-shadow:0 0 0 3px var(--red-soft)}
+.ntf-sec{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;padding:8px 12px 2px;background:#fafafa}
+a.ntf-b{text-decoration:none}
+@media (max-width:900px){#view-social{margin:0 -16px}.soc{grid-template-columns:1fr;height:calc(100vh - 110px)}.soc-r{display:none}#view-social.soc-open .soc-l{display:none}#view-social.soc-open .soc-r{display:flex}.soc-back{display:block}.soc-att{grid-template-columns:repeat(2,1fr)}}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1024,6 +1077,7 @@ body.has-side main.wrap{margin-left:248px;max-width:none;padding:0 24px}
   <section id="view-painel" class="hidden"></section>
   <section id="view-solos" class="hidden"></section>
   <section id="view-lix" class="hidden"></section>
+  <section id="view-social" class="hidden"></section>
   <section id="view-planic" class="hidden"></section>
 </main>
 <div class="gate ui" id="gate"><div class="gate-card"><div class="tl-full gate-logo" role="img" aria-label="Tenda"></div><h1>FVs da Obra</h1><div id="gate-body"><p>Carregando…</p></div></div></div>
@@ -1059,11 +1113,11 @@ const CATS = {INFR:"Infraestrutura", ESTR:"Estrutura", ACAB:"Acabamento", LOG:"L
 const CAT_ORDER = ["INFR","ESTR","ACAB","LOG","OUTRO"];
 /* equipes: depois de escolher regional, fábrica e obra, cada equipe tem a sua página inicial e a sua barra lateral */
 const FRENTES = {
-  quali: {nome: "Qualidade", curto: "Qualidade", desc: "FVs gerais, planicidade e esquadro, painel e modelos.", cats: ["LOG", "OUTRO"], fv: true, mec: ["fvs", "planic", "painel", "modelos"]},
-  infra: {nome: "Infraestrutura", curto: "Infra", desc: "FVs de infra, solos (F.045), painel e modelos.", cats: ["INFR"], fv: true, mec: ["fvs", "solos", "painel", "modelos"]},
-  estr: {nome: "Estrutura", curto: "Estrutura", desc: "FVs de estrutura, painel e modelos.", cats: ["ESTR"], fv: true, mec: ["fvs", "painel", "modelos"]},
-  acab: {nome: "Acabamento", curto: "Acabamento", desc: "FVs de acabamento, painel e modelos.", cats: ["ACAB"], fv: true, mec: ["fvs", "painel", "modelos"]},
-  gape: {nome: "GAPE", curto: "GAPE", desc: "Relatórios do GAPE com fotos e fichas.", cats: [], fv: false, mec: ["gape"]}
+  quali: {nome: "Qualidade", curto: "Qualidade", desc: "FVs gerais, planicidade e esquadro, painel e modelos.", cats: ["LOG", "OUTRO"], fv: true, mec: ["fvs", "planic", "painel", "modelos", "social"]},
+  infra: {nome: "Infraestrutura", curto: "Infra", desc: "FVs de infra, solos (F.045), painel e modelos.", cats: ["INFR"], fv: true, mec: ["fvs", "solos", "painel", "modelos", "social"]},
+  estr: {nome: "Estrutura", curto: "Estrutura", desc: "FVs de estrutura, painel e modelos.", cats: ["ESTR"], fv: true, mec: ["fvs", "painel", "modelos", "social"]},
+  acab: {nome: "Acabamento", curto: "Acabamento", desc: "FVs de acabamento, painel e modelos.", cats: ["ACAB"], fv: true, mec: ["fvs", "painel", "modelos", "social"]},
+  gape: {nome: "GAPE", curto: "GAPE", desc: "Relatórios do GAPE com fotos e fichas.", cats: [], fv: false, mec: ["gape", "social"]}
 };
 const FV_EQ = Object.keys(FRENTES).filter(k => FRENTES[k].fv);
 let curFrente = (() => { try { const v = localStorage.getItem("fvs-frente"); return FRENTES[v] ? v : "quali"; } catch { return "quali"; } })();
@@ -1918,42 +1972,27 @@ window.addEventListener("beforeunload", e => { if (ncPend().length) { e.preventD
 /* ---------- escolher trechos clicando no mapa de trechos ----------
    O gestor marca uma vez onde fica cada trecho no mapa (fica guardado em library/mapa.pts); depois qualquer pessoa
    escolhe os trechos tocando nos números. Sem marcação, a escolha é pelos botões numerados ao lado do mapa. */
+const TRECHO_POLY = {"1":[[0.1266,0.0825],[0.1107,0.2113],[0.2859,0.233],[0.3006,0.0651],[0.1638,0.0463]],"2":[[0.1085,0.2142],[0.096,0.3488],[0.2734,0.3705],[0.2836,0.2359]],"3":[[0.0938,0.3517],[0.0791,0.5253],[0.2576,0.5456],[0.2723,0.3734]],"4":[[0.0757,0.5268],[0.0644,0.6686],[0.2452,0.6903],[0.2565,0.5499]],"5":[[0.061,0.67],[0.0418,0.8871],[0.0802,0.8987],[0.226,0.9161],[0.2441,0.6932]],"6":[[0.3028,0.068],[0.2881,0.2446],[0.4362,0.2663],[0.452,0.0912]],"7":[[0.2881,0.2489],[0.2768,0.3864],[0.4237,0.4081],[0.435,0.2692]],"8":[[0.2757,0.3907],[0.261,0.5615],[0.409,0.5803],[0.4226,0.411]],"9":[[0.2599,0.5644],[0.2452,0.7279],[0.3955,0.7453],[0.4079,0.5847]],"10":[[0.4554,0.0941],[0.4328,0.343],[0.5763,0.3632],[0.5966,0.1158]],"11":[[0.4328,0.3473],[0.3977,0.7453],[0.5469,0.7641],[0.5763,0.369]],"12":[[0.2429,0.7366],[0.2282,0.9175],[0.5288,0.9551],[0.5322,0.9493],[0.5458,0.767],[0.261,0.7323]],"13":[[0.5469,0.767],[0.5333,0.958],[0.7718,0.987],[0.7763,0.9812],[0.7898,0.7974]],"14":[[0.9073,0.1751],[0.8734,0.631],[0.9266,0.6397],[0.9401,0.5123],[0.9593,0.2272],[0.9288,0.178]],"15":[[0.7288,0.6151],[0.7164,0.7829],[0.9096,0.8061],[0.9243,0.6469],[0.8746,0.6324]],"16":[[0.7932,0.7974],[0.7774,0.9899],[0.8893,0.9986],[0.9073,0.8104]],"17":[[0.5989,0.1172],[0.5864,0.288],[0.7492,0.3097],[0.7605,0.1433]],"18":[[0.7627,0.1447],[0.7514,0.3111],[0.8927,0.3271],[0.9051,0.1722]],"19":[[0.5864,0.2923],[0.5774,0.3632],[0.574,0.4631],[0.7367,0.4834],[0.748,0.3126]],"20":[[0.7503,0.3126],[0.7379,0.4848],[0.8791,0.5022],[0.8927,0.3314]],"21":[[0.5729,0.466],[0.5627,0.6078],[0.7243,0.6252],[0.7356,0.4863]],"22":[[0.7379,0.4877],[0.7299,0.6122],[0.8712,0.6295],[0.878,0.5051]],"23":[[0.5616,0.6107],[0.548,0.7656],[0.7141,0.7815],[0.7232,0.6281]]};
 async function trechoMapPick(selected) {
   if (!mapa || !mapa.img) { toast("O mapa de trechos ainda não foi carregado (Gestão › Mapa de trechos)."); return null; }
-  const sel = new Set(selected.map(v => +String(v).replace(/\D/g, "")).filter(Boolean));
-  let pts = {...(mapa.pts || {})}, mark = 0, dirty = false, extra = 0;
-  const maxN = () => Math.max(23, extra, ...Object.keys(pts).map(Number), ...sel);
-  const r = await modal({title: "Escolher trechos no mapa", wide: true, body: `<p class="sub" style="margin:0 0 8px" data-tmh></p>
-      <div class="tmp"><div class="tmp-map" data-tmap><img src="${mapa.img}" alt="Mapa de trechos" draggable="false"><div class="tmp-pins" data-pins></div></div>
-      <div class="tmp-side"><div class="tmp-lbl">Trechos</div><div class="tmp-nums" data-nums></div>${isGestor ? `<button type="button" class="btn sm" data-mark style="margin-top:10px">📍 Marcar posições no mapa</button>` : ""}<div class="tmp-sel" data-sel></div></div></div>`,
+  const sel = new Set(selected.map(v => +String(v).replace(/\D/g, "")).filter(n => n >= 1 && n <= 23));
+  return modal({title: "Escolher trechos no mapa", wide: true, body: `<p class="sub" style="margin:0 0 8px">Toque em qualquer parte do trecho no mapa (ou nos números ao lado) para incluir ou tirar da FV.</p>
+      <div class="tmp"><div class="tmp-map"><img src="${mapa.img}" alt="Mapa de trechos" draggable="false"><svg class="tmp-svg" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true">${Object.entries(TRECHO_POLY).map(([n, P]) => `<polygon data-tp="${n}" points="${P.map(q => q.join(",")).join(" ")}"><title>Trecho ${n}</title></polygon>`).join("")}</svg></div>
+      <div class="tmp-side"><div class="tmp-lbl">Trechos</div><div class="tmp-nums" data-nums></div><div class="tmp-sel" data-sel></div><button type="button" class="btn sm ghost" data-clr style="margin-top:8px">Limpar seleção</button></div></div>`,
     onOpen: bg => {
       const draw = () => {
-        $("[data-tmh]", bg).innerHTML = mark ? `<b>Modo de marcação:</b> escolha um número à direita e toque no mapa onde fica esse trecho. Toque de novo em <b>Concluir marcação</b> para voltar.` : Object.keys(pts).length ? "Toque nos números do mapa (ou nos botões ao lado) para incluir ou tirar trechos da FV." : `Toque nos botões ao lado para escolher os trechos.${isGestor ? " Para tocar direto no mapa, use <b>Marcar posições no mapa</b> uma vez." : " (O gestor ainda não marcou as posições no mapa.)"}`;
-        $("[data-pins]", bg).innerHTML = Object.entries(pts).map(([n, [x, y]]) => `<button type="button" class="tmp-pin ${sel.has(+n) ? "on" : ""} ${mark === +n ? "mk" : ""}" data-pin="${n}" style="left:${x * 100}%;top:${y * 100}%" aria-label="Trecho ${n}">${n}</button>`).join("");
-        $("[data-nums]", bg).innerHTML = Array.from({length: maxN()}, (_, i) => i + 1).map(n => `<button type="button" class="tmp-n ${sel.has(n) ? "on" : ""} ${mark === n ? "mk" : ""} ${pts[n] ? "" : "np"}" data-n="${n}" title="${pts[n] ? "" : "Sem posição marcada no mapa"}">${n}</button>`).join("") + `<button type="button" class="tmp-n tmp-more" data-more title="Mais trechos">+</button>`;
+        $$("[data-tp]", bg).forEach(p => p.classList.toggle("on", sel.has(+p.dataset.tp)));
+        $("[data-nums]", bg).innerHTML = Array.from({length: 23}, (_, i) => i + 1).map(n => `<button type="button" class="tmp-n ${sel.has(n) ? "on" : ""}" data-n="${n}" aria-pressed="${sel.has(n)}">${n}</button>`).join("");
         const L = [...sel].sort((a, b) => a - b); $("[data-sel]", bg).innerHTML = L.length ? `<div class="tmp-lbl" style="margin-top:12px">${L.length} selecionado(s)</div>${L.map(n => `Trecho ${n}`).join(", ")}` : `<div class="sub" style="margin-top:12px">Nenhum trecho selecionado.</div>`;
-        const mb = $("[data-mark]", bg); if (mb) mb.textContent = mark ? "✓ Concluir marcação" : "📍 Marcar posições no mapa";
-        bg.classList.toggle("tmp-marking", !!mark);
       };
       bg.addEventListener("click", e => {
-        const pin = e.target.closest("[data-pin]"), num = e.target.closest("[data-n]");
-        if (e.target.closest("[data-more]")) { const n = maxN() + 1; if (mark) mark = n; else sel.add(n); extra = Math.max(extra, n); draw(); return; }
-        if (e.target.closest("[data-mark]")) { mark = mark ? 0 : (Array.from({length: maxN()}, (_, i) => i + 1).find(n => !pts[n]) || 1); if (!mark && dirty) { create("library/mapa", {...mapa, pts, updatedAt: nowIso(), updatedBy: me}).then(() => toast("Posições dos trechos salvas.")).catch(() => {}); mapa = {...mapa, pts}; dirty = false; } draw(); return; }
-        if (mark) {
-          if (num) { mark = +num.dataset.n; draw(); return; }
-          if (pin) { mark = +pin.dataset.pin; draw(); return; }
-          const mp = e.target.closest("[data-tmap]"); if (!mp) return; const rc = $("img", mp).getBoundingClientRect();
-          pts[mark] = [Math.max(0, Math.min(1, (e.clientX - rc.left) / rc.width)), Math.max(0, Math.min(1, (e.clientY - rc.top) / rc.height))].map(v => Math.round(v * 10000) / 10000); dirty = true;
-          mark = Math.min(mark + 1, 200); draw(); return;
-        }
-        const n = pin ? +pin.dataset.pin : num ? +num.dataset.n : 0; if (!n) return;
+        if (e.target.closest("[data-clr]")) { sel.clear(); draw(); return; }
+        const t = e.target.closest("[data-tp],[data-n]"); if (!t) return; const n = +(t.dataset.tp || t.dataset.n);
         sel.has(n) ? sel.delete(n) : sel.add(n); draw();
       });
       draw();
     },
     actions: [{label: "Cancelar", value: null}, {label: "Usar estes trechos", cls: "primary", value: () => [...sel].sort((a, b) => a - b).map(n => `Trecho ${n}`)}]});
-  if (dirty && isGestor) { try { await create("library/mapa", {...mapa, pts, updatedAt: nowIso(), updatedBy: me}); mapa = {...mapa, pts}; } catch {} }
-  return r;
 }
 /* ---------- escolha de cor (estilo Paint): quadro de cores, faixa de matiz, HEX/RGB, cores básicas e personalizadas ---------- */
 const CORES_BASICAS = ["#f08080","#e8382c","#7a4040","#8b3a3a","#3d0000","#a0ffff","#7fffff","#3a86ef","#0026ff","#001a99","#1a3f80","#001473",
@@ -2937,7 +2976,7 @@ async function loadTeam() {
   try {
     const a = window.__fb && await window.__fb.getAccess(), ok = new Set([...(a && a.editors || []), ...(a && a.viewers || []), ...(a && a.gestores || []), ...(window.ADMIN_EMAILS || [])].map(x => String(x).toLowerCase()));
     const s = await db.collection("users").get();
-    team = s.docs.map(d => ({uid: d.id, ...d.data()})).filter(u => u.email && ok.has(String(u.email).toLowerCase())).map(u => ({uid: u.uid, name: u.name || u.email.split("@")[0], email: String(u.email).toLowerCase()}));
+    team = s.docs.map(d => ({uid: d.id, ...d.data()})).filter(u => u.email && ok.has(String(u.email).toLowerCase())).map(u => ({uid: u.uid, name: u.name || u.email.split("@")[0], email: String(u.email).toLowerCase(), cargo: u.cargo || ""}));
     team.forEach(u => { if (!names.has(u.uid)) names.set(u.uid, u.name); });
   } catch {}
 }
@@ -2962,9 +3001,9 @@ function bellRender() {
   let b = $("#bell");
   if (!b) { b = document.createElement("button"); b.type = "button"; b.id = "bell"; b.className = "bell-btn"; b.onclick = notifPanel; $("header.top .wrap").insertBefore(b, $("#hc-btn") || $("#userbox")); }
   const L = myPda(), late = L.filter(x => x.d !== null && x.d < 0).length, soon = L.filter(x => x.d !== null && x.d >= 0 && x.d <= 3).length;
-  const NL = notifList(), nUn = NL.filter(n => !n.lida).length, crit = NL.some(n => !n.lida && (n.urg === "critica" || n.urg === "alta"));
+  const NL = notifList(), nM = typeof socUnreadN === "function" ? socUnreadN() : 0, nUn = NL.filter(n => !n.lida).length + nM, crit = NL.some(n => !n.lida && (n.urg === "critica" || n.urg === "alta"));
   b.innerHTML = `<span aria-hidden="true">🔔</span>${nUn ? `<span class="bell-n ${crit ? "bad" : ""}">${nUn}</span>` : ""}`;
-  b.title = nUn ? `${nUn} notificação(ões) nova(s)` : "Notificações";
+  b.title = nUn ? `${nUn} aviso(s) novo(s)${nM ? ` · ${nM} conversa(s) com mensagem nova` : ""}` : "Notificações e mensagens";
   b.setAttribute("aria-label", b.title);
   // aviso uma vez por dia quando há ação vencida
   let seen = ""; try { seen = localStorage.getItem("fvs-pda-aviso") || ""; } catch {}
@@ -3011,14 +3050,17 @@ function notifPanel() {
   npanel = document.createElement("div"); npanel.className = "ntf ui"; document.body.appendChild(npanel);
   const draw = () => {
     if (!npanel) return; const L = notifList(), nUn = L.filter(n => !n.lida).length;
-    npanel.innerHTML = `<div class="ntf-h"><b>Notificações</b>${nUn ? `<span class="ntf-c">${nUn} nova${nUn > 1 ? "s" : ""}</span>` : ""}<span style="flex:1"></span>${nUn ? `<button type="button" class="btn sm ghost" data-nall>Marcar como lidas</button>` : ""}${L.some(n => n.lida) ? `<button type="button" class="btn sm ghost" data-nclr>Limpar lidas</button>` : ""}</div>
-      <div class="ntf-l">${L.length ? L.map(n => { const u = URG[n.urg] || URG.media; return `<div class="ntf-i ${n.lida ? "" : "nova"}" data-nid="${esc(n.id)}"><span class="ntf-u" style="--c:${u.c}">${u.t}</span>
+    const MU = [...convs.entries()].filter(([, c]) => convUnread(c)).sort((a, b) => b[1].ult.at.localeCompare(a[1].ult.at));
+    const msgHtml = MU.length ? `<div class="ntf-sec">Mensagens</div>${MU.map(([cid, c]) => `<div class="ntf-i nova"><span class="ntf-u" style="--c:#003e62">💬</span><a class="ntf-b" href="#social-${esc(convOther(c))}" data-nmsg><b>${esc(names.get(c.ult.by) || "Alguém")}</b> mandou mensagem<span class="ntf-t">${esc(String(c.ult.txt || TIPO_PREV[c.ult.tipo] || "").slice(0, 100))}</span><span class="ntf-w">${fmtFull(c.ult.at)}</span></a><span></span></div>`).join("")}${L.length ? `<div class="ntf-sec">Notificações</div>` : ""}` : "";
+    npanel.innerHTML = `<div class="ntf-h"><b>Notificações e mensagens</b>${nUn ? `<span class="ntf-c">${nUn} nova${nUn > 1 ? "s" : ""}</span>` : ""}<span style="flex:1"></span>${nUn ? `<button type="button" class="btn sm ghost" data-nall>Marcar como lidas</button>` : ""}${L.some(n => n.lida) ? `<button type="button" class="btn sm ghost" data-nclr>Limpar lidas</button>` : ""}</div>
+      <div class="ntf-l">${msgHtml}${L.length ? L.map(n => { const u = URG[n.urg] || URG.media; return `<div class="ntf-i ${n.lida ? "" : "nova"}" data-nid="${esc(n.id)}"><span class="ntf-u" style="--c:${u.c}">${u.t}</span>
         <button type="button" class="ntf-b" data-nopen><b>${esc(n.fromName || names.get(n.from) || "Alguém")}</b> notificou ${n.kind === "pda" ? "uma ação do PDA" : "um problema"}${n.item ? ` do item ${esc(n.item)}` : ""}<span class="ntf-fv">${esc(n.fvCode)} · ${esc(n.fvLocal)}</span>${n.texto ? `<span class="ntf-t">${esc(n.texto)}</span>` : ""}${n.msg ? `<span class="ntf-m">“${esc(n.msg)}”</span>` : ""}<span class="ntf-w">${fmtFull(n.at)}</span></button>
-        <button type="button" class="ntf-x" data-ndel title="Excluir" aria-label="Excluir notificação">✕</button></div>`; }).join("") : `<div class="ntf-e">Nenhuma notificação.<small>Quando alguém marcar você num problema ou ação, o aviso aparece aqui.</small></div>`}</div>`;
+        <button type="button" class="ntf-x" data-ndel title="Excluir" aria-label="Excluir notificação">✕</button></div>`; }).join("") : MU.length ? "" : `<div class="ntf-e">Nenhuma notificação.<small>Quando alguém marcar você num problema ou ação, o aviso aparece aqui.</small></div>`}</div>`;
     const bb = $("#bell").getBoundingClientRect(); npanel.style.top = bb.bottom + 8 + "px"; npanel.style.right = Math.max(8, innerWidth - bb.right - 40) + "px";
   };
   npanel._draw = draw; draw();
   npanel.onclick = async e => {
+    if (e.target.closest("[data-nmsg]")) { npanelClose(); return; }
     if (e.target.closest("[data-nall]")) { notifList().filter(n => !n.lida).forEach(n => patch(`notifs/${n.id}`, {lida: true})); return; }
     if (e.target.closest("[data-nclr]")) { notifList().filter(n => n.lida).forEach(n => { notifs.delete(n.id); remove(`notifs/${n.id}`).catch(() => {}); }); draw(); bellRender(); return; }
     const it = e.target.closest("[data-nid]"); if (!it) return; const n = notifs.get(it.dataset.nid); if (!n) return;
@@ -4738,8 +4780,12 @@ async function duplicateFv() {
 
 /* ---------- equipe e backup (administrador) ---------- */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/* gestão por equipe: editores e leitores aparecem na equipe a que têm acesso; incluir aqui libera esta equipe */
+const inEqEmail = (e, eq = curFrente) => { e = String(e || "").toLowerCase(); const u = escopo.users && escopo.users[e]; return !u || !u.equipes || u.equipes.includes("*") || u.equipes.includes(eq); };
+async function eqGrant(e, eq = curFrente) { const u = escopo.users && escopo.users[e]; if (u && (!u.equipes || u.equipes.includes("*") || u.equipes.includes(eq))) return; const val = {obras: (u && u.obras) || ["*"], equipes: u && u.equipes ? [...u.equipes, eq] : [eq]}; try { await db.doc("config/escopo").merge({users: {[e]: {...val, by: me, at: nowIso()}}}); escopo.users[e] = val; } catch {} }
+async function eqRevoke(e, eq = curFrente) { const u = escopo.users && escopo.users[e]; const eqs = !u || !u.equipes || u.equipes.includes("*") ? EQ_ORDER.filter(k => k !== eq) : u.equipes.filter(k => k !== eq); const val = {obras: (u && u.obras) || ["*"], equipes: eqs}; try { await db.doc("config/escopo").merge({users: {[e]: {...val, by: me, at: nowIso()}}}); escopo.users[e] = val; } catch {} return eqs.length; }
 async function renderTeam() {
-  const v = $("#view-team");
+  const v = $("#view-team"), EQN = (FRENTES[curFrente] || {}).nome || "";
   if (!isGestor || !window.__fb) { v.innerHTML = `<div class="empty"><b>Somente o gestor e o administrador acessam esta tela.</b></div>`; return; }
   const own = isOwner, admins = (window.ADMIN_EMAILS || []).map(x => String(x).toLowerCase());
   v.innerHTML = `<div class="empty">Carregando…</div>`;
@@ -4747,9 +4793,9 @@ async function renderTeam() {
   acc.editors = acc.editors || []; acc.viewers = acc.viewers || []; acc.gestores = acc.gestores || [];
   // o gestor só remove editores e leitores; gestores e o administrador só o administrador mexe
   const canRm = (e, k) => own || (k !== "gestores" && !acc.gestores.includes(e) && !admins.includes(e) && e !== String((user && user.email) || "").toLowerCase());
-  const list = (arr, k) => arr.length ? arr.map(e => `<div><span>${esc(e)}</span>${canRm(e, k) ? `<button class="btn sm ghost danger" type="button" data-rmv="${k}" data-e="${esc(e)}">Remover</button>` : (!own && k === "editors" && acc.gestores.includes(e) ? `<span class="sub" style="font-size:11.5px">gestor</span>` : "")}</div>`).join("") : `<div style="color:var(--muted);justify-content:center">Ninguém ainda</div>`;
+  const list = (arr0, k) => { const arr = k === "gestores" ? arr0 : arr0.filter(e => inEqEmail(e)); return arr.length ? arr.map(e => `<div><span>${esc(e)}</span>${canRm(e, k) ? `<button class="btn sm ghost danger" type="button" data-rmv="${k}" data-e="${esc(e)}">Remover</button>` : (!own && k === "editors" && acc.gestores.includes(e) ? `<span class="sub" style="font-size:11.5px">gestor</span>` : "")}</div>`).join("") : `<div style="color:var(--muted);justify-content:center">Ninguém ainda</div>`; };
   if (!own) {
-    v.innerHTML = `<div class="page-title"><div><h1>Gestão</h1><div class="sub" style="max-width:760px">Equipe da obra. Como gestor(a), você pode <b>remover o acesso</b> de editores e de quem só visualiza (por exemplo, quando alguém sai da obra). A pessoa perde o acesso na hora. Para adicionar pessoas ou mudar gestores, fale com o administrador: ${esc(admins.join(", "))}.</div></div></div>
+    v.innerHTML = `<div class="page-title"><div><h1>Gestão · ${esc(EQN)}</h1><div class="sub" style="max-width:760px">Pessoas da equipe ${esc(EQN)}. Cada equipe tem a sua gestão e a sua lixeira. Como gestor(a), você pode <b>remover o acesso</b> de editores e de quem só visualiza (por exemplo, quando alguém sai da obra). A pessoa perde o acesso na hora. Para adicionar pessoas ou mudar gestores, fale com o administrador: ${esc(admins.join(", "))}.</div></div></div>
       <div class="team-grid">
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Editores</h2><div class="sub">Criam e preenchem FVs, PDA, observações, fotos e documentos.</div><div class="team-list">${list(acc.editors, "editors")}</div></div>
         <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Somente leitura</h2><div class="sub">Veem tudo e baixam PDFs, mas não editam.</div><div class="team-list">${list(acc.viewers, "viewers")}</div></div>
@@ -4762,12 +4808,13 @@ async function renderTeam() {
     v.querySelectorAll("[data-rmv]").forEach(b => b.onclick = async () => {
       const k = b.dataset.rmv, e = b.dataset.e;
       if (!(await confirmBox("Remover acesso?", `<b>${esc(e)}</b> deixa de ${k === "editors" ? "editar" : "ver"} o sistema na hora, inclusive se estiver com ele aberto agora. A remoção fica com o seu nome.`, "Remover", true))) return;
+      const left = await eqRevoke(e); if (left) { toast(`Saiu da equipe ${EQN}; continua nas outras equipes em que tem acesso.`); renderTeam(); return; }
       acc[k] = acc[k].filter(x => x !== e);
       try { await window.__fb.setAccess(acc); toast("Acesso removido."); renderTeam(); } catch { toast("Não foi possível remover. Confira se as regras novas do Firebase foram publicadas."); renderTeam(); }
     });
     return;
   }
-  v.innerHTML = `<div class="page-title"><div><h1>Gestão</h1><div class="sub" style="margin:-2px 0 4px">Equipe, acessos, dicionário e backup</div><div class="sub">Administrador(es): ${esc((window.ADMIN_EMAILS || []).join(", "))}</div></div></div>
+  v.innerHTML = `<div class="page-title"><div><h1>Gestão · ${esc(EQN)}</h1><div class="sub" style="margin:-2px 0 4px">Pessoas e acessos da equipe ${esc(EQN)} (cada equipe tem a sua gestão e a sua lixeira). Gestores, dicionário, backup e saída automática valem para o sistema todo.</div><div class="sub">Administrador(es): ${esc((window.ADMIN_EMAILS || []).join(", "))}</div></div></div>
     <div class="team-grid">
       <div class="panel"><h2 style="font-size:16px;text-transform:uppercase">Editores</h2><div class="sub">Podem criar e preencher FVs, PDA, observações, fotos e documentos.</div>
         <div class="team-list">${list(acc.editors, "editors")}</div>
@@ -4799,13 +4846,17 @@ async function renderTeam() {
     const pode = {editors: "criar e preencher FVs, PDA, fotos, GAPE e Solos", gestores: "editar tudo e também <b>fechar, reabrir e excluir FVs</b>", viewers: "ver tudo e baixar PDFs, sem editar"}[k];
     if (!(await confirmBox("Liberar acesso?", `<b>${esc(e)}</b> passa a poder ${pode}. Confirme se o e-mail está certo e se a pessoa faz parte da equipe da obra.`, "Liberar acesso", true))) return;
     if (k === "gestores") { acc.gestores = acc.gestores.filter(x => x !== e).concat(e); acc.viewers = acc.viewers.filter(x => x !== e); if (!acc.editors.includes(e)) acc.editors.push(e); return save(); }
+    const novo = ![...acc.editors, ...acc.viewers, ...acc.gestores].includes(e);
     acc.editors = acc.editors.filter(x => x !== e); acc.viewers = acc.viewers.filter(x => x !== e); acc[k].push(e);
     if (k === "viewers") acc.gestores = acc.gestores.filter(x => x !== e);
+    if (novo && !escopo.users[e]) { const val = {obras: ["*"], equipes: [curFrente]}; try { await db.doc("config/escopo").merge({users: {[e]: {...val, by: me, at: nowIso()}}}); escopo.users[e] = val; } catch {} } // pessoa nova entra só nesta equipe
+    else await eqGrant(e);
     save();
   });
   v.querySelectorAll("[data-rmv]").forEach(b => b.onclick = async () => {
     const k = b.dataset.rmv;
     if (!(await confirmBox(k === "gestores" ? "Remover gestor?" : "Remover acesso?", k === "gestores" ? `<b>${esc(b.dataset.e)}</b> deixa de poder fechar e reabrir FVs, mas continua como editor.` : `<b>${esc(b.dataset.e)}</b> deixa de ${k === "editors" ? "editar" : "ver"} o sistema.`, "Remover", true))) return;
+    if (k !== "gestores") { const left = await eqRevoke(b.dataset.e); if (left) { toast(`Saiu da equipe ${EQN}; continua nas outras equipes em que tem acesso.`); renderTeam(); return; } }
     acc[k] = acc[k].filter(x => x !== b.dataset.e); if (k === "editors") acc.gestores = acc.gestores.filter(x => x !== b.dataset.e); save();
   });
   const st = $("#bk-status", v);
@@ -5503,8 +5554,9 @@ async function renderAccessPanel() {
   let L = [];
   try { const s = await db.collection("acessos").orderBy("at", "desc").limit(500).get(); L = s.docs.map(d => d.data()); }
   catch { pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Registro de acessos</h2><div class="sub">Não foi possível ler o registro. Confira se as regras novas do Firebase foram publicadas.</div>`; return; }
+  L = L.filter(a => !a.email || inEqEmail(a.email));
   const people = [...new Set(L.map(a => a.email).filter(Boolean))].sort();
-  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Registro de acessos</h2>
+  pn.innerHTML = `<h2 style="font-size:16px;text-transform:uppercase">Registro de acessos · ${esc((FRENTES[curFrente] || {}).nome || "")}</h2>
     <div class="sub">Cada vez que alguém abre o sistema, sai ou é desconectado por inatividade. O aparelho aparece com um código (ex.: <b>#K3P9</b>) para você reconhecer o mesmo celular ou computador. Mostrando os 500 mais recentes.</div>
     <div class="acc-f"><label class="fld">Pessoa<select id="acc-p"><option value="">Todas</option>${people.map(p => `<option>${esc(p)}</option>`).join("")}</select></label><label class="fld">Desde<input type="date" id="acc-d"></label></div>
     <div class="acc-list" id="acc-l"></div>`;
@@ -5906,6 +5958,10 @@ const TRASH_DAYS = 30;
 let lixo = new Map(), lixTab = "itens", lixSwept = false, lixBusy = false;
 const trashed = {fv: new Map(), gape: new Map(), solo: new Map(), planta: new Map(), projeto: new Map(), planic: new Map()}, LX_COLL = {fv: "fvs", gape: "gape", solo: "solos", planta: "plantas", projeto: "projetos", planic: "planic"};
 /* registros da lixeira + itens marcados como excluídos que ficaram sem registro (ex.: falha de conexão no meio da exclusão) */
+/* cada equipe tem a sua lixeira: o item fica com a equipe de onde saiu */
+function lxEqOf(path) { const m = /^fvs\/([^/]+)/.exec(path || ""); if (m) { const f = fvs.get(m[1]) || trashed.fv.get(m[1]); return f ? fvFrente(f) : ""; } if (/^solos\//.test(path)) return "infra"; if (/^planic\//.test(path)) return "quali"; if (/^gape\//.test(path)) return "gape"; return ""; }
+const lixEq = e => e.eq || lxEqOf(e.path) || "";
+const lixMine = () => lixAll().filter(e => { const q = lixEq(e); return !q || q === curFrente; });
 function lixAll() {
   const out = [...lixo.values()], have = new Set(out.filter(e => e.st === "lix").map(e => e.path));
   for (const k in trashed) trashed[k].forEach((v, id) => {
@@ -5921,7 +5977,7 @@ function pdaNav() {
   const sb = $("#sd-painel"); if (sb) { sb.textContent = n || ""; sb.className = "sd-b" + (n ? " bad" : ""); sb.title = n ? "Ações do PDA vencidas" : ""; }
 }
 function lixNav() {
-  const n = lixAll().filter(e => e.st === "lix" && lxDays(e) > 0).length, nb = $("#nav-lix");
+  const n = lixMine().filter(e => e.st === "lix" && lxDays(e) > 0).length, nb = $("#nav-lix");
   if (nb) nb.innerHTML = "Lixeira" + (n ? ` <span class="nv-n">${n}</span>` : "");
   const sb = $("#sd-lix"); if (sb) sb.textContent = n || "";
   if (location.hash === "#lixeira") renderLixeira();
@@ -5952,7 +6008,7 @@ async function toTrash(kind, path, label, ctx = "", pai = "") {
   const at = nowIso();
   try {
     await db.doc(path).update({trashAt: at, trashBy: me});
-    await db.doc(`lixeira/${uid("x")}`).set({kind, path, label: String(label || "").slice(0, 200), ctx: String(ctx || "").slice(0, 200), pai, at, by: me, exp: new Date(Date.now() + TRASH_DAYS * 864e5).toISOString(), st: "lix"});
+    await db.doc(`lixeira/${uid("x")}`).set({eq: lxEqOf(path) || curFrente, kind, path, label: String(label || "").slice(0, 200), ctx: String(ctx || "").slice(0, 200), pai, at, by: me, exp: new Date(Date.now() + TRASH_DAYS * 864e5).toISOString(), st: "lix"});
   } catch (e) { writeErr(e); throw e; }
 }
 /* exclusão definitiva (só a partir da lixeira) */
@@ -6027,7 +6083,7 @@ function renderLixeira() {
   const v = $("#view-lix"); if (!v || v.classList.contains("hidden")) return;
   if (!v.dataset.built) {
     v.dataset.built = "1";
-    v.innerHTML = `<div class="page-title"><div><h1>Lixeira</h1><div class="sub" style="max-width:760px">O que é excluído fica aqui por <b>${TRASH_DAYS} dias</b> e depois é apagado de vez. <b>FVs</b> só são restauradas pelo gestor ou pelo administrador; mapeamentos, fotos e os demais itens, por qualquer editor. Linhas de problemas, de PDA e de fichas não passam pela lixeira.</div></div></div>
+    v.innerHTML = `<div class="page-title"><div><h1>Lixeira · <span id="lix-eq"></span></h1><div class="sub" style="max-width:760px">O que é excluído fica aqui por <b>${TRASH_DAYS} dias</b> e depois é apagado de vez. <b>FVs</b> só são restauradas pelo gestor ou pelo administrador; mapeamentos, fotos e os demais itens, por qualquer editor. Linhas de problemas, de PDA e de fichas não passam pela lixeira.</div></div></div>
       <div class="tabs" role="tablist"><button type="button" role="tab" data-lt="itens">Itens na lixeira <span class="n" id="lx-n">0</span></button><button type="button" role="tab" data-lt="hist">Histórico de ações <span class="n" id="lx-nh">0</span></button></div>
       <div class="pn-filters">
         <label class="fld">Buscar<input type="search" id="lx-q" placeholder="Nome, código ou local" autocomplete="off"></label>
@@ -6056,8 +6112,9 @@ function renderLixeira() {
 function drawLix() {
   const v = $("#view-lix"); if (!v || !v.dataset.built) return;
   const f = lixFilt, q = lxNorm(f.q), hist = lixTab === "hist";
-  const itens = lixAll().filter(e => e.st === "lix" && lxDays(e) > 0).sort((a, b) => String(b.at).localeCompare(String(a.at)));
-  const evs = lixEvents();
+  const itens = lixMine().filter(e => e.st === "lix" && lxDays(e) > 0).sort((a, b) => String(b.at).localeCompare(String(a.at)));
+  const evs = lixEvents().filter(x => { const q = lixEq(x.e); return !q || q === curFrente; });
+  const lt = $("#lix-eq", v); if (lt) lt.textContent = FRENTES[curFrente] ? FRENTES[curFrente].nome : "";
   const match = (e, by, act) => (!f.kind || e.kind === f.kind) && (!f.by || by === f.by) && (!hist || !f.act || act === f.act) && (!q || lxNorm(`${e.label} ${e.ctx} ${(LX[e.kind] || {}).nome}`).includes(q));
   $("#lx-n", v).textContent = itens.length; $("#lx-nh", v).textContent = evs.length;
   $$("[data-lt]", v).forEach(b => b.classList.toggle("on", b.dataset.lt === lixTab));
@@ -7356,6 +7413,7 @@ const estrutura = () => (escopo.estrutura && escopo.estrutura.length ? escopo.es
 const EQ_ORDER = ["quali", "infra", "estr", "acab", "gape"];
 const SVG = p => `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
 const IC = {
+  social: SVG('<path d="M4 5h16v10H9l-5 4z"/><path d="M8 9h8M8 12h5"/>'),
   home: SVG('<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/>'), fvs: SVG('<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/>'),
   planic: SVG('<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>'), solos: SVG('<path d="M3 17l5-6 4 4 3-3 6 5"/><path d="M3 21h18"/>'),
   painel: SVG('<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'), modelos: SVG('<path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/>'), gape: SVG('<path d="M5 3h10l4 4v14H5z"/><path d="M9 13l2 2 4-4"/>'),
@@ -7374,9 +7432,10 @@ const MEC = {
   modelos: {t: "Modelos de FV", ic: "modelos", d: "Os modelos oficiais da Tenda, com controle de revisão."},
   gape: {t: "Relatórios do GAPE", ic: "gape", d: "Relatórios com fotos e fichas em tabela no modelo do GAPE, e resposta aos relatórios recebidos."},
   lixeira: {t: "Lixeira", ic: "lixeira", d: "O que foi excluído fica 30 dias e pode ser restaurado."},
+  social: {t: "Social", ic: "social", d: "Conversas com a equipe: mensagens, áudios, fotos, documentos, FVs encaminhadas, cobranças de pendências e relatórios."},
   gestao: {t: "Gestão", ic: "gestao", d: "Equipe, acessos por obra e equipe, registro de acessos, dicionário e backup."}
 };
-const mecHref = (k, eq = curFrente) => ({inicio: "#eq-" + eq, fvs: "#" + eq, planic: "#planic", solos: "#solos", painel: "#painel", modelos: "#modelos", gape: "#gape", lixeira: "#lixeira", gestao: "#equipe"}[k]);
+const mecHref = (k, eq = curFrente) => ({inicio: "#eq-" + eq, fvs: "#" + eq, planic: "#planic", solos: "#solos", painel: "#painel", modelos: "#modelos", gape: "#gape", lixeira: "#lixeira", gestao: "#equipe", social: "#social"}[k]);
 /* permissões: administrador e gestores veem tudo; quem não tem regra definida também (tudo liberado por padrão) */
 function myScope() {
   const mail = String((window.__fb && window.__fb.email && window.__fb.email()) || "").toLowerCase();
@@ -7429,7 +7488,7 @@ function renderSide(on) {
   const F = FRENTES[curFrente], x = ctx.obra ? findObra(ctx.obra) : null;
   const items = ["inicio", ...F.mec];
   side.innerHTML = `<div class="sd-h"><div class="sd-o">${esc(x ? x.o.nome : "")}</div><div class="sd-e"><span>${IC[curFrente] || ""}</span>${esc(F.nome)}</div><a href="#obra-${esc(ctx.obra || "")}" class="sd-t">${IC.troca}Trocar equipe</a></div>
-    <nav class="sd-n">${items.map(k => `<a href="${mecHref(k)}" class="${k === on ? "on" : ""}">${IC[MEC[k].ic]}<span>${esc(MEC[k].t)}</span>${k === "painel" ? `<i class="sd-b" id="sd-painel"></i>` : ""}</a>`).join("")}</nav>
+    <nav class="sd-n">${items.map(k => `<a href="${mecHref(k)}" class="${k === on ? "on" : ""}">${IC[MEC[k].ic]}<span>${esc(MEC[k].t)}</span>${k === "painel" ? `<i class="sd-b" id="sd-painel"></i>` : ""}${k === "social" ? `<i class="sd-b ${socUnreadN() ? "bad" : ""}" id="sd-social">${socUnreadN() || ""}</i>` : ""}</a>`).join("")}</nav>
     <nav class="sd-n sd-f"><a href="#lixeira" class="${on === "lixeira" ? "on" : ""}">${IC.lixeira}<span>Lixeira</span><i class="sd-b" id="sd-lix"></i></a>${isGestor ? `<a href="#equipe" class="${on === "gestao" ? "on" : ""}">${IC.gestao}<span>Gestão</span></a>` : ""}</nav>`;
   side.onclick = e => { if (e.target.closest("a")) document.body.classList.remove("side-open"); };
   pdaNav(); lixNav();
@@ -7456,7 +7515,7 @@ function renderEqHome() {
 /* acesso por obra e equipe (tela Gestão) */
 async function renderScopePanel(box) {
   if (!box) return;
-  const ac = (window.__fb && await window.__fb.getAccess().catch(() => null)) || {}, people = [...new Set([...(ac.editors || []), ...(ac.viewers || [])].map(e => String(e).toLowerCase()))].sort();
+  const ac = (window.__fb && await window.__fb.getAccess().catch(() => null)) || {}, people = [...new Set([...(ac.editors || []), ...(ac.viewers || [])].map(e => String(e).toLowerCase()))].filter(e => inEqEmail(e)).sort();
   const gest = new Set((ac.gestores || []).map(e => String(e).toLowerCase()));
   const allObras = []; estrutura().forEach(r => r.fabricas.forEach(f => f.obras.forEach(o => allObras.push({r, f, o}))));
   const desc = u => { if (!u) return "Tudo liberado"; const o = (u.obras || ["*"]).includes("*") ? "todas as obras" : `${u.obras.length} obra(s)`, e = (u.equipes || ["*"]).includes("*") ? "todas as equipes" : (u.equipes || []).map(k => FRENTES[k] ? FRENTES[k].curto : k).join(", ") || "nenhuma equipe"; return `${o} · ${e}`; };
@@ -7476,6 +7535,235 @@ async function renderScopePanel(box) {
   });
 }
 
+/* ---------- SOCIAL: conversas entre os usuários (texto, áudio, fotos, documentos, FVs, cobranças e relatórios) ---------- */
+const convs = new Map(); let socCur = null, socMsgs = [], socUnsub = null, socBoot = false, socRec = null, socQ = {q: "", eq: "", cargo: "", perfil: ""};
+const convId = (a, b) => [a, b].sort().join("__");
+const convOther = c => (c.membros || []).find(u => u !== me) || "";
+const convUnread = c => !!(c && c.ult && c.ult.by !== me && !(c.lido && c.lido[me] && c.lido[me] >= c.ult.at));
+const socUnreadN = () => [...convs.values()].filter(convUnread).length;
+const TIPO_PREV = {texto: "", foto: "📷 Foto", audio: "🎤 Áudio", doc: "📄 Documento", fv: "📋 FV encaminhada", cob: "⏰ Cobrança", rel: "📊 Relatório"};
+let accCache = null;
+async function socAcc() { if (!accCache) { try { accCache = await window.__fb.getAccess(); } catch { accCache = {}; } } return accCache; }
+function socPerfil(u, acc) { const e = u.email, a = acc || {}; if ((window.ADMIN_EMAILS || []).map(x => String(x).toLowerCase()).includes(e)) return "Administrador"; if ((a.gestores || []).includes(e)) return "Gestor"; if ((a.editors || []).includes(e)) return "Editor"; if ((a.viewers || []).includes(e)) return "Leitura"; return ""; }
+function socEquipes(u, acc) { const p = socPerfil(u, acc); if (p === "Administrador" || p === "Gestor") return EQ_ORDER.slice(); const s = escopo.users && escopo.users[u.email]; if (!s || !s.equipes || s.equipes.includes("*")) return EQ_ORDER.slice(); return s.equipes.filter(k => FRENTES[k]); }
+function watchConvs() {
+  db.collection("conversas").where("membros", "array-contains", me).onSnapshot(sn => {
+    const before = new Map([...convs].map(([k, v]) => [k, v.ult && v.ult.at]));
+    convs.clear(); sn.docs.forEach(d => { const v = d.data(); if ((v.membros || []).includes(me)) convs.set(d.id, v); });
+    if (socBoot) convs.forEach((c, id) => { if (c.ult && c.ult.by !== me && c.ult.at !== before.get(id) && convUnread(c) && !(socCur === id && !$("#view-social").classList.contains("hidden"))) toast(`💬 ${names.get(c.ult.by) || "Nova mensagem"}: ${String(c.ult.txt || TIPO_PREV[c.ult.tipo] || "").slice(0, 60)}`); });
+    socBoot = true; socBadges(); if (!$("#view-social").classList.contains("hidden")) socList();
+  }, () => {});
+}
+function socBadges() { const n = socUnreadN(), sb = $("#sd-social"); if (sb) { sb.textContent = n || ""; sb.className = "sd-b" + (n ? " bad" : ""); } bellRender(); if (npanel && npanel._draw) npanel._draw(); }
+async function renderSocial(target) {
+  const v = $("#view-social"); if (!team.length) await loadTeam(); const acc = await socAcc();
+  if (!v.dataset.built) {
+    v.dataset.built = "1";
+    v.innerHTML = `<div class="soc"><aside class="soc-l"><div class="soc-lh"><h1>Social</h1><button type="button" class="btn sm" data-cargo title="Seu cargo aparece para os outros na busca">Meu cargo</button></div>
+        <input type="search" class="soc-q" id="soc-q" placeholder="Buscar pessoa…" autocomplete="off" aria-label="Buscar pessoa">
+        <div class="soc-f"><select id="soc-eq" aria-label="Equipe"><option value="">Todas as equipes</option>${EQ_ORDER.map(k => `<option value="${k}">${esc(FRENTES[k].nome)}</option>`).join("")}</select>
+          <select id="soc-cargo" aria-label="Cargo"></select><select id="soc-perfil" aria-label="Perfil"><option value="">Todos os perfis</option>${["Administrador", "Gestor", "Editor", "Leitura"].map(p => `<option>${p}</option>`).join("")}</select></div>
+        <div class="soc-list" id="soc-list"></div></aside>
+      <section class="soc-r" id="soc-r"></section></div>`;
+    $("#soc-q", v).oninput = e => { socQ.q = e.target.value; socList(); };
+    ["eq", "cargo", "perfil"].forEach(k => $("#soc-" + k, v).onchange = e => { socQ[k] = e.target.value; socList(); });
+    $("[data-cargo]", v).onclick = async () => {
+      const curC = (team.find(u => u.uid === me) || {}).cargo || "";
+      const c = await modal({title: "Meu cargo", body: `<label class="fld">Cargo ou função<input type="text" id="mc" value="${esc(curC)}" maxlength="60" placeholder="Ex.: Estagiário de engenharia, Encarregado, Técnico de qualidade" list="mc-l"><datalist id="mc-l">${["Engenheiro(a)", "Estagiário(a) de engenharia", "Técnico(a) de qualidade", "Mestre de obras", "Encarregado(a)", "Gestor(a) de obra", "Almoxarife", "Técnico(a) de segurança"].map(x => `<option>${x}</option>`).join("")}</datalist></label>`, actions: [{label: "Cancelar", value: null}, {label: "Salvar", cls: "primary", value: bg => $("#mc", bg).value.trim() || " "}]});
+      if (c == null) return; const val = c.trim(); patch(`users/${me}`, {cargo: val}); const u = team.find(x => x.uid === me); if (u) u.cargo = val; toast("Cargo salvo."); socList();
+    };
+    v.addEventListener("click", socClick);
+  }
+  const cargos = [...new Set(team.map(u => u.cargo).filter(Boolean))].sort();
+  $("#soc-cargo", v).innerHTML = `<option value="">Todos os cargos</option>${cargos.map(c => `<option ${c === socQ.cargo ? "selected" : ""}>${esc(c)}</option>`).join("")}`;
+  v._acc = acc; socList();
+  if (target) socOpen(target); else if (socCur) socOpen(convOther(convs.get(socCur) || {}) || null); else socThread();
+}
+function socList() {
+  const v = $("#view-social"), box = $("#soc-list"); if (!box) return; const acc = v._acc || {};
+  const q = norm(socQ.q).trim();
+  const people = team.filter(u => u.uid !== me).map(u => { const cid = convId(me, u.uid), c = convs.get(cid); return {...u, cid, c, perfil: socPerfil(u, acc), eqs: socEquipes(u, acc)}; })
+    .filter(u => (!q || norm(`${u.name} ${u.email} ${u.cargo || ""}`).includes(q)) && (!socQ.eq || u.eqs.includes(socQ.eq)) && (!socQ.cargo || u.cargo === socQ.cargo) && (!socQ.perfil || u.perfil === socQ.perfil))
+    .sort((a, b) => (b.c && b.c.ult ? b.c.ult.at : "").localeCompare(a.c && a.c.ult ? a.c.ult.at : "") || a.name.localeCompare(b.name));
+  const withC = people.filter(u => u.c && u.c.ult), rest = people.filter(u => !(u.c && u.c.ult));
+  const item = u => `<button type="button" class="soc-it ${socCur === u.cid ? "on" : ""} ${convUnread(u.c) ? "un" : ""}" data-soc="${esc(u.uid)}"><span class="soc-av">${esc((u.name || "?").charAt(0).toUpperCase())}</span><span class="soc-it-t"><b>${esc(u.name)}</b><small>${u.c && u.c.ult ? esc((u.c.ult.by === me ? "Você: " : "") + (u.c.ult.txt || TIPO_PREV[u.c.ult.tipo] || "")).slice(0, 80) : esc([u.cargo, u.perfil].filter(Boolean).join(" · ") || u.email)}</small></span><span class="soc-it-m">${u.c && u.c.ult ? `<small>${esc(socWhen(u.c.ult.at))}</small>` : ""}${convUnread(u.c) ? `<i></i>` : ""}</span></button>`;
+  box.innerHTML = (withC.length ? `<div class="soc-sec">Conversas</div>${withC.map(item).join("")}` : "") + (rest.length ? `<div class="soc-sec">${withC.length ? "Outras pessoas" : "Pessoas"}</div>${rest.map(item).join("")}` : "") || `<div class="soc-empty">Ninguém encontrado com esses filtros.</div>`;
+}
+function socWhen(at) { const d = new Date(at), t = new Date(); if (d.toDateString() === t.toDateString()) return d.toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"}); return d.toLocaleDateString("pt-BR", {day: "2-digit", month: "2-digit"}); }
+function socOpen(otherUid) {
+  if (!otherUid) { socCur = null; socThread(); return; }
+  const cid = convId(me, otherUid);
+  if (socCur !== cid) { if (socUnsub) { try { socUnsub(); } catch {} socUnsub = null; } socMsgs = []; socCur = cid; socSub(); }
+  $("#view-social").classList.add("soc-open"); socThread(); socList();
+}
+function socSub() {
+  const cid = socCur; if (!convs.has(cid)) return;
+  socUnsub = db.collection(`conversas/${cid}/msgs`).orderBy("at").onSnapshot(sn => { if (socCur !== cid) return; socMsgs = sn.docs.map(d => ({id: d.id, ...d.data()})); socDrawMsgs(); socMarkRead(); }, () => {});
+}
+function socMarkRead() { const c = convs.get(socCur); if (convUnread(c) && !$("#view-social").classList.contains("hidden")) patch(`conversas/${socCur}`, {lido: {[me]: nowIso()}}); }
+function socThread() {
+  const r = $("#soc-r"); if (!r) return;
+  if (!socCur) { r.innerHTML = `<div class="soc-ph"><b>Escolha uma pessoa para conversar</b>Mande mensagens, áudios, fotos, documentos, FVs, cobranças de pendências e relatórios.</div>`; return; }
+  const other = convOther(convs.get(socCur) || {membros: socCur.split("__")}), u = team.find(x => x.uid === other) || {name: names.get(other) || "Usuário", email: ""}, acc = $("#view-social")._acc || {};
+  r.innerHTML = `<div class="soc-h"><button type="button" class="soc-back" data-socback aria-label="Voltar">←</button><span class="soc-av">${esc((u.name || "?").charAt(0).toUpperCase())}</span><div><b>${esc(u.name)}</b><small>${esc([u.cargo, socPerfil(u, acc), socEquipes(u, acc).map(k => FRENTES[k].curto).join(", ")].filter(Boolean).join(" · "))}</small></div></div>
+    <div class="soc-msgs" id="soc-msgs"></div>
+    <div class="soc-comp"><button type="button" class="soc-ib" data-attach title="Anexar" aria-label="Anexar">📎</button><textarea id="soc-in" rows="1" placeholder="Escreva uma mensagem…" aria-label="Mensagem"></textarea><button type="button" class="soc-ib" data-rec title="Gravar áudio" aria-label="Gravar áudio">🎤</button><button type="button" class="btn primary soc-send" data-send aria-label="Enviar">Enviar</button></div>
+    <input type="file" id="soc-fimg" accept="image/*" multiple class="hidden"><input type="file" id="soc-fdoc" class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.xlsm,.ppt,.pptx,.txt,.csv,image/*,application/pdf">`;
+  const ta = $("#soc-in", r);
+  ta.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); socSendText(); } });
+  ta.addEventListener("input", () => { ta.style.height = "auto"; ta.style.height = Math.min(140, ta.scrollHeight) + "px"; });
+  $("#soc-fimg", r).onchange = async e => { const fs = [...e.target.files]; e.target.value = ""; for (const f of fs) await socSendFile(f, "foto"); };
+  $("#soc-fdoc", r).onchange = async e => { const f = e.target.files[0]; e.target.value = ""; if (f) await socSendFile(f, /^image\//.test(f.type) ? "foto" : "doc"); };
+  socDrawMsgs(); setTimeout(() => ta.focus(), 50);
+}
+function socDrawMsgs() {
+  const box = $("#soc-msgs"); if (!box) return; const c = convs.get(socCur) || {}, other = convOther(c), lidoOther = (c.lido || {})[other] || "";
+  if (!socMsgs.length) { box.innerHTML = `<div class="soc-ph sm">Nenhuma mensagem ainda. Diga oi! 👋</div>`; return; }
+  let lastDay = "";
+  box.innerHTML = socMsgs.slice(-300).map(m => {
+    const mine = m.by === me, day = new Date(m.at).toLocaleDateString("pt-BR", {weekday: "long", day: "2-digit", month: "long"});
+    const sep = day !== lastDay ? `<div class="soc-day">${esc(day)}</div>` : ""; lastDay = day;
+    return `${sep}<div class="soc-m ${mine ? "me" : ""}" data-mid="${esc(m.id)}"><div class="soc-b">${socBody(m)}<span class="soc-t">${new Date(m.at).toLocaleTimeString("pt-BR", {hour: "2-digit", minute: "2-digit"})}${mine ? `<i class="${lidoOther >= m.at ? "lido" : ""}" title="${lidoOther >= m.at ? "Lida" : "Enviada"}">✓✓</i>` : ""}</span>${mine ? `<button type="button" class="soc-del" data-sdelm title="Apagar mensagem" aria-label="Apagar mensagem">✕</button>` : ""}</div></div>`;
+  }).join("");
+  $$("img[data-blob]", box).forEach(im => mediaSrc({assetId: im.dataset.blob}).then(s => { if (s) im.src = s; }));
+  $$("audio[data-blob]", box).forEach(au => mediaSrc({assetId: au.dataset.blob}).then(s => { if (s) au.src = s; }));
+  box.scrollTop = box.scrollHeight;
+}
+function socBody(m) {
+  const t = m.txt ? `<div class="soc-tx">${esc(m.txt).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>')}</div>` : "";
+  if (m.tipo === "foto") return `<img class="soc-img" data-blob="${esc(m.blob)}" data-zoom alt="Foto">${m.fvRef ? `<small class="soc-ref">Foto da ${esc(m.fvRef.code)}${m.fvRef.local ? " · " + esc(m.fvRef.local) : ""}</small>` : ""}${t}`;
+  if (m.tipo === "audio") return `<audio controls preload="none" data-blob="${esc(m.blob)}"></audio>${m.dur ? `<small class="soc-ref">${Math.floor(m.dur / 60)}:${String(m.dur % 60).padStart(2, "0")}</small>` : ""}`;
+  if (m.tipo === "doc") return `<button type="button" class="soc-card soc-doc" data-dl="${esc(m.blob)}" data-nome="${esc(m.nome || "documento")}"><span class="soc-ci">📄</span><span><b>${esc(m.nome || "Documento")}</b><small>${m.tam ? (m.tam / 1024 > 1024 ? (m.tam / 1048576).toFixed(1) + " MB" : Math.round(m.tam / 1024) + " KB") : ""} · Baixar</small></span></button>${t}`;
+  if (m.tipo === "fv" && m.fv) return `<div class="soc-card"><span class="soc-ci">📋</span><span><b>${esc(m.fv.code)} · ${esc(m.fv.local || "")}</b><small>${esc(m.fv.title || "")}${m.fv.itemN ? ` · olhar o item <b>${esc(m.fv.itemN)}</b>` : ""}</small><button type="button" class="btn sm" data-gofv="${esc(m.fv.id)}" data-item="${esc(m.fv.itemN || "")}">Abrir FV</button></span></div>${t}`;
+  if (m.tipo === "cob" && m.cob) return `<div class="soc-card cob"><span class="soc-ci">⏰</span><span><b>Cobrança · ${esc({pda: "Ação do PDA", obs: "Problema da FV", f007: "Problema da F.007", fv: "FV"}[m.cob.kind] || "Pendência")}</b><small>${esc(m.cob.code || "")}${m.cob.local ? " · " + esc(m.cob.local) : ""}${m.cob.item ? " · item " + esc(m.cob.item) : ""}</small>${m.cob.texto ? `<span class="soc-cq">${esc(m.cob.texto)}</span>` : ""}${m.cob.prazo ? `<small>Prazo: <b>${esc(fmtDate(m.cob.prazo))}</b></small>` : ""}<button type="button" class="btn sm" data-gofv="${esc(m.cob.fv)}" data-tab="${esc(m.cob.kind === "pda" ? "pda" : m.cob.kind === "f007" ? "f007" : "fv")}" data-row="${esc(m.cob.row || "")}">Abrir</button></span></div>${t}`;
+  if (m.tipo === "rel" && m.rel) return `<div class="soc-card"><span class="soc-ci">📊</span><span><b>${esc(m.rel.titulo || "Relatório")}</b><small>${esc({gape: "Relatório do GAPE", planic: "Planilha de planicidade", solo: "Trecho de solos"}[m.rel.tipo] || "Relatório")}</small><button type="button" class="btn sm" data-gorel="${esc(m.rel.tipo)}|${esc(m.rel.id)}">Abrir</button></span></div>${t}`;
+  return t;
+}
+async function socEnsure() {
+  const cid = socCur; if (convs.has(cid)) return cid;
+  const other = cid.split("__").find(x => x !== me) || cid.split("__")[0], at = nowIso();
+  await db.doc(`conversas/${cid}`).set({membros: [me, other].sort(), at, lido: {}});
+  convs.set(cid, {membros: [me, other].sort(), at, lido: {}}); socSub(); return cid;
+}
+async function socSend(msg) {
+  if (!socCur) return; const at = nowIso();
+  try {
+    const cid = await socEnsure();
+    await create(`conversas/${cid}/msgs/${uid("m")}`, {...msg, by: me, at});
+    patch(`conversas/${cid}`, {ult: {txt: String(msg.txt || "").slice(0, 120), tipo: msg.tipo, by: me, at}, at, lido: {[me]: at}});
+  } catch (e) { toast("Não foi possível enviar. Confira a conexão e se as regras novas do Firebase foram publicadas."); }
+}
+function socSendText() { const ta = $("#soc-in"); const t = ta.value.trim(); if (!t) return; ta.value = ""; ta.style.height = "auto"; socSend({tipo: "texto", txt: t.slice(0, 4000)}); }
+async function socSendFile(f, tipo) {
+  if (!assets) return toast("Envio de arquivos indisponível.");
+  if (f.size > 650 * 1024 && tipo !== "foto") return toast(`${f.name}: o limite é 650 KB por arquivo (plano gratuito do Firebase). Mande um PDF menor ou o link do arquivo.`);
+  toast(tipo === "foto" ? "Enviando foto…" : "Enviando arquivo…");
+  const EXT = {pdf: "application/pdf", doc: "application/msword", docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", xls: "application/vnd.ms-excel", xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", xlsm: "application/vnd.ms-excel.sheet.macroEnabled.12", ppt: "application/vnd.ms-powerpoint", pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation", txt: "text/plain", csv: "text/csv"};
+  const ext = String(f.name || "").split(".").pop().toLowerCase(); if (tipo === "doc" && EXT[ext] && f.type !== EXT[ext]) f = new File([f], f.name, {type: EXT[ext]});
+  try { const blob = tipo === "foto" ? await compress(f) : f; const a = await assets.upload(blob); await socSend({tipo, blob: a.id, nome: f.name || "", tam: f.size || 0, mime: f.type || ""}); }
+  catch (e) { toast(e && e.code === "bad_type" ? "Esse tipo de arquivo não é aceito. Envie PDF, Word, Excel, PowerPoint, texto ou imagem." : e && e.code === "too_large" ? "Arquivo grande demais para enviar." : "Não foi possível enviar o arquivo."); }
+}
+async function socRecord(btn) {
+  if (socRec) { socRec.stop(); return; }
+  if (!navigator.mediaDevices || !window.MediaRecorder) return toast("Este aparelho não grava áudio pelo navegador.");
+  let stream; try { stream = await navigator.mediaDevices.getUserMedia({audio: true}); } catch { return toast("Permita o uso do microfone para gravar áudio."); }
+  const mime = ["audio/webm;codecs=opus", "audio/webm", "audio/mp4", "audio/ogg"].find(t => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) || "";
+  const rec = new MediaRecorder(stream, mime ? {mimeType: mime, audioBitsPerSecond: 24000} : {}), parts = [], t0 = Date.now();
+  socRec = rec; btn.classList.add("rec");
+  const tick = setInterval(() => { const s = Math.round((Date.now() - t0) / 1000); btn.textContent = `■ ${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; if (s >= 120) rec.stop(); }, 250);
+  rec.ondataavailable = e => { if (e.data && e.data.size) parts.push(e.data); };
+  rec.onstop = async () => {
+    clearInterval(tick); stream.getTracks().forEach(t => t.stop()); socRec = null; btn.classList.remove("rec"); btn.textContent = "🎤";
+    const dur = Math.round((Date.now() - t0) / 1000); if (dur < 1 || !parts.length) return;
+    const blob = new Blob(parts, {type: (rec.mimeType || "audio/webm").split(";")[0]});
+    try { const a = await assets.upload(blob); await socSend({tipo: "audio", blob: a.id, dur, mime: blob.type}); } catch { toast("Não foi possível enviar o áudio."); }
+  };
+  rec.start(500);
+}
+async function socPickFv(title) {
+  const L = [...fvs.entries()].map(([id, f]) => ({id, ...f})).filter(f => !f.deleted && !f.trashAt).sort((a, b) => String(b.updatedAt || b.createdAt).localeCompare(String(a.updatedAt || a.createdAt)));
+  return modal({title, wide: true, body: `<input type="search" id="pf-q" placeholder="Buscar por código, título ou local…" autocomplete="off" style="width:100%"><div class="pf-l" id="pf-l">${L.map(f => `<button type="button" class="pf-i" data-pf="${esc(f.id)}"><b>${esc(f.code)}</b><span>${esc(f.title || "")} · ${esc(f.local || "")}</span><small>${esc((FRENTES[fvFrente(f)] || {}).curto || "")} · ${f.status === "fechada" ? "Fechada" : "Aberta"}</small></button>`).join("") || `<div class="soc-empty">Nenhuma FV.</div>`}</div>`,
+    onOpen: (bg, done) => { $("#pf-q", bg).oninput = e => { const q = norm(e.target.value); $$(".pf-i", bg).forEach(b => b.classList.toggle("hidden", !!q && !norm(b.textContent).includes(q))); }; bg.addEventListener("click", e => { const b = e.target.closest("[data-pf]"); if (b) { bg._pick = b.dataset.pf; $(".acts .primary", bg).click(); } }); },
+    actions: [{label: "Cancelar", value: null}, {label: "Escolher", cls: "primary hidden", value: bg => bg._pick || null}]});
+}
+async function socAttach(anchor) {
+  const r = await modal({title: "Anexar", body: `<div class="soc-att">
+      <button type="button" data-a="img"><span>📷</span><b>Foto do aparelho</b><small>Câmera ou galeria</small></button>
+      <button type="button" data-a="fvimg"><span>🖼</span><b>Foto de uma FV</b><small>Da aba de fotos</small></button>
+      <button type="button" data-a="doc"><span>📄</span><b>Documento</b><small>PDF, Word, Excel… até 650 KB</small></button>
+      <button type="button" data-a="fv"><span>📋</span><b>Encaminhar FV</b><small>Pedir para olhar um item</small></button>
+      <button type="button" data-a="cob"><span>⏰</span><b>Cobrar pendência</b><small>PDA, problema da FV ou F.007</small></button>
+      <button type="button" data-a="rel"><span>📊</span><b>Relatório</b><small>GAPE, planicidade, solos</small></button></div>`,
+    onOpen: bg => bg.addEventListener("click", e => { const b = e.target.closest("[data-a]"); if (b) { bg._a = b.dataset.a; $(".acts .primary", bg).click(); } }),
+    actions: [{label: "Fechar", value: null}, {label: "ok", cls: "primary hidden", value: bg => bg._a || null}]});
+  if (!r) return;
+  if (r === "img") return $("#soc-fimg").click();
+  if (r === "doc") return $("#soc-fdoc").click();
+  if (r === "fvimg") {
+    const id = await socPickFv("Foto de qual FV?"); if (!id) return; const f = fvs.get(id);
+    let ph = []; try { ph = (await db.collection(`fvs/${id}/photos`).get()).docs.map(d => ({id: d.id, ...d.data()})).filter(p => !p.trashAt); } catch {}
+    if (!ph.length) return toast("Essa FV não tem fotos.");
+    const sel = await modal({title: `Fotos da ${f.code}`, wide: true, body: `<p class="sub" style="margin:0 0 8px">Toque nas fotos para escolher.</p><div class="pf-g">${ph.map(p => `<button type="button" class="pf-ph" data-ph="${esc(p.id)}"><img data-blob="${esc(p.assetId || "")}" alt=""><small>${esc([(f.items || []).find(i => i.id === p.item) ? "item " + (f.items || []).find(i => i.id === p.item).n : "", p.local].filter(Boolean).join(" · "))}</small></button>`).join("")}</div>`,
+      onOpen: bg => { $$("img[data-blob]", bg).forEach(im => mediaSrc({assetId: im.dataset.blob}).then(s => { if (s) im.src = s; })); bg.addEventListener("click", e => { const b = e.target.closest("[data-ph]"); if (b) b.classList.toggle("on"); }); },
+      actions: [{label: "Cancelar", value: null}, {label: "Enviar fotos", cls: "primary", value: bg => $$(".pf-ph.on", bg).map(b => b.dataset.ph)}]});
+    if (!sel || !sel.length) return;
+    for (const pid of sel) { const p = ph.find(x => x.id === pid); if (p && p.assetId) await socSend({tipo: "foto", blob: p.assetId, fvRef: {id, code: f.code, local: f.local || ""}}); }
+    return;
+  }
+  if (r === "fv") {
+    const id = await socPickFv("Encaminhar qual FV?"); if (!id) return; const f = fvs.get(id);
+    const x = await modal({title: `Encaminhar ${f.code}`, body: `<label class="fld">Item para olhar (opcional)<select id="ef-it"><option value="">A FV inteira</option>${(f.items || []).map(i => `<option value="${esc(i.n)}">${esc(i.n)} · ${esc(splitLbl(i.t)[0]).slice(0, 70)}</option>`).join("")}</select></label><label class="fld" style="margin-top:10px">Mensagem<textarea id="ef-t" rows="2" placeholder="Ex.: confere esse item pra mim?"></textarea></label>`,
+      actions: [{label: "Cancelar", value: null}, {label: "Encaminhar", cls: "primary", value: bg => ({it: $("#ef-it", bg).value, t: $("#ef-t", bg).value.trim()})}]});
+    if (!x) return; return socSend({tipo: "fv", txt: x.t, fv: {id, code: f.code, local: f.local || "", title: f.title || "", itemN: x.it}});
+  }
+  if (r === "cob") {
+    const id = await socPickFv("Cobrar pendência de qual FV?"); if (!id) return; const f = fvs.get(id);
+    let obs = [], pda = []; try { [obs, pda] = await Promise.all(["obs", "pda"].map(async k => (await db.collection(`fvs/${id}/${k}`).get()).docs.map(d => ({id: d.id, ...d.data()})))); } catch {}
+    const itN = iid => ((f.items || []).find(i => i.id === iid) || {}).n || "";
+    const opts = [
+      ...pda.filter(d => normPdca(d.status) !== PDA_DONE && String(d.problema || d.acao || "").trim()).map(d => ({k: "pda", row: d.id, texto: String(d.problema || d.acao).trim(), prazo: d.prazo || "", lbl: `PDA · ${String(d.problema || d.acao).trim().slice(0, 70)}${d.prazo ? " · prazo " + fmtDate(d.prazo) : ""}${d.responsavel ? " · " + d.responsavel : ""}`})),
+      ...obs.filter(o => String(o.problema || "").replace(/^[^:\n]{1,40}:\s*/, "").trim() && !String(o.solucao || "").trim()).map(o => ({k: o.sheet === "f007" ? "f007" : "obs", row: o.id, item: itN(o.item), texto: String(o.problema).trim(), lbl: `${o.sheet === "f007" ? "F.007" : "FV"} · item ${itN(o.item) || "—"} · ${String(o.problema).trim().slice(0, 70)} (sem solução)`})),
+      {k: "fv", row: "", texto: `${stats(f).V || 0} a verificar, ${stats(f).R || 0} reprovado(s)`, lbl: `A FV inteira (${stats(f).V || 0} a verificar, ${stats(f).R || 0} reprovado(s))`}];
+    const x = await modal({title: `Cobrar pendência · ${f.code}`, body: `<div class="pf-l">${opts.map((o, i) => `<label class="pf-i pf-r"><input type="radio" name="cb" value="${i}" ${i === 0 ? "checked" : ""}><span>${esc(o.lbl)}</span></label>`).join("")}</div><label class="fld" style="margin-top:10px">Mensagem<textarea id="cb-t" rows="2" placeholder="Ex.: consegue resolver até sexta?"></textarea></label>`,
+      actions: [{label: "Cancelar", value: null}, {label: "Cobrar", cls: "primary", value: bg => ({o: opts[+($("[name=cb]:checked", bg) || {value: 0}).value], t: $("#cb-t", bg).value.trim()})}]});
+    if (!x) return; const o = x.o;
+    socSend({tipo: "cob", txt: x.t, cob: {kind: o.k, fv: id, code: f.code, local: f.local || "", row: o.row, item: o.item || "", texto: String(o.texto).slice(0, 300), prazo: o.prazo || ""}});
+    logAct(id, `Cobrou ${names.get(convOther(convs.get(socCur) || {membros: socCur.split("__")})) || "alguém"} pelo Social (${o.k === "pda" ? "ação do PDA" : o.k === "fv" ? "FV" : "problema"}${o.item ? " do item " + o.item : ""})`);
+    return;
+  }
+  if (r === "rel") {
+    const L = [...[...gapes.entries()].filter(([, g]) => !g.trashAt).map(([id, g]) => ({tipo: "gape", id, titulo: g.titulo || (g.head && g.head.torre ? "GAPE – Torre " + g.head.torre : "Relatório GAPE")})),
+      ...[...planics.entries()].filter(([, p]) => !p.trashAt).map(([id, p]) => ({tipo: "planic", id, titulo: p.nome || "Planilha de planicidade"})),
+      ...[...((typeof solos !== "undefined" && solos) || new Map()).entries()].filter(([, s0]) => !s0.trashAt).map(([id, s0]) => ({tipo: "solo", id, titulo: s0.nome || "Trecho de solos"}))];
+    if (!L.length) return toast("Ainda não há relatórios para encaminhar.");
+    const x = await modal({title: "Encaminhar relatório", wide: true, body: `<input type="search" id="rl-q" placeholder="Buscar…" autocomplete="off" style="width:100%"><div class="pf-l">${L.map((o, i) => `<label class="pf-i pf-r"><input type="radio" name="rl" value="${i}" ${i === 0 ? "checked" : ""}><span><b>${esc(o.titulo)}</b> <small>${esc({gape: "GAPE", planic: "Planicidade", solo: "Solos"}[o.tipo])}</small></span></label>`).join("")}</div><label class="fld" style="margin-top:10px">Mensagem<textarea id="rl-t" rows="2"></textarea></label>`,
+      onOpen: bg => { $("#rl-q", bg).oninput = e => { const q = norm(e.target.value); $$(".pf-r", bg).forEach(b => b.classList.toggle("hidden", !!q && !norm(b.textContent).includes(q))); }; },
+      actions: [{label: "Cancelar", value: null}, {label: "Encaminhar", cls: "primary", value: bg => ({o: L[+($("[name=rl]:checked", bg) || {value: 0}).value], t: $("#rl-t", bg).value.trim()})}]});
+    if (!x) return; return socSend({tipo: "rel", txt: x.t, rel: x.o});
+  }
+}
+async function socClick(e) {
+  const it = e.target.closest("[data-soc]"); if (it) { history.replaceState(null, "", "#social-" + it.dataset.soc); return socOpen(it.dataset.soc); }
+  if (e.target.closest("[data-socback]")) { $("#view-social").classList.remove("soc-open"); return; }
+  if (e.target.closest("[data-send]")) return socSendText();
+  if (e.target.closest("[data-attach]")) return socAttach();
+  const rb = e.target.closest("[data-rec]"); if (rb) return socRecord(rb);
+  const z = e.target.closest("img[data-zoom]"); if (z && z.src) { const lb = document.createElement("div"); lb.className = "lightbox"; lb.innerHTML = `<button class="btn" type="button">Fechar</button><img alt="Foto" src="${z.src}">`; lb.onclick = () => lb.remove(); document.body.appendChild(lb); return; }
+  const dl = e.target.closest("[data-dl]"); if (dl) { const src = await mediaSrc({assetId: dl.dataset.dl}); if (!src) return toast("Não foi possível baixar."); const a = document.createElement("a"); a.href = src; a.download = dl.dataset.nome || "documento"; document.body.appendChild(a); a.click(); a.remove(); return; }
+  const go = e.target.closest("[data-gofv]"); if (go) {
+    const id = go.dataset.gofv; if (!fvs.has(id)) return toast("Essa FV não existe mais.");
+    const tab = go.dataset.tab, row = go.dataset.row, item = go.dataset.item;
+    location.hash = "fv-" + id;
+    setTimeout(() => { if (!cur || cur.id !== id) return;
+      if (tab && tab !== "fv") setTab(tab);
+      if (row) { const tr = $(`tr[data-id="${row}"]`); if (tr) { tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); tr.scrollIntoView({block: "center"}); } }
+      if (item) toast(`Olhar o item ${item}.`); }, 900);
+    return;
+  }
+  const gr = e.target.closest("[data-gorel]"); if (gr) { const [t, id] = gr.dataset.gorel.split("|"); location.hash = (t === "gape" ? "gape-" : t === "planic" ? "planic-" : "solo-") + id; return; }
+  const dm = e.target.closest("[data-sdelm]"); if (dm) { const mid = dm.closest("[data-mid]").dataset.mid; if (await confirmBox("Apagar mensagem?", "A mensagem some para as duas pessoas.", "Apagar", true)) remove(`conversas/${socCur}/msgs/${mid}`).catch(() => {}); }
+}
+
 /* ---------- rotas e filtros ---------- */
 function route() {
   if (cur && location.hash !== "#fv-" + cur.id) { const P = ncPend(); if (P.length) { const tg = location.hash; history.replaceState(null, "", "#fv-" + cur.id); ncBlock(P, tg); return; } }
@@ -7493,28 +7781,29 @@ function route() {
   if (!ensureObra()) { location.replace("#sel"); return; }
   if (h.startsWith("eq-")) { const k = h.slice(3); if (!FRENTES[k] || !canEq(k)) { location.replace("#obra-" + ctx.obra); return; } setFrente(k); showOnly("eqhome"); renderEqHome(); renderSide("inicio"); renderCtxNav(); window.scrollTo(0, 0); closeFv(); closeSolo(); closePlanic(); closeGape(); return; }
   if (FV_EQ.includes(h)) { setFrente(h); h = ""; }
-  const isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-"), isPlanic = h === "planic" || h.startsWith("planic-");
+  const isFv = h.startsWith("fv-"), isTpl = h === "modelos", isFolder = h.startsWith("pasta-"), isTeam = h === "equipe", isGape = h === "gape" || h.startsWith("gape-"), isPainel = h === "painel", isLix = h === "lixeira", isSolos = h === "solos" || h === "solos-acomp" || h.startsWith("solo-"), isPlanic = h === "planic" || h.startsWith("planic-"), isSocial = h === "social" || h.startsWith("social-");
   if (isSolos) setFrente("infra"); else if (isPlanic) setFrente("quali"); else if (isGape) setFrente("gape");
   else if (isFolder && foldersLoaded) setFrente(frenteOfFolder(h.slice(6)));
   else if (isFv && fvs.get(h.slice(3))) setFrente(fvFrente(fvs.get(h.slice(3))));
   else if ((h === "" || isTpl || isPainel) && !FRENTES[curFrente].fv) setFrente("quali");
   if (!canEq(curFrente) && !isTeam && !isLix) { location.replace("#obra-" + ctx.obra); return; }
   if (!isFv) { curFolder = isFolder ? h.slice(6) : ""; renderList(); }
-  const isList = !(isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix || isPlanic);
-  showOnly(isTeam ? "team" : isList ? "list" : isLix ? "lix" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "tpl" : "fv");
+  const isList = !(isFv || isTpl || isTeam || isGape || isPainel || isSolos || isLix || isPlanic || isSocial);
+  showOnly(isSocial ? "social" : isTeam ? "team" : isList ? "list" : isLix ? "lix" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "tpl" : "fv");
   if (isTeam) renderTeam();
   if (isLix && db) { renderLixeira(); sweepTrash(); }
   if (isSolos && db) { if (h.startsWith("solo-")) openSolo(h.slice(5)); else { closeSolo(); solTab = h === "solos-acomp" ? "acomp" : "trechos"; renderSolos(); } } else closeSolo();
   if (isPlanic && db) { if (h.startsWith("planic-")) openPlanic(h.slice(7)); else { closePlanic(); renderPlanicList(); } } else closePlanic();
   if (isPainel) renderPainel();
+  if (isSocial && db) renderSocial(h.startsWith("social-") ? h.slice(7) : null);
   if (isGape && db) { if (h.startsWith("gape-")) openGape(h.slice(5)); else { closeGape(); renderGapeList(); } } else closeGape();
   if (isTpl) renderTemplates();
-  renderSide(isTeam ? "gestao" : isLix ? "lixeira" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "modelos" : "fvs");
+  renderSide(isSocial ? "social" : isTeam ? "gestao" : isLix ? "lixeira" : isSolos ? "solos" : isPlanic ? "planic" : isPainel ? "painel" : isGape ? "gape" : isTpl ? "modelos" : "fvs");
   renderCtxNav();
   if (isFv && db) openFv(h.slice(3)); else closeFv();
   if (!isFv) window.scrollTo(0, 0);
 }
-function showOnly(k) { ["sel", "eqhome", "team", "list", "lix", "solos", "planic", "painel", "gape", "tpl", "fv"].forEach(v => { const el = $("#view-" + v); if (el) el.classList.toggle("hidden", v !== k); }); }
+function showOnly(k) { ["sel", "eqhome", "team", "list", "lix", "solos", "planic", "painel", "gape", "tpl", "fv", "social"].forEach(v => { const el = $("#view-" + v); if (el) el.classList.toggle("hidden", v !== k); }); }
 function renderFbar() {}
 window.addEventListener("hashchange", route);
 $("#side-tg").onclick = () => document.body.classList.toggle("side-open");
@@ -7569,7 +7858,7 @@ async function init() {
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
     renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
-    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); }
+    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); }
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     const first = !foldersLoaded; folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
