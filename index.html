@@ -1016,6 +1016,20 @@ a.ntf-b{text-decoration:none}
 .soc-card.prob{border-left:4px solid #ef6c00}.pb-st{font-size:10.5px;font-weight:800;border-radius:999px;padding:1px 7px;margin-left:4px}.pb-st.aberto{background:#fff1e0;color:#b35a00}.pb-st.ok{background:#e7f4e8;color:#2e7d32}
 .help-fab{position:fixed;right:22px;bottom:22px;z-index:55;width:52px;height:52px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:24px;font-weight:800;box-shadow:0 8px 22px rgba(225,37,27,.35);cursor:pointer}
 .help-fab:hover{transform:scale(1.06)}
+
+.rf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.rf-t{display:block;font-size:12px;margin-bottom:4px}.rf-box{border:1px dashed var(--line);border-radius:8px;min-height:140px;display:flex;flex-wrap:wrap;gap:4px;align-items:center;justify-content:center;padding:6px;text-align:center}
+.rf-box img{max-width:100%;max-height:220px;border-radius:6px}.rf-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.ph-tag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10.5px}.ph-tag.dep{background:#e8f5e9;color:#1b5e20}
+.pf-q{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;margin-bottom:8px}.pf-q label{display:flex;gap:6px;align-items:center}.pf-h{font-size:13px;margin:10px 0 6px;text-transform:uppercase}
+.pf-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;max-height:46vh;overflow:auto}.pf-c{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer;font-size:11px;background:var(--panel)}
+.pf-c img{width:100%;height:90px;object-fit:cover;display:block;background:#eee}.pf-c span{display:block;padding:4px 6px}.pf-c input{position:absolute;top:6px;left:6px;width:20px;height:20px}.pf-tg{display:flex;gap:8px;margin-top:8px}
+#print-root .ad-wrap{display:grid;gap:10px;margin-top:8px}#print-root .ad-b{border:1px solid #000;break-inside:avoid}#print-root .ad-h{padding:5px 8px;font:10.5px/1.4 var(--f);border-bottom:1px solid #000}#print-root .ad-h span{color:#222}
+#print-root .ad-g{display:grid;grid-template-columns:1fr 1fr}#print-root .ad-c+.ad-c{border-left:1px solid #000}#print-root .ad-t{font:700 10px var(--f);padding:3px 8px;background:#eee;border-bottom:1px solid #000}
+#print-root .ad-c img{width:100%;height:270px;object-fit:contain;display:block;background:#fff}#print-root .ad-0{height:270px;display:flex;align-items:center;justify-content:center;color:#777;font:11px var(--f)}
+.lic-list{display:grid;gap:8px}.lic-row{display:flex;gap:10px;align-items:flex-start;justify-content:space-between;border:1px solid var(--line);border-radius:8px;padding:10px;flex-wrap:wrap}.lic-row.exp{opacity:.6}
+.lic-i small{display:block;color:var(--muted)}.lic-eqs{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.lic-eq{display:inline-flex;gap:4px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:3px 4px 3px 10px;font-size:12px;background:#e8f5e9}
+.lic-eq.exp{background:#f1f1f1;text-decoration:line-through}.lic-eq small{color:var(--muted)}.lic-eq button{border:0;background:none;cursor:pointer;font-size:15px;color:#666;padding:0 6px}.lic-pz{display:flex;gap:6px;flex-wrap:wrap}
+body.dark .lic-eq{background:var(--panel)}
 .ia-fab{position:fixed;right:22px;bottom:84px;z-index:55;width:52px;height:52px;border-radius:50%;border:0;background:linear-gradient(135deg,#1a3c8f,#6a1b9a);color:#fff;box-shadow:0 8px 22px rgba(26,60,143,.35);cursor:pointer;display:flex;align-items:center;justify-content:center}
 .ia-fab:hover{transform:scale(1.06)}body.has-ia .help-menu{bottom:146px}body.in-social .ia-fab{bottom:154px}body.in-social.has-ia .help-menu{bottom:216px}
 .ia-panel{position:fixed;right:22px;bottom:22px;z-index:70;width:min(420px,calc(100vw - 30px));height:min(660px,calc(100vh - 100px));background:var(--panel,#fff);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden}
@@ -1385,7 +1399,7 @@ function writeErr(e, path = "") {
   else toast("Não foi possível salvar agora. Verifique a conexão e tente de novo.");
 }
 function setReadOnly(msg) {
-  canWrite = false; banner("ro", msg, "warn");
+  canWrite = false; if (!licNow()) banner("ro", msg, "warn");
   $("#btn-new").disabled = true; $("#btn-new-tpl").disabled = true; $("#btn-new-folder").disabled = true; $("#btn-edit-folder").disabled = true;
   if (cur) renderFvAll(true);
 }
@@ -1420,11 +1434,13 @@ function setVal(el, v) {
 }
 /* campo de documento existente */
 function bind(el, path, field, fvId, actLabel) {
+  el.addEventListener("focus", () => { if (el._prev === undefined) el._prev = el.value; });
   const save = () => {
     clearTimeout(el._t); if (!el._dirty) return; el._dirty = false;
     patch(path, stamp({[field]: el.value}));
     if (path.split("/").length > 2) patch(`fvs/${fvId}`, stamp({}));
-    logAct(fvId, actLabel);
+    const lab = typeof actLabel === "function" ? actLabel(el._prev ?? "", el.value) : actLabel; el._prev = el.value;
+    if (lab) logAct(fvId, lab);
   };
   el.addEventListener("input", () => { el._dirty = true; autosize(el); clearTimeout(el._t); el._t = setTimeout(save, 800); });
   el.addEventListener("change", () => { el._dirty = true; save(); });
@@ -1844,7 +1860,7 @@ function renderBar(fv) {
         onOpen: bg => { $("[data-mall]", bg).onclick = () => $$(".pf-l input", bg).forEach(c => c.checked = true); $("[data-mnone]", bg).onclick = () => $$(".pf-l input", bg).forEach(c => c.checked = false); },
         actions: [{label: "Cancelar", value: null}, {label: "Baixar PDF", cls: "primary", validate: bg => { if (!$$(".pf-l input:checked", bg).length) { toast("Marque pelo menos um mapeamento."); return false; } return true; }, value: bg => $$(".pf-l input:checked", bg).map(c => c.value)}]});
       if (r) exportPdf(true, r);
-    }; $("#b-pdf").onclick = () => exportPdf(false);
+    }; $("#b-pdf").onclick = async () => { const r = cur && cur.photos.length ? await pdfFotosEscolha() : {fotos: null}; if (r) exportPdf(false, null, r.fotos); };
     $("#b-folder").onchange = e => { const id = cur.id, v = e.target.value; patch(`fvs/${id}`, stamp({folder: v})); logAct(id, `Moveu para a pasta ${v ? pathText(v) : "Início"}`); toast(`FV movida para ${v ? pathText(v) : "Início"}.`); };
   }
   $("#b-code").textContent = `${fv.code} · ${CATS[fv.cat] || ""}${fv.obra ? " · " + fv.obra : ""}`;
@@ -1880,7 +1896,7 @@ function dadosBlock() {
 const HF_LBL = {obra:"obra", abertura:"data de abertura", fechamento:"data de fechamento", local:"local", conferente:"conferente", gestor:"gestor(a)", almoxarife:"almoxarife"};
 function wireHeaderFields(root) {
   const id = cur.id;
-  $$("[data-hf]", root).forEach(el => bind(el, `fvs/${id}`, el.dataset.hf, id, `Alterou ${HF_LBL[el.dataset.hf]}`));
+  $$("[data-hf]", root).forEach(el => { const f = el.dataset.hf; bind(el, `fvs/${id}`, f, id, f === "abertura" || f === "fechamento" ? (a, b) => a === b ? "" : `Alterou a ${HF_LBL[f]} de ${a ? fmtDate(a) : "(vazia)"} para ${b ? fmtDate(b) : "(vazia)"}` : `Alterou ${HF_LBL[f]}`); });
   $$('[data-hf="local"]', root).forEach(el => localPicker(el));
   root.addEventListener("click", e => {
     const fv = fvs.get(id); if (!fv) return;
@@ -1898,7 +1914,7 @@ function wireHeaderFields(root) {
 function syncHeaderFields(root, fv) {
   const lk = locked(fv);
   $$('select[data-hf="gestor"]', root).forEach(el => { const v = fv.gestor || ""; if (el._v !== v || !el.options.length) { el.innerHTML = (v ? "" : `<option value="" selected>—</option>`) + gestOpts(v); el._v = v; } });
-  $$("[data-hf]", root).forEach(el => { setVal(el, fv[el.dataset.hf]); el.disabled = lk || el.hasAttribute("data-fixo"); });
+  $$("[data-hf]", root).forEach(el => { setVal(el, fv[el.dataset.hf]); if (document.activeElement !== el && !el._dirty) el._prev = el.value; el.disabled = lk || el.hasAttribute("data-fixo"); });
   $$("[data-sign]", root).forEach(td => {
     const a = fv.assinatura;
     td.innerHTML = a && a.by ? `<div class="sign"><span class="ok">✓ Assinado por ${who(a.by)}<br><span style="font-weight:500;color:#000">${fmtFull(a.at)}</span></span>${canWrite && (a.by === me || isOwner) ? `<button type="button" data-signact="unsign">Remover</button>` : ""}</div>`
@@ -2043,6 +2059,7 @@ function showPop(btn, itId, cid) {
     if (b.hasAttribute("data-pic")) { setTab("photos"); return pickPhotos({item: itId, local: col.name}); }
     const v = b.dataset.v; if (v === curV) return;
     const ck = itId + "_" + cid;
+    if (v === "AR") return reinspFoto(id, it, col, ck);
     patch(`fvs/${id}`, stamp({cells: {[ck]: v}}));
     if (v === "R") ncTrack(id, ck, {itId, n: it.n, local: col.name}); else if (ncSess.get(id)) ncSess.get(id).delete(ck);
     logAct(id, `${it.n} em ${col.name}: ${ST[v].name}`);
@@ -2631,7 +2648,7 @@ function renderPhotos(fv) {
       <div class="photos" id="pic-grid"></div><div id="pic-empty"></div>`;
     $("#add-pic", box).onclick = () => pickPhotos({}, "gal");
     $("#add-cam", box).onclick = () => pickPhotos({}, "cam");
-    ["#pic-input", "#cam-input"].forEach(sel => $(sel, box).onchange = e => { uploadPhotos([...e.target.files], box._ctx || {}); e.target.value = ""; box._ctx = {}; });
+    ["#pic-input", "#cam-input"].forEach(sel => $(sel, box).onchange = e => { uploadPhotos([...e.target.files], {...(box._ctx || {}), cam: sel === "#cam-input"}); e.target.value = ""; box._ctx = {}; });
     const drop = $("#drop", box);
     drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
     drop.addEventListener("dragleave", () => drop.classList.remove("over"));
@@ -2670,7 +2687,7 @@ function renderPhotos(fv) {
     $$("[data-f]", el).forEach(i => i.disabled = lk);
     $("[data-del]", el).disabled = lk;
     $(".ph-links", el).innerHTML = photoLinks(d).map(l => `<span>📎 ${esc(l)}</span>`).join("");
-    $("[data-foot]", el).innerHTML = `Enviada por ${who(d.createdBy)} ${fmtWhen(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editada por ${who(d.updatedBy)} ${fmtWhen(d.updatedAt)}` : ""}`;
+    $("[data-foot]", el).innerHTML = `${d.fase === "depois" ? `<b class="ph-tag dep">DEPOIS · reinspeção</b> ` : ""}${d.tirada ? `Tirada em ${esc(fmtDH(new Date(d.tirada)))}${d.gps ? ` · 📍 ${d.gps.lat.toFixed(5)}, ${d.gps.lng.toFixed(5)}` : ""} · ` : ""}Enviada por ${who(d.createdBy)} ${fmtWhen(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editada por ${who(d.updatedBy)} ${fmtWhen(d.updatedAt)}` : ""}`;
   });
   fillNames();
 }
@@ -2695,20 +2712,21 @@ async function compress(file) {
   } catch { return file; }
 }
 async function uploadPhotos(files, ctx) {
-  if (!files.length || !cur || !assets || !canWrite) return;
-  const id = cur.id; let ok = 0;
+  if (!files.length || !cur || !assets || !canWrite) return [];
+  const id = cur.id; let ok = 0; const ids = [];
   for (const [i, f] of files.entries()) {
     toast(`Enviando foto ${i + 1} de ${files.length}…`);
     try {
       if (!/^image\/(jpeg|png|webp|gif|bmp)$/i.test(f.type || "")) { toast(`${f.name || "Arquivo"}: formato não aceito. Envie fotos em JPG ou PNG.`); continue; }
-      const blob = await compress(f);
+      const {blob, meta} = await prepPhoto(f, ctx);
       if (blob.size > 20 * 1024 * 1024) { toast(`${f.name}: arquivo grande demais (máx. 20 MB).`); continue; }
-      const a = await assets.upload(blob), at = nowIso();
-      await create(`fvs/${id}/photos/${uid("ph")}`, {assetId: a.id, url: a.url || "", item: ctx.item || "", local: ctx.local || "", nota: "", ...(ctx.links ? {links: ctx.links} : {}), createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
-      ok++;
+      const a = await assets.upload(blob), at = nowIso(), pid = uid("ph");
+      await create(`fvs/${id}/photos/${pid}`, {assetId: a.id, url: a.url || "", item: ctx.item || "", local: ctx.local || "", nota: "", ...(ctx.links ? {links: ctx.links} : {}), ...(ctx.cell ? {cell: ctx.cell} : {}), ...(ctx.fase ? {fase: ctx.fase} : {}), ...meta, createdBy: me, createdAt: at, updatedBy: me, updatedAt: at});
+      ok++; ids.push(pid);
     } catch (e) { toast(e && e.code === "bad_type" ? "Formato de foto não aceito. Envie JPG ou PNG." : "Não foi possível enviar uma das fotos. Tente de novo."); }
   }
-  if (ok) { touchFv(id, `Adicionou ${ok} foto${ok > 1 ? "s" : ""}`); toast(`${ok} foto${ok > 1 ? "s enviadas" : " enviada"}.`); }
+  if (ok) { touchFv(id, ctx.fase === "depois" ? "Adicionou a foto do depois (reinspeção)" : `Adicionou ${ok} foto${ok > 1 ? "s" : ""}`); toast(`${ok} foto${ok > 1 ? "s enviadas" : " enviada"}.`); }
+  return ids;
 }
 function lightbox(pid) {
   const p = cur.photos.find(x => x.id === pid); if (!p) return;
@@ -4744,7 +4762,7 @@ function renderPainel() {
   const fvLink = f => `<a href="#fv-${esc(f.id)}"><b>${esc(f.code || "")}</b> ${esc(f.local || f.title || "")}</a>`;
   const tblHead = cols => `<thead><tr>${cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>`;
   v.innerHTML = `<div class="page-title"><div><h1>Painel da obra</h1><div class="sub">Resumo das fichas de verificação${pnl.folder ? " · " + esc(pathText(pnl.folder)) : ""}${pnl.cat ? " · " + esc(CATS[pnl.cat]) : ""} · atualizado em ${fmtFull(nowIso())}</div></div>
-      <div class="g-acts noprint"><button class="btn dark" type="button" id="pn-pdf">Baixar PDF</button></div></div>
+      <div class="g-acts noprint"><button class="btn" type="button" id="pn-xls" title="Dados das FVs e dos ensaios em planilha, para relatórios da regional">Exportar Excel</button><button class="btn dark" type="button" id="pn-pdf">Baixar PDF</button></div></div>
     <div class="pn-filters noprint">
       <label class="fld">Pasta<select id="pn-folder"><option value="">Todas as pastas</option>${fOpts.map(o => `<option value="${esc(o.id)}" ${o.id === pnl.folder ? "selected" : ""}>${esc(o.p)}</option>`).join("")}</select></label>
       <label class="fld">Categoria<select id="pn-cat"><option value="">Todas</option>${Object.entries(CATS).map(([k, n]) => `<option value="${k}" ${k === pnl.cat ? "selected" : ""}>${esc(n)}</option>`).join("")}</select></label>
@@ -4774,6 +4792,7 @@ function renderPainel() {
       ${byFv.length ? `<table class="pn-t">${tblHead(["FV", "Pasta", "Status", "Situação", "% aprov.", "Reprov.", "A verificar", "Dias"])}<tbody>${byFv.map(x => `<tr><td>${fvLink(x.f)}<div class="sub" style="font-size:11px">${esc(x.f.title || "")}</div></td><td>${esc(pathText(x.f.folder || "") || "—")}</td><td><span class="pn-st ${x.f.status === "fechada" ? "c" : "o"}">${x.f.status === "fechada" ? "Fechada" : "Aberta"}</span></td><td class="bc">${barCell(x.s)}</td><td class="n b">${pctTxt(x.s)}</td><td class="n ${x.s.R ? "red" : ""}">${x.s.R}</td><td class="n">${x.s.E}</td><td class="n">${x.d}</td></tr>`).join("")}</tbody></table>` : `<div class="sub">Nenhuma FV com esses filtros.</div>`}</section>`;
   $("#pn-sort", v).value = pnl.sort;
   $("#pn-folder", v).onchange = e => { pnl.folder = e.target.value; renderPainel(); };
+  $("#pn-xls", v).onclick = exportExcel;
   $("#pn-cat", v).onchange = e => { pnl.cat = e.target.value; renderPainel(); };
   $("#pn-dias", v).onchange = e => { pnl.dias = +e.target.value; renderPainel(); };
   $("#pn-item", v).onchange = e => { pnl.item = e.target.value; renderPainel(); };
@@ -4827,7 +4846,7 @@ function staticize(orig, clone) {
   clone.querySelectorAll("[id]").forEach(e => e.removeAttribute("id"));
   return clone;
 }
-async function exportPdf(soMapas, escolha) {
+async function exportPdf(soMapas, escolha, fotosSel) {
   soMapas = soMapas === true; const pick = Array.isArray(escolha) ? new Set(escolha) : null;
   const fv = fvs.get(cur.id); if (!fv) return;
   if (soMapas && !(cur.maps || []).some(m => m.img) && !(mapa && mapa.img)) { toast("Esta FV ainda não tem mapeamento."); return; }
@@ -4873,10 +4892,13 @@ async function exportPdf(soMapas, escolha) {
       for (let k = 0; k < nP; k++) { cur.pdapg = k; renderPda(fv); const c = staticize(pda, pda.cloneNode(true)); sections.push(page(c, nP > 1 ? `PDA · folha ${k + 1} de ${nP} · ${stamp}` : stamp)); }
       cur.pdapg = backP; renderPda(fv);
     }
-    if (!soMapas && cur.photos.length) {
+    let usadas = new Set();
+    if (!soMapas && cur.photos.length && (!fotosSel || fotosSel.size)) { const rs = await reinspSections(fv, fotosSel, page); rs.sections.forEach(x => sections.push(x)); usadas = rs.used; }
+    const fotosPdf = soMapas ? [] : cur.photos.filter(p => (!fotosSel || fotosSel.has(p.id)) && !usadas.has(p.id));
+    if (fotosPdf.length) {
       const w = document.createElement("div"); w.className = "sheet";
       const itemOf = id => (fv.items || []).find(i => i.id === id);
-      const chunks = []; for (let i = 0; i < cur.photos.length; i += 6) chunks.push(cur.photos.slice(i, i + 6));
+      const chunks = []; for (let i = 0; i < fotosPdf.length; i += 6) chunks.push(fotosPdf.slice(i, i + 6));
       for (const [ci, ch] of chunks.entries()) {
         const srcs = await Promise.all(ch.map(mediaSrc));
         const s = document.createElement("div"); s.className = "sheet";
@@ -5374,7 +5396,7 @@ function renderSolos() {
       : `<div class="empty"><b>${all.length ? "Nenhum trecho nesta pasta" : "Nenhum trecho cadastrado"}</b>Cada trecho é um <b>Mapeamento de compactação de faixa de terraplenagem</b> (F.045-QUALI): capa, mapa com a demarcação da área, relatórios dos ensaios de cada camada (o sistema lê e analisa) e, se necessário, a validação do projetista.${canWrite ? `<div style="margin-top:14px"><button class="btn primary" type="button" data-snew>+ Novo trecho</button></div>` : ""}</div>`;
   }
   v.innerHTML = `<div class="page-title"><div><h1>Solos</h1><div class="sub">Mapeamento e controle de compactação do solo${solFilt.folder ? " · " + esc(pathText(solFilt.folder)) : ""}</div></div>
-      <div class="g-acts"><button class="btn" type="button" data-sdl title="Baixar os mapeamentos em PDF para enviar ao projetista">Baixar mapeamentos</button>${canWrite ? `<button class="btn primary" type="button" data-snew>+ Novo trecho</button>` : ""}</div></div>
+      <div class="g-acts"><button class="btn" type="button" data-sxls title="Ensaios e trechos em planilha (.xlsx)">Exportar Excel</button><button class="btn" type="button" data-sdl title="Baixar os mapeamentos em PDF para enviar ao projetista">Baixar mapeamentos</button>${canWrite ? `<button class="btn primary" type="button" data-snew>+ Novo trecho</button>` : ""}</div></div>
     <div class="tabs" role="tablist"><button type="button" role="tab" data-go="solos" class="${solTab === "trechos" ? "on" : ""}">Trechos <span class="n">${all.length}</span></button><button type="button" role="tab" data-go="solos-acomp" class="${solTab === "acomp" ? "on" : ""}">Acompanhamento</button></div>
     <div class="pn-filters"><label class="fld">Pasta<select id="so-folder"><option value="">Todas as pastas</option>${fOpts.map(o => `<option value="${esc(o.id)}" ${o.id === solFilt.folder ? "selected" : ""}>${esc(o.p)}</option>`).join("")}</select></label></div>
     ${body}`;
@@ -5382,6 +5404,7 @@ function renderSolos() {
   $("#so-folder", v).onchange = e => { solFilt.folder = e.target.value; renderSolos(); };
   $$("[data-snew]", v).forEach(b => b.onclick = newSolo);
   $$("[data-sdl]", v).forEach(b => b.onclick = soloPdfMany);
+  $$("[data-sxls]", v).forEach(b => b.onclick = exportExcel);
 }
 async function newSolo() {
   const last = [...solos.values()].sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")))[0], lh = (last && last.head) || {};
@@ -7995,7 +8018,8 @@ const mecHref = (k, eq = curFrente) => ({inicio: "#eq-" + eq, fvs: "#" + eq, pla
 /* permissões: administrador e gestores veem tudo; quem não tem regra definida também (tudo liberado por padrão) */
 function myScope() {
   const mail = String((window.__fb && window.__fb.email && window.__fb.email()) || "").toLowerCase();
-  if (isOwner || isGestor) return {all: true};
+  if (isOwner) return {all: true};
+  const lic = licNow(); if (lic && !canWrite) return {obras: ["*"], equipes: licEqs(lic)};
   const u = escopo.users && (escopo.users[mail] || escopo.users[mail.replace(/\./g, ",")]);
   if (!u) return {all: true};
   return {obras: u.obras || ["*"], equipes: u.equipes || ["*"]};
@@ -8075,8 +8099,8 @@ async function renderScopePanel(box) {
   const gest = new Set((ac.gestores || []).map(e => String(e).toLowerCase()));
   const allObras = []; estrutura().forEach(r => r.fabricas.forEach(f => f.obras.forEach(o => allObras.push({r, f, o}))));
   const desc = u => { if (!u) return "Tudo liberado"; const o = (u.obras || ["*"]).includes("*") ? "todas as obras" : `${u.obras.length} obra(s)`, e = (u.equipes || ["*"]).includes("*") ? "todas as equipes" : (u.equipes || []).map(k => FRENTES[k] ? FRENTES[k].curto : k).join(", ") || "nenhuma equipe"; return `${o} · ${e}`; };
-  box.innerHTML = `<h2 class="sec-h">Acesso por obra e equipe</h2><p class="sub" style="margin:0 0 8px">Cada pessoa só vê as regionais, fábricas, obras e equipes liberadas aqui. Quem não tem regra vê tudo. Administrador e gestores sempre veem tudo.</p>
-    ${people.length ? `<div class="sc-list">${people.map(e => `<div class="sc-row"><div><b>${esc(e)}</b><span class="sub">${gest.has(e) ? "Gestor: vê tudo" : esc(desc(escopo.users[e]))}</span></div>${gest.has(e) ? "" : `<button class="btn sm" type="button" data-sc="${esc(e)}">Editar acesso</button>`}</div>`).join("")}</div>` : `<p class="sub">Nenhuma pessoa liberada ainda.</p>`}`;
+  box.innerHTML = `<h2 class="sec-h">Acesso por obra e equipe</h2><p class="sub" style="margin:0 0 8px">Cada pessoa, inclusive o gestor, só vê as regionais, fábricas, obras e equipes liberadas aqui. Quem não tem regra vê tudo. O administrador sempre vê tudo e é quem define o acesso dos gestores.</p>
+    ${people.length ? `<div class="sc-list">${people.map(e => `<div class="sc-row"><div><b>${esc(e)}</b><span class="sub">${gest.has(e) ? "Gestor · " : ""}${esc(desc(escopo.users[e]))}</span></div>${gest.has(e) && !isOwner ? "" : `<button class="btn sm" type="button" data-sc="${esc(e)}">Editar acesso</button>`}</div>`).join("")}</div>` : `<p class="sub">Nenhuma pessoa liberada ainda.</p>`}`;
   $$("[data-sc]", box).forEach(b => b.onclick = async () => {
     const e = b.dataset.sc, u = escopo.users[e] || {obras: ["*"], equipes: ["*"]}, allO = (u.obras || []).includes("*"), allE = (u.equipes || []).includes("*");
     const r = await modal({title: "Acesso de " + e, wide: true, body: `<div class="grid2"><div><b>Obras</b><label class="ck"><input type="checkbox" id="sc-ao" ${allO ? "checked" : ""}> Todas as obras (inclusive as que forem criadas)</label>
@@ -8101,7 +8125,7 @@ const TIPO_PREV = {texto: "", foto: "📷 Foto", audio: "🎤 Áudio", doc: "�
 let accCache = null;
 async function socAcc() { if (!accCache) { try { accCache = await window.__fb.getAccess(); } catch { accCache = {}; } } return accCache; }
 function socPerfil(u, acc) { const e = u.email, a = acc || {}; if ((window.ADMIN_EMAILS || []).map(x => String(x).toLowerCase()).includes(e)) return "Administrador"; if ((a.gestores || []).includes(e)) return "Gestor"; if ((a.editors || []).includes(e)) return "Editor"; if ((a.viewers || []).includes(e)) return "Leitura"; return ""; }
-function socEquipes(u, acc) { const p = socPerfil(u, acc); if (p === "Administrador" || p === "Gestor") return EQ_ORDER.slice(); const s = escopo.users && escopo.users[u.email]; if (!s || !s.equipes || s.equipes.includes("*")) return EQ_ORDER.slice(); return s.equipes.filter(k => FRENTES[k]); }
+function socEquipes(u, acc) { const p = socPerfil(u, acc); if (p === "Administrador") return EQ_ORDER.slice(); const s = escopo.users && escopo.users[u.email]; if (!s || !s.equipes || s.equipes.includes("*")) return EQ_ORDER.slice(); return s.equipes.filter(k => FRENTES[k]); }
 function watchConvs() {
   db.collection("conversas").where("membros", "array-contains", me).onSnapshot(sn => {
     const before = new Map([...convs].map(([k, v]) => [k, v.ult && v.ult.at]));
@@ -8389,7 +8413,8 @@ const FAQ = [
   ["Como criar uma FV?", "Na equipe, abra <b>Fichas de verificação › + Nova FV</b>, escolha o modelo, o local (conjunto) e os locais inspecionados. O conferente é você e o gestor vem da lista."],
   ["Marquei X e não consigo sair da FV", "Toda reprovação precisa do <b>problema</b> e da <b>solução</b> escritos. Escreva na linha que abriu ou use <b>Tirar o X</b> no aviso."],
   ["Por que não consigo fechar ou assinar a FV?", "Só o gestor fecha. A FV e a F.007 só fecham com todas as linhas resolvidas, e ninguém assina enquanto houver item reprovado."],
-  ["Como mando fotos?", "Nos três pontos (⋯) ao lado do problema, toque em 📷 Fotos, ou use a aba Fotos da FV. Fotos são reduzidas automaticamente."],
+  ["Como mando fotos?", "Nos três pontos (⋯) ao lado do problema, toque em 📷 Fotos, ou use a aba Fotos da FV. Fotos são reduzidas e recebem o carimbo de data, hora e local (dá para desligar em Configurações › Dados e aparelho)."],
+  ["Por que pede foto ao marcar Ⓧ?", "O aprovado após reinspeção precisa da <b>foto do depois</b> (serviço corrigido). No PDF ela sai lado a lado com a foto do antes."],
   ["Como uso o mapeamento?", "Na aba Mapeamentos, <b>Abrir e editar</b>: desenhe, escreva, marque com números, mude cor, opacidade, gire a planta e use a borracha. Tudo entra no desfazer (↶)."],
   ["Funciona sem internet?", "Sim: o que você preencher sem sinal fica guardado no aparelho e é enviado quando a conexão voltar. Não feche o navegador antes disso."],
   ["Como falo com outra pessoa do sistema?", "Pela aba <b>Social</b>: mensagens, áudios, fotos, documentos, FVs, problemas e cobranças."],
@@ -8407,6 +8432,335 @@ function helpBoot() {
   };
   document.addEventListener("click", e => { const m = $("#help-menu"); if (m && !e.target.closest("#help-menu") && !e.target.closest("#help-fab")) m.remove(); });
 }
+/* ---------- CARIMBO NAS FOTOS: data, hora e local gravados na própria imagem ---------- */
+const carimboOn = () => { try { return localStorage.getItem("fvs-carimbo") !== "0"; } catch { return true; } };
+const obraNomeAtual = () => { try { return ((findObra(ctx.obra) || {}).o || {}).nome || ""; } catch { return ""; } };
+/* EXIF de JPEG: data em que a foto foi tirada e GPS (quando o celular grava) */
+async function exifInfo(file) {
+  try {
+    if (!/jpe?g/i.test(file.type || "") && !/\.jpe?g$/i.test(file.name || "")) return {};
+    const v = new DataView(await file.slice(0, 262144).arrayBuffer());
+    if (v.getUint16(0) !== 0xFFD8) return {};
+    let o = 2;
+    while (o + 10 < v.byteLength) {
+      const mk = v.getUint16(o), len = v.getUint16(o + 2);
+      if ((mk & 0xFF00) !== 0xFF00) break;
+      if (mk === 0xFFE1 && v.getUint32(o + 4) === 0x45786966) return exifTiff(v, o + 10);
+      o += 2 + len;
+    }
+  } catch {}
+  return {};
+}
+function exifTiff(v, t) {
+  const out = {};
+  try {
+    const le = v.getUint16(t) === 0x4949, u16 = p => v.getUint16(p, le), u32 = p => v.getUint32(p, le);
+    const ifd = p => { const n = u16(p), r = {}; for (let i = 0; i < n; i++) { const e = p + 2 + i * 12; r[u16(e)] = {cnt: u32(e + 4), off: e + 8}; } return r; };
+    const str = e => { const p = e.cnt > 4 ? t + u32(e.off) : e.off; let s = ""; for (let i = 0; i < e.cnt - 1; i++) s += String.fromCharCode(v.getUint8(p + i)); return s; };
+    const i0 = ifd(t + u32(t + 4));
+    if (i0[0x8769]) { const ex = ifd(t + u32(i0[0x8769].off)), d = ex[0x9003] || ex[0x9004]; if (d) out.date = str(d); }
+    if (!out.date && i0[0x0132]) out.date = str(i0[0x0132]);
+    if (i0[0x8825]) {
+      const g = ifd(t + u32(i0[0x8825].off));
+      if (g[2] && g[4]) {
+        const dms = e => { const p = t + u32(e.off), r = k => u32(p + k * 8) / (u32(p + k * 8 + 4) || 1); return r(0) + r(1) / 60 + r(2) / 3600; };
+        const ref = e => e ? String.fromCharCode(v.getUint8(e.off)) : "";
+        let lat = dms(g[2]), lng = dms(g[4]); if (ref(g[1]) === "S") lat = -lat; if (ref(g[3]) === "W") lng = -lng;
+        if (isFinite(lat) && isFinite(lng) && (lat || lng)) out.gps = {lat, lng};
+      }
+    }
+    const m = /^(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2})/.exec(out.date || "");
+    if (m) out.when = `${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}:00`;
+  } catch {}
+  return out;
+}
+let geoLast = null;
+function geoNow(ms = 7000) {
+  return new Promise(res => {
+    if (!navigator.geolocation) return res(null);
+    if (geoLast && Date.now() - geoLast.t < 120000) return res(geoLast);
+    let done = false; const fin = x => { if (!done) { done = true; res(x); } };
+    setTimeout(() => fin(geoLast), ms);
+    try { navigator.geolocation.getCurrentPosition(p => { geoLast = {lat: p.coords.latitude, lng: p.coords.longitude, acc: Math.round(p.coords.accuracy || 0), t: Date.now()}; fin(geoLast); }, () => fin(null), {enableHighAccuracy: true, timeout: ms, maximumAge: 120000}); } catch { fin(null); }
+  });
+}
+const fmtDH = d => `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${d.getFullYear()} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+/* desenha a faixa do carimbo no rodapé da foto e devolve o JPEG */
+async function stampPhoto(file, info) {
+  const bmp = await createImageBitmap(file, {imageOrientation: "from-image"});
+  const s = Math.min(1, 1800 / Math.max(bmp.width, bmp.height)), w = Math.round(bmp.width * s), h = Math.round(bmp.height * s);
+  const c = document.createElement("canvas"); c.width = w; c.height = h; const g = c.getContext("2d");
+  g.drawImage(bmp, 0, 0, w, h);
+  const fs = Math.max(14, Math.round(Math.min(w, h * 1.4) / 46)), lh = Math.round(fs * 1.32), lines = info.lines.filter(Boolean), pad = Math.round(fs * .6), bh = lines.length * lh + pad * 2;
+  g.fillStyle = "rgba(0,0,0,.58)"; g.fillRect(0, h - bh, w, bh);
+  g.fillStyle = "#fff"; g.textBaseline = "top"; g.shadowColor = "rgba(0,0,0,.6)"; g.shadowBlur = 2;
+  lines.forEach((t, i) => { g.font = `${i === 0 ? "700 " : ""}${fs}px Arial, Helvetica, sans-serif`; let txt = t; while (g.measureText(txt).width > w - pad * 2 && txt.length > 8) txt = txt.slice(0, -2); if (txt !== t) txt = txt.slice(0, -1) + "…"; g.fillText(txt, pad, h - bh + pad + i * lh); });
+  g.font = `${Math.round(fs * .78)}px Arial, Helvetica, sans-serif`; g.textAlign = "right"; g.fillStyle = "rgba(255,255,255,.85)"; g.fillText("FVs da Obra", w - pad, h - bh + pad);
+  return await new Promise(r => c.toBlob(r, "image/jpeg", .85));
+}
+/* prepara a foto: carimbo (se ligado) e os dados de quando/onde foi tirada */
+async function prepPhoto(file, ctx2 = {}) {
+  const ex = await exifInfo(file), now = new Date();
+  let when = ex.when ? new Date(ex.when) : null, fonte = ex.when ? "foto" : ctx2.cam ? "agora" : "arquivo";
+  if (!when || isNaN(when)) when = ctx2.cam ? now : new Date(file.lastModified || Date.now());
+  const recente = Math.abs(now - when) < 15 * 60000;
+  let gps = ex.gps ? {...ex.gps, fonte: "foto"} : null;
+  if (!gps && (ctx2.cam || recente)) { const p = await geoNow(); if (p) gps = {lat: p.lat, lng: p.lng, acc: p.acc, fonte: "aparelho"}; }
+  const meta = {tirada: when.toISOString(), tiradaFonte: fonte, ...(gps ? {gps: {lat: +gps.lat.toFixed(6), lng: +gps.lng.toFixed(6), ...(gps.acc ? {acc: gps.acc} : {}), fonte: gps.fonte}} : {})};
+  if (!carimboOn()) return {blob: await compress(file), meta};
+  try {
+    const fv = cur && fvs.get(cur.id), it = fv && ctx2.item ? (fv.items || []).find(i => i.id === ctx2.item) : null;
+    const lines = [
+      `${fmtDH(when)}${fonte === "arquivo" ? " (data do arquivo)" : ""}${ctx2.fase === "depois" ? "  ·  DEPOIS (reinspeção)" : ""}`,
+      [obraNomeAtual(), fv && fv.code, ctx2.local || (fv && fv.local), it ? `item ${it.n}` : ""].filter(Boolean).join("  ·  "),
+      gps ? `GPS ${gps.lat.toFixed(6)}, ${gps.lng.toFixed(6)}${gps.acc ? ` (±${gps.acc} m)` : ""}` : "Local: sem GPS"];
+    const blob = await stampPhoto(file, {lines});
+    return {blob: blob || await compress(file), meta: {...meta, carimbo: !!blob}};
+  } catch { return {blob: await compress(file), meta}; }
+}
+
+/* ---------- REINSPEÇÃO: Ⓧ só com a foto do depois ---------- */
+function fotosAntes(ck, itemId, local, ate) {
+  if (!cur) return [];
+  const rk = cur.obs.filter(o => o.cell === ck).map(o => "obs:" + o.id), nl = norm(local || "");
+  return cur.photos.filter(p => p.fase !== "depois" && (p.cell === ck || rk.some(k => p.links && p.links[k]) || (p.item === itemId && nl && norm(p.local || "") === nl)) && (!ate || String(p.createdAt || "") <= String(ate)));
+}
+function reinspPairs(fv) {
+  if (!cur) return [];
+  const by = new Map();
+  cur.photos.filter(p => p.fase === "depois" && p.cell).forEach(p => { if (!by.has(p.cell)) by.set(p.cell, []); by.get(p.cell).push(p); });
+  const out = [];
+  by.forEach((dep, ck) => {
+    const it = (fv.items || []).find(i => ck.startsWith(i.id + "_")); if (!it) return;
+    const cid = ck.slice(it.id.length + 1), col = (fv.cols || {})[cid], local = (col && col.name) || dep[0].local || "";
+    const last = dep.map(p => p.createdAt).sort().pop(), obs = cur.obs.filter(o => o.cell === ck);
+    out.push({ck, it, local, depois: dep, antes: fotosAntes(ck, it.id, local, last), obs, v: (fv.cells || {})[ck] || ""});
+  });
+  return out.sort((a, b) => String(a.it.n).localeCompare(String(b.it.n), "pt-BR", {numeric: true}) || a.local.localeCompare(b.local, "pt-BR", {numeric: true}));
+}
+async function reinspFoto(id, it, col, ck) {
+  if (!cur || cur.id !== id) return;
+  if (!assets) { toast("Seu acesso não permite enviar fotos: peça para liberar seu e-mail como editor."); return; }
+  const antes = fotosAntes(ck, it.id, col.name), rows = cur.obs.filter(o => o.cell === ck);
+  let file = null, cam = false;
+  const r = await modal({title: "Foto da correção (depois)", body: `<p style="margin:0 0 8px">Para marcar <b>${esc(it.n)}</b> em <b>${esc(col.name)}</b> como <b>aprovado após reinspeção (Ⓧ)</b>, tire ou escolha a foto do serviço corrigido. No PDF ela sai ao lado da foto do antes.</p>
+      ${rows.length ? `<div class="sub" style="margin-bottom:8px"><b>Problema:</b> ${esc(String(rows[0].problema || "").slice(0, 160))}${rows[0].solucao ? ` · <b>Solução:</b> ${esc(String(rows[0].solucao).slice(0, 120))}` : ""}</div>` : ""}
+      <div class="rf-grid"><div><b class="rf-t">ANTES</b><div class="rf-box" id="rf-antes">${antes.length ? "" : `<span class="sub">Nenhuma foto do antes ligada a este item e local.</span>`}</div></div>
+        <div><b class="rf-t">DEPOIS</b><div class="rf-box" id="rf-dep"><span class="sub">Tire ou escolha a foto da correção.</span></div></div></div>
+      <div class="rf-acts"><button type="button" class="btn primary" id="rf-bcam">📷 Tirar foto</button><button type="button" class="btn" id="rf-bgal">🖼️ Da galeria</button></div>
+      <input type="file" accept="image/*" capture="environment" id="rf-cam" class="hidden"><input type="file" accept="image/*" id="rf-gal" class="hidden">`,
+    onOpen: bg => {
+      if (antes.length) Promise.all(antes.slice(0, 2).map(mediaSrc)).then(us => { const b = $("#rf-antes", bg); if (b) b.innerHTML = us.filter(Boolean).map(u => `<img src="${u}" alt="Foto do antes">`).join("") + (antes.length > 2 ? `<span class="sub">+${antes.length - 2}</span>` : ""); });
+      $("#rf-bcam", bg).onclick = () => $("#rf-cam", bg).click(); $("#rf-bgal", bg).onclick = () => $("#rf-gal", bg).click();
+      ["#rf-cam", "#rf-gal"].forEach(s0 => $(s0, bg).onchange = e => { const f = e.target.files[0]; if (!f) return; file = f; cam = s0 === "#rf-cam"; const u = URL.createObjectURL(f); $("#rf-dep", bg).innerHTML = `<img src="${u}" alt="Foto do depois">`; });
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Marcar Ⓧ com esta foto", cls: "primary", validate: () => { if (!file) { toast("Tire ou escolha a foto do depois."); return false; } return true; }, value: true}]});
+  if (!r || !file || !cur || cur.id !== id) return;
+  const ids = await uploadPhotos([file], {item: it.id, local: col.name, cell: ck, fase: "depois", cam, ...(rows[0] ? {links: {["obs:" + rows[0].id]: true}} : {})});
+  if (!ids || !ids.length) { toast("A foto não foi enviada: o item continua reprovado."); return; }
+  patch(`fvs/${id}`, stamp({cells: {[ck]: "AR"}}));
+  if (ncSess.get(id)) ncSess.get(id).delete(ck);
+  logAct(id, `${it.n} em ${col.name}: ${ST.AR.name} (com foto do depois)`);
+  toast("Aprovado após reinspeção, com a foto do depois.");
+}
+
+/* ---------- PDF da FV: escolher quais fotos vão (ou nenhuma) ---------- */
+async function pdfFotosEscolha() {
+  const fv = fvs.get(cur.id); if (!fv) return null;
+  const L = cur.photos.slice(); if (!L.length) return {fotos: new Set()};
+  const pairs = reinspPairs(fv), inPair = new Set(pairs.flatMap(p => [...p.depois, ...p.antes].map(x => x.id)));
+  const itemOf = id => (fv.items || []).find(i => i.id === id);
+  const card = p => { const it = itemOf(p.item); return `<label class="pf-c" title="${esc(p.nota || "")}"><input type="checkbox" value="${esc(p.id)}" checked><img alt="" data-pfs="${esc(p.id)}"><span>${p.fase === "depois" ? "<b>DEPOIS</b> · " : inPair.has(p.id) ? "<b>ANTES</b> · " : ""}${esc(it ? it.n : "sem item")}${p.local ? " · " + esc(p.local) : ""}</span></label>`; };
+  const r = await modal({title: "Baixar PDF da FV", wide: true, body: `<p class="sub" style="margin:0 0 8px">Escolha as fotos que vão no PDF. As do <b>antes e depois</b> da reinspeção saem lado a lado; as outras vão no registro fotográfico.</p>
+      <div class="pf-q"><label><input type="radio" name="pfq" value="todas" checked> Todas as fotos (${L.length})</label><label><input type="radio" name="pfq" value="nenhuma"> Nenhuma foto</label><label><input type="radio" name="pfq" value="escolher"> Escolher</label></div>
+      <div id="pf-list" class="hidden">${pairs.length ? `<h3 class="pf-h">Antes e depois (${pairs.length})</h3><div class="pf-g">${pairs.flatMap(p => [...p.antes, ...p.depois]).filter((p, i, a) => a.findIndex(x => x.id === p.id) === i).map(card).join("")}</div>` : ""}
+        ${L.filter(p => !inPair.has(p.id)).length ? `<h3 class="pf-h">Registro fotográfico</h3><div class="pf-g">${L.filter(p => !inPair.has(p.id)).map(card).join("")}</div>` : ""}
+        <div class="pf-tg"><button type="button" class="btn sm" data-pfall>Marcar todas</button><button type="button" class="btn sm" data-pfnone>Desmarcar todas</button></div></div>`,
+    onOpen: bg => {
+      const lst = $("#pf-list", bg); let loaded = false;
+      $$("[name=pfq]", bg).forEach(x => x.onchange = () => { const on = x.value === "escolher" && x.checked; lst.classList.toggle("hidden", !on); if (on && !loaded) { loaded = true; $$("img[data-pfs]", bg).forEach(im => { const p = L.find(y => y.id === im.dataset.pfs); if (p) mediaSrc(p).then(u => { if (u) im.src = u; }); }); } });
+      $("[data-pfall]", bg).onclick = () => $$(".pf-c input", bg).forEach(c => c.checked = true); $("[data-pfnone]", bg).onclick = () => $$(".pf-c input", bg).forEach(c => c.checked = false);
+    },
+    actions: [{label: "Cancelar", value: null}, {label: "Baixar PDF", cls: "primary", value: bg => { const q = ($("[name=pfq]:checked", bg) || {}).value; return q === "nenhuma" ? {fotos: new Set()} : q === "escolher" ? {fotos: new Set($$(".pf-c input:checked", bg).map(c => c.value))} : {fotos: null}; }}]});
+  return r;
+}
+/* página(s) "antes e depois" do PDF */
+async function reinspSections(fv, sel, page) {
+  const pairs = reinspPairs(fv).map(p => ({...p, depois: p.depois.filter(x => !sel || sel.has(x.id)), antes: p.antes.filter(x => !sel || sel.has(x.id))})).filter(p => p.depois.length);
+  const used = new Set(), out = [];
+  for (let i = 0; i < pairs.length; i += 3) {
+    const ch = pairs.slice(i, i + 3);
+    const blocks = await Promise.all(ch.map(async p => {
+      const a = p.antes[0], d = p.depois[p.depois.length - 1], [ua, ud] = await Promise.all([a ? mediaSrc(a) : "", mediaSrc(d)]);
+      [...p.antes, ...p.depois].forEach(x => used.add(x.id));
+      const o = p.obs[0] || {}, dt = x => x ? fmtFull(x.tirada || x.createdAt) : "";
+      return `<div class="ad-b"><div class="ad-h"><b>${esc(p.it.n)} ${esc(splitLbl(p.it.t)[0])}</b> · ${esc(p.local)}${o.problema ? `<br><span>Problema: ${esc(String(o.problema).slice(0, 220))}</span>` : ""}${o.solucao ? `<br><span>Solução: ${esc(String(o.solucao).slice(0, 220))}</span>` : ""}</div>
+        <div class="ad-g"><div class="ad-c"><div class="ad-t">ANTES${a ? " · " + esc(dt(a)) : ""}</div>${ua ? `<img src="${esc(ua)}" alt="">` : `<div class="ad-0">Sem foto do antes</div>`}</div><div class="ad-c"><div class="ad-t">DEPOIS · ${esc(dt(d))}</div>${ud ? `<img src="${esc(ud)}" alt="">` : `<div class="ad-0">—</div>`}</div></div></div>`; }));
+    const s = document.createElement("div"); s.className = "sheet";
+    s.innerHTML = `<table><colgroup><col style="width:118px"><col style="width:22%"><col><col style="width:170px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">REINSPEÇÃO · ANTES E DEPOIS</td><td class="act">${esc(fv.title)}</td><td class="codebox"><b>${esc(fv.code)}</b>${esc(fv.local || "")}</td></tr></table><div class="ad-wrap">${blocks.join("")}</div>`;
+    out.push(page(s));
+  }
+  return {sections: out, used};
+}
+
+/* ---------- EXCEL (.xlsx) feito no próprio navegador ---------- */
+const XL_CRC = (() => { const t = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+const xlCrc = b => { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = XL_CRC[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+function xlZip(files) {
+  const enc = new TextEncoder(), parts = [], cen = []; let off = 0;
+  for (const f of files) {
+    const nm = enc.encode(f.name), d = typeof f.data === "string" ? enc.encode(f.data) : f.data, crc = xlCrc(d);
+    const h = new DataView(new ArrayBuffer(30)); [[0, 0x04034b50, 4], [4, 20, 2], [6, 0x0800, 2], [12, 0x21, 2], [14, crc, 4], [18, d.length, 4], [22, d.length, 4], [26, nm.length, 2]].forEach(([p, v, n]) => n === 4 ? h.setUint32(p, v, true) : h.setUint16(p, v, true));
+    parts.push(new Uint8Array(h.buffer), nm, d);
+    const c = new DataView(new ArrayBuffer(46)); [[0, 0x02014b50, 4], [4, 20, 2], [6, 20, 2], [8, 0x0800, 2], [14, 0x21, 2], [16, crc, 4], [20, d.length, 4], [24, d.length, 4], [28, nm.length, 2], [42, off, 4]].forEach(([p, v, n]) => n === 4 ? c.setUint32(p, v, true) : c.setUint16(p, v, true));
+    cen.push(new Uint8Array(c.buffer), nm); off += 30 + nm.length + d.length;
+  }
+  const cs = cen.reduce((n, x) => n + x.length, 0), e = new DataView(new ArrayBuffer(22)); e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, cs, true); e.setUint32(16, off, true);
+  return new Blob([...parts, ...cen, new Uint8Array(e.buffer)], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+}
+const xlEsc = s => String(s ?? "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const xlCol = n => { let s = ""; n++; while (n) { const m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; };
+/* sheets: [{name, cols:[{h, w, t:"s"|"n"|"d"|"p"}], rows:[[...]]}] */
+function xlBuild(sheets) {
+  const ds = v => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(v || "")); return m ? (Date.UTC(+m[1], +m[2] - 1, +m[3]) - Date.UTC(1899, 11, 30)) / 864e5 : null; };
+  const sx = sheets.map((sh, si) => {
+    const head = `<row r="1">${sh.cols.map((c, i) => `<c r="${xlCol(i)}1" t="inlineStr" s="1"><is><t xml:space="preserve">${xlEsc(c.h)}</t></is></c>`).join("")}</row>`;
+    const body = sh.rows.map((r, ri) => `<row r="${ri + 2}">${r.map((v, i) => { const ref = xlCol(i) + (ri + 2), t = (sh.cols[i] || {}).t || "s";
+      if (v === null || v === undefined || v === "") return "";
+      if (t === "n" || t === "p") { const n = typeof v === "number" ? v : sNum(v); return isNaN(n) ? `<c r="${ref}" t="inlineStr"><is><t>${xlEsc(v)}</t></is></c>` : `<c r="${ref}"${t === "p" ? ' s="3"' : ""}><v>${n}</v></c>`; }
+      if (t === "d") { const n = ds(v); return n === null ? `<c r="${ref}" t="inlineStr"><is><t>${xlEsc(v)}</t></is></c>` : `<c r="${ref}" s="2"><v>${n}</v></c>`; }
+      return `<c r="${ref}" t="inlineStr"${(sh.cols[i] || {}).wrap ? ' s="4"' : ""}><is><t xml:space="preserve">${xlEsc(String(v).slice(0, 32000))}</t></is></c>`; }).join("")}</row>`).join("");
+    const last = xlCol(Math.max(0, sh.cols.length - 1)) + (sh.rows.length + 1);
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheetViews><sheetView workbookViewId="0"${si === 0 ? ' tabSelected="1"' : ""}><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>${sh.cols.map((c, i) => `<col min="${i + 1}" max="${i + 1}" width="${c.w || 14}" customWidth="1"/>`).join("")}</cols><sheetData>${head}${body}</sheetData>${sh.rows.length ? `<autoFilter ref="A1:${last}"/>` : ""}</worksheet>`;
+  });
+  const names = sheets.map((s, i) => (s.name.replace(/[\[\]:*?\/\\]/g, " ").slice(0, 31) || "Planilha " + (i + 1)));
+  const files = [
+    {name: "[Content_Types].xml", data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((_, i) => `<Override PartName="/xl/worksheets/sheet${i + 1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join("")}</Types>`},
+    {name: "_rels/.rels", data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+    {name: "xl/workbook.xml", data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${names.map((n, i) => `<sheet name="${xlEsc(n)}" sheetId="${i + 1}" r:id="rId${i + 1}"/>`).join("")}</sheets>${sheets.map((s, i) => s.rows.length ? `<definedNames><definedName name="_xlnm._FilterDatabase" localSheetId="${i}" hidden="1">'${xlEsc(names[i]).replace(/'/g, "''")}'!$A$1:$${xlCol(s.cols.length - 1)}$${s.rows.length + 1}</definedName></definedNames>` : "").find(Boolean) || ""}</workbook>`},
+    {name: "xl/_rels/workbook.xml.rels", data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((_, i) => `<Relationship Id="rId${i + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i + 1}.xml"/>`).join("")}<Relationship Id="rId${sheets.length + 1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+    {name: "xl/styles.xml", data: `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="164" formatCode="dd/mm/yyyy"/></numFmts><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE1251B"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="5"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment vertical="center" wrapText="1"/></xf><xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="9" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment wrapText="1" vertical="top"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`},
+    ...sx.map((x, i) => ({name: `xl/worksheets/sheet${i + 1}.xml`, data: x}))];
+  return xlZip(files);
+}
+async function exportExcel() {
+  if (!db) return;
+  const eqs = eqsVis().filter(k => FRENTES[k] && (FRENTES[k].fv || k === "infra"));
+  const r = await modal({title: "Exportar para Excel", wide: true, body: `<p class="sub" style="margin:0 0 10px">Gera uma planilha (.xlsx) com os dados das FVs e dos ensaios de solos, para os relatórios da regional. Cada parte vira uma aba, com filtro no cabeçalho.</p>
+      <div class="grid2"><div><b>Equipes</b>${eqs.map(k => `<label class="ck"><input type="checkbox" data-xe="${k}" ${k === curFrente || (!FRENTES[curFrente].fv && k === "quali") ? "checked" : ""}> ${esc(FRENTES[k].nome)}</label>`).join("")}</div>
+      <div><b>FVs abertas entre</b><div style="display:flex;gap:6px;margin:4px 0 10px"><input type="date" id="xl-de" style="flex:1"><input type="date" id="xl-ate" style="flex:1"></div>
+        <b>Abas da planilha</b>${[["fvs", "Resumo das FVs"], ["itens", "Itens por local (cada marcação)"], ["prob", "Problemas (FV e F.007)"], ["pda", "PDA"], ["solos", "Ensaios de solos e trechos"]].map(([k, l]) => `<label class="ck"><input type="checkbox" data-xa="${k}" checked> ${l}</label>`).join("")}</div></div>
+      <p class="sub" style="margin:8px 0 0">Deixe as datas em branco para exportar tudo.</p>`,
+    actions: [{label: "Cancelar", value: null}, {label: "Gerar Excel", cls: "primary", value: bg => ({eqs: $$("[data-xe]:checked", bg).map(c => c.dataset.xe), de: $("#xl-de", bg).value, ate: $("#xl-ate", bg).value, abas: new Set($$("[data-xa]:checked", bg).map(c => c.dataset.xa))})}]});
+  if (!r) return;
+  if (!r.abas.size) return toast("Escolha pelo menos uma aba.");
+  let msg = "Juntando os dados…"; toast(msg); const iv = setInterval(() => toast(msg), 2500);
+  try {
+    const dl = await claude.use("downloads"); if (!dl) throw new Error("dl");
+    const L = [...fvs.entries()].map(([id, f]) => ({...f, id})).filter(f => !f.trashAt && r.eqs.includes(fvFrente(f)) && (!r.de || fvDate(f) >= r.de) && (!r.ate || fvDate(f) <= r.ate)).sort((a, b) => fvDate(a).localeCompare(fvDate(b)) || String(a.code).localeCompare(String(b.code)));
+    const sheets = [], eqN = f => (FRENTES[fvFrente(f)] || {}).curto || "", fd = f => [eqN(f), f.code || "", f.title || "", f.local || ""];
+    const sub = new Map();
+    if (r.abas.has("prob") || r.abas.has("pda") || r.abas.has("fvs")) {
+      for (const [i, f] of L.entries()) {
+        msg = `Lendo as FVs… ${i + 1} de ${L.length}`;
+        const get = async c => { try { return (await db.collection(`fvs/${f.id}/${c}`).get()).docs.map(d => ({id: d.id, ...d.data()})).filter(x => !x.trashAt); } catch { return []; } };
+        const [obs, pda] = await Promise.all([get("obs"), get("pda")]); sub.set(f.id, {obs, pda});
+      }
+    }
+    const itemTxt = it => `${it.n || ""} ${splitLbl(it.t)[0] || it.t || ""}`.trim();
+    if (r.abas.has("fvs")) sheets.push({name: "FVs", cols: [{h: "Equipe", w: 12}, {h: "Código", w: 16}, {h: "Título", w: 32}, {h: "Local", w: 20}, {h: "Obra", w: 22}, {h: "Pasta", w: 20}, {h: "Situação", w: 11}, {h: "Abertura", w: 11, t: "d"}, {h: "Fechamento", w: 11, t: "d"}, {h: "Conferente", w: 26}, {h: "Gestor(a)", w: 24}, {h: "Assinada", w: 10}, {h: "Locais", w: 8, t: "n"}, {h: "Marcações", w: 10, t: "n"}, {h: "Aprovado", w: 10, t: "n"}, {h: "Reprovado", w: 10, t: "n"}, {h: "Ⓧ após reinspeção", w: 12, t: "n"}, {h: "NA", w: 7, t: "n"}, {h: "A verificar", w: 10, t: "n"}, {h: "% aprovado", w: 10, t: "p"}, {h: "Problemas", w: 10, t: "n"}, {h: "Problemas sem solução", w: 12, t: "n"}, {h: "PDA em aberto", w: 10, t: "n"}, {h: "Atualizada em", w: 11, t: "d"}],
+      rows: L.map(f => { const s = stats(f), x = sub.get(f.id) || {obs: [], pda: []}, val = s.total - s.NA - s.E; return [...fd(f), f.obra || "", pathText(f.folder || "") || "", f.status === "fechada" ? "Fechada" : "Aberta", fvDate(f), f.fechamento || "", f.conferente || "", f.gestor || "", f.assinatura && f.assinatura.by ? "Sim" : "Não", activeCols(f).length, s.total, s.A, s.R, s.AR, s.NA, s.E, val > 0 ? (s.A + s.AR) / val : "", x.obs.length, x.obs.filter(o => !String(o.solucao || "").trim()).length, x.pda.filter(p => p.status !== "PADR").length, String(f.updatedAt || "").slice(0, 10)]; })});
+    if (r.abas.has("itens")) { const rows = []; L.forEach(f => { const cells = f.cells || {}; (f.items || []).forEach(it => activeCols(f).forEach(([cid, c]) => { const v = cells[it.id + "_" + cid] || ""; rows.push([...fd(f), itemTxt(it), c.name || "", v ? (ST[v] ? ST[v].name : v) : "A verificar", fvDate(f)]); })); });
+      sheets.push({name: "Itens por local", cols: [{h: "Equipe", w: 12}, {h: "Código", w: 16}, {h: "Título", w: 30}, {h: "Local da FV", w: 18}, {h: "Item", w: 40}, {h: "Local inspecionado", w: 20}, {h: "Situação", w: 22}, {h: "Abertura", w: 11, t: "d"}], rows}); }
+    if (r.abas.has("prob")) { const rows = []; L.forEach(f => { const x = sub.get(f.id) || {obs: []}; x.obs.forEach(o => { const it = (f.items || []).find(i => i.id === o.item), ck = o.cell || "", cid = it && ck ? ck.slice(it.id.length + 1) : "", col = cid ? (f.cols || {})[cid] : null; rows.push([...fd(f), (o.sheet || "fv") === "fv" ? "FV" : "F.007", (o.sheet || "fv") === "fv" ? (o.folha || 0) + 1 : "", it ? itemTxt(it) : "", col ? col.name : "", o.problema || "", o.solucao || "", String(o.solucao || "").trim() ? "Com solução" : "Sem solução", ck && (f.cells || {})[ck] ? ((ST[(f.cells || {})[ck]] || {}).name || "") : "", String(o.createdAt || "").slice(0, 10)]); }); });
+      sheets.push({name: "Problemas", cols: [{h: "Equipe", w: 12}, {h: "Código", w: 16}, {h: "Título", w: 28}, {h: "Local da FV", w: 18}, {h: "Ficha", w: 8}, {h: "Folha", w: 7, t: "n"}, {h: "Item", w: 34}, {h: "Local", w: 18}, {h: "Problema", w: 50, wrap: true}, {h: "Solução", w: 50, wrap: true}, {h: "Situação", w: 13}, {h: "Marcação atual", w: 20}, {h: "Registrado em", w: 12, t: "d"}], rows}); }
+    if (r.abas.has("pda")) { const rows = []; L.forEach(f => { const x = sub.get(f.id) || {pda: []}; x.pda.forEach(p => rows.push([...fd(f), p.data || "", p.problema || "", p.acao || "", p.responsavel || "", p.suporte || "", p.prazo || "", PDCA_NAME[normPdca(p.status)] || p.status || "", p.prazo && p.prazo < today() && normPdca(p.status) !== "PADR" ? "Sim" : "Não"])); });
+      sheets.push({name: "PDA", cols: [{h: "Equipe", w: 12}, {h: "Código", w: 16}, {h: "Título", w: 28}, {h: "Local da FV", w: 18}, {h: "Data", w: 11, t: "d"}, {h: "Problema", w: 44, wrap: true}, {h: "Ação", w: 44, wrap: true}, {h: "Responsável", w: 20}, {h: "Suporte", w: 18}, {h: "Prazo", w: 11, t: "d"}, {h: "Status", w: 14}, {h: "Vencido", w: 9}], rows}); }
+    if (r.abas.has("solos") && r.eqs.includes("infra") && solos.size) {
+      const T = [...solos.values()].filter(t => !t.trashAt).sort((a, b) => String(a.nome || "").localeCompare(String(b.nome || ""), "pt-BR", {numeric: true}));
+      const rowsE = [], rowsT = [];
+      for (const [i, t] of T.entries()) {
+        msg = `Lendo os ensaios de solos… ${i + 1} de ${T.length}`;
+        const get = async c => { try { return (await db.collection(`solos/${t.id}/${c}`).get()).docs.map(d => ({id: d.id, ...d.data()})).filter(x => !x.trashAt); } catch { return []; } };
+        const [ens0, docs] = await Promise.all([get("ensaios"), get("docs")]), ens = ensOf(ens0, docs).sort((a, b) => (a.o || 0) - (b.o || 0)), info = soloInfo(t);
+        ens.forEach(e => { const ev = ensEval(t, e), k = camKey(e.cam), d = docs.find(x => x.id === e.docId); rowsE.push([t.nome || "", pathText(t.folder || "") || "", k === "F" ? "Fundo de caixa" : k, e.n || "", e.data || "", [e.local, e.ponto].filter(Boolean).join(" · "), e.ucampo, e.uot, e.desvio, e.dseco, e.dmax, e.gc, k ? camReq(t, k) : "", ev.txt, ensSt(t, e).txt, d ? d.titulo || "Relatório" : "Sem relatório"]); });
+        const h = t.head || {};
+        rowsT.push([t.nome || "", pathText(t.folder || "") || "", h.obra || "", h.area, h.altCamada, h.nCamadas, info.total, info.cnt.V, info.cnt.F + info.cnt.R, info.cnt.I, info.cnt.Z, info.total ? info.cnt.V / info.total : "", SOLO_ST[info.state][0], t.concluido === "sim" ? "Sim" : "Não", soloValEff(t, info.sum) === "sim" ? "Sim" : soloValEff(t, info.sum) === "nao" ? "Não" : "NA", info.pend.filter(p => p.sev !== "info").map(p => p.txt).join(" | ")]);
+      }
+      sheets.push({name: "Ensaios de solos", cols: [{h: "Trecho", w: 22}, {h: "Pasta", w: 18}, {h: "Camada", w: 14}, {h: "Ensaio", w: 8}, {h: "Data", w: 11, t: "d"}, {h: "Local / ponto", w: 22}, {h: "Umidade campo (%)", w: 11, t: "n"}, {h: "Umidade ótima (%)", w: 11, t: "n"}, {h: "Desvio (p.p.)", w: 10, t: "n"}, {h: "Dens. seca (g/cm³)", w: 11, t: "n"}, {h: "Dens. máx. (g/cm³)", w: 11, t: "n"}, {h: "G.C. (%)", w: 9, t: "n"}, {h: "G.C. exigido (%)", w: 10, t: "n"}, {h: "Análise", w: 34, wrap: true}, {h: "Situação", w: 20}, {h: "Relatório", w: 24}], rows: rowsE});
+      sheets.push({name: "Trechos de solos", cols: [{h: "Trecho", w: 22}, {h: "Pasta", w: 18}, {h: "Obra", w: 22}, {h: "Área (m²)", w: 10, t: "n"}, {h: "Altura camada (m)", w: 10, t: "n"}, {h: "Camadas (capa)", w: 10, t: "n"}, {h: "Camadas conferidas", w: 10, t: "n"}, {h: "No critério", w: 10, t: "n"}, {h: "Fora / refeitas", w: 10, t: "n"}, {h: "Incompletas", w: 10, t: "n"}, {h: "Sem relatório", w: 10, t: "n"}, {h: "% no critério", w: 10, t: "p"}, {h: "Situação", w: 14}, {h: "Concluído", w: 10}, {h: "Validação do projetista", w: 12}, {h: "Pendências", w: 60, wrap: true}], rows: rowsT});
+    }
+    if (!sheets.length) throw Object.assign(new Error("vazio"), {code: "vazio"});
+    msg = "Montando a planilha…";
+    const blob = xlBuild(sheets), nm = `FVs_${((findObra(ctx.obra) || {}).o || {}).nome ? String(findObra(ctx.obra).o.nome).normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9]+/g, "_") + "_" : ""}${today()}.xlsx`;
+    clearInterval(iv); await dl.save({filename: nm, data: blob});
+    toast(`Excel pronto: ${sheets.map(s => `${s.name} (${s.rows.length})`).join(", ")}.`);
+  } catch (e) { clearInterval(iv); toast(e && e.code === "declined" ? "Download cancelado." : e && e.code === "vazio" ? "Nada para exportar com essas escolhas." : "Não foi possível gerar o Excel."); }
+}
+
+/* ---------- LICENÇAS TEMPORÁRIAS DE LEITURA ----------
+   Gestor ou administrador libera um e-mail para ver (sem editar) as equipes a que ele mesmo tem acesso, até uma data.
+   Documento licencas/{email}: {email, ate (ms, o maior prazo), eqs: {infra: {ate, by, byNome, at, motivo}}} */
+const LIC_MAX_DIAS = 90;
+const licNow = () => (window.__fb && window.__fb.licenca && window.__fb.licenca()) || null;
+const licEqs = l => Object.entries((l && l.eqs) || {}).filter(([k, v]) => v && v.ate > Date.now() && FRENTES[k]).map(([k]) => k);
+function licBoot() {
+  const l = licNow(); if (!l) return;
+  const eqs = licEqs(l), ate = Math.max(0, ...eqs.map(k => l.eqs[k].ate));
+  banner("lic", `Acesso temporário de leitura até <b>${fmtDH(new Date(ate))}</b> · ${eqs.map(k => esc(FRENTES[k].nome)).join(", ") || "nenhuma equipe"}. Para editar, peça ao gestor para liberar seu e-mail.`, "warn");
+  const ms = ate - Date.now(); if (ms > 0 && ms < 2147483000) setTimeout(() => location.reload(), ms + 2000);
+}
+async function renderLicencas(box) {
+  const mine = eqsVis(), L = []; let err = false;
+  try { (await db.collection("licencas").get()).docs.forEach(d => L.push({id: d.id, ...d.data()})); } catch { err = true; }
+  const now = Date.now(), row = l => { const E = Object.entries(l.eqs || {}).filter(([k, v]) => v && FRENTES[k]); const ativo = E.some(([, v]) => v.ate > now);
+    return `<div class="lic-row ${ativo ? "" : "exp"}"><div class="lic-i"><b>${esc(l.email || l.id)}</b>${l.motivo ? `<small>${esc(l.motivo)}</small>` : ""}<div class="lic-eqs">${E.map(([k, v]) => `<span class="lic-eq ${v.ate > now ? "" : "exp"}">${esc(FRENTES[k].nome)} · ${v.ate > now ? "até " + esc(fmtDH(new Date(v.ate))) : "expirou " + esc(fmtDH(new Date(v.ate)))}<small> · por ${esc(v.byNome || "")}</small>${mine.includes(k) ? `<button type="button" data-licrm="${esc(l.id)}" data-eq="${k}" title="Revogar ${esc(FRENTES[k].nome)}" aria-label="Revogar">×</button>` : ""}</span>`).join("")}</div></div>
+      <button type="button" class="btn sm" data-licext="${esc(l.id)}">Renovar / incluir equipe</button></div>`; };
+  box.innerHTML = `<div class="panel"><div class="pn-h"><h2 class="sec-h" style="margin:0">Licenças temporárias de leitura</h2><button type="button" class="btn primary sm" data-licnew>+ Nova licença</button></div>
+    <p class="sub" style="margin:6px 0 10px">Libere alguém de fora (projetista, consultor, auditoria, outra obra) para <b>ver sem editar</b> por um prazo de até ${LIC_MAX_DIAS} dias. Você só libera as equipes a que você mesmo tem acesso (${mine.map(k => esc(FRENTES[k].curto)).join(", ")}); para outra equipe, peça ao gestor dela. A pessoa entra no site com esse e-mail (Google ou e-mail e senha) e, quando o prazo acaba, perde o acesso sozinha.</p>
+    ${err ? `<div class="banner warn">Não foi possível ler as licenças. Confira se as regras novas do Firestore (firestore.rules) foram publicadas.</div>` : ""}
+    <div class="lic-list">${L.length ? L.sort((a, b) => (b.ate || 0) - (a.ate || 0)).map(row).join("") : `<p class="sub">Nenhuma licença ainda.</p>`}</div></div>`;
+  $("[data-licnew]", box).onclick = () => licForm(null, box);
+  $$("[data-licext]", box).forEach(b => b.onclick = () => licForm(L.find(x => x.id === b.dataset.licext), box));
+  $$("[data-licrm]", box).forEach(b => b.onclick = async () => {
+    const l = L.find(x => x.id === b.dataset.licrm), k = b.dataset.eq; if (!l || !mine.includes(k)) return;
+    if (!(await confirmBox("Revogar licença?", `<b>${esc(l.email)}</b> deixa de ver <b>${esc(FRENTES[k].nome)}</b> agora.`, "Revogar", true))) return;
+    const eqs = {...(l.eqs || {})}; delete eqs[k]; const rest = Object.values(eqs).filter(v => v && v.ate > Date.now());
+    try { if (!rest.length) await db.doc(`licencas/${l.id}`).delete(); else await db.doc(`licencas/${l.id}`).set({...l, eqs, ate: Math.max(...rest.map(v => v.ate)), updatedBy: me, updatedAt: nowIso()}); toast("Licença revogada."); renderLicencas(box); } catch { toast("Não foi possível revogar."); }
+  });
+}
+async function licForm(l, box) {
+  const mine = eqsVis(); if (!mine.length) return toast("Você não tem equipes para liberar.");
+  const amanha = new Date(Date.now() + 7 * 864e5), lim = new Date(Date.now() + LIC_MAX_DIAS * 864e5), iso = d => d.toISOString().slice(0, 10);
+  const r = await modal({title: l ? "Renovar licença" : "Nova licença temporária", body: `
+      <label class="fld">E-mail da pessoa<input type="email" id="lc-mail" value="${esc(l ? l.email : "")}" ${l ? "readonly" : ""} placeholder="nome@empresa.com.br" autocomplete="off"></label>
+      <div class="fld"><span>Equipes que ela vai ver (só leitura)</span>${mine.map(k => `<label class="ck"><input type="checkbox" data-le="${k}" ${(l ? (l.eqs || {})[k] : k === curFrente) ? "checked" : ""}> ${esc(FRENTES[k].nome)}</label>`).join("")}</div>
+      <div class="fld"><span>Prazo</span><div class="lic-pz">${[[1, "1 dia"], [3, "3 dias"], [7, "7 dias"], [15, "15 dias"], [30, "30 dias"]].map(([d, t]) => `<button type="button" class="chip ${d === 7 ? "on" : ""}" data-lpz="${d}">${t}</button>`).join("")}</div>
+        <input type="date" id="lc-ate" value="${iso(amanha)}" min="${iso(new Date())}" max="${iso(lim)}" style="margin-top:6px"></div>
+      <label class="fld">Motivo (opcional)<input type="text" id="lc-mot" maxlength="120" value="${esc(l ? l.motivo || "" : "")}" placeholder="Ex.: projetista avaliar os mapeamentos de terraplenagem"></label>`,
+    onOpen: bg => $$("[data-lpz]", bg).forEach(b => b.onclick = () => { $$("[data-lpz]", bg).forEach(x => x.classList.toggle("on", x === b)); $("#lc-ate", bg).value = iso(new Date(Date.now() + +b.dataset.lpz * 864e5)); }),
+    actions: [{label: "Cancelar", value: null}, {label: "Liberar", cls: "primary", validate: bg => { const m = $("#lc-mail", bg).value.trim(); if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)) { toast("Digite um e-mail válido."); return false; } if (!$$("[data-le]:checked", bg).length) { toast("Escolha pelo menos uma equipe."); return false; } const a = $("#lc-ate", bg).value; if (!a || a < today() || a > iso(lim)) { toast(`O prazo vai de hoje até ${LIC_MAX_DIAS} dias.`); return false; } return true; },
+      value: bg => ({email: $("#lc-mail", bg).value.trim().toLowerCase(), eqs: $$("[data-le]:checked", bg).map(c => c.dataset.le), ate: $("#lc-ate", bg).value, motivo: $("#lc-mot", bg).value.trim()})}]});
+  if (!r) return;
+  const ac = (window.__fb && await window.__fb.getAccess().catch(() => null)) || {};
+  if ([...(ac.editors || []), ...(ac.viewers || []), ...(ac.gestores || [])].map(x => String(x).toLowerCase()).includes(r.email)) { if (!(await confirmBox("Essa pessoa já tem acesso", `<b>${esc(r.email)}</b> já está liberada no sistema. A licença temporária só vale para quem não tem acesso. Liberar mesmo assim?`, "Liberar"))) return; }
+  const ateMs = Math.min(new Date(r.ate + "T23:59:00").getTime(), Date.now() + LIC_MAX_DIAS * 864e5), at = nowIso(), byNome = myName() || names.get(me) || "";
+  let prevData = l || {};
+  if (!l) { try { const sn = await db.doc(`licencas/${r.email}`).get(), ex = sn && (typeof sn.exists === "function" ? sn.exists() : sn.exists); if (ex) prevData = sn.data() || {}; } catch {} }
+  const eqs = {...(prevData.eqs || {})};
+  // equipes de outros gestores ficam como estão; as minhas recebem o novo prazo (ou saem, se desmarquei na renovação)
+  mine.forEach(k => { if (r.eqs.includes(k)) eqs[k] = {ate: ateMs, by: me, byNome, at}; else if (l && eqs[k]) delete eqs[k]; });
+  const vivos = Object.values(eqs).filter(v => v && v.ate > Date.now());
+  try {
+    if (!vivos.length) await db.doc(`licencas/${r.email}`).delete();
+    else await db.doc(`licencas/${r.email}`).set({email: r.email, eqs, ate: Math.max(...vivos.map(v => v.ate)), motivo: r.motivo || prevData.motivo || "", createdBy: prevData.createdBy || me, createdAt: prevData.createdAt || at, updatedBy: me, updatedAt: at});
+    const link = location.origin + location.pathname;
+    await modal({title: "Licença liberada", body: `<p style="margin:0 0 8px"><b>${esc(r.email)}</b> pode ver ${r.eqs.map(k => `<b>${esc(FRENTES[k].nome)}</b>`).join(", ")} até <b>${esc(fmtDH(new Date(ateMs)))}</b>, sem editar.</p><p class="sub" style="margin:0 0 8px">O sistema não manda e-mail sozinho: avise a pessoa. Ela entra pelo link abaixo com esse e-mail (Google ou e-mail e senha).</p><input type="text" readonly value="${esc(link)}" id="lc-link" style="width:100%">`,
+      onOpen: bg => { const i = $("#lc-link", bg); i.onclick = () => i.select(); }, actions: [{label: "Copiar link", value: "cp"}, {label: "Pronto", cls: "primary", value: null}]}).then(v => { if (v === "cp" && navigator.clipboard) navigator.clipboard.writeText(link).then(() => toast("Link copiado.")).catch(() => {}); });
+    renderLicencas(box);
+  } catch { toast("Não foi possível salvar a licença. Confira se as regras novas do Firestore foram publicadas."); }
+}
+
 /* ---------- Assistente IA (Firebase AI Logic + Gemini Developer API) ----------
    Configuração em firebase-config.js: window.IA_SUPORTE = {recaptcha: "CHAVE_DO_SITE_RECAPTCHA", modelo: "", limiteDia: 60}
    Usa um app Firebase separado ("ia", SDK mais novo), só para a IA: o resto do sistema não muda. */
@@ -8414,7 +8768,7 @@ const IA_V = "13.4.0", IA_BASE = `https://www.gstatic.com/firebasejs/${IA_V}/`;
 const IA_MODELOS = ["gemini-3.6-flash", "gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite"];
 const IA_MANUAL = `SISTEMA "FVs DA OBRA" (o assistente IA se chama Rivet; botão acima do "?") (web, celular e computador) — obra Parque dos Sonhos V, Tenda, regional GO.
 Navegação: Regional › Fábrica › Obra › Equipe (Qualidade, Infraestrutura, Estrutura, Acabamento, GAPE). Menu lateral: Início, Pendências, Fichas de verificação, Solos (Infra), Planicidade (Qualidade), GAPE, Painel, Social, Configurações e Lixeira (só gestor). "Trocar equipe" no topo do menu.
-FVs (Fichas de Verificação): "+ Nova FV" escolhe o modelo, o local (conjunto: Anexos, Trechos, Bloco, Piscina, CPG's, GLP's) e os locais inspecionados (caixas com ×; toque para editar). Conferente = nome completo de quem criou (não muda); gestor vem da lista. Cada célula: A (aprovado), R/X (reprovado), Ⓧ (reprovado e aprovado na reinspeção), NA. Toda reprovação exige PROBLEMA e SOLUÇÃO escritos; sem isso não sai da FV (opções "Escrever agora" ou "Tirar o X"). Cada folha tem 10 linhas de problemas próprias. F.007 (observações complementares) tem 30 linhas por folha e fecha junto com a FV; linhas abertas travam o fechamento. PDA (plano de ação) tem 10 linhas por folha e continua liberado depois de fechar. Só o gestor fecha; ninguém assina com item reprovado; o gestor tem 72 h para assinar. Menu ⋯ de cada linha: ↗ encaminhar (Social), 🔔 notificar com urgência, 📷 fotos, ✕ excluir. Abas da FV: mapeamentos (editor com desenho, texto, marcadores numerados, cores/opacidade, borracha, girar planta, escala na folha, desfazer ↶), fotos, documentos (ITs/ETs da biblioteca), projetos, histórico detalhado. "Baixar PDF" gera FV, F.007, PDA e mapeamentos, cada parte numa página; "Baixar mapeamentos" escolhe quais.
+FVs (Fichas de Verificação): "+ Nova FV" escolhe o modelo, o local (conjunto: Anexos, Trechos, Bloco, Piscina, CPG's, GLP's) e os locais inspecionados (caixas com ×; toque para editar). Conferente = nome completo de quem criou (não muda); gestor vem da lista. Cada célula: A (aprovado), R/X (reprovado), Ⓧ (reprovado e aprovado na reinspeção: exige a foto do depois, que sai no PDF ao lado da foto do antes), NA. As fotos recebem carimbo de data, hora e GPS. Toda reprovação exige PROBLEMA e SOLUÇÃO escritos; sem isso não sai da FV (opções "Escrever agora" ou "Tirar o X"). Cada folha tem 10 linhas de problemas próprias. F.007 (observações complementares) tem 30 linhas por folha e fecha junto com a FV; linhas abertas travam o fechamento. PDA (plano de ação) tem 10 linhas por folha e continua liberado depois de fechar. Só o gestor fecha; ninguém assina com item reprovado; o gestor tem 72 h para assinar. Menu ⋯ de cada linha: ↗ encaminhar (Social), 🔔 notificar com urgência, 📷 fotos, ✕ excluir. Abas da FV: mapeamentos (editor com desenho, texto, marcadores numerados, cores/opacidade, borracha, girar planta, escala na folha, desfazer ↶), fotos, documentos (ITs/ETs da biblioteca), projetos, histórico detalhado. "Baixar PDF" gera FV, F.007, PDA, mapeamentos, antes e depois e registro fotográfico, cada parte numa página, escolhendo quais fotos vão (ou nenhuma); "Baixar mapeamentos" escolhe quais. Painel e Solos têm "Exportar Excel" (FVs, itens, problemas, PDA, ensaios). Gestor libera licença temporária de leitura em Configurações › Licenças temporárias.
 Solos (Infra) — Mapeamento de compactação de faixa terraplenada F.045-QUALI: capa (dados, quantidade de camadas, resumo por camada, assinaturas do responsável pela coleta e do gestor), mapa com a demarcação (desenhado no projeto ou imagem anexada; cada camada com uma cor, legenda de cores), relatórios dos ensaios do laboratório (o sistema lê o PDF/foto, você confere e ele analisa G.C. e desvio de umidade pelos critérios da capa: G.C. mínimo padrão 97%, 100% nas 3 últimas camadas, desvio de umidade ±3 p.p., ensaios por camada pela área) e validação do projetista quando há ensaio fora do critério. Avisa falta de relatório por camada e camada acima da capa. "Baixar mapeamento (PDF)" para enviar ao projetista; na lista, "Baixar mapeamentos" baixa vários.
 Planicidade e esquadro (Qualidade): importa planilha/PDF/foto das medições, mapa por torre e pavimento. GAPE: relatórios Report & Run com fotos e fichas em tabela. Painel: andamento por FV, por item (filtro "Item da FV"), por pasta. Pendências: tudo em aberto, priorizando o que envolve a pessoa. Social: conversas com texto, áudio, fotos, documentos, FVs e cobranças. Configurações: perfil (foto e apelido; nome completo não muda; cargo é definido pela gestão), aparência (claro/escuro, modo sol), notificações, modelos de FV, gestão da equipe, usuários e cargos, dados e aparelho. Lixeira: o que é excluído fica 30 dias e só o gestor restaura/exclui. Sem internet o que é preenchido fica no aparelho e sobe quando o sinal volta. Botão "?" no canto: Suporte (ajuda e chamado), Denúncia de erro, Sugestões, Meus chamados.`;
 const IA_SYS = ctx => `Você é o Rivet, o assistente de suporte do sistema "FVs da Obra", usado pela equipe de qualidade da Tenda na obra Parque dos Sonhos V (Goiânia/GO), uma construtora de habitação popular.
@@ -8680,6 +9034,7 @@ const CFG = [
   {k: "modelos", t: "Modelos de FV", ic: "📄", d: "Modelos oficiais e revisões", href: "#modelos"},
   {k: "gestao", t: "Gestão da equipe", ic: "🛡", d: "Pessoas, acessos por obra e equipe, registro de acessos", href: "#equipe", gest: true},
   {k: "usuarios", t: "Usuários e cargos", ic: "🪪", d: "Cargo e função de cada pessoa", gest: true},
+  {k: "licencas", t: "Licenças temporárias", ic: "⏳", d: "Liberar alguém de fora para ver (sem editar) por um prazo", gest: true},
   {k: "dados", t: "Dados e aparelho", ic: "💾", d: "Envios pendentes, uso offline e memória do aparelho"},
   {k: "sobre", t: "Sobre e atalhos", ic: "ℹ️", d: "Versão, atalhos de teclado e ajuda"}
 ];
@@ -8721,12 +9076,16 @@ async function renderConfig(sec) {
     body = `<div class="panel"><h2 class="sec-h">Usuários e cargos · ${esc((FRENTES[curFrente] || {}).nome || "")}</h2><p class="sub" style="margin:0 0 10px">Só a gestão define o cargo. Ele aparece no perfil da pessoa e na busca do Social.</p>
       <input type="search" id="us-q" placeholder="Buscar pessoa…" style="width:100%;max-width:360px;margin-bottom:8px"><datalist id="cg-l">${CARGOS.map(c => `<option>${esc(c)}</option>`).join("")}</datalist>
       <div class="us-list">${L2.map(u => `<div class="us-row" data-us="${esc(u.uid)}"><span class="soc-av">${avatarHtml(u)}</span><div class="us-n"><b>${esc(u.full || u.name)}</b><small>${esc(u.apelido ? "“" + u.apelido + "” · " : "")}${esc(u.email)} · ${esc(socPerfil(u, acc))}</small></div><input type="text" list="cg-l" value="${esc(u.cargo || "")}" placeholder="Cargo" data-cg maxlength="60"><button type="button" class="btn sm" data-cgs>Salvar</button></div>`).join("") || `<p class="sub">Ninguém nesta equipe.</p>`}</div></div>`;
+  } else if (sec === "licencas" && isGestor) {
+    body = `<div id="lic-box"><div class="panel"><p class="sub">Carregando…</p></div></div>`;
   } else if (sec === "dados") {
     const pend = (window.__fb && window.__fb.pendingCount && window.__fb.pendingCount()) || 0;
     let est = ""; try { const e = await navigator.storage.estimate(); est = `${(e.usage / 1048576).toFixed(1)} MB usados neste aparelho`; } catch {}
     body = `<div class="panel"><h2 class="sec-h">Envios e uso offline</h2><p>${navigator.onLine ? "🟢 Conectado." : "🟠 Sem internet: o que você preencher fica guardado e vai quando a conexão voltar."} ${pend ? `<b>${pend}</b> alteração(ões) aguardando envio.` : "Nada aguardando envio."}</p><p class="sub">${esc(est)}</p>
       <h2 class="sec-h" style="margin-top:14px">Memória do aparelho</h2><p class="sub" style="margin:0 0 8px">Se o sistema ficar estranho depois de uma atualização, limpe a memória deste aparelho. Seus dados ficam guardados no servidor; só o que ainda não foi enviado se perderia, por isso o botão só funciona com tudo enviado.</p>
-      <button type="button" class="btn" data-clr ${pend ? "disabled" : ""}>Limpar memória e recarregar</button></div>`;
+      <button type="button" class="btn" data-clr ${pend ? "disabled" : ""}>Limpar memória e recarregar</button>
+      <h2 class="sec-h" style="margin-top:14px">Fotos</h2><label class="cfg-sw"><input type="checkbox" data-carimbo ${carimboOn() ? "checked" : ""}><span>Carimbar data, hora e local (GPS) nas fotos enviadas por este aparelho</span></label>
+      <p class="sub">O carimbo fica gravado na própria imagem, como prova. A data vem da foto (ou da hora em que foi tirada pela câmera do sistema); o GPS vem da foto ou do aparelho, se você permitir a localização.</p></div>`;
   } else if (sec === "sobre") {
     body = `<div class="panel"><h2 class="sec-h">Sistema de FVs</h2><p>Fichas de verificação, F.007, PDA, mapeamentos, planicidade, solos, GAPE, Social e pendências da obra ${esc(((findObra(ctx.obra) || {}).o || {}).nome || "")}.</p>
       <h2 class="sec-h" style="margin-top:14px">Atalhos no mapeamento</h2><ul class="cfg-keys"><li><kbd>Ctrl</kbd>+<kbd>Z</kbd> desfazer · <kbd>Ctrl</kbd>+<kbd>Y</kbd> refazer</li><li><kbd>Delete</kbd> apaga o desenho selecionado</li><li><kbd>Esc</kbd> cancela o desenho em andamento</li><li>Roda do mouse: zoom · arrastar com a mão: mover a planta</li></ul>
@@ -8743,6 +9102,8 @@ async function renderConfig(sec) {
   $$("[name=tema]", v).forEach(r => r.onchange = () => { setTema(r.value); renderConfig("aparencia"); });
   $$("[name=fonte]", v).forEach(r => r.onchange = () => { try { localStorage.setItem("fvs-fonte", r.value); } catch {} document.documentElement.classList.toggle("fonte-g", r.value === "g"); renderConfig("aparencia"); });
   if (q("[data-hc]")) q("[data-hc]").onchange = e => setHc(e.target.checked);
+  if (q("[data-carimbo]")) q("[data-carimbo]").onchange = e => { try { localStorage.setItem("fvs-carimbo", e.target.checked ? "1" : "0"); } catch {} toast(e.target.checked ? "Carimbo ligado neste aparelho." : "Carimbo desligado neste aparelho."); };
+  if (q("#lic-box")) renderLicencas(q("#lic-box"));
   $$("[data-np]", v).forEach(c => c.onchange = () => { try { localStorage.setItem("fvs-n-" + c.dataset.np, c.checked ? "1" : "0"); } catch {} });
   if (q("#us-q")) q("#us-q").oninput = e => { const s0 = norm(e.target.value); $$(".us-row", v).forEach(r => r.classList.toggle("hidden", !!s0 && !norm(r.textContent).includes(s0))); };
   $$("[data-cgs]", v).forEach(b => b.onclick = async () => { const r = b.closest("[data-us]"), uid0 = r.dataset.us, cg = $("[data-cg]", r).value.trim(); try { await db.doc(`users/${uid0}`).merge({cargo: cg}); const u = team.find(x => x.uid === uid0); if (u) u.cargo = cg; if (uid0 === me) myProf.cargo = cg; toast("Cargo salvo."); } catch { toast("Não foi possível salvar. Publique as regras novas do Firebase."); } });
@@ -8945,7 +9306,7 @@ async function init() {
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
     renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
-    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); helpBoot(); iaBoot(); temaBoot(); }
+    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); watchConvs(); helpBoot(); iaBoot(); temaBoot(); licBoot(); }
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     const first = !foldersLoaded; folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;
