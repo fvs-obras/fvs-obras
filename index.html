@@ -869,6 +869,7 @@ body.ng [data-pjdel],body.ng [data-pjrm],body.ng [data-delpl],body.ng #g-del,bod
 .cd-sw.on{outline:3px solid var(--ink);outline-offset:1px}.cd-empty{border:1.5px dashed #aaa;background:transparent;cursor:default}
 .cd-add{width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:#fff;font-size:17px;line-height:1;cursor:pointer;padding:0;min-height:0}
 @media (max-width:560px){.cd-top{grid-template-columns:minmax(0,1fr) 22px;}.cd-prev{grid-column:1/-1;height:28px;order:3}.cd-f{grid-column:1/-1;grid-template-columns:repeat(4,1fr);order:4}.cd-grid{gap:4px}}
+.med-rot{display:inline-flex;gap:4px;margin-left:auto}.med-rot .btn{min-width:38px;font-size:16px}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1796,6 +1797,7 @@ async function addProblem(itemId, localName, cell) {
   if (!cur || !canWrite) return;
   const id = cur.id, fvRows = cur.obs.filter(o => (o.sheet || "fv") === "fv").length;
   const sheet = fvRows >= 10 ? "f007" : "fv";
+  if (sheet === "f007") cur.f7pg = Math.floor(cur.obs.filter(o => o.sheet === "f007").length / F007_LIN);
   const rid = uid("r"), at = nowIso();
   setTab(sheet === "fv" ? "fv" : "f007");
   try {
@@ -1844,6 +1846,7 @@ async function ncBlock(P, target) {
   }
   const x = P[0]; let o = ncObsFor(x);
   if (!o) { await addProblem(x.itId, x.local, x.k); return; }
+  if (o.sheet === "f007") { cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === o.id) / F007_LIN); renderProbRows(fvs.get(cur.id), "f007"); }
   setTab((o.sheet || "fv") === "fv" ? "fv" : "f007");
   setTimeout(() => { const tr = $(`tr[data-id="${o.id}"]`); if (!tr) return; const v = ncRowVals(o), el = v.p.replace(x.local, "").replace(":", "").trim().length < 3 ? $("[data-f=problema]", tr) : $("[data-f=solucao]", tr);
     tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); el.focus(); el.scrollIntoView({block: "center"}); }, 150);
@@ -2042,9 +2045,19 @@ function probRowUpdate(fv) {
     tr.title = d ? `Criado por ${names.get(d.createdBy) || "…"} em ${fmtFull(d.createdAt)}${d.updatedAt !== d.createdAt ? ` · editado por ${names.get(d.updatedBy) || "…"} em ${fmtFull(d.updatedAt)}` : ""}` : "";
   };
 }
+const F007_LIN = 30;
+const f7Pages = fv => { const n = cur.obs.filter(o => o.sheet === "f007").length; return locked(fv) ? Math.max(1, Math.ceil(n / F007_LIN)) : Math.floor(n / F007_LIN) + 1; };
 function renderProbRows(fv, sheet) {
   const tb = sheet === "fv" ? $("#fv-prob tbody") : $("#f007-prob tbody"); if (!tb) return;
-  const docs = cur.obs.filter(o => (o.sheet || "fv") === sheet);
+  let docs = cur.obs.filter(o => (o.sheet || "fv") === sheet);
+  if (sheet === "f007") {
+    const nP = f7Pages(fv), pg = cur.f7pg = Math.max(0, Math.min(cur.f7pg || 0, nP - 1)), last = pg === nP - 1, total = docs.length;
+    docs = docs.slice(pg * F007_LIN, pg * F007_LIN + F007_LIN);
+    if (tb.dataset.pg !== String(pg)) { tb.innerHTML = ""; tb.dataset.pg = String(pg); }
+    syncSheetRows(tb, docs, probRowFactory(fv, sheet), probRowUpdate(fv), last ? F007_LIN : docs.length, last && !locked(fv) && docs.length < F007_LIN ? 1 : 0);
+    const bar = $("#f007-pages");
+    if (bar) bar.innerHTML = `<span class="folha-tabs">${Array.from({length: nP}, (_, i) => { const c = Math.max(0, Math.min(F007_LIN, total - i * F007_LIN)); return `<button type="button" class="chip ${i === pg ? "on" : ""}" data-f7pg="${i}">Folha ${i + 1} <small>${c}/${F007_LIN}</small></button>`; }).join("")}</span><span class="sub">${locked(fv) ? "Fechada junto com a FV." : `Cada linha é um problema (um item reprovado pode ter várias linhas). Com ${F007_LIN} linhas preenchidas, abre a folha seguinte.`}</span>`;
+  } else
   syncSheetRows(tb, docs, probRowFactory(fv, sheet), probRowUpdate(fv), sheet === "fv" ? 10 : 20, sheet === "fv" ? 2 : 3);
   const ids = [...new Set(docs.flatMap(d => [d.createdBy, d.updatedBy]))].filter(i => i && !names.has(i));
   if (ids.length && user && user.profiles) user.profiles(ids).then(ps => { ids.forEach(i => names.set(i, ps?.[i]?.name || "Alguém")); }).catch(() => {});
@@ -2058,12 +2071,14 @@ function renderF007(fv) {
     box.innerHTML = `<div class="sheet-wrap"><div class="sheet" id="sheet-f007">
       <table id="f007-title"></table>
       ${obraBlock("f007")}
+      <div class="folha-bar noprint" id="f007-pages"></div>
       <table class="blk prob-tbl" id="f007-prob"><colgroup><col style="width:10.5%"><col style="width:37%"><col><col style="width:34px"></colgroup>
         <thead><tr><th>ITEM</th><th>PROBLEMA IDENTIFICADO</th><th style="text-align:left">SOLUÇÃO &gt; DESCRIÇÃO/REGISTRO DA AÇÃO PARA REPARO <span class="req">&gt; PREENCHIMENTO OBRIGATÓRIO!</span></th><th class="nob" style="background:#fff"></th></tr></thead><tbody></tbody></table>
       ${dadosBlock()}
     </div></div>
-    <p class="hint">F.007-QUALI · Use quando as falhas ultrapassarem as linhas da FV. Fica anexada a esta FV.</p>`;
+    <p class="hint">F.007-QUALI · Recebe os problemas que passam das 10 linhas da FV. Faz parte da FV: fecha junto com ela, e só fecha com todas as linhas resolvidas (problema e solução escritos).</p>`;
     wireHeaderFields($("#sheet-f007", box));
+    box.addEventListener("click", e => { const b = e.target.closest("[data-f7pg]"); if (!b) return; cur.f7pg = +b.dataset.f7pg; renderProbRows(fvs.get(cur.id), "f007"); });
   }
   const sh = $("#sheet-f007", box);
   $("#f007-title", sh).innerHTML = `<colgroup><col style="width:118px"><col><col style="width:44px"><col style="width:82px"><col style="width:100px"></colgroup><tr style="height:34px">${markCell()}<td class="ttl">OBSERVAÇÕES COMPLEMENTARES ÀS FVs</td><td class="c b">FV</td><td class="fill c b">${esc(fv.code)}</td><td class="codebox"><b>F.007-QUALI</b>REV. 0 &nbsp; DATA 02/03/2026</td></tr>`;
@@ -2137,14 +2152,23 @@ async function toggleClose() {
     if (!(await confirmBox("Reabrir FV?", `A FV <b>${esc(fv.code)} – ${esc(fv.local || fv.title)}</b> volta a ficar <b>aberta para edição</b> por todos os editores. A reabertura fica registrada no histórico com o seu nome.`, "Reabrir FV", true))) return;
     patch(`fvs/${id}`, stamp({status: "aberta"})); logAct(id, "Reabriu a FV"); return;
   }
-  const s = stats(fv), noSol = cur.obs.filter(o => o.problema && !String(o.solucao || "").trim()).length;
-  const w = [];
+  const s = stats(fv), itN = idd => ((fv.items || []).find(i => i.id === idd) || {}).n || "sem item";
+  const abertas = cur.obs.filter(o => { const pr = String(o.problema || "").replace(/^[^:\n]{1,40}:\s*/, "").trim(), so = String(o.solucao || "").trim(); return (o.item || pr || so) && (!pr || !so); });
+  if (abertas.length) {
+    const r = await modal({title: "Não dá para fechar ainda", body: `<p style="margin-top:0">A FV e a F.007 fecham juntas, e só fecham com todas as linhas resolvidas. Ainda ${abertas.length > 1 ? "há linhas abertas" : "há uma linha aberta"} (sem o problema ou sem a solução):</p>
+      <ul>${abertas.slice(0, 12).map(o => `<li><b>${o.sheet === "f007" ? "F.007" : "FV"}</b> · item ${esc(itN(o.item))}${String(o.problema || "").trim() ? ` · ${esc(String(o.problema).slice(0, 60))}` : ""}</li>`).join("")}${abertas.length > 12 ? `<li>… e mais ${abertas.length - 12}</li>` : ""}</ul>`,
+      actions: [{label: "Fechar aviso", value: null}, {label: "Ir para a primeira", cls: "primary", value: "ir"}]});
+    if (r === "ir") { const o = abertas[0]; if (o.sheet === "f007") cur.f7pg = Math.floor(cur.obs.filter(z => z.sheet === "f007").findIndex(z => z.id === o.id) / F007_LIN); setTab(o.sheet === "f007" ? "f007" : "fv"); renderProbRows(fv, o.sheet === "f007" ? "f007" : "fv");
+      setTimeout(() => { const tr = $(`tr[data-id="${o.id}"]`); if (!tr) return; tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); const el = $("[data-f=problema]", tr); el.focus(); el.scrollIntoView({block: "center"}); }, 200); }
+    return;
+  }
+  const noSol = 0, w = [];
   if (s.E) w.push(`${s.E} verificação(ões) ainda “a verificar”`);
   if (s.R) w.push(`${s.R} item(ns) reprovado(s) sem reinspeção`);
   if (noSol) w.push(`${noSol} problema(s) sem solução registrada`);
   const nSp = fvSpell(fv).reduce((a, x) => a + x.is.length, 0);
   if (nSp) w.push(`${nSp} possível(is) erro(s) de ortografia (botão “revisar” na barra da FV)`);
-  if (!(await confirmBox("Fechar FV?", (w.length ? `Atenção:<br>• ${w.join("<br>• ")}<br><br>` : "") + "A data de fechamento será hoje (se estiver vazia) e a ficha e a F.007 ficam somente leitura até a FV ser reaberta. O <b>PDA continua liberado</b> para problemas que aparecerem depois. O gestor(a) tem até 72 h para assinar.", "Fechar FV"))) return;
+  if (!(await confirmBox("Fechar FV?", (w.length ? `Atenção:<br>• ${w.join("<br>• ")}<br><br>` : "") + "A data de fechamento será hoje (se estiver vazia). <b>A FV e a F.007 (observações complementares) fecham juntas</b> e ficam somente leitura até a FV ser reaberta. O <b>PDA continua liberado</b> para problemas que aparecerem depois. O gestor(a) tem até 72 h para assinar.", "Fechar FV"))) return;
   patch(`fvs/${id}`, stamp({status: "fechada", fechamento: fv.fechamento || today()})); logAct(id, "Fechou a FV");
 }
 async function deleteFv() {
@@ -3015,6 +3039,11 @@ function withSize(sh, v, m) {
   if (sh.t === "text") return {...sh, s: SZ.s(v) * b};
   return {...sh, w: SZ.w(v) * b};
 }
+/* rotação do mapeamento (m.rot = 0..3, passos de 90°): a planta gira na tela; textos continuam em pé */
+const mRot = m => ((+((m && m.rot) || 0)) % 4 + 4) % 4;
+function textDims(sh, m) { const b = baseU(m), fs = sh.s || b * MTXT.M, ls = String(sh.txt || "").split("\n"); return [Math.max(1, ...ls.map(l => l.length)) * fs * .62, ls.length * fs * 1.2]; }
+const rotV = (u, v, r) => r === 1 ? [v, -u] : r === 2 ? [-u, -v] : r === 3 ? [-v, u] : [u, v]; // local do texto -> planta (gira -r·90°)
+const rotInv = (x, y, r) => r === 1 ? [-y, x] : r === 2 ? [-x, -y] : r === 3 ? [y, -x] : [x, y];
 function shapeBox(sh, m) {
   const b = baseU(m), pad = (sh.w || b * MW.m) / 2;
   if (sh.t === "pen" || sh.t === "line" || sh.t === "arrow" || sh.t === "rect" || sh.t === "ell") {
@@ -3023,7 +3052,7 @@ function shapeBox(sh, m) {
     const ex = sh.t === "arrow" ? Math.max(pad * 8, b * 7) : pad;
     return [x0 - ex, y0 - ex, x1 + ex, y1 + ex];
   }
-  if (sh.t === "text") { const fs = sh.s || b * MTXT.M, ls = String(sh.txt || "").split("\n"), w = Math.max(1, ...ls.map(l => l.length)) * fs * .62; return [sh.x, sh.y, sh.x + w, sh.y + ls.length * fs * 1.2]; }
+  if (sh.t === "text") { const [w, h] = textDims(sh, m), r = mRot(m), P = [[0, 0], [w, 0], [0, h], [w, h]].map(([u, v]) => rotV(u, v, r)); return [sh.x + Math.min(...P.map(q => q[0])), sh.y + Math.min(...P.map(q => q[1])), sh.x + Math.max(...P.map(q => q[0])), sh.y + Math.max(...P.map(q => q[1]))]; }
   if (sh.t === "mk") { const r = sh.r || b * 9; return [sh.x - r, sh.y - r, sh.x + r, sh.y + r]; }
   return [0, 0, 0, 0];
 }
@@ -3056,11 +3085,13 @@ function isLight(c) { const h = String(c || "").replace("#", ""); if (!/^[0-9a-f
 /* desenha todos os desenhos; se houver borracha, numa camada separada (a borracha apaga só os desenhos, nunca a planta) */
 function paintShapes(ctx, list, m) {
   if (!list.some(x => x.t === "rub")) { list.forEach(x => drawShape(ctx, x, m)); return; }
+  const mks = list.filter(x => x.t === "mk"); list = list.filter(x => x.t !== "mk");
   const W = ctx.canvas.width, H = ctx.canvas.height;
   let L = ctx.__layer; if (!L || L.width !== W || L.height !== H) { L = ctx.__layer = mkCanvas(W, H); }
   const g = L.getContext("2d"); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, W, H); g.setTransform(ctx.getTransform());
   list.forEach(x => drawShape(g, x, m));
   ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ctx.drawImage(L, 0, 0); ctx.restore();
+  mks.forEach(x => drawShape(ctx, x, m));
 }
 function drawShape(ctx, s, m) {
   const b = baseU(m);
@@ -3092,6 +3123,7 @@ function drawShape(ctx, s, m) {
   } else if (s.t === "text") {
     const fs = s.s || b * MTXT.M, lines = String(s.txt || "").split("\n");
     ctx.font = `700 ${fs}px Inter, Arial, sans-serif`; ctx.textBaseline = "top";
+    const rr = mRot(m); if (rr) { ctx.translate(s.x, s.y); ctx.rotate(-rr * Math.PI / 2); ctx.translate(-s.x, -s.y); }
     ctx.lineWidth = fs * .2; ctx.strokeStyle = isLight(s.c) ? "rgba(0,0,0,.8)" : "rgba(255,255,255,.92)";
     lines.forEach((ln, i) => { ctx.strokeText(ln, s.x, s.y + i * fs * 1.2); ctx.fillText(ln, s.x, s.y + i * fs * 1.2); });
   } else if (s.t === "mk") {
@@ -3099,6 +3131,7 @@ function drawShape(ctx, s, m) {
     ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, Math.PI * 2); ctx.fill();
     ctx.lineWidth = r * .18; ctx.strokeStyle = light ? "#111" : "#fff"; ctx.stroke();
     ctx.fillStyle = light ? "#111" : "#fff"; ctx.font = `800 ${r * 1.1}px Inter, Arial, sans-serif`; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+    const rr = mRot(m); if (rr) { ctx.translate(s.x, s.y); ctx.rotate(-rr * Math.PI / 2); ctx.translate(-s.x, -s.y); }
     ctx.fillText(String(s.n), s.x, s.y + r * .06);
   }
   ctx.restore();
@@ -3110,7 +3143,7 @@ function hitShape(s, x, y, tol, m) {
   if (s.t === "line" || s.t === "arrow") return dseg(a[0], a[1], a[2], a[3]) <= t2;
   if (s.t === "rect") { const [x1, y1, x2, y2] = a; return [[x1, y1, x2, y1], [x2, y1, x2, y2], [x2, y2, x1, y2], [x1, y2, x1, y1]].some(q => dseg(...q) <= t2); }
   if (s.t === "ell") { const cx = (a[0] + a[2]) / 2, cy = (a[1] + a[3]) / 2, rx = Math.abs(a[2] - a[0]) / 2 || .1, ry = Math.abs(a[3] - a[1]) / 2 || .1; return Math.abs(Math.hypot((x - cx) / rx, (y - cy) / ry) - 1) * Math.min(rx, ry) <= t2; }
-  if (s.t === "text") { const fs = s.s || b * MTXT.M, ls = String(s.txt || "").split("\n"), w = Math.max(1, ...ls.map(l => l.length)) * fs * .62; return x >= s.x - tol && x <= s.x + w + tol && y >= s.y - tol && y <= s.y + ls.length * fs * 1.2 + tol; }
+  if (s.t === "text") { const [w, h] = textDims(s, m), [u, v] = rotInv(x - s.x, y - s.y, mRot(m)); return u >= -tol && u <= w + tol && v >= -tol && v <= h + tol; }
   if (s.t === "mk") return Math.hypot(x - s.x, y - s.y) <= (s.r || b * 9) + tol;
   return false;
 }
@@ -3144,10 +3177,15 @@ class MapViewer {
     this.cv.style.width = r.width + "px"; this.cv.style.height = r.height + "px";
     if (!this.fitted) this.fit(); else this.draw();
   }
-  fit() { if (!this.W) return; this.fitted = true; const k = Math.min(this.W / this.img.width, this.H / this.img.height) * .96; this.k = this.kMin = k; this.ox = (this.W - this.img.width * k) / 2; this.oy = (this.H - this.img.height * k) / 2; this.draw(); }
+  get rw() { return (this.rot || 0) % 2 ? this.img.height : this.img.width; }
+  get rh() { return (this.rot || 0) % 2 ? this.img.width : this.img.height; }
+  setRot(r) { this.rot = ((r % 4) + 4) % 4; this.fit(); }
+  rotM() { const w = this.img.width, h = this.img.height; return [[1, 0, 0, 1, 0, 0], [0, 1, -1, 0, h, 0], [-1, 0, 0, -1, w, h], [0, -1, 1, 0, 0, w]][this.rot || 0]; }
+  fit() { if (!this.W) return; this.fitted = true; const k = Math.min(this.W / this.rw, this.H / this.rh) * .96; this.k = this.kMin = k; this.ox = (this.W - this.rw * k) / 2; this.oy = (this.H - this.rh * k) / 2; this.draw(); }
   zoomAt(f, sx, sy) { const k = Math.max(this.kMin * .5, Math.min(this.kMin * 60, this.k * f)); f = k / this.k; this.ox = sx - (sx - this.ox) * f; this.oy = sy - (sy - this.oy) * f; this.k = k; this.draw(); }
   zoomBy(f) { this.zoomAt(f, this.W / 2, this.H / 2); }
-  toImg(e) { const r = this.cv.getBoundingClientRect(); return [(e.clientX - r.left - this.ox) / this.k, (e.clientY - r.top - this.oy) / this.k]; }
+  toImg(e) { const r = this.cv.getBoundingClientRect(), bx = (e.clientX - r.left - this.ox) / this.k, by = (e.clientY - r.top - this.oy) / this.k, w = this.img.width, h = this.img.height;
+    return [[bx, by], [by, h - bx], [w - bx, h - by], [w - by, bx]][this.rot || 0]; }
   pinchState() { const [a, b] = [...this.ptr.values()]; return {d: Math.hypot(a.x - b.x, a.y - b.y), mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2}; }
   down(e) {
     try { this.cv.setPointerCapture(e.pointerId); } catch {}
@@ -3178,6 +3216,7 @@ class MapViewer {
       this.raf = 0; const c = this.ctx, d = window.devicePixelRatio || 1;
       c.setTransform(1, 0, 0, 1, 0, 0); c.fillStyle = "#3a4048"; c.fillRect(0, 0, this.cv.width, this.cv.height);
       c.setTransform(d * this.k, 0, 0, d * this.k, d * this.ox, d * this.oy); c.imageSmoothingQuality = "high";
+      if (this.rot) c.transform(...this.rotM());
       c.drawImage(this.img, 0, 0); this.o.paint && this.o.paint(c, this);
     });
   }
@@ -3193,7 +3232,9 @@ async function mapImageUrl(m, maxW = 1800) {
   g.drawImage(im, 0, 0, cv.width, cv.height);
   const s0 = (im.width / m.crop.w) * k; g.setTransform(s0, 0, 0, s0, -m.crop.x * s0, -m.crop.y * s0);
   paintShapes(g, liveShapes(m.shapes), m);
-  const url = cv.toDataURL("image/jpeg", .9); prevCache.set(key, url); return url;
+  let out = cv; const r = mRot(m);
+  if (r) { out = mkCanvas(r % 2 ? cv.height : cv.width, r % 2 ? cv.width : cv.height); const o = out.getContext("2d"); o.translate(out.width / 2, out.height / 2); o.rotate(r * Math.PI / 2); o.drawImage(cv, -cv.width / 2, -cv.height / 2); }
+  const url = out.toDataURL("image/jpeg", .9); prevCache.set(key, url); return url;
 }
 
 /* recorte de uma área da planta em resolução cheia, a partir dos blocos */
@@ -3416,7 +3457,7 @@ async function openMapEditor(mid, ctx) {
   const ov = document.createElement("div"); ov.className = "med ui";
   const toolBtns = MTOOLS.map(([k, ic, tt]) => `<button class="tl" type="button" data-tool="${k}" title="${tt}" aria-label="${tt}">${ic}</button>`).join("");
   const colorBtns = `<button class="cpick" type="button" data-cpick aria-label="Editar cores"><i></i><span class="cpick-tip">Editar cores</span></button>`;
-  ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-x>✕ Fechar</button><b class="med-title"></b>${ro ? `<span class="med-tip">Somente visualização</span>` : `<button class="btn sm" type="button" data-crop>✂ Recortar</button>`}</div>
+  ov.innerHTML = `<div class="med-top"><button class="btn sm" type="button" data-x>✕ Fechar</button><b class="med-title"></b><span class="med-rot"><button class="btn sm" type="button" data-rot="-1" title="Girar 90° para a esquerda" aria-label="Girar para a esquerda">⟲</button><button class="btn sm" type="button" data-rot="1" title="Girar 90° para a direita" aria-label="Girar para a direita">⟳</button></span>${ro ? `<span class="med-tip">Somente visualização</span>` : `<button class="btn sm" type="button" data-crop>✂ Recortar</button>`}</div>
     ${ro ? "" : `<div class="med-tools"><div class="mt-row">${toolBtns}</div><span class="sep mt-sep"></span><div class="mt-row">${colorBtns}<span class="sep"></span>
       <label class="msz" title="Tamanho do traço, do texto, do marcador e da borracha"><span>Tamanho</span><input type="range" data-size min="1" max="10" step="0.25" value="4" aria-label="Tamanho"><i class="msz-dot"></i></label>
       <label class="msz mop" title="Opacidade do desenho (ou do desenho selecionado)"><span>Opacidade</span><input type="range" data-alpha min="10" max="100" step="5" value="100" aria-label="Opacidade"><b data-alphav>100%</b></label>
@@ -3447,6 +3488,7 @@ async function openMapEditor(mid, ctx) {
   const commit = (sid, before, after) => { write(sid, after); st.undo.push({sid, before, after}); st.redo.length = 0; };
   const addShape = sh => { const sid = uid("s"); commit(sid, null, {...sh, c: sh.c || st.color, ...(sh.t !== "rub" && st.alpha < 1 ? {o: st.alpha} : {}), z: Date.now(), del: false, by: me}); return sid; };
   const delShape = s => { const {id, ...rest} = s; commit(id, {...rest, del: false}, {...rest, del: true}); };
+  const rubMk = (q, w) => { if (!st.rubMk) return; liveShapes(shapesNow()).forEach(x => { if (x.t === "mk" && !st.rubMk.has(x.id) && Math.hypot(q[0] - x.x, q[1] - x.y) <= (x.r || baseU(m) * 9) + w / 2) st.rubMk.set(x.id, x); }); };
   const topHit = (p, tolPx = 10) => { const L = liveShapes(shapesNow()); const tol = tolPx / scr(); for (let i = L.length - 1; i >= 0; i--) if (hitShape(L[i], p[0], p[1], tol, m)) return L[i]; return null; };
   async function editText(s, at) {
     const isMk = s ? s.t === "mk" : st.tool === "mk";
@@ -3480,7 +3522,7 @@ async function openMapEditor(mid, ctx) {
         return;
       }
       if (st.tool === "pen") st.draft = {t: "pen", pts: [...q], c: st.color, w: SZ.w(st.size) * b};
-      else if (st.tool === "rub") st.draft = {t: "rub", pts: [...q], w: SZ.w(st.size) * b * 4};
+      else if (st.tool === "rub") { st.draft = {t: "rub", pts: [...q], w: SZ.w(st.size) * b * 4}; st.rubMk = new Map(); rubMk(q, st.draft.w); }
       else if (["line", "arrow", "rect", "ell"].includes(st.tool)) st.draft = {t: st.tool, a4: [...q, ...q], c: st.color, w: SZ.w(st.size) * b};
       else if (st.tool === "erase") { st.erased = new Set(); const h = topHit(q); if (h) { st.erased.add(h.id); delShape(h); } }
       else st.draft = null;
@@ -3494,6 +3536,7 @@ async function openMapEditor(mid, ctx) {
       }
       if (st.tool === "erase") { const h = topHit(q); if (h && !st.erased.has(h.id)) { st.erased.add(h.id); delShape(h); } return; }
       if (!d) return;
+      if (d.t === "rub") rubMk(q, d.w);
       if (d.t === "pen" || d.t === "rub") { const n = d.pts.length; if (Math.hypot(q[0] - d.pts[n - 2], q[1] - d.pts[n - 1]) * scr() >= 1.2) d.pts.push(q[0], q[1]); }
       else { d.a4[2] = q[0]; d.a4[3] = q[1]; }
       v.draw();
@@ -3508,11 +3551,20 @@ async function openMapEditor(mid, ctx) {
       if (st.tool === "text" || st.tool === "mk") { const h = topHit(q, 14); if (h && h.t === (st.tool === "mk" ? "mk" : "text")) editText(h); else editText(null, q); return; }
       if (!d) { v.draw(); return; }
       if (d.t === "pen") addShape({t: "pen", p: encNums(simplify(d.pts, .6 / scr())), w: d.w, c: d.c});
-      else if (d.t === "rub") addShape({t: "rub", p: encNums(simplify(d.pts, .6 / scr())), w: d.w});
+      else if (d.t === "rub") {
+        addShape({t: "rub", p: encNums(simplify(d.pts, .6 / scr())), w: d.w});
+        const hit = [...(st.rubMk || new Map()).values()]; st.rubMk = null;
+        if (hit.length) setTimeout(async () => {
+          const ns = hit.map(x => x.n).sort((a, b) => a - b).join(", ");
+          if (await confirmBox(hit.length > 1 ? "Apagar marcadores?" : "Apagar marcador?", `A borracha passou por cima do${hit.length > 1 ? "s marcadores" : " marcador"} <b>${esc(ns)}</b>. Marcador não é apagado aos pedaços: ${hit.length > 1 ? "eles saem inteiros" : "ele sai inteiro"}, com a nota${ctx.photos ? " e o vínculo com as fotos" : ""}. Dá para desfazer com ↶.`, hit.length > 1 ? "Apagar marcadores" : "Apagar marcador", true)) {
+            hit.forEach(x => { const live = liveShapes(shapesNow()).find(y => y.id === x.id); if (live) delShape(live); }); toast(hit.length > 1 ? "Marcadores apagados." : "Marcador apagado.");
+          }
+        }, 30);
+      }
       else if (Math.hypot(d.a4[2] - d.a4[0], d.a4[3] - d.a4[1]) * scr() >= 4) addShape({t: d.t, a: encNums(d.a4), w: d.w, c: d.c});
       v.draw();
     },
-    cancel: () => { st.draft = null; st.drag = null; st.panFrom = null; v.draw(); },
+    cancel: () => { st.draft = null; st.drag = null; st.panFrom = null; st.rubMk = null; v.draw(); },
     paint: (c) => {
       const k0 = v.img.width / m.crop.w; c.transform(k0, 0, 0, k0, -m.crop.x * k0, -m.crop.y * k0);
       const g = st.drag;
@@ -3526,9 +3578,13 @@ async function openMapEditor(mid, ctx) {
       }
     }
   });
-  host.insertBefore(v.cv, host.firstChild); v.resize();
+  host.insertBefore(v.cv, host.firstChild); v.rot = mRot(m); v.resize();
+  $$("[data-rot]", ov).forEach(b => b.onclick = () => {
+    const r = ((mRot(m) + +b.dataset.rot) % 4 + 4) % 4; m = {...m, rot: r}; v.setRot(r);
+    if (!ro) { patch(`${ctx.base}/${mid}`, stamp({rot: r})); ctx.log(`Girou o mapeamento “${m.title || ""}”`); }
+  });
   $$(".med-zoom [data-z]", ov).forEach(b => b.onclick = () => b.dataset.z === "fit" ? v.fit() : v.zoomBy(+b.dataset.z));
-  const TIPS = {sel: "Toque num desenho para selecionar e arraste para mover. Com ele selecionado, mude o tamanho ou a cor.", pan: "Arraste para mover a planta. Dois dedos ou a roda do mouse dão zoom.", rub: "Passe a borracha por cima do que quer apagar. Ela apaga só os desenhos, nunca a planta. O tamanho vem do controle Tamanho.", pen: "Desenhe à mão livre.", line: "Arraste para traçar a linha.", arrow: "Arraste do início até a ponta da seta.", rect: "Arraste para desenhar o retângulo.", ell: "Arraste para desenhar o círculo.", text: "Toque onde vai o texto. Toque num texto existente para editar.", mk: "Toque para pôr um marcador numerado com nota.", erase: "Toque ou passe sobre um desenho para apagar."};
+  const TIPS = {sel: "Toque num desenho para selecionar e arraste para mover. Com ele selecionado, mude o tamanho ou a cor.", pan: "Arraste para mover a planta. Dois dedos ou a roda do mouse dão zoom.", rub: "Passe a borracha por cima do que quer apagar. Ela apaga só os desenhos, nunca a planta. Marcador tocado pela borracha é apagado inteiro (o sistema pergunta antes).", pen: "Desenhe à mão livre.", line: "Arraste para traçar a linha.", arrow: "Arraste do início até a ponta da seta.", rect: "Arraste para desenhar o retângulo.", ell: "Arraste para desenhar o círculo.", text: "Toque onde vai o texto. Toque num texto existente para editar.", mk: "Toque para pôr um marcador numerado com nota.", erase: "Toque ou passe sobre um desenho para apagar."};
   const syncTools = () => {
     $$("[data-tool]", ov).forEach(b => b.classList.toggle("on", b.dataset.tool === st.tool));
     const selC = st.sel && liveShapes(shapesNow()).find(x => x.id === st.sel);
@@ -3618,7 +3674,7 @@ async function openMapEditor(mid, ctx) {
     };
   }
   syncTools(); notes(); st.notes = notes;
-  st.refresh = nm => { const changed = nm.img && m.img && nm.img.id !== m.img.id; m = nm; title(); if (changed) loadImg(nm.img.id).then(x => v.setImg(x)).catch(() => {}); else v.draw(); notes(); };
+  st.refresh = nm => { const changed = nm.img && m.img && nm.img.id !== m.img.id; m = nm; title(); if (mRot(nm) !== (v.rot || 0)) v.setRot(mRot(nm)); if (changed) loadImg(nm.img.id).then(x => v.setImg(x)).catch(() => {}); else v.draw(); notes(); };
 }
 
 /* ---------- leitor de PDF (pdf.js), usado nas plantas e no GAPE ---------- */
@@ -4372,7 +4428,11 @@ async function exportPdf(soMapas) {
       sections.push(page(s));
     }
     const f007 = soMapas ? null : $("#sheet-f007");
-    if (f007 && cur.obs.some(o => o.sheet === "f007")) { const c = staticize(f007, f007.cloneNode(true)); c.querySelectorAll(".prob-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c)); }
+    if (f007 && cur.obs.some(o => o.sheet === "f007")) {
+      const back7 = cur.f7pg || 0, n7 = Math.max(1, Math.ceil(cur.obs.filter(o => o.sheet === "f007").length / F007_LIN));
+      for (let k = 0; k < n7; k++) { cur.f7pg = k; renderProbRows(fv, "f007"); const c = staticize(f007, f007.cloneNode(true)); c.querySelectorAll(".prob-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c, n7 > 1 ? `F.007 · folha ${k + 1} de ${n7} · ${stamp}` : stamp)); }
+      cur.f7pg = back7; renderProbRows(fv, "f007");
+    }
     const pda = soMapas ? null : $("#sheet-pda");
     if (pda && cur.pda.length) { const c = staticize(pda, pda.cloneNode(true)); c.querySelectorAll(".pda-tbl tbody tr:not([data-id])").forEach(r => r.remove()); sections.push(page(c)); }
     if (!soMapas && cur.photos.length) {
