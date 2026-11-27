@@ -12,3 +12,4 @@ window.FIREBASE_CONFIG = {
 // E-mail(s) do administrador: pode tudo, inclusive liberar a equipe e fazer backup.
 // Se mudar aqui, mude também no arquivo firestore.rules.
 window.ADMIN_EMAILS = ["jr.alvani22@gmail.com"];
+window.IA_SUPORTE = { recaptcha: "6LfEFzUuAAAAADJ5iwqa067Rh8eaJmlzhDK6Ds2Q", limiteDia: 60 };
