@@ -425,7 +425,7 @@ td.x .rph:hover{background:#f1f1f1}
 .sp-ctrl td.sp-grp{background:#8fd14f;font-size:15px;font-weight:400;display:table-cell}
 .sp-end{margin:14px 0 0 auto;display:grid;gap:7px;font-weight:700;width:60%}.sp-end u{text-decoration:none;font-weight:400;color:#1a3c8f}
 .sp-pf{margin-top:auto;font-size:8px;color:#666;text-align:right}
-.so-camt{border:1px solid var(--paper-line);border-top:0;background:#fff;overflow-x:auto}
+.so-camt{border:1px solid var(--paper-line);background:#fff;overflow-x:auto}.so-blank{min-height:300px}
 .so-ctab{width:100%;border-collapse:collapse;font-size:11.5px}.so-ctab th{background:#f1f1f1;font-size:10px;padding:4px 6px;border:1px solid var(--paper-line);text-align:center}
 .so-ctab td{border:1px solid var(--paper-line);padding:4px 6px;text-align:center}.so-ctab tr.cs-F td,.so-ctab tr.cs-R td,.so-ctab tr.cs-X td{background:#fff1f0}.so-ctab tr.cs-Z td{background:#f6f6f6;color:#555}
 .so-ctab tr.cs-V .so-cst{color:#2e7d32;font-weight:700}.so-ctab tr.cs-F .so-cst,.so-ctab tr.cs-R .so-cst,.so-ctab tr.cs-X .so-cst{color:var(--red);font-weight:700}
@@ -5457,7 +5457,7 @@ function renderSoloAll() {
             <div class="so-r"><label>ÁREA DA FAIXA TERRAPLENADA (m²): ${f("head.area", "", "text", 'inputmode="decimal"')}</label><label>ALTURA DA CAMADA (m): ${f("head.altCamada", "", "text", 'inputmode="decimal"')}</label><label id="so-nclab">QUANTIDADE DE CAMADAS DO TRECHO: ${f("head.nCamadas", "", "number", 'min="0"')}</label></div>
             <div class="so-ncal hidden" id="so-ncal" role="alert"></div>
           </div>
-          <div class="so-regt">RESUMO DOS ENSAIOS POR CAMADA <span class="sub" style="font-weight:400">(lido dos relatórios anexados)</span></div><div class="so-camt" id="so-camt"></div>
+          <div class="so-regt">TERRAPLENAGEM – REGIÃO COM ATERRO</div><div class="so-reg so-blank"></div>
           <div class="so-obs"><b>Observações:</b><textarea data-s="obs" rows="2" ${D}></textarea></div>
           <div class="so-foot"><div><i>RESPONSÁVEL COLETA DE DADOS</i><label>NOME: <input type="text" data-s="resp.nome" data-fixo disabled title="Vem do nome completo do perfil de quem criou o trecho e não pode ser alterado"></label><div class="so-sg" data-ssign="resp"></div></div>
             <div class="so-anx">*ANEXAR RECORTE DO PROJETO COM DEMARCAÇÃO DO TRECHO DA FAIXA TERRAPLENADA.<br>*ANEXAR RELATÓRIOS DOS ENSAIOS DE MASSA ESPECÍFICA APARENTE SECA E TEOR DE UMIDADE (QUANDO HOUVER) DO TRECHO.<br>*ANEXAR VALIDAÇÃO DO PROJETISTA.</div>
@@ -5475,7 +5475,6 @@ function renderSoloAll() {
     $$("[data-s]", v).forEach(el => { if (!el.dataset.fixo) sBind(el, el.dataset.s); });
     $("#so-pdf", v).onclick = () => exportSoloPdf();
     $("#so-pend", v).addEventListener("click", e => { const b = e.target.closest("[data-gotab]"); if (b) { setSoloTab(b.dataset.gotab); $("#so-tabs", v).scrollIntoView({behavior: "smooth", block: "start"}); } });
-    $("#so-camt", v).addEventListener("click", e => { if (e.target.closest("[data-gotab]")) setSoloTab("ens"); });
     $(".so-foot", v).addEventListener("click", e => { const b = e.target.closest("[data-signact]"); if (b) soloSign(b.dataset.who, b.dataset.signact); });
     if (!ro) {
       $("#so-fsel", v).onchange = e => patch(`solos/${sid}`, stamp({folder: e.target.value}));
@@ -5551,7 +5550,7 @@ function renderSoloPend() {
   if (xc) nal.innerHTML = `⚠ Os relatórios anexados trazem ${xc.includes(",") ? "as camadas " + esc(xc.replace(/,/g, ", ")) : "a camada " + esc(xc)}, acima das ${soloN(t)} camadas informadas. Confira a quantidade de camadas ou a camada dos ensaios.`;
   // resumo por camada na capa
   const rows = soloCamRows(t, ens), st = Object.fromEntries(i.cams.map(c => [c.k, c.st]));
-  $("#so-camt", v).innerHTML = rows.length ? `<table class="so-ctab"><thead><tr><th>CAMADA</th><th>ENSAIOS</th><th>G.C. MÍN.–MÁX. (%)</th><th>G.C. EXIGIDO</th><th>MAIOR DESVIO DE UMIDADE</th><th>RELATÓRIO</th><th>SITUAÇÃO</th></tr></thead><tbody>${rows.map(r => {
+  const camt = $("#so-camt", v); if (camt) camt.innerHTML = rows.length ? `<table class="so-ctab"><thead><tr><th>CAMADA</th><th>ENSAIOS</th><th>G.C. MÍN.–MÁX. (%)</th><th>G.C. EXIGIDO</th><th>MAIOR DESVIO DE UMIDADE</th><th>RELATÓRIO</th><th>SITUAÇÃO</th></tr></thead><tbody>${rows.map(r => {
       const s = r.extra ? "X" : st[r.k] || "Z", lab = s === "X" ? "Camada acima da capa" : CAM_ST[s];
       return `<tr class="cs-${s}"><td><b>${r.k === "F" ? "Fundo de caixa" : r.k}</b></td><td>${r.n || "—"}</td><td>${isNaN(r.gmin) ? "—" : sFmt(r.gmin) + (r.gmax !== r.gmin ? " – " + sFmt(r.gmax) : "")}</td><td>${sFmt(r.req, 0)}%</td><td>${isNaN(r.du) ? "—" : (r.du > 0 ? "+" : "") + sFmt(r.du) + " p.p."}</td><td>${r.docs ? "✓ anexado" : `<button type="button" class="linkish" data-gotab="ens">falta anexar</button>`}</td><td><span class="so-cst">${esc(lab)}${r.fora ? ` (${r.fora} fora${r.acc ? `, ${r.acc} aceito(s) pelo projetista` : ""})` : ""}</span></td></tr>`; }).join("")}</tbody></table>`
     : `<div class="so-regph">Informe a quantidade de camadas e anexe os relatórios dos ensaios na aba <button type="button" class="linkish" data-gotab="ens">Ensaios</button>.</div>`;
@@ -5678,7 +5677,7 @@ function renderSoloEns(t) {
   $("#sn-ens", v).textContent = docs.length;
   if (!box.dataset.wired) {
     box.dataset.wired = "1";
-    box.innerHTML = `<div class="panel" style="margin-bottom:12px"><div class="pn-h"><h2 style="font-size:14px;text-transform:uppercase;margin:0">Relatórios por camada</h2></div><div class="so-cams" id="so-cams" style="margin:8px 0 0"></div></div>
+    box.innerHTML = `<div class="panel" style="margin-bottom:12px"><div class="pn-h"><h2 style="font-size:14px;text-transform:uppercase;margin:0">Relatórios por camada</h2></div><div class="so-cams" id="so-cams" style="margin:8px 0 0"></div><div class="so-camt" id="so-camt" style="margin-top:10px"></div></div>
       <div class="panel"><div class="pn-h"><h2 style="font-size:14px;text-transform:uppercase;margin:0">Relatórios dos ensaios <span class="pn-c" data-cnt></span></h2>${ro ? "" : `<button class="btn primary sm" type="button" data-reladd>+ Anexar relatório (PDF ou fotos)</button>`}</div>
         <p class="sub" style="margin:0 0 10px">Anexe os relatórios de massa específica aparente “in situ” que o laboratório envia. O sistema lê cada ensaio (camada, data, umidades, densidades e G.C.), mostra para você conferir e analisa pelos critérios da capa. As páginas saem no PDF do mapeamento.</p>
         <div class="so-docs" id="so-rels"></div></div>`;
@@ -5947,10 +5946,8 @@ async function soloPdfDoc(t, ens, maps, docs, prog) {
       <div class="sp-r">${ln("NÚMERO E REVISÃO DO PROJETO REFERÊNCIA:", h.projeto)}</div>
       <div class="sp-r">${ln("PROJETISTA DE TERRAPLENAGEM:", h.projetista)}${ln("EMPRESA EXECUTORA DA TERRAPLENAGEM:", h.executora)}${ln("NOME DO LABORATÓRIO:", h.lab)}</div>
       <div class="sp-r">${ln("ÁREA DA FAIXA TERRAPLENADA (m²):", h.area)}${ln("ALTURA DA CAMADA (m):", h.altCamada)}${ln("QUANTIDADE DE CAMADAS DO TRECHO:", h.nCamadas)}</div>
-      <div class="sp-regt">RESUMO DOS ENSAIOS POR CAMADA</div>
-      <div class="sp-reg sp-sum">${rows.length ? `<table><thead><tr><th>CAMADA</th><th>ENSAIOS</th><th>G.C. MÍN.–MÁX.</th><th>G.C. EXIGIDO</th><th>MAIOR DESVIO DE UMIDADE</th><th>RELATÓRIO</th><th>SITUAÇÃO</th></tr></thead><tbody>${rows.map(r => { const s = r.extra ? "X" : st[r.k] || "Z";
-          return `<tr class="cs-${s}"><td><b>${r.k === "F" ? "FUNDO DE CAIXA" : r.k}</b></td><td>${r.n || "—"}</td><td>${isNaN(r.gmin) ? "—" : sFmt(r.gmin) + "%" + (r.gmax !== r.gmin ? " – " + sFmt(r.gmax) + "%" : "")}</td><td>${sFmt(r.req, 0)}%</td><td>${isNaN(r.du) ? "—" : (r.du > 0 ? "+" : "") + sFmt(r.du) + " p.p."}</td><td>${r.docs ? "ANEXADO" : "FALTA"}</td><td>${esc((s === "X" ? "Camada acima da capa" : CAM_ST[s]).toUpperCase())}${r.acc ? " · " + r.acc + " ACEITO(S) PELO PROJETISTA" : ""}</td></tr>`; }).join("")}</tbody></table>` : `<div style="color:#666">Sem camadas informadas.</div>`}
-        <div class="sp-cont">Este mapeamento contém: capa · mapa com a demarcação da área (${maps.length}) · relatórios dos ensaios (${rel.length} relatório(s), ${nPgRel} página(s))${val.length ? ` · validação do projetista (${nPgVal} página(s))` : ""}.</div></div>
+      <div class="sp-regt">TERRAPLENAGEM – REGIÃO COM ATERRO</div>
+      <div class="sp-reg"></div>
       <div class="sp-obs"><b>Observações:</b> ${esc(t.obs || "")}</div>
       <div class="sp-foot"><div><i>RESPONSÁVEL COLETA DE DADOS</i>NOME: <u>${esc((t.resp || {}).nome || "")}</u><br>ASS: ${sg("resp")}</div>
         <div class="sp-anx">*ANEXAR RECORTE DO PROJETO COM DEMARCAÇÃO DO TRECHO DA FAIXA TERRAPLENADA.<br>*ANEXAR RELATÓRIOS DOS ENSAIOS DE MASSA ESPECÍFICA APARENTE SECA E TEOR DE UMIDADE (QUANDO HOUVER) DO TRECHO.<br>*ANEXAR VALIDAÇÃO DO PROJETISTA.</div>
