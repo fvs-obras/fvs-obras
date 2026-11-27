@@ -870,6 +870,36 @@ body.ng [data-pjdel],body.ng [data-pjrm],body.ng [data-delpl],body.ng #g-del,bod
 .cd-add{width:26px;height:26px;border-radius:6px;border:1px solid var(--line);background:#fff;font-size:17px;line-height:1;cursor:pointer;padding:0;min-height:0}
 @media (max-width:560px){.cd-top{grid-template-columns:minmax(0,1fr) 22px;}.cd-prev{grid-column:1/-1;height:28px;order:3}.cd-f{grid-column:1/-1;grid-template-columns:repeat(4,1fr);order:4}.cd-grid{gap:4px}}
 .med-rot{display:inline-flex;gap:4px;margin-left:auto}.med-rot .btn{min-width:38px;font-size:16px}
+.rdots{display:inline-grid;place-items:center;position:relative;width:26px;height:26px;border:0!important;border-radius:6px;background:transparent!important;color:#555!important;font-size:18px!important;line-height:1;cursor:pointer;padding:0!important}
+.rdots:hover{background:#eee!important;color:#111!important}
+.rdots-n{position:absolute;top:-3px;right:-5px;font-size:9px;font-weight:800;color:#fff;background:var(--red);border-radius:8px;padding:0 4px;line-height:14px;min-width:14px;text-align:center}.rdots-n:empty{display:none}
+.rpop{position:fixed;z-index:65;display:flex;gap:4px;padding:5px;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.16)}
+.rpop button{position:relative;width:36px;height:36px;border:0;border-radius:8px;background:#f4f4f4;font-size:16px;cursor:pointer;display:grid;place-items:center}
+.rpop button:hover{background:#e9e9e9}.rpop button.rx{color:var(--bad);font-weight:800}.rpop button.rx:hover{background:var(--bad-soft)}
+.rpop button b{position:absolute;top:-4px;right:-4px;font-size:9px;color:#fff;background:var(--red);border-radius:8px;padding:0 4px;line-height:14px}
+.rpop button[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:11.5px;font-weight:600;white-space:nowrap;padding:4px 8px;border-radius:6px;pointer-events:none}
+.prob-tbl td.x,.pda-tbl td.x{width:30px}
+.prob-tbl tbody tr > td:nth-last-child(2),.prob-tbl thead tr > th:nth-last-child(2){border-right:1px solid var(--paper-line)!important}
+.pda-tbl tbody tr > td:nth-last-child(2){border-right:1px solid var(--paper-line)!important}
+.nt-ctx{border:1px solid var(--line);border-left:4px solid var(--red);border-radius:8px;padding:10px 12px;display:grid;gap:2px;background:#fafafa}.nt-ctx span{font-size:12px;color:var(--muted)}.nt-ctx p{margin:4px 0 0;font-size:13px}
+.nt-people{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px;max-height:34vh;overflow:auto;margin-top:6px}
+.nt-p{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer;text-transform:none;letter-spacing:0}
+.nt-p:has(input:checked){border-color:var(--red);background:var(--red-soft)}.nt-p input{width:18px;height:18px;min-height:0;flex:none}
+.nt-p b{display:block;font-size:13px;color:var(--ink)}.nt-p small{font-size:11.5px;color:var(--muted)}
+.nt-av{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--graphite);color:#fff;font-weight:800;font-size:13px;flex:none}
+.nt-urg{display:flex;gap:8px;flex-wrap:wrap}.nt-u{cursor:pointer}.nt-u input{position:absolute;opacity:0;pointer-events:none}
+.nt-u span{display:inline-block;padding:7px 16px;border-radius:999px;border:2px solid var(--c);color:var(--c);font-weight:700;font-size:13px;text-transform:none;letter-spacing:0}
+.nt-u input:checked + span{background:var(--c);color:#fff}.nt-u input:focus-visible + span{outline:2px solid var(--ink);outline-offset:2px}
+.ntf{position:fixed;z-index:66;width:min(420px,calc(100vw - 16px));max-height:min(70vh,600px);display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgba(0,0,0,.22);overflow:hidden;color:var(--ink)}
+.ntf-h{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}.ntf-h b{font-size:15px}
+.ntf-c{font-size:11px;font-weight:800;background:var(--red);color:#fff;border-radius:999px;padding:2px 8px}
+.ntf-l{overflow:auto}.ntf-i{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:start;padding:10px 12px;border-bottom:1px solid #f0f0f0}
+.ntf-i.nova{background:#fff8f7}.ntf-u{font-size:10px;font-weight:800;color:#fff;background:var(--c);border-radius:999px;padding:2px 8px;margin-top:2px;white-space:nowrap}
+.ntf-b{border:0;background:none;text-align:left;padding:0;display:grid;gap:2px;font-size:13px;cursor:pointer;color:var(--ink)}
+.ntf-fv{font-size:12px;font-weight:700;color:var(--muted)}.ntf-t{font-size:12.5px}.ntf-m{font-size:12.5px;font-style:italic;color:var(--graphite)}.ntf-w{font-size:11px;color:var(--muted)}
+.ntf-x{border:0;background:none;color:#999;font-size:14px;cursor:pointer;padding:2px 6px;border-radius:6px}.ntf-x:hover{background:var(--bad-soft);color:var(--bad)}
+.ntf-e{padding:28px 16px;text-align:center;color:var(--muted);display:grid;gap:4px}.ntf-e small{font-size:12px}
+#print-root .sp-u{text-decoration:none}#print-root .rdots,#print-root td.x button{visibility:hidden!important}
 /* navegação por regional › fábrica › obra › equipe */
 .ctxnav{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-left:auto;font-size:12.5px;font-weight:600;min-width:0}
 .ctxnav a{color:#fff;opacity:.8;text-decoration:none;padding:6px 8px;border-radius:999px;white-space:nowrap}
@@ -1205,7 +1235,7 @@ function bindLazyRow(row, coll, fvId, defaults, label) {
       await row._ready;
       if (!row.dataset.id) return;
       patch(`${coll}/${row.dataset.id}`, stamp({[f]: v})); patch(`fvs/${fvId}`, stamp({}));
-      logAct(fvId, `Editou ${label} (${FLBL[f] || f})`);
+      logAct(fvId, row._desc ? row._desc(f) : `Editou ${label} (${FLBL[f] || f})`);
     };
     el.addEventListener("input", () => { el._dirty = true; autosize(el); clearTimeout(el._t); el._t = setTimeout(save, 800); });
     el.addEventListener("change", () => { el._dirty = true; save(); });
@@ -2023,12 +2053,14 @@ function probRowFactory(fv, sheet) {
   const id = cur.id, label = sheet === "fv" ? "um problema na FV" : "uma observação F.007";
   return () => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td class="fill"><select data-f="item" aria-label="Item">${itemOpts(fv)}</select></td><td class="fill"><textarea data-f="problema" rows="1" aria-label="Problema identificado"></textarea></td><td class="fill"><textarea data-f="solucao" rows="1" aria-label="Solução"></textarea></td><td class="x"><button type="button" data-photos class="rph" aria-label="Fotos do problema"></button><button type="button" data-del title="Apagar linha" aria-label="Apagar linha">✕</button></td>`;
+    tr.innerHTML = `<td class="fill"><select data-f="item" aria-label="Item">${itemOpts(fv)}</select></td><td class="fill"><textarea data-f="problema" rows="1" aria-label="Problema identificado"></textarea></td><td class="fill"><textarea data-f="solucao" rows="1" aria-label="Solução"></textarea></td><td class="x"><button type="button" class="rdots" data-rdots title="Ações da linha" aria-label="Ações da linha">⋯<b class="rdots-n"></b></button><button type="button" data-photos class="rph hidden" aria-label="Fotos do problema"></button><button type="button" data-del class="hidden" aria-label="Excluir linha">✕</button></td>`;
     bindLazyRow(tr, `fvs/${id}/obs`, id, () => ({sheet, item: "", problema: "", solucao: ""}), label);
+    const itNow = () => { const f = fvs.get(id) || fv, x = (f.items || []).find(i => i.id === $("[data-f=item]", tr).value); return x ? `do item ${x.n}` : "sem item"; };
+    tr._desc = f => f === "item" ? `${sheet === "fv" ? "FV" : "F.007"}: mudou o item de um problema para ${itNow().replace("do item ", "")}` : `${sheet === "fv" ? "FV" : "F.007"}: editou ${f === "solucao" ? "a solução" : "o problema"} ${itNow()}`;
     wireRowPhoto(tr, "obs", () => ({item: $("[data-f=item]", tr).value || "", local: fv.local || ""}));
     $("[data-del]", tr).onclick = async () => {
       if (!tr.dataset.id) return;
-      if (await confirmBox("Apagar linha?", "O problema e a solução desta linha serão apagados para todos. Linhas não vão para a lixeira: isso não pode ser desfeito.", "Apagar", true)) { await remove(`fvs/${id}/obs/${tr.dataset.id}`).catch(()=>{}); touchFv(id, "Apagou uma linha de problema"); }
+      if (await confirmBox("Apagar linha?", "O problema e a solução desta linha serão apagados para todos. Linhas não vão para a lixeira: isso não pode ser desfeito.", "Apagar", true)) { const d0 = $("[data-f=item]", tr).value, x0 = ((fvs.get(id) || fv).items || []).find(i => i.id === d0); await remove(`fvs/${id}/obs/${tr.dataset.id}`).catch(()=>{}); touchFv(id, `${sheet === "fv" ? "FV" : "F.007"}: apagou a linha de problema ${x0 ? "do item " + x0.n : "sem item"}`); }
     };
     return tr;
   };
@@ -2114,8 +2146,9 @@ function renderPda(fv) {
   const tb = $("#pda-tbl tbody", box);
   const make = () => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td class="fill"><input type="date" data-f="data" aria-label="Data"></td><td class="fill"><textarea data-f="responsavel" rows="2" aria-label="Responsável"></textarea></td><td class="fill"><textarea data-f="problema" rows="3" aria-label="Problema"></textarea></td><td class="fill"><textarea data-f="acao" rows="3" aria-label="Ação"></textarea></td><td class="fill"><textarea data-f="suporte" rows="2" aria-label="Suporte"></textarea></td><td class="st"><button type="button" class="pdca" data-v="" aria-label="Status">${pdcaSvg("")}</button></td><td class="fill pz"><input type="date" data-f="prazo" aria-label="Prazo"></td><td class="x" style="border:0;background:#fff;vertical-align:middle"><button type="button" data-photos class="rph" aria-label="Fotos da ação"></button><button type="button" data-del title="Apagar ação" aria-label="Apagar ação" style="border:0;background:none;color:#a0a0a0">✕</button></td>`;
+    tr.innerHTML = `<td class="fill"><input type="date" data-f="data" aria-label="Data"></td><td class="fill"><textarea data-f="responsavel" rows="2" aria-label="Responsável"></textarea></td><td class="fill"><textarea data-f="problema" rows="3" aria-label="Problema"></textarea></td><td class="fill"><textarea data-f="acao" rows="3" aria-label="Ação"></textarea></td><td class="fill"><textarea data-f="suporte" rows="2" aria-label="Suporte"></textarea></td><td class="st"><button type="button" class="pdca" data-v="" aria-label="Status">${pdcaSvg("")}</button></td><td class="fill pz"><input type="date" data-f="prazo" aria-label="Prazo"></td><td class="x" style="border:0;background:#fff;vertical-align:middle"><button type="button" class="rdots" data-rdots title="Ações da linha" aria-label="Ações da linha">⋯<b class="rdots-n"></b></button><button type="button" data-photos class="rph hidden" aria-label="Fotos da ação"></button><button type="button" data-del class="hidden" aria-label="Excluir ação">✕</button></td>`;
     bindLazyRow(tr, `fvs/${id}/pda`, id, () => ({data: today(), responsavel: "", problema: "", acao: "", suporte: "", status: "", prazo: ""}), "uma ação no PDA");
+    tr._desc = f => { const t = String(($("[data-f=problema]", tr) || {}).value || ($("[data-f=acao]", tr) || {}).value || "").trim().slice(0, 40); return `PDA: editou ${({data: "a data", responsavel: "o responsável", problema: "o problema", acao: "a ação", suporte: "o suporte", prazo: "o prazo", status: "o status"})[f] || f} da ação${t ? ` “${t}${t.length >= 40 ? "…" : ""}”` : ""}`; };
     wireRowPhoto(tr, "pda", () => ({local: fv.local || ""}));
     $("[data-del]", tr).onclick = async () => {
       if (!tr.dataset.id) return;
@@ -2483,7 +2516,28 @@ function syncRowPhoto(tr, kind, d, lk) {
   b.innerHTML = photoBtnHtml(key || "-");
   b.style.visibility = n || (canWrite && !lk) ? "visible" : "hidden";
   b.title = n ? `${n} foto${n > 1 ? "s" : ""} anexada${n > 1 ? "s" : ""}` : "Anexar foto";
+  const dn = $(".rdots-n", tr); if (dn) dn.textContent = n || "";
 }
+/* menu dos três pontos: excluir, fotos e notificar usuários */
+let rpop = null;
+const rpopClose = () => { if (rpop) { rpop.remove(); rpop = null; } };
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-rdots]");
+  if (!b) { if (rpop && !e.target.closest(".rpop")) rpopClose(); return; }
+  e.preventDefault(); const tr = b.closest("tr"); if (!tr) return;
+  if (rpop && rpop._tr === tr) return rpopClose();
+  rpopClose();
+  const del = $("[data-del]", tr), ph = $("[data-photos]", tr), kind = tr.closest("#pda-tbl") ? "pda" : "obs";
+  const canDel = del && del.style.visibility !== "hidden", canPh = ph && ph.style.visibility !== "hidden", canNt = !!tr.dataset.id && canWrite;
+  const nPh = ph ? (ph.textContent.match(/\d+/) || [""])[0] : "";
+  rpop = document.createElement("div"); rpop.className = "rpop ui"; rpop._tr = tr;
+  rpop.innerHTML = `${canNt ? `<button type="button" data-ra="nt" data-tip="Notificar usuários" aria-label="Notificar usuários">🔔</button>` : ""}${canPh ? `<button type="button" data-ra="ph" data-tip="Fotos" aria-label="Fotos">📷${nPh ? `<b>${nPh}</b>` : ""}</button>` : ""}${canDel ? `<button type="button" data-ra="del" class="rx" data-tip="Excluir" aria-label="Excluir">✕</button>` : ""}` || `<span class="sub" style="padding:4px 8px">Sem ações</span>`;
+  document.body.appendChild(rpop);
+  const r = b.getBoundingClientRect(), w = rpop.offsetWidth; rpop.style.top = (r.top + r.height / 2 - rpop.offsetHeight / 2) + "px"; rpop.style.left = Math.max(6, r.left - w - 6) + "px";
+  rpop.onclick = ev => { const a = ev.target.closest("[data-ra]"); if (!a) return; rpopClose();
+    if (a.dataset.ra === "del") del.click(); else if (a.dataset.ra === "ph") ph.click(); else notifyDialog(kind, tr.dataset.id); };
+});
+window.addEventListener("scroll", rpopClose, true);
 
 /* ===== Projetos: biblioteca da obra (gestor/administrador carrega) + projetos anexados em cada FV ===== */
 const DISC = [["ARQ", "Arquitetura"], ["EST", "Estrutura"], ["FUN", "Fundação"], ["HID", "Hidrossanitário"], ["ELE", "Elétrico"], ["INC", "Incêndio"], ["IMP", "Implantação"], ["TER", "Terraplenagem"], ["DRE", "Drenagem"], ["PAV", "Pavimentação"], ["PAI", "Paisagismo"], ["OUT", "Outros"]];
@@ -2819,10 +2873,11 @@ function myPda() {
 }
 function bellRender() {
   let b = $("#bell");
-  if (!b) { b = document.createElement("button"); b.type = "button"; b.id = "bell"; b.className = "bell-btn"; b.onclick = myPdaModal; $("header.top .wrap").insertBefore(b, $("#hc-btn") || $("#userbox")); }
+  if (!b) { b = document.createElement("button"); b.type = "button"; b.id = "bell"; b.className = "bell-btn"; b.onclick = notifPanel; $("header.top .wrap").insertBefore(b, $("#hc-btn") || $("#userbox")); }
   const L = myPda(), late = L.filter(x => x.d !== null && x.d < 0).length, soon = L.filter(x => x.d !== null && x.d >= 0 && x.d <= 3).length;
-  b.innerHTML = `<span aria-hidden="true">🔔</span>${late + soon ? `<span class="bell-n ${late ? "bad" : ""}">${late + soon}</span>` : ""}`;
-  b.title = L.length ? `Minhas pendências no PDA: ${late} vencida(s), ${soon} vencendo em até 3 dias, ${L.length} no total` : "Minhas pendências no PDA: nenhuma";
+  const NL = notifList(), nUn = NL.filter(n => !n.lida).length, crit = NL.some(n => !n.lida && (n.urg === "critica" || n.urg === "alta"));
+  b.innerHTML = `<span aria-hidden="true">🔔</span>${nUn ? `<span class="bell-n ${crit ? "bad" : ""}">${nUn}</span>` : ""}`;
+  b.title = nUn ? `${nUn} notificação(ões) nova(s)` : "Notificações";
   b.setAttribute("aria-label", b.title);
   // aviso uma vez por dia quando há ação vencida
   let seen = ""; try { seen = localStorage.getItem("fvs-pda-aviso") || ""; } catch {}
@@ -2834,6 +2889,70 @@ function myPdaModal() {
   modal({title: "Minhas pendências no PDA", wide: true, body: L.length ? `<p class="sub" style="margin:0 0 8px">Ações abertas em que você é o <b>responsável</b> (quem executa) ou o <b>suporte</b> (engenharia que acompanha).</p>${grp.map(([t, G]) => `<h3 class="mp-h">${t} <span class="pn-c">${G.length}</span></h3><table class="pn-t">${`<thead><tr><th>FV</th><th>Problema / ação</th><th>Você é</th><th>Prazo</th><th>Situação</th></tr></thead>`}<tbody>${G.map(row).join("")}</tbody></table>`).join("")}` : `<p style="margin:0">Você não tem ações abertas no PDA. 👍</p>`,
     actions: [{label: "Fechar", cls: "primary", value: null}],
     onOpen: bg => $$("[data-go]", bg).forEach(a => a.addEventListener("click", () => setTimeout(() => { const x = $(".modal-bg"); if (x) x.remove(); if (cur) setTab("pda"); else setTimeout(() => cur && setTab("pda"), 600); }, 0)))});
+}
+/* ---------- notificações: o sino do topo recebe avisos que outras pessoas mandam sobre problemas e ações ---------- */
+const URG = {baixa: {t: "Baixa", c: "#2e7d32"}, media: {t: "Média", c: "#e0a800"}, alta: {t: "Alta", c: "#ef6c00"}, critica: {t: "Crítica", c: "#c4170f"}};
+let notifs = new Map(), notifsBoot = false;
+async function notifyDialog(kind, rowId) {
+  if (!cur || !rowId) return; const fv = fvs.get(cur.id); if (!fv) return;
+  if (!team.length) await loadTeam();
+  const row = (kind === "pda" ? cur.pda : cur.obs).find(x => x.id === rowId) || {};
+  const it = (fv.items || []).find(i => i.id === row.item), txt = String(kind === "pda" ? (row.problema || row.acao || "") : (row.problema || "")).trim();
+  const people = team.filter(u => u.uid !== me);
+  if (!people.length) { toast("Ainda não há outras pessoas cadastradas no sistema para notificar."); return; }
+  const r = await modal({title: "Notificar usuários", wide: true, body: `<div class="nt-ctx"><b>${esc(fv.code)} · ${esc(fv.local || fv.title || "")}</b><span>${kind === "pda" ? "Ação do PDA" : row.sheet === "f007" ? "Problema na F.007" : "Problema na FV"}${it ? " · item " + esc(it.n) : ""}</span>${txt ? `<p>${esc(txt.slice(0, 220))}</p>` : ""}</div>
+      <div class="fld" style="margin-top:12px"><span>Quem vai receber</span><input type="search" id="nt-q" placeholder="Buscar pessoa…" autocomplete="off"></div>
+      <div class="nt-people" id="nt-people">${people.map(u => `<label class="nt-p"><input type="checkbox" value="${esc(u.uid)}"><span class="nt-av">${esc((u.name || "?").trim().charAt(0).toUpperCase())}</span><span><b>${esc(u.name)}</b><small>${esc(u.email)}</small></span></label>`).join("")}</div>
+      <div class="fld" style="margin-top:12px"><span>Urgência</span><div class="nt-urg">${Object.entries(URG).map(([k, u], i) => `<label class="nt-u" style="--c:${u.c}"><input type="radio" name="nt-urg" value="${k}" ${i === 1 ? "checked" : ""}><span>${u.t}</span></label>`).join("")}</div></div>
+      <label class="fld" style="margin-top:12px">Mensagem (opcional)<textarea id="nt-msg" rows="2" maxlength="400" placeholder="Ex.: verificar hoje antes da concretagem"></textarea></label>`,
+    onOpen: bg => { $("#nt-q", bg).oninput = e => { const q = norm(e.target.value); $$(".nt-p", bg).forEach(l => l.classList.toggle("hidden", !!q && !norm(l.textContent).includes(q))); }; },
+    actions: [{label: "Cancelar", value: null}, {label: "Enviar notificação", cls: "primary",
+      validate: bg => { if (!$$("#nt-people input:checked", bg).length) { toast("Escolha pelo menos uma pessoa."); return false; } return true; },
+      value: bg => ({to: $$("#nt-people input:checked", bg).map(c => c.value), urg: ($("[name=nt-urg]:checked", bg) || {}).value || "media", msg: $("#nt-msg", bg).value.trim()})}]});
+  if (!r) return;
+  const at = nowIso(), base = {from: me, fromName: names.get(me) || "", fv: cur.id, fvCode: fv.code || "", fvLocal: fv.local || fv.title || "", kind, sheet: row.sheet || "", row: rowId, item: it ? it.n : "", texto: txt.slice(0, 300), msg: r.msg, urg: r.urg, at, lida: false};
+  try { await Promise.all(r.to.map(u => create(`notifs/${uid("n")}`, {...base, to: u}))); } catch { return; }
+  const nm = r.to.map(u => (team.find(x => x.uid === u) || {}).name || "alguém");
+  logAct(cur.id, `Notificou ${nm.join(", ")} sobre ${kind === "pda" ? "uma ação do PDA" : "o problema"}${it ? " do item " + it.n : ""} (urgência ${URG[r.urg].t})`);
+  toast(r.to.length > 1 ? `${r.to.length} pessoas notificadas.` : "Notificação enviada.");
+}
+function notifList() { return [...notifs.entries()].map(([id, n]) => ({id, ...n})).sort((a, b) => String(b.at).localeCompare(String(a.at))); }
+let npanel = null;
+const npanelClose = () => { if (npanel) { npanel.remove(); npanel = null; } };
+function notifPanel() {
+  if (npanel) return npanelClose();
+  npanel = document.createElement("div"); npanel.className = "ntf ui"; document.body.appendChild(npanel);
+  const draw = () => {
+    if (!npanel) return; const L = notifList(), nUn = L.filter(n => !n.lida).length;
+    npanel.innerHTML = `<div class="ntf-h"><b>Notificações</b>${nUn ? `<span class="ntf-c">${nUn} nova${nUn > 1 ? "s" : ""}</span>` : ""}<span style="flex:1"></span>${nUn ? `<button type="button" class="btn sm ghost" data-nall>Marcar como lidas</button>` : ""}${L.some(n => n.lida) ? `<button type="button" class="btn sm ghost" data-nclr>Limpar lidas</button>` : ""}</div>
+      <div class="ntf-l">${L.length ? L.map(n => { const u = URG[n.urg] || URG.media; return `<div class="ntf-i ${n.lida ? "" : "nova"}" data-nid="${esc(n.id)}"><span class="ntf-u" style="--c:${u.c}">${u.t}</span>
+        <button type="button" class="ntf-b" data-nopen><b>${esc(n.fromName || names.get(n.from) || "Alguém")}</b> notificou ${n.kind === "pda" ? "uma ação do PDA" : "um problema"}${n.item ? ` do item ${esc(n.item)}` : ""}<span class="ntf-fv">${esc(n.fvCode)} · ${esc(n.fvLocal)}</span>${n.texto ? `<span class="ntf-t">${esc(n.texto)}</span>` : ""}${n.msg ? `<span class="ntf-m">“${esc(n.msg)}”</span>` : ""}<span class="ntf-w">${fmtFull(n.at)}</span></button>
+        <button type="button" class="ntf-x" data-ndel title="Excluir" aria-label="Excluir notificação">✕</button></div>`; }).join("") : `<div class="ntf-e">Nenhuma notificação.<small>Quando alguém marcar você num problema ou ação, o aviso aparece aqui.</small></div>`}</div>`;
+    const bb = $("#bell").getBoundingClientRect(); npanel.style.top = bb.bottom + 8 + "px"; npanel.style.right = Math.max(8, innerWidth - bb.right - 40) + "px";
+  };
+  npanel._draw = draw; draw();
+  npanel.onclick = async e => {
+    if (e.target.closest("[data-nall]")) { notifList().filter(n => !n.lida).forEach(n => patch(`notifs/${n.id}`, {lida: true})); return; }
+    if (e.target.closest("[data-nclr]")) { notifList().filter(n => n.lida).forEach(n => { notifs.delete(n.id); remove(`notifs/${n.id}`).catch(() => {}); }); draw(); bellRender(); return; }
+    const it = e.target.closest("[data-nid]"); if (!it) return; const n = notifs.get(it.dataset.nid); if (!n) return;
+    if (e.target.closest("[data-ndel]")) { notifs.delete(it.dataset.nid); remove(`notifs/${it.dataset.nid}`).catch(() => {}); draw(); bellRender(); return; }
+    if (e.target.closest("[data-nopen]")) {
+      if (!n.lida) patch(`notifs/${it.dataset.nid}`, {lida: true});
+      npanelClose(); const go = () => { if (!cur || cur.id !== n.fv) return; setTab(n.kind === "pda" ? "pda" : n.sheet === "f007" ? "f007" : "fv");
+        setTimeout(() => { const tr = $(`tr[data-id="${n.row}"]`); if (tr) { tr.classList.add("nc-pend"); setTimeout(() => tr.classList.remove("nc-pend"), 4000); tr.scrollIntoView({block: "center"}); } }, 300); };
+      if (!fvs.has(n.fv)) { toast("Esta FV não existe mais."); return; }
+      if (n.sheet === "f007") { const L7 = (cur && cur.id === n.fv ? cur.obs : []).filter(o => o.sheet === "f007"); }
+      if (location.hash === "#fv-" + n.fv) go(); else { location.hash = "fv-" + n.fv; setTimeout(go, 900); }
+    }
+  };
+}
+document.addEventListener("click", e => { if (npanel && !e.target.closest(".ntf") && !e.target.closest("#bell")) npanelClose(); });
+function watchNotifs() {
+  db.collection("notifs").where("to", "==", me).onSnapshot(sn => {
+    const prev = new Set(notifs.keys()); notifs = new Map(sn.docs.map(d => [d.id, d.data()]));
+    if (notifsBoot) { const novas = [...notifs.entries()].filter(([id, n]) => !prev.has(id) && !n.lida); if (novas.length) toast(novas.length > 1 ? `${novas.length} notificações novas no sino.` : `Nova notificação de ${novas[0][1].fromName || "alguém"}: ${(URG[novas[0][1].urg] || URG.media).t}.`); }
+    notifsBoot = true; bellRender(); if (npanel && npanel._draw) npanel._draw();
+  }, () => {});
 }
 /* sugestões da equipe ao digitar responsável / suporte */
 let ppick = null;
@@ -3482,10 +3601,25 @@ async function openMapEditor(mid, ctx) {
   const write = (sid, after) => {
     st.loc[sid] = after;
     patch(`${ctx.base}/${mid}`, stamp({shapes: {[sid]: after}}));
-    if (!st.logged) { st.logged = true; ctx.log(`Editou o mapeamento “${m.title || ""}”`); }
     v.draw(); notes();
   };
-  const commit = (sid, before, after) => { write(sid, after); st.undo.push({sid, before, after}); st.redo.length = 0; };
+  const SHN = {pen: "um traço à mão", line: "uma linha", arrow: "uma seta", rect: "um retângulo", ell: "um círculo", text: "um texto", mk: "um marcador", rub: "a borracha"};
+  const shName = x => x.t === "mk" ? `o marcador ${x.n}${x.txt ? ` (“${String(x.txt).slice(0, 30)}”)` : ""}` : x.t === "text" ? `o texto “${String(x.txt || "").slice(0, 30)}”` : SHN[x.t] || "um desenho";
+  const mapLog = (before, after) => {
+    const mt = `no mapeamento “${m.title || ""}”`; let t;
+    if (!before && after) t = after.t === "rub" ? `Usou a borracha ${mt}` : `Adicionou ${after.t === "mk" ? `o marcador ${after.n}` : SHN[after.t] || "um desenho"} ${mt}`;
+    else if (after && after.del && before && !before.del) t = `Apagou ${shName(before)} ${mt}`;
+    else if (before && after) {
+      const ch = [];
+      if ((before.x !== after.x || before.y !== after.y || before.p !== after.p || before.a !== after.a) && before.t === after.t) ch.push("moveu");
+      if (before.c !== after.c) ch.push("mudou a cor de"); if ((before.o ?? 1) !== (after.o ?? 1)) ch.push("mudou a opacidade de");
+      if (before.w !== after.w || before.s !== after.s || before.r !== after.r) ch.push("mudou o tamanho de"); if ((before.txt || "") !== (after.txt || "")) ch.push(after.t === "mk" ? "editou a nota de" : "editou");
+      if (before.del && !after.del) ch.push("restaurou");
+      if (ch.length) t = `${ch.join(" e ").replace(/^./, c => c.toUpperCase())} ${shName(after)} ${mt}`;
+    }
+    if (t) ctx.log(t);
+  };
+  const commit = (sid, before, after) => { write(sid, after); mapLog(before, after); st.undo.push({sid, before, after}); st.redo.length = 0; };
   const addShape = sh => { const sid = uid("s"); commit(sid, null, {...sh, c: sh.c || st.color, ...(sh.t !== "rub" && st.alpha < 1 ? {o: st.alpha} : {}), z: Date.now(), del: false, by: me}); return sid; };
   const delShape = s => { const {id, ...rest} = s; commit(id, {...rest, del: false}, {...rest, del: true}); };
   const rubMk = (q, w) => { if (!st.rubMk) return; liveShapes(shapesNow()).forEach(x => { if (x.t === "mk" && !st.rubMk.has(x.id) && Math.hypot(q[0] - x.x, q[1] - x.y) <= (x.r || baseU(m) * 9) + w / 2) st.rubMk.set(x.id, x); }); };
@@ -3612,7 +3746,7 @@ async function openMapEditor(mid, ctx) {
     if (e.target.closest("[data-mkph]")) return mkPhotos(s);
     if (!ro) editText(s);
   });
-  const undoRedo = (from, to, useBefore) => { const op = from.pop(); if (!op) return; const val = useBefore ? op.before : op.after; write(op.sid, val ? val : {...(op.after || op.before), del: true}); to.push(op); };
+  const undoRedo = (from, to, useBefore) => { const op = from.pop(); if (!op) return; const val = useBefore ? op.before : op.after; write(op.sid, val ? val : {...(op.after || op.before), del: true}); ctx.log(`${useBefore ? "Desfez" : "Refez"} uma alteração no mapeamento “${m.title || ""}”`); to.push(op); };
   const onKey = e => {
     if (ro || document.querySelector(".modal-bg")) return;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); e.shiftKey ? undoRedo(st.redo, st.undo, false) : undoRedo(st.undo, st.redo, true); }
@@ -4450,20 +4584,16 @@ async function exportPdf(soMapas) {
     }
     await Promise.all($$("img", root).map(im => im.decode ? im.decode().catch(() => {}) : Promise.resolve()));
     const {jsPDF} = window.jspdf;
-    const pdf = new jsPDF({orientation: "landscape", unit: "mm", format: "a4"});
-    const PW = 297, PH = 210, M = 6, CW = PW - 2 * M, CH = PH - 2 * M;
-    let first = true;
+    /* uma folha por página: cada parte (FV, folha da F.007, mapeamento, PDA, fotos) é reduzida para caber inteira; página em pé quando a parte é alta */
+    let pdf = null;
     for (const el of sections) {
       const canvas = await window.html2canvas(el, {scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false, windowWidth: Math.max(1280, el.offsetWidth)});
-      const pxPerMm = canvas.width / CW, sliceH = Math.floor(CH * pxPerMm);
-      for (let y = 0; y < canvas.height; y += sliceH) {
-        const h = Math.min(sliceH, canvas.height - y);
-        const part = document.createElement("canvas"); part.width = canvas.width; part.height = h;
-        part.getContext("2d").drawImage(canvas, 0, y, canvas.width, h, 0, 0, canvas.width, h);
-        if (!first) pdf.addPage(); first = false;
-        pdf.addImage(part.toDataURL("image/jpeg", 0.92), "JPEG", M, M, CW, h / pxPerMm);
-      }
+      const land = canvas.width >= canvas.height * .95, PW = land ? 297 : 210, PH = land ? 210 : 297, M = 7, CW = PW - 2 * M, CH = PH - 2 * M;
+      if (!pdf) pdf = new jsPDF({orientation: land ? "landscape" : "portrait", unit: "mm", format: "a4"}); else pdf.addPage("a4", land ? "landscape" : "portrait");
+      let w = CW, h = canvas.height * CW / canvas.width; if (h > CH) { h = CH; w = canvas.width * CH / canvas.height; }
+      pdf.addImage(canvas.toDataURL("image/jpeg", .92), "JPEG", (PW - w) / 2, M, w, h);
     }
+    if (!pdf) throw new Error("vazio");
     const safe = s => String(s || "").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^A-Za-z0-9-]+/g, "_").replace(/^_|_$/g, "");
     const filename = `${safe(fv.code)}_${safe(fv.local) || "sem-local"}${soMapas ? "_mapeamentos" : ""}_${today()}.pdf`;
     await dl.save({filename, data: pdf.output("blob")});
@@ -7340,7 +7470,7 @@ async function init() {
     if (!s.metadata.fromCache || s.size) { fvsLoaded = true; clearTimeout(loadTimer); banner("slow", ""); }
     renderList(); if (location.hash === "#painel" && !document.activeElement?.closest?.(".pn-filters")) renderPainel();
     if (cur) { const f = fvs.get(cur.id); if (f !== prevCur) renderFvAll(); }
-    lixNav(); pdaNav(); bellRender();
+    lixNav(); pdaNav(); bellRender(); if (!notifsBoot && !window.__ntW) { window.__ntW = 1; watchNotifs(); }
   }, () => { clearTimeout(loadTimer); fvsLoaded = true; banner("slow", "Não foi possível carregar as FVs agora. Recarregue a página mais tarde.", "warn"); renderList(); });
   db.collection("folders").onSnapshot(s => {
     const first = !foldersLoaded; folders = new Map(); s.docs.forEach(d => folders.set(d.id, d.data())); foldersLoaded = true;

@@ -80,7 +80,7 @@ function wrapQuery(path, cons = []) {
     path,
     orderBy: (f, dir = "asc") => wrapQuery(path, cons.concat(orderBy(f, dir))),
     limit: n => wrapQuery(path, cons.concat(limit(n))),
-    where: () => wrapQuery(path, cons),
+    where: (f, op, v) => wrapQuery(path, cons.concat(where(f, op, v))),
     get: async () => snapQuery(await getDocs(q())),
     onSnapshot: (next, err) => onSnapshot(q(), s => next(snapQuery(s)), e => { err && err(mapErr(e)); }),
     doc: id => wrapDoc(`${path}/${id || Math.random().toString(36).slice(2)}`)
