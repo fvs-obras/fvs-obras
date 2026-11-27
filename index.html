@@ -1030,7 +1030,7 @@ a.ntf-b{text-decoration:none}
 .ia-err{color:var(--red)!important;font-weight:600}.ia-act{display:flex;gap:10px;margin-top:6px;flex-wrap:wrap}.ia-act button{border:0;background:none;padding:0;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline}
 .ia-dots{display:inline-flex;gap:4px;padding:4px 0}.ia-dots i{width:7px;height:7px;border-radius:50%;background:#999;animation:iad 1s infinite}.ia-dots i:nth-child(2){animation-delay:.15s}.ia-dots i:nth-child(3){animation-delay:.3s}
 @keyframes iad{0%,100%{opacity:.25}50%{opacity:1}}
-.ia-hi{margin:auto 0;text-align:center;color:var(--ink);padding:10px}.ia-hi p{color:var(--muted);font-size:13.5px}.ia-sugs{display:grid;gap:6px;margin-top:10px}
+.ia-hi{margin:auto 0;text-align:center;color:var(--ink);padding:10px}.ia-hiav{display:flex;width:58px;height:58px;margin:0 auto 8px;border-radius:50%;align-items:center;justify-content:center;color:#fff;background:linear-gradient(135deg,#1a3c8f,#6a1b9a)}.ia-hi b{display:block}.ia-hi p{color:var(--muted);font-size:13.5px}.ia-sugs{display:grid;gap:6px;margin-top:10px}
 .ia-sugs button{border:1px solid var(--line);background:var(--panel,#fff);border-radius:10px;padding:9px 10px;text-align:left;font-size:13px;cursor:pointer;color:var(--ink)}.ia-sugs button:hover{border-color:#1a3c8f}
 .ia-fotos{display:none;gap:6px;padding:8px 10px 0;flex-wrap:wrap;border-top:1px solid var(--line)}.ia-fotos.on{display:flex}.ia-fotos span{position:relative}.ia-fotos img{width:56px;height:56px;object-fit:cover;border-radius:8px;display:block}
 .ia-fotos button{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;border:0;background:#000;color:#fff;font-size:13px;line-height:20px;cursor:pointer;padding:0}
@@ -8397,7 +8397,7 @@ const FAQ = [
   ["Funciona sem internet?", "Sim: o que você preencher sem sinal fica guardado no aparelho e é enviado quando a conexão voltar. Não feche o navegador antes disso."],
   ["Como falo com outra pessoa do sistema?", "Pela aba <b>Social</b>: mensagens, áudios, fotos, documentos, FVs, problemas e cobranças."],
   ["Excluí algo sem querer", "Peça ao gestor da sua equipe: o que é excluído fica 30 dias na Lixeira da equipe e pode ser restaurado."],
-  ["Tem como perguntar para uma IA?", "Sim: o botão <b>✦</b> logo acima do \"?\" abre o <b>Assistente IA</b>. Ele explica como usar o sistema, tira dúvidas técnicas da obra e analisa fotos. Confira decisões técnicas com o engenheiro, a IT e o projeto."]];
+  ["Tem como perguntar para uma IA?", "Sim: o botão logo acima do \"?\" abre o <b>Rivet</b>, o assistente IA. Ele explica como usar o sistema, tira dúvidas técnicas da obra e analisa fotos. Confira decisões técnicas com o engenheiro, a IT e o projeto."]];
 function helpBoot() {
   if ($("#help-fab")) return;
   const b = document.createElement("button"); b.type = "button"; b.id = "help-fab"; b.className = "help-fab ui"; b.setAttribute("aria-label", "Ajuda, denúncias e sugestões"); b.title = "Ajuda, denúncias e sugestões"; b.innerHTML = "?";
@@ -8415,14 +8415,15 @@ function helpBoot() {
    Usa um app Firebase separado ("ia", SDK mais novo), só para a IA: o resto do sistema não muda. */
 const IA_V = "13.4.0", IA_BASE = `https://www.gstatic.com/firebasejs/${IA_V}/`;
 const IA_MODELOS = ["gemini-3.6-flash", "gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite"];
-const IA_MANUAL = `SISTEMA "FVs DA OBRA" (web, celular e computador) — obra Parque dos Sonhos V, Tenda, regional GO.
+const IA_MANUAL = `SISTEMA "FVs DA OBRA" (o assistente IA se chama Rivet; botão acima do "?") (web, celular e computador) — obra Parque dos Sonhos V, Tenda, regional GO.
 Navegação: Regional › Fábrica › Obra › Equipe (Qualidade, Infraestrutura, Estrutura, Acabamento, GAPE). Menu lateral: Início, Pendências, Fichas de verificação, Solos (Infra), Planicidade (Qualidade), GAPE, Painel, Social, Configurações e Lixeira (só gestor). "Trocar equipe" no topo do menu.
 FVs (Fichas de Verificação): "+ Nova FV" escolhe o modelo, o local (conjunto: Anexos, Trechos, Bloco, Piscina, CPG's, GLP's) e os locais inspecionados (caixas com ×; toque para editar). Conferente = nome completo de quem criou (não muda); gestor vem da lista. Cada célula: A (aprovado), R/X (reprovado), Ⓧ (reprovado e aprovado na reinspeção), NA. Toda reprovação exige PROBLEMA e SOLUÇÃO escritos; sem isso não sai da FV (opções "Escrever agora" ou "Tirar o X"). Cada folha tem 10 linhas de problemas próprias. F.007 (observações complementares) tem 30 linhas por folha e fecha junto com a FV; linhas abertas travam o fechamento. PDA (plano de ação) tem 10 linhas por folha e continua liberado depois de fechar. Só o gestor fecha; ninguém assina com item reprovado; o gestor tem 72 h para assinar. Menu ⋯ de cada linha: ↗ encaminhar (Social), 🔔 notificar com urgência, 📷 fotos, ✕ excluir. Abas da FV: mapeamentos (editor com desenho, texto, marcadores numerados, cores/opacidade, borracha, girar planta, escala na folha, desfazer ↶), fotos, documentos (ITs/ETs da biblioteca), projetos, histórico detalhado. "Baixar PDF" gera FV, F.007, PDA e mapeamentos, cada parte numa página; "Baixar mapeamentos" escolhe quais.
 Solos (Infra) — Mapeamento de compactação de faixa terraplenada F.045-QUALI: capa (dados, quantidade de camadas, resumo por camada, assinaturas do responsável pela coleta e do gestor), mapa com a demarcação (desenhado no projeto ou imagem anexada; cada camada com uma cor, legenda de cores), relatórios dos ensaios do laboratório (o sistema lê o PDF/foto, você confere e ele analisa G.C. e desvio de umidade pelos critérios da capa: G.C. mínimo padrão 97%, 100% nas 3 últimas camadas, desvio de umidade ±3 p.p., ensaios por camada pela área) e validação do projetista quando há ensaio fora do critério. Avisa falta de relatório por camada e camada acima da capa. "Baixar mapeamento (PDF)" para enviar ao projetista; na lista, "Baixar mapeamentos" baixa vários.
 Planicidade e esquadro (Qualidade): importa planilha/PDF/foto das medições, mapa por torre e pavimento. GAPE: relatórios Report & Run com fotos e fichas em tabela. Painel: andamento por FV, por item (filtro "Item da FV"), por pasta. Pendências: tudo em aberto, priorizando o que envolve a pessoa. Social: conversas com texto, áudio, fotos, documentos, FVs e cobranças. Configurações: perfil (foto e apelido; nome completo não muda; cargo é definido pela gestão), aparência (claro/escuro, modo sol), notificações, modelos de FV, gestão da equipe, usuários e cargos, dados e aparelho. Lixeira: o que é excluído fica 30 dias e só o gestor restaura/exclui. Sem internet o que é preenchido fica no aparelho e sobe quando o sinal volta. Botão "?" no canto: Suporte (ajuda e chamado), Denúncia de erro, Sugestões, Meus chamados.`;
-const IA_SYS = ctx => `Você é o assistente de suporte do sistema "FVs da Obra", usado pela equipe de qualidade da Tenda na obra Parque dos Sonhos V (Goiânia/GO), uma construtora de habitação popular.
+const IA_SYS = ctx => `Você é o Rivet, o assistente de suporte do sistema "FVs da Obra", usado pela equipe de qualidade da Tenda na obra Parque dos Sonhos V (Goiânia/GO), uma construtora de habitação popular.
 Responda sempre em português do Brasil, de forma direta e curta (a pessoa costuma estar no celular, na obra). Use listas curtas quando ajudar. Não use tabelas largas.
 Você ajuda com: (1) uso do sistema, explicando onde tocar e o passo a passo; (2) dúvidas técnicas de obra: execução, qualidade, inspeção, tolerâncias, normas ABNT, patologias, terraplenagem e compactação, concreto, alvenaria, revestimentos, instalações, segurança do trabalho; (3) análise de fotos de obra: descreva o que vê, aponte possíveis não conformidades, causas prováveis e o que verificar ou fazer.
+Seu nome é Rivet (rebite, em inglês: a peça que mantém tudo unido). Seja amigável e prestativo, como um colega experiente de obra, sem exagerar na simpatia. Apresente-se pelo nome só quando fizer sentido (primeira mensagem ou se perguntarem).
 Regras: quando falar de norma, cite o número só se tiver certeza e diga quando o valor depende do projeto, da IT/ET da Tenda ou do fabricante. Os critérios das FVs da Tenda (abaixo, quando houver) têm prioridade sobre valores genéricos. Em decisões estruturais, de segurança ou de aceitação de serviço, oriente confirmar com o engenheiro responsável, o projetista ou a IT. Se não souber, diga que não sabe e sugira onde confirmar. Pela foto, deixe claro o que é certeza e o que é suposição. Se a dúvida for um erro do sistema ou algo que você não resolve, sugira abrir um chamado no botão "?" > Suporte ou Denúncia.
 Ao sugerir um texto de problema/solução para a FV, escreva no estilo curto usado em campo (ex.: "Problema: cota 5 cm abaixo do projeto no trecho 2. Solução: complementar aterro e recompactar.").
 
@@ -8488,19 +8489,19 @@ function iaMd(s) {
 }
 function iaBoot() {
   if ($("#ia-fab")) return;
-  const b = document.createElement("button"); b.type = "button"; b.id = "ia-fab"; b.className = "ia-fab ui"; b.setAttribute("aria-label", "Assistente IA: tire dúvidas do sistema e da obra"); b.title = "Assistente IA: dúvidas do sistema e da obra";
-  b.innerHTML = `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M12 2l1.9 5.6L19.5 9.5l-5.6 1.9L12 17l-1.9-5.6L4.5 9.5l5.6-1.9zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9zM5 15l.7 1.8 1.8.7-1.8.7L5 20l-.7-1.8-1.8-.7 1.8-.7z"/></svg>`;
+  const b = document.createElement("button"); b.type = "button"; b.id = "ia-fab"; b.className = "ia-fab ui"; b.setAttribute("aria-label", "Rivet, o assistente IA: tire dúvidas do sistema e da obra"); b.title = "Rivet · assistente IA: dúvidas do sistema e da obra";
+  b.innerHTML = `<svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><ellipse cx="12" cy="8.5" rx="8" ry="4.6" fill="currentColor"/><ellipse cx="10" cy="7.3" rx="3.2" ry="1.4" fill="rgba(255,255,255,.45)"/><rect x="9.6" y="11.5" width="4.8" height="9" rx="1.4" fill="currentColor" opacity=".85"/></svg>`;
   document.body.appendChild(b); document.body.classList.add("has-ia");
   b.onclick = () => { const p = $("#ia-panel"); if (p) { p.remove(); return; } const m = $("#help-menu"); if (m) m.remove(); iaOpen(); };
 }
 function iaOpen() {
-  iaLoad(); const p = document.createElement("div"); p.id = "ia-panel"; p.className = "ia-panel ui"; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Assistente IA");
-  p.innerHTML = `<div class="ia-h"><span class="ia-av">✦</span><div><b>Assistente IA</b><small>Dúvidas do sistema e da obra · pode mandar foto</small></div><button type="button" class="ia-hb" data-ianew title="Nova conversa" aria-label="Nova conversa">↺</button><button type="button" class="ia-hb" data-iax title="Fechar" aria-label="Fechar">✕</button></div>
+  iaLoad(); const p = document.createElement("div"); p.id = "ia-panel"; p.className = "ia-panel ui"; p.setAttribute("role", "dialog"); p.setAttribute("aria-label", "Rivet, assistente IA");
+  p.innerHTML = `<div class="ia-h"><span class="ia-av"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><ellipse cx="12" cy="8.5" rx="8" ry="4.6" fill="currentColor"/><ellipse cx="10" cy="7.3" rx="3.2" ry="1.4" fill="rgba(255,255,255,.45)"/><rect x="9.6" y="11.5" width="4.8" height="9" rx="1.4" fill="currentColor" opacity=".85"/></svg></span><div><b>Rivet</b><small>Assistente IA · dúvidas do sistema e da obra</small></div><button type="button" class="ia-hb" data-ianew title="Nova conversa" aria-label="Nova conversa">↺</button><button type="button" class="ia-hb" data-iax title="Fechar" aria-label="Fechar">✕</button></div>
     <div class="ia-msgs" id="ia-msgs" aria-live="polite"></div>
     <div class="ia-fotos" id="ia-fotos"></div>
-    <form class="ia-comp" id="ia-form"><button type="button" class="ia-cam" data-iafoto title="Anexar foto" aria-label="Anexar foto">📷</button><textarea id="ia-in" rows="1" maxlength="4000" placeholder="Pergunte sobre o sistema ou a obra…"></textarea><button type="submit" class="ia-send" aria-label="Enviar">➤</button>
+    <form class="ia-comp" id="ia-form"><button type="button" class="ia-cam" data-iafoto title="Anexar foto" aria-label="Anexar foto">📷</button><textarea id="ia-in" rows="1" maxlength="4000" placeholder="Pergunte ao Rivet…"></textarea><button type="submit" class="ia-send" aria-label="Enviar">➤</button>
       <input type="file" id="ia-file" accept="image/*" multiple class="hidden"></form>
-    <div class="ia-ft">A IA pode errar: confira decisões técnicas com o engenheiro, a IT e o projeto. Não envie dados pessoais.</div>`;
+    <div class="ia-ft">O Rivet pode errar: confira decisões técnicas com o engenheiro, a IT e o projeto. Não envie dados pessoais.</div>`;
   document.body.appendChild(p); ia.fotos = [];
   const inp = $("#ia-in", p);
   inp.addEventListener("input", () => { inp.style.height = "auto"; inp.style.height = Math.min(140, inp.scrollHeight) + "px"; });
@@ -8519,17 +8520,17 @@ function iaRender() {
   const box = $("#ia-msgs"); if (!box) return;
   const sug = ["Como fecho e assino uma FV?", "Qual o G.C. mínimo na compactação de aterro?", "Como anexo o relatório de ensaio no Solos?", "Quais os cuidados na cura do concreto?"];
   box.innerHTML = ia.msgs.length ? ia.msgs.map((m, i) => `<div class="ia-m ${m.r}">${m.fotos && m.fotos.length ? `<div class="ia-mf">${m.fotos.map(u => `<img src="${u}" alt="Foto enviada">`).join("")}</div>` : m.nf ? `<div class="sub">📷 ${m.nf} foto(s) enviada(s)</div>` : ""}${m.r === "u" ? `<p>${esc(m.t).replace(/\n/g, "<br>")}</p>` : m.err ? `<p class="ia-err">${esc(m.t)}</p>` : iaMd(m.t) || `<span class="ia-dots"><i></i><i></i><i></i></span>`}${m.r === "a" && !m.err && m.t && !m.live ? `<div class="ia-act"><button type="button" data-iacp="${i}">Copiar</button><button type="button" data-iach>Não resolveu? Abrir chamado</button></div>` : ""}</div>`).join("")
-    : `<div class="ia-hi"><b>Olá${myName() ? ", " + esc(myName().split(" ")[0]) : ""}!</b><p>Pergunte como usar o sistema ou tire dúvidas da obra. Pode mandar foto de um serviço para eu analisar.</p><div class="ia-sugs">${sug.map(s => `<button type="button" data-iasug="${esc(s)}">${esc(s)}</button>`).join("")}</div></div>`;
+    : `<div class="ia-hi"><span class="ia-hiav"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><ellipse cx="12" cy="8.5" rx="8" ry="4.6" fill="currentColor"/><ellipse cx="10" cy="7.3" rx="3.2" ry="1.4" fill="rgba(255,255,255,.45)"/><rect x="9.6" y="11.5" width="4.8" height="9" rx="1.4" fill="currentColor" opacity=".85"/></svg></span><b>Olá${myName() ? ", " + esc(myName().split(" ")[0]) : ""}! Eu sou o Rivet.</b><p>Pergunte como usar o sistema ou tire dúvidas da obra. Pode mandar foto de um serviço para eu analisar.</p><div class="ia-sugs">${sug.map(s => `<button type="button" data-iasug="${esc(s)}">${esc(s)}</button>`).join("")}</div></div>`;
   box.scrollTop = box.scrollHeight;
 }
 const iaErrTxt = e => { const c = e && e.code, m = String((e && e.message) || "");
-  if (c === "cfg") return isOwner || isGestor ? "O assistente ainda não foi configurado: falta a chave do reCAPTCHA (App Check) em firebase-config.js → window.IA_SUPORTE. Veja o passo a passo no LEIA-ME." : "O assistente ainda não foi configurado. Avise o administrador.";
-  if (c === "lib") return "Não foi possível carregar o assistente. Verifique a internet.";
+  if (c === "cfg") return isOwner || isGestor ? "O Rivet ainda não foi configurado: falta a chave do reCAPTCHA (App Check) em firebase-config.js → window.IA_SUPORTE. Veja o passo a passo no LEIA-ME." : "O Rivet ainda não foi configurado. Avise o administrador.";
+  if (c === "lib") return "Não foi possível carregar o Rivet. Verifique a internet.";
   if (/app.?check|attestation|recaptcha/i.test(m)) return "O assistente recusou o acesso (verificação App Check/reCAPTCHA). Confira se o domínio do site está na chave do reCAPTCHA e se o app da Web está registrado no App Check.";
-  if (/429|quota|resource.?exhausted|rate/i.test(m)) return "O limite gratuito do assistente foi atingido agora. Espere um pouco e tente de novo.";
+  if (/429|quota|resource.?exhausted|rate/i.test(m)) return "O limite gratuito do Rivet foi atingido agora. Espere um pouco e tente de novo.";
   if (/api.?not.?enabled|has not been used|firebasevertexai|generativelanguage/i.test(m)) return "O Firebase AI Logic ainda não está ativado no projeto (console do Firebase › AI Logic › Começar).";
   if (/safety|blocked/i.test(m)) return "A resposta foi bloqueada pelo filtro de segurança da IA. Tente perguntar de outro jeito.";
-  if (!navigator.onLine) return "Sem internet: o assistente precisa de conexão.";
+  if (!navigator.onLine) return "Sem internet: o Rivet precisa de conexão.";
   return "Não consegui responder agora. Tente de novo em instantes."; };
 async function iaSend(text) {
   if (ia.busy || (!text && !ia.fotos.length)) return;
